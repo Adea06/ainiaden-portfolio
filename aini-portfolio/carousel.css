@@ -1,0 +1,58 @@
+/* Continuous Selected Work carousel */
+
+.carousel {
+  display: flex;
+  gap: 1.4rem;
+  overflow-x: auto;
+  scroll-snap-type: none;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.project {
+  flex-shrink: 0;
+  scroll-snap-align: none;
+}
+
+.carousel:hover .project,
+.carousel:focus-within .project {
+  will-change: transform;
+}
+
+/* Project screenshot container */
+
+.project-image {
+  display: grid;
+  place-items: center;
+  height: 315px;
+  margin-top: 1.3rem;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f7f9fc;
+  box-shadow:
+    0 22px 45px
+    rgba(21, 21, 21, 0.13);
+  transform: rotate(-2deg);
+}
+
+/* Keep the full dashboard visible */
+
+.project-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+  .project-image {
+    height: 280px;
+  }
+}
