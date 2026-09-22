@@ -19,7 +19,7 @@ if (stage && scene && !reducedMotion.matches) {
     const index = ((Math.round(-normal / 72) % cards.length) + cards.length) % cards.length;
     cards.forEach((card, i) => {
       const angle = Number(card.dataset.angle);
-      const relative = ((angle + rotationY + 540) % 360) - 180;
+      const relative = (((angle + rotationY + 540) % 360 + 360) % 360) - 180;
       card.style.setProperty('--face-angle', `${-(angle + rotationY)}deg`);
       card.style.opacity = Math.abs(relative) > 112 ? '0' : '1';
       card.style.zIndex = String(Math.round(100 + 100 * Math.cos(relative * Math.PI / 180)));
