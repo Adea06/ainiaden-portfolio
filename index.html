@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aini Aden — UX and product design informed by psychology and data science.">
+  <title>Aini Aden — UX &amp; Product Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="carousel.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav">
+    <a class="brand" href="#top">AINI ADEN</a>
+    <nav aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#about">About me</a>
+      <a href="cv.html">CV</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-title">
+        <p>PSYCHOLOGY <span aria-hidden="true">×</span> DATA SCIENCE <span aria-hidden="true">×</span> UX</p>
+        <h1 id="hero-title">PEOPLE<br>PATTERNS &amp;<br><em>POSSIBILITIES</em></h1>
+      </div>
+      <div class="hero-copy">
+        <p>I’m Aini. I use psychology, data and design to understand how people use products and make complex experiences feel clearer.</p>
+        <a href="#work">EXPLORE MY WORK <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="section-top" data-reveal>
+        <div>
+          <p>SELECTED WORK</p>
+          <h2 id="work-title">Problems worth<br>untangling.</h2>
+        </div>
+        <div class="controls" aria-label="Project carousel controls">
+          <span id="counter" aria-live="off">01 / 05</span>
+          <button id="previous" type="button" aria-label="Previous project">←</button>
+          <button id="next" type="button" aria-label="Next project">→</button>
+        </div>
+      </div>
+
+      <div class="carousel" id="carousel" aria-label="Selected projects" tabindex="0">
+        <article class="project green" id="sst-case-study">
+          <span>01 · UX / WORKFLOW DESIGN</span>
+          <div class="project-image">
+            <img src="assets/images/dashboard.png" alt="Student Success dashboard showing today's actions and schedule">
+          </div>
+          <h3>Student Success<br>Workflow</h3>
+          <p>Redesigning a fragmented academic workflow around the people who use it.</p>
+          <a href="sst-workflow.html">View project <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="project pink-card">
+          <span>02 · DATA / PRODUCT</span>
+          <div class="mock chart" aria-hidden="true"><b>Investor signal</b><i></i><i></i><i></i><i></i></div>
+          <h3>Investor<br>Dashboard</h3>
+          <p>Combining behavioural finance, technical indicators and machine learning.</p>
+          <span class="project-status">Case study in progress</span>
+        </article>
+
+        <article class="project orange-card">
+          <span>03 · PRODUCT DESIGN</span>
+          <div class="mock calendar" aria-hidden="true"><b>Workshop planner</b><div>MON&nbsp;&nbsp; TUE&nbsp;&nbsp; WED&nbsp;&nbsp; THU</div><i></i><i></i></div>
+          <h3>Learning Resource<br>Centre</h3>
+          <p>Making academic support easier to discover, book and manage.</p>
+          <span class="project-status">Case study in progress</span>
+        </article>
+
+        <article class="project purple-card">
+          <span>04 · UX/UI DESIGN</span>
+          <div class="mock heritage" aria-hidden="true"><b>Leicester stories</b><span>Explore nearby →</span></div>
+          <h3>Heritage<br>App</h3>
+          <p>A playful local history experience connecting people with place.</p>
+          <span class="project-status">Case study in progress</span>
+        </article>
+
+        <article class="project dark-card">
+          <span>05 · SERVICE DESIGN</span>
+          <div class="mock service" aria-hidden="true"><b>INSIGHT</b><em>→</em><b>ACTION</b></div>
+          <h3>From Insight<br>to Impact</h3>
+          <p>Turning research findings into clear, practical service decisions.</p>
+          <span class="project-status">Case study in progress</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about-label" data-reveal>
+        <p>A BIT ABOUT ME</p>
+        <span>Different pieces,<br>a clearer picture.</span>
+      </div>
+      <div class="about-content" data-reveal>
+        <img class="profile-photo" src="assets/images/profile-original.png" alt="Portrait of Aini Aden">
+        <div class="about-text">
+          <h2 id="about-title">Curious about people.<br><em>Always looking closer.</em></h2>
+          <p>I’m interested in the gap between how a product is meant to work and how people actually use it. Psychology and data science have taught me to look for patterns, but the most useful insights often start with listening: what someone finds confusing, what they hesitate over, or the workaround they’ve made for themselves.</p>
+          <p>Away from design, I play football, follow politics, and happily lose an evening to crime fiction or a documentary.</p>
+          <a class="text-link" href="cv.html">Explore my CV <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-invite" id="blog" aria-labelledby="blog-title" data-reveal>
+      <p class="eyebrow">BEYOND THE PROJECTS</p>
+      <h2 id="blog-title">Get to know how I think.</h2>
+      <p>This portfolio shows what I’ve made. My blog is where I share the questions, decisions and reflections behind the work.</p>
+      <a class="text-link" href="blog.html">READ THE BLOG <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-intro">
+      <p>HAVE A PROJECT OR OPPORTUNITY?</p>
+      <a class="contact-link" href="mailto:ainiaden4@gmail.com">LET’S TALK <span aria-hidden="true">↗</span></a>
+      <span>LEICESTER, UK · OPEN TO BARCELONA</span>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="#work">Work</a>
+      <a href="#about">About me</a>
+      <a href="cv.html">CV</a>
+      <a href="blog.html">Blog</a>
+      <a href="mailto:ainiaden4@gmail.com">Contact</a>
+    </nav>
+  </footer>
+</body>
+</html>

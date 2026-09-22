@@ -1,0 +1,10 @@
+/* Continuous Selected Work carousel. Card sizing and appearance live in styles.css. */
+.carousel {
+  scroll-snap-type: none;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.project { flex-shrink: 0; scroll-snap-align: none; }
+.carousel:hover .project,
+.carousel:focus-within .project { will-change: transform; }
