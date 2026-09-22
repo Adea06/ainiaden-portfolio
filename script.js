@@ -18,7 +18,7 @@ if (stage && scene && !reducedMotion.matches) {
     const normal = (rotationY % 360 + 360) % 360;
     const index = ((Math.round(-normal / 72) % cards.length) + cards.length) % cards.length;
     cards.forEach((card, i) => card.classList.toggle('is-front', i === index));
-    if (announcement) announcement.textContent = `Showing ${cards[index].querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`;
+    if (announcement) announcement.textContent = `Showing ${cards[index].querySelector('h3').innerText.replace(/\s+/g, ' ').trim()}`;
   }
 
   function draw(smooth = false) {
