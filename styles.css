@@ -197,3 +197,17 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .reveal-ready [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* Editorial index for writing in progress. Titles are text until posts exist. */
+.writing-preview { margin-top: 5rem; border-top: 1px solid var(--line); padding-top: 2.5rem; }
+.writing-heading h2 { max-width: 800px; margin: .8rem 0 1rem; font-size: clamp(2.1rem, 4vw, 4rem); line-height: 1; letter-spacing: -.055em; }
+.writing-heading > p:last-child { color: var(--muted); line-height: 1.6; }
+.writing-list { list-style: none; padding: 0; margin: 3rem 0 0; border-top: 1px solid var(--line); }
+.writing-list li { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: baseline; gap: 1rem; padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
+.writing-list li > span:nth-child(2) { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -.035em; }
+.writing-number, .writing-state { color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.writing-state { white-space: nowrap; }
+@media (max-width: 520px) {
+  .writing-list li { grid-template-columns: 2.5rem minmax(0, 1fr); gap: .35rem .75rem; }
+  .writing-state { grid-column: 2; }
+}
