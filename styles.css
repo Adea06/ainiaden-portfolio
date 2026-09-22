@@ -211,3 +211,35 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
   .writing-list li { grid-template-columns: 2.5rem minmax(0, 1fr); gap: .35rem .75rem; }
   .writing-state { grid-column: 2; }
 }
+
+/* Writing previews below About: five distinct entries, with full context on the Blog page. */
+#blog { scroll-margin-top: 84px; }
+.blog-intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 0 4vw; align-items: end; }
+.blog-intro .eyebrow { grid-column: 1 / -1; }
+.blog-intro h2 { margin: .8rem 0 0; }
+.blog-intro > p:last-child { max-width: 43ch; margin: 0 0 .3rem; color: var(--muted); line-height: 1.7; }
+.blog-cards { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 1rem; margin-top: 3rem; }
+.blog-card { grid-column: span 4; display: flex; flex-direction: column; min-height: 265px; padding: 1.7rem; border: 1px solid var(--line); border-radius: 16px; background: var(--cream); }
+.blog-card:nth-child(1) { grid-column: span 7; background: #e4eee7; }
+.blog-card:nth-child(2) { grid-column: span 5; background: #eee9f6; }
+.blog-card-number, .story-meta { font-size: .67rem; font-weight: 700; letter-spacing: .1em; }
+.blog-card-number span { color: var(--muted); }
+.blog-card h3 { margin: 2rem 0 .6rem; font-size: clamp(1.35rem,2.2vw,2.1rem); letter-spacing: -.045em; line-height: 1.1; }
+.blog-card p { max-width: 45ch; margin: 0 0 1.5rem; color: var(--muted); line-height: 1.55; }
+.blog-card a { display: inline-block; align-self: flex-start; margin-top: auto; font-size: .76rem; font-weight: 700; text-underline-offset: 5px; }
+.blog-card a:focus-visible, .story-back:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.writing-stories { margin-top: 4rem; }
+.writing-story { max-width: 850px; padding: 3rem 0; border-top: 1px solid var(--line); scroll-margin-top: 100px; }
+.story-meta { display: flex; gap: 2rem; color: var(--muted); }
+.writing-story h2 { margin: 1.3rem 0; font-size: clamp(2rem,4vw,3.7rem); line-height: 1.05; letter-spacing: -.055em; }
+.writing-story p { max-width: 65ch; line-height: 1.7; }
+.story-back { display: inline-block; margin-top: .8rem; font-size: .75rem; font-weight: 700; text-underline-offset: 5px; }
+@media (max-width:800px) {
+  .blog-intro { display: block; }
+  .blog-intro > p:last-child { margin-top: 1.5rem; }
+  .blog-card, .blog-card:nth-child(1), .blog-card:nth-child(2) { grid-column: span 6; }
+}
+@media (max-width:520px) {
+  .blog-cards { display: block; }
+  .blog-card { min-height: 0; margin-bottom: 1rem; }
+}
