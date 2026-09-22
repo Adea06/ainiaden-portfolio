@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="carousel.css">
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -29,8 +28,8 @@
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-title">
-        <p>PSYCHOLOGY <span aria-hidden="true">×</span> DATA SCIENCE <span aria-hidden="true">×</span> UX</p>
-        <h1 id="hero-title">PEOPLE<br>PATTERNS &amp;<br><em>POSSIBILITIES</em></h1>
+        <p class="hero-tag">PSYCHOLOGY <span aria-hidden="true">×</span> DATA SCIENCE <span aria-hidden="true">×</span> UX</p>
+        <h1 id="hero-title"><span class="hero-line">PEOPLE</span><span class="hero-line">PATTERNS &amp;</span><span class="hero-line"><em>POSSIBILITIES</em></span></h1>
       </div>
       <div class="hero-copy">
         <p>I’m Aini. I use psychology, data and design to understand how people use products and make complex experiences feel clearer.</p>
@@ -44,56 +43,49 @@
           <p>SELECTED WORK</p>
           <h2 id="work-title">Problems worth<br>untangling.</h2>
         </div>
-        <div class="controls" aria-label="Project carousel controls">
-          <span id="counter" aria-live="off">01 / 05</span>
-          <button id="previous" type="button" aria-label="Previous project">←</button>
-          <button id="next" type="button" aria-label="Next project">→</button>
+      </div>
+
+      <p class="globe-help" id="globe-help">Drag or swipe the globe to explore. Use arrow keys when focused.</p>
+      <div class="globe-stage" id="project-globe" role="region" aria-label="Selected projects globe" aria-describedby="globe-help" tabindex="0">
+        <div class="globe-scene" id="globe-scene">
+          <article class="globe-card green" style="--angle: 0deg; --latitude: -7deg" data-angle="0">
+            <span class="globe-number">01 / 05 · WORKFLOW DESIGN</span>
+            <div class="globe-visual"><img src="assets/images/dashboard.png" alt="Student Success dashboard preview"></div>
+            <h3>Student Success<br>Workflow</h3>
+            <p>Making academic support easier to see and act on.</p>
+            <a href="sst-workflow.html">View case study <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="globe-card pink-card" style="--angle: 72deg; --latitude: 7deg" data-angle="72">
+            <span class="globe-number">02 / 05 · DATA PRODUCT</span>
+            <div class="globe-visual globe-chart" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <h3>Investor<br>Dashboard</h3>
+            <p>Behavioural signals for more informed decisions.</p>
+            <span class="globe-status">Case study in progress</span>
+          </article>
+          <article class="globe-card orange-card" style="--angle: 144deg; --latitude: -5deg" data-angle="144">
+            <span class="globe-number">03 / 05 · PRODUCT DESIGN</span>
+            <div class="globe-visual globe-calendar" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span></div>
+            <h3>Learning Resource<br>Centre</h3>
+            <p>Helping students find and book support.</p>
+            <span class="globe-status">Case study in progress</span>
+          </article>
+          <article class="globe-card purple-card" style="--angle: 216deg; --latitude: 7deg" data-angle="216">
+            <span class="globe-number">04 / 05 · UX/UI DESIGN</span>
+            <div class="globe-visual globe-heritage" aria-hidden="true"><span>LEICESTER<br>STORIES</span><b>↗</b></div>
+            <h3>Heritage<br>App</h3>
+            <p>Discovering local history through place.</p>
+            <span class="globe-status">Case study in progress</span>
+          </article>
+          <article class="globe-card dark-card" style="--angle: 288deg; --latitude: -7deg" data-angle="288">
+            <span class="globe-number">05 / 05 · SERVICE DESIGN</span>
+            <div class="globe-visual globe-service" aria-hidden="true">INSIGHT <span>↗</span> ACTION</div>
+            <h3>From Insight<br>to Impact</h3>
+            <p>Turning research into practical decisions.</p>
+            <span class="globe-status">Case study in progress</span>
+          </article>
         </div>
       </div>
-
-      <div class="carousel" id="carousel" aria-label="Selected projects" tabindex="0">
-        <article class="project green" id="sst-case-study">
-          <span>01 · UX / WORKFLOW DESIGN</span>
-          <div class="project-image">
-            <img src="assets/images/dashboard.png" alt="Student Success dashboard showing today's actions and schedule">
-          </div>
-          <h3>Student Success<br>Workflow</h3>
-          <p>Redesigning a fragmented academic workflow around the people who use it.</p>
-          <a href="sst-workflow.html">View project <span aria-hidden="true">↗</span></a>
-        </article>
-
-        <article class="project pink-card">
-          <span>02 · DATA / PRODUCT</span>
-          <div class="mock chart" aria-hidden="true"><b>Investor signal</b><i></i><i></i><i></i><i></i></div>
-          <h3>Investor<br>Dashboard</h3>
-          <p>Combining behavioural finance, technical indicators and machine learning.</p>
-          <span class="project-status">Case study in progress</span>
-        </article>
-
-        <article class="project orange-card">
-          <span>03 · PRODUCT DESIGN</span>
-          <div class="mock calendar" aria-hidden="true"><b>Workshop planner</b><div>MON&nbsp;&nbsp; TUE&nbsp;&nbsp; WED&nbsp;&nbsp; THU</div><i></i><i></i></div>
-          <h3>Learning Resource<br>Centre</h3>
-          <p>Making academic support easier to discover, book and manage.</p>
-          <span class="project-status">Case study in progress</span>
-        </article>
-
-        <article class="project purple-card">
-          <span>04 · UX/UI DESIGN</span>
-          <div class="mock heritage" aria-hidden="true"><b>Leicester stories</b><span>Explore nearby →</span></div>
-          <h3>Heritage<br>App</h3>
-          <p>A playful local history experience connecting people with place.</p>
-          <span class="project-status">Case study in progress</span>
-        </article>
-
-        <article class="project dark-card">
-          <span>05 · SERVICE DESIGN</span>
-          <div class="mock service" aria-hidden="true"><b>INSIGHT</b><em>→</em><b>ACTION</b></div>
-          <h3>From Insight<br>to Impact</h3>
-          <p>Turning research findings into clear, practical service decisions.</p>
-          <span class="project-status">Case study in progress</span>
-        </article>
-      </div>
+      <p class="sr-only" id="globe-announcement" aria-live="polite"></p>
     </section>
 
     <section class="about" id="about" aria-labelledby="about-title">

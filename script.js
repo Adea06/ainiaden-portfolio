@@ -1,80 +1,116 @@
-const carousel = document.querySelector("#carousel");
-const cards = [...document.querySelectorAll(".project")];
-const counter = document.querySelector("#counter");
-const previousButton = document.querySelector("#previous");
-const nextButton = document.querySelector("#next");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-if (carousel && cards.length && counter && previousButton && nextButton) {
-  let active = 0;
-  let paused = false;
+// The globe becomes a normal grid when motion is reduced or JS is unavailable.
+const stage = document.querySelector('#project-globe');
+const scene = document.querySelector('#globe-scene');
+if (stage && scene && !reducedMotion.matches) {
+  stage.classList.add('enhanced');
+  const cards = [...scene.querySelectorAll('.globe-card')];
+  const announcement = document.querySelector('#globe-announcement');
+  let rotationX = -7;
+  let rotationY = 0;
+  let pointer = null;
+  let started = false;
+  let spinTimer;
+  let frame = 0;
 
-  // Duplicate the originals so the continuous track can wrap without a gap.
-  cards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    clone.removeAttribute("id");
-    clone.setAttribute("aria-hidden", "true");
-    clone.querySelectorAll("a, button").forEach((element) => {
-      element.tabIndex = -1;
+  function frontCard() {
+    const normal = (rotationY % 360 + 360) % 360;
+    const index = ((Math.round(-normal / 72) % cards.length) + cards.length) % cards.length;
+    cards.forEach((card, i) => card.classList.toggle('is-front', i === index));
+    if (announcement) announcement.textContent = `Showing ${cards[index].querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`;
+  }
+
+  function draw(smooth = false) {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      scene.style.transition = smooth ? 'transform 420ms ease-out' : 'none';
+      scene.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+      frontCard();
     });
-    carousel.appendChild(clone);
-  });
-
-  function updateCounter() {
-    const currentNumber = String(active + 1).padStart(2, "0");
-    const totalNumber = String(cards.length).padStart(2, "0");
-    counter.textContent = `${currentNumber} / ${totalNumber}`;
   }
 
-  function getLoopDistance() {
-    const firstClone = carousel.children[cards.length];
-    return firstClone.offsetLeft - cards[0].offsetLeft;
+  function stopSpin() {
+    clearTimeout(spinTimer);
+    scene.classList.remove('is-spinning');
+    draw();
   }
 
-  function showProject(index) {
-    active = (index + cards.length) % cards.length;
-    const selectedCard = cards[active];
-    const selectedPosition = selectedCard.offsetLeft - carousel.clientWidth / 2 + selectedCard.offsetWidth / 2;
-    carousel.scrollTo({
-      left: selectedPosition,
-      behavior: reducedMotion.matches ? "instant" : "smooth"
-    });
-    updateCounter();
+  function startSpin() {
+    if (started) return;
+    started = true;
+    scene.classList.add('is-spinning');
+    spinTimer = window.setTimeout(stopSpin, 2020);
   }
 
-  previousButton.addEventListener("click", () => showProject(active - 1));
-  nextButton.addEventListener("click", () => showProject(active + 1));
-  carousel.addEventListener("mouseenter", () => { paused = true; });
-  carousel.addEventListener("mouseleave", () => { paused = false; });
-  carousel.addEventListener("focusin", () => { paused = true; });
-  carousel.addEventListener("focusout", (event) => {
-    if (!carousel.contains(event.relatedTarget)) paused = false;
-  });
-  carousel.addEventListener("pointerdown", () => { paused = true; });
-  carousel.addEventListener("pointerup", () => {
-    window.setTimeout(() => { paused = false; }, 2000);
-  });
+  frontCard();
+  if ('IntersectionObserver' in window) {
+    const spinObserver = new IntersectionObserver((entries, observer) => {
+      if (entries[0].isIntersecting) { startSpin(); observer.disconnect(); }
+    }, { threshold: .25 });
+    spinObserver.observe(stage);
+  } else { startSpin(); }
 
-  // The original continuous movement remains on a 30 ms interval.
-  window.setInterval(() => {
-    if (paused || reducedMotion.matches || document.hidden) return;
-    carousel.scrollLeft += 1;
-    if (carousel.scrollLeft >= getLoopDistance()) carousel.scrollLeft = 0;
-  }, 30);
+  stage.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return;
+    if (scene.classList.contains('is-spinning')) stopSpin();
+    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+  });
+  stage.addEventListener('pointermove', (event) => {
+    if (!pointer || pointer.id !== event.pointerId) return;
+    const dx = event.clientX - pointer.x;
+    const dy = event.clientY - pointer.y;
+    if (!pointer.moved && Math.hypot(dx, dy) < 5) return;
+    if (!pointer.moved) { pointer.moved = true; stage.setPointerCapture(event.pointerId); }
+    rotationY += dx * .32;
+    rotationX = Math.max(-24, Math.min(24, rotationX - dy * .18));
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+    draw();
+  });
+  function release(event) {
+    if (!pointer || pointer.id !== event.pointerId) return;
+    if (pointer.moved) {
+      const snapped = Math.round(rotationY / 72) * 72;
+      rotationY = snapped;
+      draw(true);
+      stage.dataset.justDragged = 'true';
+      setTimeout(() => { delete stage.dataset.justDragged; }, 100);
+    }
+    pointer = null;
+  }
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', release);
+  stage.addEventListener('click', (event) => {
+    if (stage.dataset.justDragged) { event.preventDefault(); event.stopPropagation(); }
+  }, true);
 
-  updateCounter();
+  stage.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    if (scene.classList.contains('is-spinning')) stopSpin();
+    if (event.key === 'ArrowLeft') rotationY += 72;
+    if (event.key === 'ArrowRight') rotationY -= 72;
+    if (event.key === 'ArrowUp') rotationX = Math.min(24, rotationX + 8);
+    if (event.key === 'ArrowDown') rotationX = Math.max(-24, rotationX - 8);
+    draw(true);
+  });
+  stage.addEventListener('focusin', (event) => {
+    const card = event.target.closest('.globe-card');
+    if (card) { rotationY = -Number(card.dataset.angle); draw(true); }
+  });
 }
 
-// Reveal only the marked sections. The carousel cards do not receive this animation.
-const revealItems = document.querySelectorAll("[data-reveal]");
-if (revealItems.length && !reducedMotion.matches && "IntersectionObserver" in window) {
-  document.documentElement.classList.add("reveal-ready");
-  const revealObserver = new IntersectionObserver((entries, observer) => {
+// Other sections appear as they enter the viewport.
+const revealItems = document.querySelectorAll('[data-reveal]');
+if (revealItems.length && !reducedMotion.matches && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('reveal-ready');
+  const observer = new IntersectionObserver((entries, io) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
     });
-  }, { threshold: 0.12 });
-  revealItems.forEach((item) => revealObserver.observe(item));
+  }, { threshold: .12 });
+  revealItems.forEach((item) => observer.observe(item));
 }
