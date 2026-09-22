@@ -17,7 +17,14 @@ if (stage && scene && !reducedMotion.matches) {
   function frontCard() {
     const normal = (rotationY % 360 + 360) % 360;
     const index = ((Math.round(-normal / 72) % cards.length) + cards.length) % cards.length;
-    cards.forEach((card, i) => card.classList.toggle('is-front', i === index));
+    cards.forEach((card, i) => {
+      const angle = Number(card.dataset.angle);
+      const relative = ((angle + rotationY + 540) % 360) - 180;
+      card.style.setProperty('--face-angle', `${-(angle + rotationY)}deg`);
+      card.style.opacity = Math.abs(relative) > 112 ? '0' : '1';
+      card.style.zIndex = String(Math.round(100 + 100 * Math.cos(relative * Math.PI / 180)));
+      card.classList.toggle('is-front', i === index);
+    });
     if (announcement) announcement.textContent = `Showing ${cards[index].querySelector('h3').innerText.replace(/\s+/g, ' ').trim()}`;
   }
 
