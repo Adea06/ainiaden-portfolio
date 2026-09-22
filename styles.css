@@ -254,7 +254,7 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
 .globe-stage.enhanced::before { content: ''; position: absolute; inset: 7% 19%; border: 1px solid rgba(49,91,70,.11); border-radius: 50%; background: radial-gradient(circle,rgba(183,216,193,.24),transparent 70%); pointer-events: none; }
 .globe-stage.enhanced:active { cursor: grabbing; }
 .globe-stage.enhanced .globe-scene { position: absolute; inset: 0; display: block; transform-style: preserve-3d; transform: rotateX(-7deg) rotateY(0deg); }
-.globe-stage.enhanced .globe-card { position: absolute; top: 50%; left: 50%; width: 270px; min-height: 325px; margin: -162px 0 0 -135px; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(var(--angle)) rotateX(var(--latitude)) translateZ(var(--globe-radius)); --globe-radius: clamp(205px,25vw,310px); }
+.globe-stage.enhanced .globe-card { position: absolute; top: 50%; left: 50%; width: 270px; min-height: 325px; margin: -162px 0 0 -135px; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(var(--angle)) translateZ(var(--globe-radius)) rotateY(var(--face-angle, 0deg)) rotateX(var(--latitude)); transition: opacity 180ms ease; --globe-radius: clamp(205px,25vw,310px); }
 .globe-stage.enhanced .globe-card:not(.is-front) { pointer-events: none; }
 .globe-stage.enhanced .globe-card.is-front { pointer-events: auto; }
 .globe-stage.enhanced .globe-scene.is-spinning { animation: globe-arrive 2s cubic-bezier(.2,.82,.2,1) both; }
