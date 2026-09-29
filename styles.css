@@ -445,3 +445,47 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
 @media(max-width:520px){
   .case-hero{padding-top:5rem}.case-hero h1{font-size:clamp(3.2rem,16vw,5rem)}.case-meta{grid-template-columns:1fr}.case-outcomes{grid-template-columns:1fr}.before-after{grid-template-columns:1fr}.case-process-line{flex-wrap:wrap}.sequence{grid-template-columns:1fr}.tradeoff{grid-template-columns:1fr}.tradeoff span{transform:rotate(90deg)}
 }
+
+
+/* Editorial refinement — Behavioural Investor Signal */
+.case-study-page { background: #f7f4ec; }
+.case-study-page .nav { border-bottom: 1px solid rgba(21,21,21,.12); }
+.case-hero { max-width: 1180px; padding-top: 6.5rem; padding-bottom: 5rem; }
+.case-kicker { color: var(--green); letter-spacing: .16em; }
+.case-hero h1 { max-width: 980px; font-size: clamp(4.2rem, 8.5vw, 8.4rem); line-height: .82; margin-bottom: 1.6rem; }
+.case-hero h1 em { font-style: italic; }
+.case-hero-lede { max-width: 650px; font-family: Georgia, serif; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.4; }
+.case-meta { grid-template-columns: repeat(3,1fr); gap: 0; margin-top: 3.5rem; border-top: 1px solid var(--ink); }
+.case-meta span { min-height: 74px; padding: 1.1rem 1rem 1.1rem 0; border-bottom: 1px solid var(--line); }
+.case-meta b { font-size: .61rem; letter-spacing: .14em; }
+.case-actions { margin: 1.8rem 0 3.5rem; }
+.case-button { border-radius: 3px; padding: .8rem 1.05rem; letter-spacing: .04em; transition: transform .2s ease, background .2s ease; }
+.case-button:hover { transform: translateY(-2px); }
+.case-hero-image, .case-wide-image { border-radius: 4px; box-shadow: 0 24px 60px rgba(21,21,21,.08); }
+.case-section { max-width: 1180px; padding-top: 6.5rem; padding-bottom: 6.5rem; grid-template-columns: 180px minmax(0,760px); gap: 4.5rem; }
+.case-label { font-size: .61rem; letter-spacing: .16em; }
+.case-copy p, .case-copy li { font-size: .96rem; line-height: 1.72; }
+.case-copy blockquote { border-left: 2px solid var(--green); padding-left: 1.25rem; margin-top: 2.5rem; font-family: Georgia, serif; font-weight: 400; }
+.case-outcomes { max-width: 1180px; padding: 0 6vw; }
+.case-outcomes > div { background: transparent; border: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); border-radius: 0; padding: 1.4rem 1rem 1.4rem 0; }
+.case-outcomes strong { font-family: Georgia, serif; font-weight: 400; font-size: clamp(2rem,3vw,3.2rem); }
+.stage-grid article, .finding-grid article, .principles article, .decision-grid article, .eval-grid > div { border-radius: 3px; box-shadow: none; background: rgba(255,253,248,.58); padding: 1.4rem; }
+.stage-grid article h3, .finding-grid strong, .principles h3, .decision-grid h3, .eval-grid h3 { font-weight: 700; }
+.turning-point, .redesign, .prototype, .constraint { background: #ebe6da; }
+.case-design { background: #e3ebe5; }
+.redesign-grid > div { border-radius: 3px; }
+.redesign-grid > div:last-child { background: #151515; }
+.sequence span, .language-options span { border-radius: 3px; }
+.tradeoff { border-radius: 3px; }
+.case-impact { padding-top: 8rem; padding-bottom: 8rem; }
+.case-impact h2 { font-family: Georgia, serif; font-weight: 400; letter-spacing: -.045em; }
+.case-skills { max-width: 1180px; }
+.case-skills > div { padding: 1.35rem 0; }
+.next-project { max-width: 1180px; }
+@media(max-width:850px){
+  .case-meta { grid-template-columns: 1fr 1fr; }
+  .case-section { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+@media(max-width:520px){
+  .case-meta { grid-template-columns: 1fr; }
+}
