@@ -242,6 +242,68 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
 .globe-chart { align-items: flex-end; gap: 9%; padding: 16px 18%; background: #252b29; }
 .globe-chart i { width: 12px; height: 40%; background: var(--mint); border-radius: 5px 5px 0 0; }
 .globe-chart i:nth-child(2) { height: 63%; }.globe-chart i:nth-child(3) { height: 48%; }.globe-chart i:nth-child(4) { height: 80%; }.globe-chart i:nth-child(5) { height: 65%; }
+
+/* Investor dashboard preview used on the selected-work globe card. */
+.investor-preview {
+  display: block;
+  padding: .65rem;
+  background: #f8fbfc;
+  color: #073e5c;
+}
+.investor-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .42rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+.investor-preview-top b {
+  padding: .18rem .35rem;
+  border-radius: 999px;
+  background: #dff6eb;
+  color: #087a55;
+  font-size: .43rem;
+}
+.investor-preview-main {
+  display: flex;
+  align-items: baseline;
+  gap: .3rem;
+  margin: .55rem 0 .35rem;
+}
+.investor-preview-main strong { font-size: 1.05rem; line-height: 1; }
+.investor-preview-main span { font-size: .42rem; color: #6b8290; }
+.investor-preview-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: .25rem;
+}
+.investor-preview-row i {
+  height: 13px;
+  border-radius: 3px;
+  background: #e8f1f5;
+}
+.investor-preview-row i:first-child { background: #dff6eb; }
+.investor-preview-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4%;
+  height: 37px;
+  margin-top: .55rem;
+  padding: 0 .15rem;
+  border-bottom: 1px solid #d8e5eb;
+}
+.investor-preview-bars i {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: #0782aa;
+  opacity: .72;
+}
+.investor-preview-bars i:nth-child(1) { height: 42%; }
+.investor-preview-bars i:nth-child(2) { height: 68%; }
+.investor-preview-bars i:nth-child(3) { height: 54%; }
+.investor-preview-bars i:nth-child(4) { height: 82%; }
+.investor-preview-bars i:nth-child(5) { height: 63%; }
 .globe-calendar { gap: .35rem; padding: .8rem; }
 .globe-calendar span { width: 23%; height: 75%; padding-top: .8rem; border-radius: 6px; background: #f7d8b8; text-align: center; font-size: .55rem; font-weight: 800; }
 .globe-heritage { justify-content: space-between; padding: 1.1rem; background: linear-gradient(135deg,#e5e9d7,#789476); color: #24352d; }
