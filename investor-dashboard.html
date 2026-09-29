@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Behavioural Investor Signal — Aini Aden case study.">
+  <title>Behavioural Investor Signal — Aini Aden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=investor-case-study-20260929">
+</head>
+<body class="case-study-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav">
+    <a class="brand" href="index.html#top">AINI ADEN</a>
+    <nav aria-label="Main navigation">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About me</a>
+      <a href="cv.html">CV</a>
+      <a href="index.html#blog">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="case-kicker">02 / 05 · DATA PRODUCT</div>
+      <h1>Behavioural<br><em>Investor Signal</em></h1>
+      <p class="case-hero-lede">Making uncertain financial predictions easier to question, compare and understand.</p>
+      <div class="case-meta">
+        <span><b>Client</b> Lambda BI Ltd</span>
+        <span><b>Project owner</b> Cemre Yoldas</span>
+        <span><b>Sector</b> Finance</span>
+        <span><b>Timeline</b> 12 weeks, 2026</span>
+        <span><b>My role</b> LightGBM model development, explainability and end-to-end dashboard design</span>
+        <span><b>Team</b> Four MSc Data Science students</span>
+        <span><b>Tools</b> Python, LightGBM, Optuna, SHAP, Streamlit and Plotly</span>
+      </div>
+      <div class="case-actions">
+        <a class="case-button case-button-dark" href="https://github.com/Adea06/behavioural-investor-signal/tree/ui-reference-match" target="_blank" rel="noopener">Explore the prototype ↗</a>
+        <a class="case-button" href="#process">View the process ↓</a>
+      </div>
+      <img class="case-hero-image" src="assets/images/investor-dashboard-hero.svg" alt="Investor Decision Support dashboard showing technical and behavioural model signals side by side">
+    </section>
+
+    <section class="case-section case-intro">
+      <div class="case-label">PROJECT SUMMARY</div>
+      <div class="case-copy">
+        <p>Lambda BI asked us to investigate whether psychological market factors could help predict financial asset value.</p>
+        <p>As part of the group project, we combined technical indicators with news sentiment and market uncertainty across the S&amp;P 500 and FTSE 100. I independently built the LightGBM classification model and my own Streamlit dashboard to communicate its findings.</p>
+        <p>I later treated that dashboard as a UX problem in its own right. I redesigned the multi-page, historical prototype into a clearer one-page comparison experience, using Stage 2 behavioural modelling to help investors compare behavioural indicators with the technical baseline.</p>
+        <p>The aim was not to make prediction look certain. It was to help users see <strong>what changed, why it changed and how much confidence the evidence deserved.</strong></p>
+      </div>
+    </section>
+
+    <section class="case-outcomes">
+      <div><strong>2</strong><span>markets<br>S&amp;P 500 + FTSE 100</span></div>
+      <div><strong>2019–2026</strong><span>historical market<br>and behavioural data</span></div>
+      <div><strong>+16.5 pts</strong><span>FTSE 100 LightGBM F1<br>after behavioural features</span></div>
+      <div><strong>69.4% F1</strong><span>S&amp;P-trained LightGBM<br>on unseen Russell 2000</span></div>
+      <p>Historical evaluation results, not evidence of future investment returns.</p>
+    </section>
+
+    <section class="case-section" id="process">
+      <div class="case-label">MY CONTRIBUTION</div>
+      <div class="case-copy">
+        <p>The wider research was completed in a group of four. The <strong>LightGBM classification model, its optimisation, external validation and my dashboard were my individual work.</strong></p>
+        <ul>
+          <li>Researched behavioural finance, investor sentiment and sentiment-analysis methods.</li>
+          <li>Analysed Bollinger Bands and engineered technical and behavioural features.</li>
+          <li>Independently developed and tuned the LightGBM classification model using GridSearchCV and Optuna.</li>
+          <li>Used SHAP to identify which variables influenced each prediction.</li>
+          <li>Tested LightGBM on the unseen Russell 2000 market.</li>
+          <li>Designed and built my own LightGBM Investor Dashboard in Streamlit.</li>
+          <li>Audited the original dashboard and redesigned it as a one-page investor comparison experience.</li>
+          <li>Presented the generalisation findings, limitations and practical implications.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="case-process-line" aria-label="Project process"><span>Research</span><i>→</i><span>Model</span><i>→</i><span>Explain</span><i>→</i><span>Design</span></div>
+
+    <section class="case-section case-context">
+      <div class="case-label">CONTEXT</div>
+      <div class="case-copy">
+        <p>The original brief focused on predicting market value from psychological factors. But market behaviour is noisy, sentiment data is incomplete and a confident-looking output can easily overstate what a model knows.</p>
+        <blockquote>How might I help an investor understand a model signal without encouraging blind trust in it?</blockquote>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">THE PROBLEM</div>
+      <div class="case-copy">
+        <p>My first dashboard translated the model out of notebooks, but it was still shaped around the analysis rather than the investor. It was split across pages, required scrolling and relied on historical data.</p>
+        <p>A non-technical investor still had to work out:</p>
+        <ul>
+          <li>whether sentiment actually improved the prediction;</li>
+          <li>how confident the model was;</li>
+          <li>what evidence shaped the result;</li>
+          <li>whether performance transferred to another market.</li>
+        </ul>
+        <p>A prediction alone was not enough. The user needed <strong>comparison, context and limitations.</strong></p>
+      </div>
+    </section>
+
+    <section class="case-section case-stage">
+      <div class="case-label">RESEARCH FRAMEWORK</div>
+      <div class="case-copy">
+        <p>I used the modelling process as product discovery.</p>
+        <div class="stage-grid">
+          <article><span>STAGE 1</span><h3>Technical indicators only</h3><p>Price, volume, momentum, trend and volatility.</p></article>
+          <article><span>STAGE 2</span><h3>Technical + behavioural indicators</h3><p>News sentiment, VIX and engineered rolling features.</p></article>
+        </div>
+        <p>Keeping the stages comparable made the behavioural contribution visible rather than assumed.</p>
+      </div>
+    </section>
+
+    <section class="case-section turning-point">
+      <div class="case-label">THE TURNING POINT</div>
+      <div class="case-copy">
+        <h2>Exact prediction created false precision.</h2>
+        <p>We initially tried to predict exact next-day returns. Most regression results were weak, with R-squared values negative or close to zero.</p>
+        <p>Rather than disguise that weakness, we changed the task to predicting the <strong>direction of the average return over the next five trading days</strong>. This was more useful for the intended mid-term investor and more honest about what the data could support.</p>
+        <blockquote>When the evidence weakened the original idea, we changed the product promise.</blockquote>
+        <div class="before-after"><span>Exact next-day return</span><b>→</b><span>Five-day direction + probability</span></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">WHAT I FOUND</div>
+      <div class="case-copy">
+        <div class="finding-grid">
+          <article><strong>Direction &gt; magnitude</strong><p>Adding behavioural features improved my tuned LightGBM classifier in both markets: S&amp;P 500 F1 58.9% → 62.5%; FTSE 100 F1 26.8% → 43.3%.</p></article>
+          <article><strong>Technical signal first</strong><p>MACD, CCI, RSI, EMA and ATR carried most of the signal. Sentiment and VIX added context, but rarely led the prediction.</p></article>
+          <article><strong>Validate per market</strong><p>The S&amp;P-trained LightGBM model reached 69.4% F1 on Russell 2000. A strong result in one market could not simply be assumed to work elsewhere.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-design">
+      <div class="case-label">DESIGN STRATEGY</div>
+      <div class="case-copy">
+        <p>I used three principles to translate the research into an investor experience.</p>
+        <div class="principles">
+          <article><b>01</b><h3>Compare before concluding</h3><p>Show the technical baseline and behavioural model together.</p></article>
+          <article><b>02</b><h3>Separate signal from certainty</h3><p>Display direction, probability and historical evidence as different pieces of information.</p></article>
+          <article><b>03</b><h3>Keep the evidence traceable</h3><p>Let users move from a simple interpretation to the market and behavioural context behind it.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section redesign">
+      <div class="case-label">FROM TECHNICAL PROTOTYPE TO UX REDESIGN</div>
+      <div class="case-copy">
+        <div class="redesign-grid">
+          <div><span>BEFORE</span><h3>Analysis-first dashboard</h3><ul><li>Information split across multiple pages.</li><li>Users had to scroll to compare evidence.</li><li>Stage 2 was visible, but its value was not clearly explained.</li><li>The experience relied on historical data and lacked current market context.</li></ul></div>
+          <div><span>AFTER</span><h3>One-page investor comparison</h3><ul><li>Market and date controls.</li><li>Stage 1 technical direction and probability.</li><li>Stage 2 technical-plus-behavioural direction and probability.</li><li>Behavioural change in confidence.</li><li>Recent price and technical context.</li><li>VIX and sentiment context.</li><li>Recent prediction history and limitations.</li></ul></div>
+        </div>
+        <p>I reworked the experience around one question:</p>
+        <blockquote>Did behavioural information change the technical signal enough to matter?</blockquote>
+        <img class="case-wide-image" src="assets/images/investor-dashboard-comparison.svg" alt="Before and after comparison of the investor dashboard structure">
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">KEY DESIGN DECISIONS</div>
+      <div class="case-copy">
+        <div class="decision-grid">
+          <article><h3>Side-by-side model comparison</h3><p>Stage 1 and Stage 2 appear together so users can see whether behavioural information changed the direction, the probability or neither.</p><span>Skill · Comparative information design</span></article>
+          <article><h3>Direction and probability are separate</h3><p>An UP or DOWN label is easy to scan, but probability prevents the label from looking certain.</p><span>Skill · Hierarchy and risk communication</span></article>
+          <article><h3>Behavioural impact is translated</h3><p>Instead of exposing another technical metric, the interface explains how much behavioural data changed the probability and whether the final direction changed.</p><span>Skill · UX writing for complex systems</span></article>
+          <article><h3>Context stays in the comparison</h3><p>Technical indicators, sentiment and VIX are presented within the same one-page flow.</p><span>Skill · Information architecture and cognitive-load reduction</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section prototype">
+      <div class="case-label">THE PROTOTYPE</div>
+      <div class="case-copy">
+        <p>Users select a market and date, compare the two model stages and inspect the surrounding technical and behavioural evidence from the same view.</p>
+        <p>The dark interface keeps attention on the evidence. Colour supports direction and sentiment, while text labels and probability values prevent colour from carrying meaning alone.</p>
+        <img class="case-wide-image" src="assets/images/investor-dashboard-behavioural.svg" alt="Behavioural Impact section of the investor dashboard showing how behavioural information changes model probability">
+        <div class="sequence"><span>1 · Stage comparison</span><span>2 · Behavioural probability impact</span><span>3 · Five-day probability history</span><span>4 · Technical + behavioural context</span><span>5 · Prediction history + limitations</span></div>
+      </div>
+    </section>
+
+    <section class="case-section constraint">
+      <div class="case-label">DESIGNING AROUND A REAL DATA CONSTRAINT</div>
+      <div class="case-copy">
+        <p>The original dashboard had no live-data layer. During the UX redesign, I separated what could be updated reliably from what still required a validated historical window.</p>
+        <p>Price and technical indicators can support current market context. Stage 2 cannot honestly be described as fully live without retrieving, timestamping and processing new financial news through the same sentiment pipeline used during training.</p>
+        <p>The redesign therefore uses Stage 2 for its intended strength: helping an investor compare how behavioural information affected a validated technical signal. It does not disguise historical behavioural data as a live prediction.</p>
+        <div class="tradeoff"><b>Richer behavioural model</b><span>↔</span><b>Reliable live data</b><small>Clarity and reliability over feature completeness.</small></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">EVALUATION</div>
+      <div class="case-copy">
+        <div class="eval-grid">
+          <div><h3>What the project established</h3><ul><li>Behavioural features improved LightGBM directional F1 in both original markets.</li><li>Stage comparison exposed the effect of behavioural information.</li><li>External testing revealed where models did and did not transfer.</li><li>The redesign consolidated the comparison and supporting context into one clear view.</li></ul></div>
+          <div><h3>What remains untested</h3><ul><li>Whether investors understand the probability correctly.</li><li>Whether the dashboard improves real decisions.</li><li>Which recommendation language creates the best-calibrated trust.</li></ul><p><strong>The model was evaluated. The redesigned investor experience still requires usability testing.</strong></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section responsible">
+      <div class="case-label">RESPONSIBLE DESIGN</div>
+      <div class="case-copy">
+        <p>This is decision support, not financial advice.</p>
+        <p>The next iteration would replace direct BUY and SELL language with:</p>
+        <div class="language-options"><span>Evidence leans positive</span><span>Evidence is mixed</span><span>Evidence leans negative</span></div>
+        <p>I would also add expandable “Why this signal?” explanations, keyboard-accessible charts, stronger contrast testing and a reduced-motion option.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">WHAT I WOULD TEST NEXT</div>
+      <div class="case-copy">
+        <p>I would run five moderated sessions with self-directed mid-term investors.</p>
+        <ol>
+          <li>Explain the difference between Stage 1 and Stage 2.</li>
+          <li>Identify whether behaviour changed direction or confidence.</li>
+          <li>Interpret probability without treating it as certainty.</li>
+          <li>Find the evidence behind a signal.</li>
+          <li>Recognise the limits of the tool.</li>
+        </ol>
+        <p>I would compare action-led language with evidence-led language and measure comprehension, task success and confidence calibration.</p>
+      </div>
+    </section>
+
+    <section class="case-impact">
+      <p class="case-label">IMPACT</p>
+      <h2>The project moved beyond asking whether a model could predict the market. It explored how uncertain predictions should be communicated to a person expected to act on them.</h2>
+      <p>The redesign made the behavioural contribution inspectable in one place, connected each signal to its context and exposed where the evidence stopped.</p>
+      <blockquote>It did not make an uncertain model certain. It made the uncertainty visible enough for a person to judge.</blockquote>
+    </section>
+
+    <section class="case-section">
+      <div class="case-label">WHAT I LEARNED</div>
+      <div class="case-copy">
+        <ul class="learning-list">
+          <li>Weak evidence can lead to a stronger product decision.</li>
+          <li>Explainability should shape the interface, not sit in an appendix.</li>
+          <li>More data does not automatically create a better signal.</li>
+          <li>Generalisation is both a modelling and user-trust problem.</li>
+          <li>Technical feasibility must shape what a product promises.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-skills">
+      <div><span>UX</span><p>Problem framing · Information architecture · Interaction design · Data visualisation · Progressive disclosure · UX writing · Accessibility thinking</p></div>
+      <div><span>RESPONSIBLE AI</span><p>Explainability · Uncertainty communication · Confidence calibration · Transparent limitations</p></div>
+      <div><span>RESEARCH</span><p>Behavioural-finance literature · Experimental comparison · Model evaluation · External validation</p></div>
+      <div><span>TECHNICAL</span><p>Python · LightGBM · Optuna · TimeSeriesSplit · SHAP · Streamlit · Plotly</p></div>
+    </section>
+
+    <section class="next-project">
+      <p>NEXT PROJECT</p>
+      <a href="sst-workflow.html"><span>SST Workflow Dashboard</span><b>↗</b></a>
+      <small>Redesigning a fragmented student-support process around staff priorities and real working constraints.</small>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-intro">
+      <p>HAVE A PROJECT OR OPPORTUNITY?</p>
+      <a class="contact-link" href="mailto:ainiaden4@gmail.com">LET’S TALK <span aria-hidden="true">↗</span></a>
+      <span>LEICESTER, UK · OPEN TO BARCELONA</span>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html">CV</a><a href="index.html#blog">Blog</a><a href="mailto:ainiaden4@gmail.com">Contact</a>
+    </nav>
+  </footer>
+</body>
+</html>
