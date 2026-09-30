@@ -37,7 +37,7 @@
     </section>
 
     <nav class="case-nav editorial-case-nav" aria-label="Case study sections">
-      <a href="#process">Discover</a><a href="#define">Define</a><a href="#design">Design</a><a href="#test">Test</a><a href="#outcome">Outcome</a>
+      <a href="#process">Discover</a><a href="#define">Define</a><a href="#design">Design</a><a href="#evidence">Evidence</a><a href="#test">Test</a><a href="#outcome">Outcome</a>
     </nav>
 
     <section class="case-section case-intro">
@@ -187,6 +187,30 @@
           <div><h3>What I still need to test</h3><ul><li>Whether investors interpret probability correctly.</li><li>Whether the interface improves decision understanding.</li><li>Which language creates better-calibrated trust.</li></ul></div>
         </div>
         <p><strong>The model was evaluated. The redesigned experience still needs usability testing.</strong></p>
+        <p class="case-note">The evaluation visuals above show why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
+      </div>
+    </section>
+
+    <section class="case-section evaluation-visuals" id="evidence">
+      <div class="case-label">MODEL EVIDENCE</div>
+      <div class="case-copy">
+        <p>The interface is supported by the model evaluation rather than presenting the prediction as a standalone answer. I used classification metrics and ROC-AUC to assess how well the model separated the two outcome classes across the markets.</p>
+        <figure class="case-figure">
+          <img class="case-wide-image" src="assets/images/model-evaluation.png" alt="Model evaluation results for the LightGBM classification model" loading="lazy">
+          <figcaption>Model evaluation used to assess the quality of the classification output.</figcaption>
+        </figure>
+        <div class="finding-grid">
+          <article>
+            <strong>S&amp;P 500 — ROC-AUC</strong>
+            <img class="case-wide-image" src="assets/images/roc-auc.png" alt="ROC-AUC curve for the S&P 500 LightGBM model" loading="lazy">
+            <p>ROC-AUC provides a threshold-independent view of how well the model distinguishes the two classes.</p>
+          </article>
+          <article>
+            <strong>FTSE 100 — ROC-AUC</strong>
+            <img class="case-wide-image" src="assets/images/roc-auc%20ftse.png" alt="ROC-AUC curve for the FTSE 100 LightGBM model" loading="lazy">
+            <p>The same evaluation was repeated for the FTSE 100 rather than assuming performance would transfer between markets.</p>
+          </article>
+        </div>
       </div>
     </section>
 
