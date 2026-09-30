@@ -50,11 +50,11 @@
 <p>F1 improved in both markets from Stage 1 (technical only) to Stage 2 (technical combined with behavioural indicators). If F1 were the only measure I looked at, I could reasonably describe that as an improvement. But the other metrics complicate that story.</p>
 <p>For the S&amp;P 500, F1 rose from 0.589 to 0.625 and PR-AUC rose slightly from 0.554 to 0.560, while ROC-AUC fell from 0.396 to 0.389. For the FTSE 100, F1 rose from 0.268 to 0.433, but PR-AUC fell from 0.702 to 0.686 and ROC-AUC moved from 0.528 to 0.481.</p>
 <p>ROC-AUC is about discrimination across classification thresholds; a value around 0.5 is close to random discrimination. So these results did not give me a simple “behavioural features made the model better” story. They showed improvement in one aspect of performance alongside weaker or still-limited discrimination elsewhere.</p>
-<figure class="reader-figure">
+<figure class="reader-figure roc-auc-figure">
 <img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/roc-auc.png" alt="ROC-AUC model evaluation visual" loading="lazy">
 <figcaption>Looking at one metric alone would have given me a very different interpretation of the model.</figcaption>
 </figure>
-<figure class="reader-figure">
+<figure class="reader-figure roc-auc-figure">
 <img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/roc-auc%20ftse.png" alt="FTSE 100 ROC-AUC evaluation visual" loading="lazy">
 </figure>
 <p>That matters because choosing a metric also means deciding <strong>what kind of success or failure matters.</strong> It also means deciding what evidence would be sufficient to change my mind.</p>
