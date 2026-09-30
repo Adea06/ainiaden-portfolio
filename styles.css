@@ -2600,3 +2600,45 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 @media(max-width:520px){
   .editorial-case .sequence{grid-template-columns:1fr}
 }
+
+
+/* Tighten editorial case-study rhythm */
+.editorial-case .case-section{
+  padding-top:clamp(3.5rem,6vw,6rem)!important;
+  padding-bottom:clamp(3.5rem,6vw,6rem)!important;
+}
+.editorial-case .editorial-hero{
+  min-height:auto!important;
+  padding-top:clamp(5rem,7vw,7rem)!important;
+  padding-bottom:clamp(3rem,5vw,5rem)!important;
+}
+.editorial-case .case-outcomes{
+  padding-top:1rem!important;
+  padding-bottom:1rem!important;
+}
+.editorial-case .case-impact{
+  padding-top:clamp(4rem,7vw,7rem)!important;
+  padding-bottom:clamp(4rem,7vw,7rem)!important;
+}
+.editorial-case .case-skills{
+  padding-top:4rem!important;
+  padding-bottom:4rem!important;
+}
+.editorial-case .case-copy blockquote{
+  margin:2.5rem 0!important;
+}
+.editorial-case .case-figure{
+  margin-top:2.5rem!important;
+}
+.editorial-case .evaluation-visuals .finding-grid{
+  margin-top:2.5rem!important;
+}
+.editorial-case .final-dashboard-note{
+  margin-top:2rem!important;
+}
+@media(max-width:850px){
+  .editorial-case .case-section{
+    padding-top:4rem!important;
+    padding-bottom:4rem!important;
+  }
+}
