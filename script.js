@@ -3,7 +3,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 // The globe becomes a normal grid when motion is reduced or JS is unavailable.
 const stage = document.querySelector('#project-globe');
 const scene = document.querySelector('#globe-scene');
-if (stage && scene && !reducedMotion.matches) {
+if (stage && scene && !stage.classList.contains('static-projects') && !reducedMotion.matches) {
   stage.classList.add('enhanced');
   const cards = [...scene.querySelectorAll('.globe-card')];
   const announcement = document.querySelector('#globe-announcement');
