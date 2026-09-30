@@ -1893,3 +1893,11 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 .globe-stage.static-projects .globe-scene { display:contents; }
 .globe-stage.static-projects .globe-card { position:relative; width:auto; min-height:430px; margin:0; }
 @media (max-width: 800px) { .globe-stage.static-projects { grid-template-columns:1fr; } }
+
+
+/* Selected work: fully static cards */
+.globe-stage.static-projects .globe-card,
+.globe-stage.static-projects .globe-card:hover,
+.globe-stage.static-projects .globe-card:focus-within { transform:none !important; transition:none !important; animation:none !important; }
+.globe-stage.static-projects .globe-card::before,
+.globe-stage.static-projects .globe-card::after { animation:none !important; transition:none !important; }
