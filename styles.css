@@ -2474,3 +2474,129 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
  .cv-status i,.cv-marquee div{animation:none}
  .cv-project-card,.cv-project-card:before,.cv-project-arrow,.cv-chips span{transition:none}
 }
+
+
+/* Investor case study — final editorial polish */
+.editorial-case .case-hero-image{
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center top;
+}
+.editorial-case .case-section.evaluation-visuals{
+  background:#fffdf8!important;
+}
+.editorial-case .evaluation-visuals .case-copy:before{
+  background:var(--orange)!important;
+}
+.editorial-case .case-figure{
+  margin:3.5rem 0 0;
+}
+.editorial-case .case-figure .case-wide-image{
+  margin-top:0;
+  box-shadow:none;
+  border:1px solid var(--line);
+}
+.editorial-case .case-figure figcaption{
+  margin-top:.75rem;
+  color:var(--muted);
+  font-size:.68rem;
+  line-height:1.5;
+  letter-spacing:.03em;
+}
+.editorial-case .evaluation-visuals .finding-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2.5rem;
+  margin-top:3.5rem;
+  border-top:1px solid var(--ink);
+}
+.editorial-case .evaluation-visuals .finding-grid article{
+  padding:1.4rem 0 0!important;
+  border-bottom:0!important;
+}
+.editorial-case .evaluation-visuals .finding-grid article strong{
+  display:block;
+  margin-bottom:1rem;
+  font-size:.67rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.editorial-case .evaluation-visuals .finding-grid .case-wide-image{
+  width:100%;
+  margin:0 0 1rem;
+  box-shadow:none;
+  border-radius:2px;
+  border:1px solid var(--line);
+}
+.editorial-case .evaluation-visuals .finding-grid p{
+  margin:0;
+  font-size:.86rem;
+  color:var(--muted);
+}
+.editorial-case .redesign .case-wide-image{
+  margin-top:2.5rem;
+  box-shadow:none;
+  border-radius:2px;
+}
+.editorial-case .prototype{
+  background:#dbe5ff!important;
+}
+.editorial-case .final-dashboard-note{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:2rem;
+  margin:3rem 0 2rem;
+  padding:1.6rem 0;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--line);
+}
+.editorial-case .final-dashboard-note span{
+  display:block;
+  margin-bottom:.6rem;
+  color:var(--muted);
+  font-size:.61rem;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.editorial-case .final-dashboard-note strong{
+  display:block;
+  max-width:560px;
+  font-size:clamp(1.5rem,2.5vw,2.4rem);
+  line-height:1;
+  letter-spacing:-.045em;
+}
+.editorial-case .final-dashboard-note .case-button{
+  flex-shrink:0;
+  margin:0;
+}
+.editorial-case .sequence{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:0;
+  margin-top:3rem;
+  border-top:1px solid var(--ink);
+}
+.editorial-case .sequence span{
+  padding:1rem .8rem 1rem 0;
+  border-bottom:1px solid var(--line);
+  color:var(--muted);
+  font-size:.62rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.editorial-case .case-note{
+  font-size:.76rem!important;
+  color:var(--muted)!important;
+}
+@media(max-width:850px){
+  .editorial-case .evaluation-visuals .finding-grid{grid-template-columns:1fr}
+  .editorial-case .final-dashboard-note{align-items:flex-start;flex-direction:column}
+  .editorial-case .sequence{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .editorial-case .sequence{grid-template-columns:1fr}
+}
