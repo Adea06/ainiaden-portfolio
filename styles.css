@@ -2642,3 +2642,37 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
     padding-bottom:4rem!important;
   }
 }
+
+
+/* Before / after dashboard visuals */
+.editorial-case .before-after-visuals{
+  display:grid;
+  grid-template-columns:1fr 1.45fr;
+  gap:clamp(1.5rem,3vw,3rem);
+  margin-top:3.5rem;
+  align-items:start;
+}
+.editorial-case .before-after-visuals figure{margin:0}
+.editorial-case .before-after-visuals figure > span{
+  display:block;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  margin-bottom:.8rem;
+}
+.editorial-case .before-after-visuals img{
+  display:block;
+  width:100%;
+  height:auto;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+}
+.editorial-case .before-after-visuals figcaption{
+  margin-top:.7rem;
+  font-size:.78rem;
+  line-height:1.5;
+  color:rgba(0,0,0,.62);
+}
+@media(max-width:850px){
+  .editorial-case .before-after-visuals{grid-template-columns:1fr}
+}
