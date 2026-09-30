@@ -903,3 +903,11 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
 .reader-data-table th{font-size:.67rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777);font-weight:700;border-top:1px solid rgba(20,20,20,.18)}
 .reader-data-table tbody tr:last-child td{border-bottom:1px solid rgba(20,20,20,.18)}
 .reader-data-table td strong{font-weight:700}
+
+/* Animated UX relevance cards */
+.reader-insight,.reader-concept-card,.reader-triad>div,.question-cards>div,.reader-compare>div{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease;will-change:transform}
+.reader-insight:hover,.reader-concept-card:hover,.reader-triad>div:hover,.question-cards>div:hover,.reader-compare>div:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(23,23,23,.10);border-color:rgba(23,23,23,.30)}
+.reader-insight{animation:readerCardIn .7s ease both;}
+.reader-insight:nth-of-type(2){animation-delay:.08s}.reader-insight:nth-of-type(3){animation-delay:.16s}
+@keyframes readerCardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.reader-insight,.reader-concept-card,.reader-triad>div,.question-cards>div,.reader-compare>div{animation:none!important;transition:none!important}}
