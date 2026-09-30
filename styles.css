@@ -1295,3 +1295,28 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
     margin-right: 0;
   }
 }
+
+/* Dashboard comparison: clearly distinguish original vs reworked version */
+[data-article="data-science-design"] .dashboard-old-figure {
+  padding: 1rem;
+  border: 1px solid rgba(23,23,23,.13);
+  border-radius: 16px;
+  background: rgba(23,23,23,.035);
+}
+[data-article="data-science-design"] .dashboard-new-figure {
+  padding: 1rem;
+  border: 2px solid #6f9f7b;
+  border-radius: 16px;
+  background: #e4eee7;
+}
+[data-article="data-science-design"] .dashboard-new-figure .reader-image {
+  border-color: rgba(68,105,76,.28);
+}
+[data-article="data-science-design"] .dashboard-old-figure figcaption strong {
+  color: #77736b;
+  letter-spacing: .1em;
+}
+[data-article="data-science-design"] .dashboard-new-figure figcaption strong {
+  color: #4d7858;
+  letter-spacing: .1em;
+}
