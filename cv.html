@@ -41,6 +41,98 @@
 @media(max-width:600px){.cv-page.cv-resume{padding:10px}.cv-sheet{padding:20px}.cv-header{grid-template-columns:1fr}.cv-body{gap:15px}}
 @media(prefers-reduced-motion:reduce){.cv-project{transition:none}}
 @media print{.nav,.skip-link{display:none!important}.cv-page.cv-resume{height:100vh;min-height:0;padding:0;background:white}.cv-sheet{box-shadow:none;border:0}}
+
+/* CV typography hierarchy — subtle distinctions without losing CV conventions */
+.cv-resume .cv-heading{
+  font-size:.7rem;
+  letter-spacing:.14em;
+  font-weight:700;
+  color:#272621;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+.cv-resume .cv-heading::first-letter{color:#171715}
+.cv-resume .cv-profile{
+  font-size:.79rem;
+  line-height:1.62;
+  color:#3b3934;
+}
+.cv-resume .cv-profile strong{font-weight:700;color:var(--ink)}
+.cv-resume .cv-project h3{
+  font-size:.8rem;
+  line-height:1.12;
+  font-weight:700;
+  letter-spacing:-.03em;
+}
+.cv-resume .cv-project p{
+  font-size:.59rem;
+  line-height:1.48;
+  color:#45423c;
+}
+.cv-resume .cv-project small{
+  font-size:.5rem;
+  letter-spacing:.015em;
+}
+.cv-resume .cv-role-top h3{
+  font-size:.88rem;
+  line-height:1.12;
+  font-weight:700;
+  letter-spacing:-.025em;
+}
+.cv-resume .cv-company{
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:#55524c;
+}
+.cv-resume .cv-date{
+  font-size:.56rem;
+  letter-spacing:.075em;
+  font-weight:700;
+}
+.cv-resume .cv-role li{
+  font-size:.625rem;
+  line-height:1.45;
+  color:#45423c;
+}
+.cv-resume .cv-skill-box h4,
+.cv-resume .cv-bottom h4{
+  font-size:.55rem;
+  letter-spacing:.1em;
+  font-weight:700;
+  color:#292822;
+}
+.cv-resume .cv-skill-box p{
+  font-size:.6rem;
+  line-height:1.52;
+}
+.cv-resume .cv-edu-date{
+  font-size:.54rem;
+  letter-spacing:.03em;
+}
+.cv-resume .cv-edu h3{
+  font-size:.7rem;
+  line-height:1.16;
+  font-weight:700;
+}
+.cv-resume .cv-edu p{
+  font-size:.57rem;
+  line-height:1.45;
+}
+.cv-resume .cv-research h3{
+  font-size:.72rem;
+  line-height:1.2;
+  font-weight:700;
+}
+.cv-resume .cv-research p{
+  font-size:.58rem;
+  line-height:1.48;
+}
+.cv-resume .cv-research a{
+  font-size:.54rem;
+  letter-spacing:.08em;
+}
+
 </style>
 </head>
 <body>
