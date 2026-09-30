@@ -1005,18 +1005,7 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
   position:relative;
   padding-top:.15rem;
 }
-.reader-body h2::after {
-  content:"";
-  display:block;
-  width:2.6rem;
-  height:2px;
-  margin-top:.7rem;
-  background:currentColor;
-  opacity:.35;
-  animation:writingLineIn .8s cubic-bezier(.22,1,.36,1) both;
-  animation-timeline:view();
-  animation-range:entry 10% cover 25%;
-}
+
 
 .reader-body > p,
 .reader-body > .reader-insight,
