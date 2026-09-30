@@ -2285,3 +2285,19 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 @media(prefers-reduced-motion:reduce){
   .homepage-writing .writing-card{animation:none!important;transition:none!important}
 }
+
+
+/* Writing heading typography */
+.homepage-writing .writing-landing-heading h2 .writing-heading-bold{
+  font-family:inherit;
+  font-weight:800;
+}
+.homepage-writing .writing-landing-heading h2 .writing-heading-light{
+  font-family:inherit;
+  font-weight:400;
+}
+.homepage-writing .writing-landing-heading h2 em{
+  font-family:Georgia,"Times New Roman",serif;
+  font-style:italic;
+  font-weight:400;
+}
