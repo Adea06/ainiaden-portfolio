@@ -2143,3 +2143,51 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 @media(prefers-reduced-motion:reduce){
   .investor-screen,.heritage-map i{animation:none!important}
 }
+
+
+/* Homepage Writing — mirror the Writing landing page */
+.homepage-writing{
+  padding:clamp(6rem,11vw,9rem) 6vw 8rem;
+  background:var(--paper);
+}
+.homepage-writing .writing-landing-heading{
+  max-width:1280px;
+  margin:0 auto 4rem;
+  display:grid;
+  grid-template-columns:1fr .42fr;
+  gap:6vw;
+  align-items:end;
+}
+.homepage-writing .writing-landing-heading h2{
+  margin:1rem 0 0;
+  max-width:900px;
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.84;
+  letter-spacing:-.08em;
+}
+.homepage-writing .writing-landing-heading h2 em{
+  font-family:Georgia,serif;
+  font-weight:400;
+  letter-spacing:-.06em;
+}
+.homepage-writing .writing-landing-heading>p:last-child{
+  max-width:350px;
+  margin:0;
+  font-family:Georgia,serif;
+  font-size:1.25rem;
+  line-height:1.45;
+}
+.homepage-writing .writing-card-grid{
+  max-width:1280px;
+  margin:0 auto;
+}
+@media(max-width:800px){
+  .homepage-writing .writing-landing-heading{
+    grid-template-columns:1fr;
+    gap:2rem;
+    margin-bottom:3rem;
+  }
+  .homepage-writing .writing-landing-heading h2{
+    font-size:clamp(3.4rem,12vw,6rem);
+  }
+}
