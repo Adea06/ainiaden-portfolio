@@ -1100,3 +1100,53 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
     max-height:240px;
   }
 }
+
+/* Clear visual separation for UX relevance reflections */
+.reader-insight.ux-relevance {
+  position:relative;
+  margin:44px 0 52px;
+  padding:30px 34px 32px;
+  border:1px solid rgba(20,20,20,.14);
+  border-left:4px solid #111;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(20,20,20,.045),rgba(20,20,20,.015));
+  box-shadow:0 12px 30px rgba(0,0,0,.045);
+}
+.ux-relevance-label {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  font-size:11px;
+  letter-spacing:.14em;
+}
+.ux-relevance-label span {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.ux-relevance-label strong {
+  font-size:11px;
+  letter-spacing:.16em;
+}
+.reader-insight.ux-relevance > strong {
+  display:block;
+  max-width:720px;
+  margin-bottom:16px;
+  font-size:clamp(20px,2.1vw,28px);
+  line-height:1.2;
+}
+.reader-insight.ux-relevance p:last-child { margin-bottom:0; }
+@media (max-width:700px) {
+  .reader-insight.ux-relevance {
+    margin:34px 0 42px;
+    padding:24px 22px 26px;
+  }
+}
