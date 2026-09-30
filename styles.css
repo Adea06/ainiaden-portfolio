@@ -2305,9 +2305,15 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 
 /* Editorial Writing cards — balanced, equal-height treatment */
 .homepage-writing .writing-card-grid{
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-auto-rows:560px;
   align-items:stretch;
   gap:1.25rem;
+}
+.homepage-writing .writing-card{
+  width:100%;
+  height:560px;
+  min-height:560px;
 }
 .homepage-writing .writing-card{
   min-height:560px;
