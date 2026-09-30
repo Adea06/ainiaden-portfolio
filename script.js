@@ -16,7 +16,7 @@ if (stage && scene && !reducedMotion.matches) {
 
   function frontCard() {
     const normal = (rotationY % 360 + 360) % 360;
-    const index = ((Math.round(-normal / 72) % cards.length) + cards.length) % cards.length;
+    const index = ((Math.round(-normal / 120) % cards.length) + cards.length) % cards.length;
     cards.forEach((card, i) => {
       const angle = Number(card.dataset.angle);
       const relative = (((angle + rotationY + 540) % 360 + 360) % 360) - 180;
@@ -78,7 +78,7 @@ if (stage && scene && !reducedMotion.matches) {
   function release(event) {
     if (!pointer || pointer.id !== event.pointerId) return;
     if (pointer.moved) {
-      const snapped = Math.round(rotationY / 72) * 72;
+      const snapped = Math.round(rotationY / 120) * 120;
       rotationY = snapped;
       draw(true);
       stage.dataset.justDragged = 'true';
