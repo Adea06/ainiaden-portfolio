@@ -8,170 +8,381 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=globe-5a2a032">
 <style>
-:root{--ink:#171715;--muted:#66635d;--line:#d6d2c8;--paper:#fffdf8;--bg:#eeeae1;--accent:#dfeae2}
-.cv-page.cv-resume{height:calc(100dvh - 76px);min-height:0;max-width:none;margin:0;padding:18px 4vw 20px;overflow:hidden;background:var(--bg);font-family:"DM Sans",sans-serif;color:var(--ink)}
-.cv-sheet{height:100%;max-width:1380px;margin:auto;padding:30px 38px 26px;background:var(--paper);border:1px solid #d8d4ca;box-shadow:0 12px 38px rgba(23,23,21,.07);display:flex;flex-direction:column}
-.cv-header{display:grid;grid-template-columns:1fr auto;gap:30px;padding-bottom:18px;border-bottom:2px solid var(--ink)}
-.cv-header h1{margin:0;font-size:clamp(2.4rem,4vw,4.2rem);line-height:.88;letter-spacing:-.065em;font-weight:700}
+:root{
+  --ink:#171715;
+  --muted:#68655f;
+  --line:#d7d3c9;
+  --paper:#fffdf8;
+  --bg:#ece9e2;
+  --green:#dfece4;
+  --green-deep:#c9ddd1;
+  --lilac:#e9e2f1;
+  --lilac-deep:#d9cde8;
+  --warm:#f3eee3;
+}
+.cv-page.cv-resume{
+  height:calc(100dvh - 76px);
+  min-height:0;
+  max-width:none;
+  margin:0;
+  padding:16px 3.2vw 18px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(223,236,228,.8),transparent 25%),
+    radial-gradient(circle at 92% 90%,rgba(233,226,241,.75),transparent 28%),
+    var(--bg);
+  font-family:"DM Sans",sans-serif;
+  color:var(--ink);
+}
+.cv-sheet{
+  height:100%;
+  max-width:1450px;
+  margin:auto;
+  padding:24px 30px 20px;
+  background:rgba(255,253,248,.97);
+  border:1px solid #d5d1c7;
+  border-radius:18px;
+  box-shadow:0 20px 55px rgba(23,23,21,.10),0 3px 0 rgba(23,23,21,.04);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.cv-header{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:28px;
+  padding-bottom:15px;
+  border-bottom:2px solid var(--ink);
+  flex:0 0 auto;
+}
+.cv-header h1{
+  margin:0;
+  font-size:clamp(2.35rem,3.7vw,4rem);
+  line-height:.86;
+  letter-spacing:-.065em;
+  font-weight:700;
+}
 .cv-header h1 span{font-weight:400}
-.cv-title{margin:8px 0 0;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.cv-contact{display:grid;grid-template-columns:auto auto;align-content:end;gap:5px 22px;text-align:right;font-size:.66rem;line-height:1.35}
-.cv-contact a{text-decoration:none;color:inherit}.cv-contact a:hover{text-decoration:underline}
-.cv-note{display:inline-flex;align-items:center;gap:6px;margin-top:7px;font-size:.58rem;color:var(--muted)}
+.cv-title{
+  margin:7px 0 0;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.cv-contact{
+  display:grid;
+  grid-template-columns:auto auto;
+  align-content:end;
+  gap:4px 20px;
+  text-align:right;
+  font-size:.61rem;
+  line-height:1.3;
+}
+.cv-contact a{text-decoration:none;color:inherit}
+.cv-contact a:hover{text-decoration:underline}
+.cv-note{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+  font-size:.55rem;
+  color:var(--muted);
+}
 .cv-note i{width:6px;height:6px;border-radius:50%;background:#4d8b64}
-.cv-body{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(250px,.78fr);gap:34px;flex:1;min-height:0;padding-top:20px}
-.cv-left,.cv-right{min-width:0;min-height:0}.cv-right{border-left:1px solid var(--line);padding-left:25px}
-.cv-block{margin-bottom:17px}.cv-heading{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.cv-heading span{display:none}
-.cv-profile{font-size:.76rem;line-height:1.55;margin:0;max-width:76ch;color:#383632}
-.cv-project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.cv-project{position:relative;padding:12px 12px 11px;border:1px solid #cbc7bd;border-radius:10px;background:#faf8f1;min-height:132px;text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s,border-color .25s}
-.cv-project:nth-child(2){background:var(--accent)}.cv-project:nth-child(3){background:#f1edf5}
-.cv-project:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(23,23,21,.09);border-color:#9f9b92}
-.cv-project-num{font-size:.53rem;font-weight:700;letter-spacing:.09em;color:var(--muted)}
-.cv-project h3{margin:7px 0 5px;font-size:.75rem;line-height:1.08;letter-spacing:-.025em}
-.cv-project p{margin:0;font-size:.58rem;line-height:1.42;color:#4d4a44}.cv-project small{display:block;margin-top:6px;font-size:.51rem;line-height:1.25;color:var(--muted);font-weight:600}
-.cv-role{padding:0 0 13px;margin-bottom:13px;border-bottom:1px solid var(--line)}.cv-role:last-child{border-bottom:0;margin-bottom:0}
-.cv-role-top{display:flex;justify-content:space-between;gap:15px;align-items:baseline}.cv-role h3{margin:0;font-size:.84rem;line-height:1.12;letter-spacing:-.02em}.cv-date{white-space:nowrap;color:var(--muted);font-size:.57rem;font-weight:700;letter-spacing:.05em}.cv-company{margin:3px 0 5px;font-size:.61rem;font-weight:600}
-.cv-role ul{margin:0;padding-left:15px}.cv-role li{font-size:.61rem;line-height:1.4;margin:3px 0;color:#4c4943}
-.cv-skill-box{display:grid;grid-template-columns:1fr 1fr;gap:13px 16px}.cv-skill-box h4{margin:0 0 3px;font-size:.57rem;text-transform:uppercase;letter-spacing:.07em}.cv-skill-box p{margin:0;font-size:.59rem;line-height:1.48;color:#4f4c46}
-.cv-edu-item{display:grid;grid-template-columns:55px 1fr;gap:8px;margin-bottom:10px}.cv-edu-date{font-size:.55rem;font-weight:700;color:var(--muted)}.cv-edu h3{margin:0;font-size:.68rem;line-height:1.15}.cv-edu p{margin:3px 0 0;font-size:.56rem;line-height:1.4;color:#55524c}
-.cv-research{padding:13px;border:1px solid var(--line);border-radius:10px;background:#f4f1e9}.cv-research .cv-heading{margin-bottom:9px}.cv-research h3{margin:0 0 5px;font-size:.7rem;line-height:1.18}.cv-research p{margin:0;font-size:.57rem;line-height:1.42;color:#55524c}.cv-research a{display:inline-block;margin-top:7px;font-size:.53rem;font-weight:700;text-decoration:none;color:var(--ink)}
-.cv-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-top:9px;border-top:1px solid var(--line)}.cv-bottom h4{margin:0 0 3px;font-size:.52rem;text-transform:uppercase;letter-spacing:.08em}.cv-bottom p{margin:0;font-size:.56rem;line-height:1.4;color:#55524c}
-@media(max-width:900px){.cv-page.cv-resume{height:auto;min-height:100vh;overflow:visible}.cv-sheet{height:auto}.cv-body{grid-template-columns:1fr}.cv-right{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}.cv-project-grid{grid-template-columns:1fr}.cv-contact{grid-template-columns:1fr;text-align:left}}
-@media(max-width:600px){.cv-page.cv-resume{padding:10px}.cv-sheet{padding:20px}.cv-header{grid-template-columns:1fr}.cv-body{gap:15px}}
-@media(prefers-reduced-motion:reduce){.cv-project{transition:none}}
-@media print{.nav,.skip-link{display:none!important}.cv-page.cv-resume{height:100vh;min-height:0;padding:0;background:white}.cv-sheet{box-shadow:none;border:0}}
 
-/* CV typography hierarchy — subtle distinctions without losing CV conventions */
-.cv-resume .cv-heading{
-  font-size:.7rem;
-  letter-spacing:.14em;
-  font-weight:700;
-  color:#272621;
-  padding-bottom:6px;
+.cv-body{
+  display:grid;
+  grid-template-columns:minmax(0,1.78fr) minmax(285px,.82fr);
+  gap:22px;
+  flex:1;
+  min-height:0;
+  padding-top:16px;
+}
+.cv-left,.cv-right{min-width:0;min-height:0}
+.cv-left{
+  padding-right:22px;
+  border-right:1px solid var(--line);
+}
+.cv-right{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.cv-block{margin-bottom:13px}
+.cv-right .cv-block{margin-bottom:0}
+.cv-heading{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:6px;
+  padding-bottom:5px;
   border-bottom:1px solid var(--line);
+  font-size:.63rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#282722;
 }
-.cv-resume .cv-heading::first-letter{color:#171715}
-.cv-resume .cv-profile{
-  font-size:.79rem;
-  line-height:1.62;
-  color:#3b3934;
+.cv-heading span{display:none}
+
+.cv-profile{
+  margin:0;
+  max-width:82ch;
+  font-size:.72rem;
+  line-height:1.5;
+  color:#3c3a35;
 }
-.cv-resume .cv-profile strong{font-weight:700;color:var(--ink)}
-.cv-resume .cv-project h3{
-  font-size:.8rem;
-  line-height:1.12;
-  font-weight:700;
-  letter-spacing:-.03em;
+
+/* Project frames: slightly dimensional, but still recruiter-CV appropriate */
+.cv-project-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
 }
-.cv-resume .cv-project p{
-  font-size:.59rem;
-  line-height:1.48;
-  color:#45423c;
+.cv-project{
+  position:relative;
+  min-height:132px;
+  padding:11px 11px 10px;
+  border:1px solid rgba(23,23,21,.16);
+  border-radius:12px;
+  text-decoration:none;
+  color:inherit;
+  overflow:hidden;
+  isolation:isolate;
+  box-shadow:
+    0 7px 0 rgba(23,23,21,.045),
+    0 13px 24px rgba(23,23,21,.07);
+  transform:translateY(0);
+  transition:transform .22s ease,box-shadow .22s ease;
 }
-.cv-resume .cv-project small{
-  font-size:.5rem;
-  letter-spacing:.015em;
+.cv-project::before{
+  content:"";
+  position:absolute;
+  width:105px;height:105px;
+  right:-46px;top:-48px;
+  border:1px solid rgba(23,23,21,.16);
+  border-radius:50%;
+  box-shadow:0 0 0 20px rgba(255,255,255,.08),0 0 0 40px rgba(255,255,255,.06);
+  z-index:-1;
 }
-.cv-resume .cv-role-top h3{
-  font-size:.88rem;
-  line-height:1.12;
-  font-weight:700;
+.cv-project:nth-child(1){background:linear-gradient(145deg,#f6f3eb 0%,#e6efe9 100%)}
+.cv-project:nth-child(2){background:linear-gradient(145deg,#e2eee7 0%,#cddfd4 100%)}
+.cv-project:nth-child(3){background:linear-gradient(145deg,#f0ebf5 0%,#ded3ea 100%)}
+.cv-project:hover{
+  transform:translateY(-3px) rotateX(1deg);
+  box-shadow:0 9px 0 rgba(23,23,21,.055),0 18px 30px rgba(23,23,21,.11);
+}
+.cv-project-num{
+  position:relative;
+  font-size:.48rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  color:#5f5c55;
+}
+.cv-project h3{
+  position:relative;
+  margin:6px 0 4px;
+  max-width:18ch;
+  font-size:.72rem;
+  line-height:1.05;
   letter-spacing:-.025em;
 }
-.cv-resume .cv-company{
-  font-size:.62rem;
-  font-weight:600;
-  letter-spacing:.01em;
-  color:#55524c;
+.cv-project p{
+  position:relative;
+  margin:0;
+  font-size:.535rem;
+  line-height:1.38;
+  color:#47443e;
 }
-.cv-resume .cv-date{
-  font-size:.56rem;
-  letter-spacing:.075em;
-  font-weight:700;
-}
-.cv-resume .cv-role li{
-  font-size:.625rem;
-  line-height:1.45;
-  color:#45423c;
-}
-.cv-resume .cv-skill-box h4,
-.cv-resume .cv-bottom h4{
-  font-size:.55rem;
-  letter-spacing:.1em;
-  font-weight:700;
-  color:#292822;
-}
-.cv-resume .cv-skill-box p{
-  font-size:.6rem;
-  line-height:1.52;
-}
-.cv-resume .cv-edu-date{
-  font-size:.54rem;
-  letter-spacing:.03em;
-}
-.cv-resume .cv-edu h3{
-  font-size:.7rem;
-  line-height:1.16;
-  font-weight:700;
-}
-.cv-resume .cv-edu p{
-  font-size:.57rem;
-  line-height:1.45;
-}
-.cv-resume .cv-research h3{
-  font-size:.72rem;
+.cv-project small{
+  position:relative;
+  display:block;
+  margin-top:5px;
+  font-size:.46rem;
   line-height:1.2;
+  color:#5e5b54;
   font-weight:700;
 }
-.cv-resume .cv-research p{
-  font-size:.58rem;
-  line-height:1.48;
-}
-.cv-resume .cv-research a{
-  font-size:.54rem;
-  letter-spacing:.08em;
-}
 
-
-/* Compact skills table */
-.cv-resume .cv-skills-table{
-  border-top:1px solid var(--line);
-}
-.cv-resume .cv-skills-row{
-  display:grid;
-  grid-template-columns:92px minmax(0,1fr);
-  gap:10px;
-  padding:8px 0;
+.cv-role{
+  padding:0 0 9px;
+  margin-bottom:9px;
   border-bottom:1px solid var(--line);
+}
+.cv-role:last-child{border-bottom:0;margin-bottom:0}
+.cv-role-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:baseline;
+}
+.cv-role h3{
+  margin:0;
+  font-size:.78rem;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  font-weight:700;
+}
+.cv-date{
+  white-space:nowrap;
+  color:var(--muted);
+  font-size:.51rem;
+  font-weight:800;
+  letter-spacing:.075em;
+}
+.cv-company{
+  margin:2px 0 4px;
+  font-size:.56rem;
+  font-weight:700;
+  color:#57544e;
+}
+.cv-role ul{margin:0;padding-left:13px}
+.cv-role li{
+  font-size:.54rem;
+  line-height:1.34;
+  margin:2px 0;
+  color:#46433d;
+}
+
+/* Right-hand column becomes a set of quiet coloured information frames */
+.cv-right .cv-block{
+  padding:10px 11px;
+  border:1px solid rgba(23,23,21,.10);
+  border-radius:12px;
+  box-shadow:0 5px 0 rgba(23,23,21,.035),0 10px 22px rgba(23,23,21,.045);
+}
+.cv-right .cv-block:nth-child(1){background:linear-gradient(145deg,#edf5ef,#dfece4)}
+.cv-right .cv-block:nth-child(2){background:linear-gradient(145deg,#f7f4ec,#eee8da)}
+.cv-right .cv-block:nth-child(3){background:linear-gradient(145deg,#eee8f5,#e4d9ef)}
+.cv-right .cv-block:nth-child(4){background:linear-gradient(145deg,#f5f1e8,#ebe5d8)}
+.cv-right .cv-heading{border-bottom-color:rgba(23,23,21,.15);margin-bottom:6px}
+
+.cv-skills-table{border-top:1px solid rgba(23,23,21,.10)}
+.cv-skills-row{
+  display:grid;
+  grid-template-columns:78px minmax(0,1fr);
+  gap:8px;
+  padding:5px 0;
+  border-bottom:1px solid rgba(23,23,21,.10);
   align-items:start;
 }
-.cv-resume .cv-skills-row strong{
-  font-size:.51rem;
-  line-height:1.3;
-  letter-spacing:.07em;
-  font-weight:700;
+.cv-skills-row:last-child{border-bottom:0}
+.cv-skills-row strong{
+  font-size:.46rem;
+  line-height:1.25;
+  letter-spacing:.065em;
+  font-weight:800;
   color:#292822;
 }
-.cv-resume .cv-skills-row span{
-  font-size:.58rem;
-  line-height:1.48;
+.cv-skills-row span{
+  font-size:.51rem;
+  line-height:1.35;
   color:#4b4842;
 }
-@media(max-width:600px){
-  .cv-resume .cv-skills-row{grid-template-columns:1fr;gap:3px}
+
+.cv-edu-item{
+  display:grid;
+  grid-template-columns:43px 1fr;
+  gap:7px;
+  margin-bottom:7px;
+}
+.cv-edu-item:last-child{margin-bottom:0}
+.cv-edu-date{
+  font-size:.47rem;
+  line-height:1.2;
+  font-weight:800;
+  color:#65615a;
+}
+.cv-edu h3{
+  margin:0;
+  font-size:.59rem;
+  line-height:1.1;
+  font-weight:800;
+}
+.cv-edu p{
+  margin:2px 0 0;
+  font-size:.48rem;
+  line-height:1.3;
+  color:#55524c;
 }
 
+.cv-research{
+  background:linear-gradient(145deg,#eee8f5,#e2d6ed)!important;
+}
+.cv-research h3{
+  margin:0 0 4px;
+  font-size:.61rem;
+  line-height:1.12;
+  font-weight:800;
+}
+.cv-research p{
+  margin:0;
+  font-size:.49rem;
+  line-height:1.35;
+  color:#55524c;
+}
+.cv-research a{
+  display:inline-block;
+  margin-top:5px;
+  font-size:.46rem;
+  letter-spacing:.08em;
+  font-weight:800;
+  text-decoration:none;
+  color:var(--ink);
+}
 
-/* Keep the final Additional block visible within the one-page CV */
-.cv-resume .cv-body{overflow:visible}
-.cv-resume .cv-left,.cv-resume .cv-right{overflow:visible}
-.cv-resume .cv-right{display:flex;flex-direction:column}
-.cv-resume .cv-right .cv-block{flex-shrink:0}
-.cv-resume .cv-right .cv-block:last-child{margin-bottom:0}
-.cv-resume .cv-bottom{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px}
-.cv-resume .cv-bottom p{font-size:.57rem;line-height:1.45}
+.cv-bottom{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:10px;
+  padding-top:6px;
+  border-top:1px solid rgba(23,23,21,.12);
+}
+.cv-bottom h4{
+  margin:0 0 2px;
+  font-size:.46rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-weight:800;
+}
+.cv-bottom p{
+  margin:0;
+  font-size:.48rem;
+  line-height:1.32;
+  color:#55524c;
+}
 
+@media(max-width:900px){
+  .cv-page.cv-resume{height:auto;min-height:100vh;overflow:visible;padding:12px}
+  .cv-sheet{height:auto;overflow:visible;padding:22px;border-radius:14px}
+  .cv-header{grid-template-columns:1fr}
+  .cv-contact{grid-template-columns:auto auto;text-align:left}
+  .cv-body{grid-template-columns:1fr;gap:15px}
+  .cv-left{padding-right:0;border-right:0}
+  .cv-right{border-top:1px solid var(--line);padding-top:15px}
+  .cv-project-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .cv-page.cv-resume{padding:8px}
+  .cv-sheet{padding:18px}
+  .cv-contact{grid-template-columns:1fr}
+  .cv-project-grid{grid-template-columns:1fr}
+  .cv-project{min-height:0}
+  .cv-skills-row{grid-template-columns:1fr;gap:3px}
+  .cv-role-top{display:block}
+  .cv-date{display:block;margin-top:3px}
+  .cv-bottom{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .cv-project{transition:none}
+}
+@media print{
+  .nav,.skip-link{display:none!important}
+  .cv-page.cv-resume{height:100vh;min-height:0;padding:0;background:white}
+  .cv-sheet{box-shadow:none;border:0;border-radius:0}
+}
 </style>
 </head>
 <body>
@@ -191,7 +402,7 @@
 
 <div class="cv-body">
 <div class="cv-left">
-<section class="cv-block"><div class="cv-heading">Profile <span>01</span></div><p class="cv-profile">UX and Product Design candidate with an interdisciplinary background in Psychology and Data Science. I combine an understanding of human behaviour with analytical and technical capabilities to simplify complex workflows, translate technical information into intuitive experiences, and make evidence-informed design decisions.</p></section>
+<section class="cv-block"><div class="cv-heading">Profile <span>01</span></div><p class="cv-profile">UX and Product Design candidate with an interdisciplinary background in Psychology and Data Science, combining an understanding of human behaviour with analytical and technical capabilities. Experienced in identifying user and operational needs, simplifying complex workflows, and translating data and technical information into intuitive digital experiences.</p></section>
 
 <section class="cv-block"><div class="cv-heading">UX & Product Design Projects <span>02</span></div><div class="cv-project-grid">
 <a class="cv-project" href="sst-workflow.html"><span class="cv-project-num">01 · UX DESIGNER</span><h3>Assignment Support Workflow</h3><p>Mapped recurring SST needs and two user pathways; designed an interactive Figma Make workflow using progressive disclosure, hierarchy and cognitive-load principles. Moderated usability testing informed iterations.</p><small>Figma · Figma Make · IA · Interaction Design</small></a>
@@ -200,8 +411,8 @@
 </div></section>
 
 <section class="cv-block"><div class="cv-heading">Professional Experience <span>03</span></div>
-<article class="cv-role"><div class="cv-role-top"><h3>Student Success Tutor / Learning Resource Centre Tutor</h3><span class="cv-date">JUL 2024 — PRESENT</span></div><p class="cv-company">Elizabeth School of London</p><ul><li>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems, identifying recurring pain points and opportunities to improve processes.</li><li>Work with managers and Student Success Tutors to understand workflow challenges, prototype a more centralised solution and review feedback to refine it.</li><li>Analyse submission and engagement information to identify students requiring intervention; deliver accessible 1:1 and group support.</li></ul></article>
-<article class="cv-role"><div class="cv-role-top"><h3>SEND Account Manager / Talent Consultant</h3><span class="cv-date">SEP 2022 — MAY 2024</span></div><p class="cv-company">Opogo Education</p><ul><li>Managed client and candidate relationships, identifying needs and translating them into appropriate solutions.</li><li>Collected feedback on platform and service pain points and worked with the technical team on potential improvements.</li><li>Coordinated recruitment workflows using stakeholder feedback and operational data.</li></ul></article>
+<article class="cv-role"><div class="cv-role-top"><h3>Student Success Tutor / Learning Resource Centre Tutor</h3><span class="cv-date">JUL 2024 — PRESENT</span></div><p class="cv-company">Elizabeth School of London</p><ul><li>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems, identifying recurring pain points and opportunities to improve processes.</li><li>Worked with managers and Student Success Tutors to understand submission and progression challenges, propose a more centralised solution, and review feedback.</li><li>Prototyped an improved SST platform using Microsoft tools, including Power BI and automation features, translating operational requirements into a practical workflow.</li><li>Analyse submission and engagement information to identify students requiring intervention and coordinate appropriate follow-up.</li></ul></article>
+<article class="cv-role"><div class="cv-role-top"><h3>SEND Account Manager / Talent Consultant</h3><span class="cv-date">SEP 2022 — MAY 2024</span></div><p class="cv-company">Opogo Education</p><ul><li>Managed education client and candidate relationships, identifying needs and translating them into appropriate solutions.</li><li>Collected and reviewed feedback to understand platform and service pain points and worked with the technical team on potential improvements.</li><li>Coordinated recruitment workflows using stakeholder feedback and operational data in a fast-paced EdTech environment.</li></ul></article>
 </section>
 </div>
 
@@ -219,7 +430,7 @@
 <div class="cv-edu-item"><span class="cv-edu-date">2018–21 · 2:1</span><div><h3>BSc (Hons) Psychology</h3><p>De Montfort University · Research Methods · Cognitive Psychology · Quantitative & Qualitative Research · Research Ethics</p></div></div>
 </div></section>
 
-<section class="cv-block cv-research"><div class="cv-heading">Research Experience <span>06</span></div><h3>Research Assistant / Co-author · De Montfort University</h3><p>Contributed to research examining framing bias in AI policy through structured research, evidence synthesis and analysis. Co-authored peer-reviewed research published in <em>Review of Policy Research</em>.</p><a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ RESEARCH ↗</a></section>
+<section class="cv-block cv-research"><div class="cv-heading">Research Experience <span>06</span></div><h3>Research Assistant / Co-author · De Montfort University</h3><p>Contributed to academic research examining framing bias in artificial intelligence policy through structured research, evidence synthesis and analysis. Co-authored peer-reviewed research published in <em>Review of Policy Research</em>.</p><a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ RESEARCH ↗</a></section>
 
 <section class="cv-block"><div class="cv-heading">Additional <span>07</span></div><div class="cv-bottom"><div><h4>Tools</h4><p>Figma · Figma Make · Python · R · SQL · Streamlit · GitHub · Jupyter · CapCut · Clipchamp</p></div><div><h4>Location</h4><p>Leicester, UK · Willing to relocate to Barcelona</p></div></div></section>
 </aside>
