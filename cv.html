@@ -1,195 +1,113 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Aini Aden — UX / Product Design CV. Psychology + Data Science.">
-  <title>CV — Aini Aden</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=globe-5a2a032">
-  <style>
-    :root{--cv-ink:#181817;--cv-muted:#716e67;--cv-line:rgba(24,24,23,.14);--cv-paper:#f5f2ea;--cv-green:#dce9df;--cv-lilac:#e8e0f1}
-    .cv-page.cv-onepage{width:100%;max-width:none;height:calc(100vh - 76px);min-height:0;box-sizing:border-box;overflow:hidden;padding:clamp(1.4rem,2.2vh,2rem) clamp(2rem,5vw,5rem) 1.25rem;background:var(--cv-paper);font-family:"DM Sans",sans-serif;color:var(--cv-ink)}
-    .cv-onepage *{box-sizing:border-box}
-    .cv-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end;padding-bottom:1rem;border-bottom:1px solid var(--cv-line)}
-    .cv-name{font-size:clamp(2.6rem,5.2vw,5.6rem);line-height:.82;letter-spacing:-.075em;font-weight:700;margin:0}
-    .cv-name em{font-family:"Playfair Display",serif;font-weight:400}
-    .cv-kicker{margin:0 0 .65rem;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cv-muted)}
-    .cv-head-right{display:grid;grid-template-columns:auto auto;gap:.45rem 1.8rem;text-align:right;font-size:.68rem;line-height:1.25}
-    .cv-head-right a{text-decoration:none}
-    .cv-head-right a:hover{text-decoration:underline}
-    .cv-open{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:.25rem;font-size:.61rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--cv-muted)}
-    .cv-open span:first-child{display:inline-flex;align-items:center;gap:.45rem}
-    .cv-open i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4c8b65;box-shadow:0 0 0 4px rgba(76,139,101,.12);animation:cv-pulse 2.2s infinite}
-    .cv-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr);gap:clamp(1.5rem,3vw,3.4rem);height:calc(100% - 105px);padding-top:1.15rem}
-    .cv-main,.cv-side{min-width:0}
-    .cv-side{border-left:1px solid var(--cv-line);padding-left:clamp(1.2rem,2.5vw,2.6rem)}
-    .cv-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.55rem;padding-bottom:.42rem;border-bottom:1px solid var(--cv-line);font-size:.58rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--cv-muted)}
-    .cv-label b{font-weight:700;color:var(--cv-ink)}
-    .cv-profile{font-size:.78rem;line-height:1.48;max-width:72ch;margin:0 0 1.1rem}
-    .cv-projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-bottom:1rem}
-    .cv-project{position:relative;min-width:0;padding:.85rem .85rem .75rem;border:1px solid var(--cv-line);border-radius:12px;background:#fffdfa;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
-    .cv-project:hover{transform:translateY(-5px);box-shadow:0 14px 28px rgba(24,24,23,.09)}
-    .cv-project:nth-child(2){background:var(--cv-green)}
-    .cv-project:nth-child(3){background:var(--cv-lilac)}
-    .cv-project-num{font-size:.56rem;font-weight:700;letter-spacing:.1em;color:var(--cv-muted)}
-    .cv-project h3{font-size:.94rem;line-height:1.03;letter-spacing:-.04em;margin:.7rem 0 .35rem}
-    .cv-project h3 small{display:block;margin-top:.2rem;font-size:.55rem;font-weight:600;letter-spacing:.04em;color:var(--cv-muted)}
-    .cv-project p{font-size:.61rem;line-height:1.4;margin:0 0 .55rem;color:#45433e}
-    .cv-tags{font-size:.53rem;font-weight:600;line-height:1.35;color:var(--cv-muted)}
-    .cv-arrow{position:absolute;right:.7rem;bottom:.65rem;font-size:.9rem;transition:transform .3s}
-    .cv-project:hover .cv-arrow{transform:translate(3px,-3px)}
-    .cv-experience{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-    .cv-role{border-top:2px solid var(--cv-ink);padding-top:.55rem}
-    .cv-role-head{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
-    .cv-role h3{font-size:.78rem;line-height:1.05;letter-spacing:-.025em;margin:0}
-    .cv-date{white-space:nowrap;font-size:.52rem;font-weight:700;letter-spacing:.08em;color:var(--cv-muted)}
-    .cv-company{font-size:.58rem;font-weight:600;margin:.2rem 0 .4rem}
-    .cv-role ul{padding:0 0 0 .85rem;margin:0}
-    .cv-role li{font-size:.59rem;line-height:1.35;margin:.16rem 0;color:#4b4944}
-    .cv-side section{margin-bottom:1.05rem}
-    .cv-skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1rem}
-    .cv-skill-grid h4{font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .3rem}
-    .cv-skill-grid p{font-size:.59rem;line-height:1.45;color:#4b4944;margin:0}
-    .cv-edu{display:grid;gap:.65rem}
-    .cv-edu-item{display:grid;grid-template-columns:70px 1fr;gap:.6rem}
-    .cv-edu-date{font-size:.52rem;font-weight:700;letter-spacing:.07em;color:var(--cv-muted)}
-    .cv-edu h3{font-size:.68rem;line-height:1.1;margin:0 0 .15rem}
-    .cv-edu p{font-size:.56rem;line-height:1.35;color:#55524c;margin:0}
-    .cv-research{padding:.75rem;border-radius:12px;background:var(--cv-ink);color:#f5f2ea}
-    .cv-research .cv-label{border-color:rgba(245,242,234,.2);color:rgba(245,242,234,.6)}
-    .cv-research .cv-label b{color:#f5f2ea}
-    .cv-research h3{font-size:.78rem;line-height:1.1;letter-spacing:-.025em;margin:.4rem 0}
-    .cv-research p{font-size:.58rem;line-height:1.42;color:rgba(245,242,234,.72);margin:0}
-    .cv-research a{display:inline-block;margin-top:.5rem;color:#fff;text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.09em}
-    .cv-bottom{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.75rem;padding-top:.7rem;border-top:1px solid var(--cv-line)}
-    .cv-bottom h4{font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;margin:0 0 .2rem}
-    .cv-bottom p{font-size:.56rem;line-height:1.35;margin:0;color:#55524c}
-    @keyframes cv-pulse{50%{opacity:.45;transform:scale(.8)}}
-    @media(max-width:1050px){
-      .cv-page.cv-onepage{height:auto;min-height:100vh;overflow:visible}
-      .cv-grid{height:auto}
-    }
-    @media(max-width:800px){
-      .cv-page.cv-onepage{padding:1.3rem 5vw 2rem}
-      .cv-head{grid-template-columns:1fr}
-      .cv-head-right{text-align:left;grid-template-columns:1fr 1fr}
-      .cv-grid{grid-template-columns:1fr}
-      .cv-side{border-left:0;border-top:1px solid var(--cv-line);padding:1rem 0 0}
-      .cv-projects,.cv-experience{grid-template-columns:1fr}
-      .cv-open{display:none}
-    }
-    @media(prefers-reduced-motion:reduce){.cv-open i{animation:none}.cv-project{transition:none}}
-    @media print{
-      .nav,.skip-link{display:none!important}
-      .cv-page.cv-onepage{height:100vh;padding:.35in;overflow:hidden}
-      body{background:#f5f2ea}
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Aini Aden — UX / Product Design CV.">
+<title>CV — Aini Aden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=globe-5a2a032">
+<style>
+:root{--cv-ink:#20201e;--cv-muted:#6f6d67;--cv-line:#d9d6ce;--cv-paper:#f7f5ef;--cv-card:#fffdf8;--cv-green:#e4eee6;--cv-purple:#eee9f5}
+.cv-page.cv-resume{height:calc(100vh - 76px);min-height:620px;max-width:none;margin:0;padding:18px 4vw 20px;overflow:hidden;background:#ece9e1;font-family:"DM Sans",sans-serif;color:var(--cv-ink)}
+.cv-sheet{height:100%;max-width:1280px;margin:auto;padding:28px 34px;background:var(--cv-paper);border:1px solid rgba(32,32,30,.1);box-shadow:0 16px 50px rgba(32,32,30,.08);display:flex;flex-direction:column}
+.cv-header{display:grid;grid-template-columns:1fr auto;gap:30px;padding-bottom:14px;border-bottom:2px solid var(--cv-ink)}
+.cv-header h1{margin:0;font-size:clamp(2.1rem,3.8vw,4rem);line-height:.9;letter-spacing:-.065em}
+.cv-header h1 span{font-weight:400}
+.cv-title{margin:6px 0 0;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cv-muted)}
+.cv-contact{display:grid;grid-template-columns:auto auto;align-content:end;gap:4px 22px;text-align:right;font-size:.62rem;line-height:1.35}
+.cv-contact a{text-decoration:none}
+.cv-body{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(245px,.85fr);gap:26px;flex:1;min-height:0;padding-top:14px}
+.cv-left,.cv-right{min-width:0;min-height:0}
+.cv-right{border-left:1px solid var(--cv-line);padding-left:22px}
+.cv-block{margin-bottom:13px}
+.cv-heading{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--cv-line);padding-bottom:4px;margin-bottom:7px;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.cv-heading span{color:var(--cv-muted);font-weight:500}
+.cv-profile{font-size:.68rem;line-height:1.48;margin:0;max-width:78ch}
+.cv-role{margin-bottom:10px}
+.cv-role:last-child{margin-bottom:0}
+.cv-role-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cv-role h3{margin:0;font-size:.76rem;line-height:1.08;letter-spacing:-.015em}
+.cv-date{white-space:nowrap;color:var(--cv-muted);font-size:.53rem;font-weight:700;letter-spacing:.06em}
+.cv-company{margin:2px 0 4px;font-size:.58rem;font-weight:600}
+.cv-role ul{margin:0;padding-left:14px}
+.cv-role li{font-size:.58rem;line-height:1.35;margin:2px 0;color:#4e4c47}
+.cv-project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.cv-project{position:relative;padding:9px;border:1px solid var(--cv-line);border-radius:8px;background:var(--cv-card);min-height:118px;transition:transform .25s,box-shadow .25s}
+.cv-project:nth-child(2){background:var(--cv-green)}.cv-project:nth-child(3){background:var(--cv-purple)}
+.cv-project:hover{transform:translateY(-3px);box-shadow:0 9px 18px rgba(32,32,30,.09)}
+.cv-project-num{font-size:.5rem;font-weight:700;letter-spacing:.08em;color:var(--cv-muted)}
+.cv-project h3{margin:6px 0 4px;font-size:.69rem;line-height:1.05;letter-spacing:-.025em}
+.cv-project p{margin:0;font-size:.52rem;line-height:1.35;color:#55534e}
+.cv-project small{display:block;margin-top:4px;font-size:.49rem;color:var(--cv-muted);font-weight:600}
+.cv-skill-box{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.cv-skill-box h4{margin:0 0 2px;font-size:.54rem;text-transform:uppercase;letter-spacing:.07em}
+.cv-skill-box p{margin:0;font-size:.55rem;line-height:1.42;color:#514f4a}
+.cv-edu-item{display:grid;grid-template-columns:52px 1fr;gap:7px;margin-bottom:7px}
+.cv-edu-date{font-size:.5rem;font-weight:700;color:var(--cv-muted)}
+.cv-edu h3{margin:0;font-size:.61rem;line-height:1.15}.cv-edu p{margin:2px 0 0;font-size:.52rem;line-height:1.35;color:#55534e}
+.cv-research{padding:9px 10px;border:1px solid var(--cv-line);border-radius:8px;background:var(--cv-card)}
+.cv-research h3{margin:0 0 4px;font-size:.64rem;line-height:1.15}.cv-research p{margin:0;font-size:.52rem;line-height:1.38;color:#55534e}.cv-research a{display:inline-block;margin-top:5px;font-size:.5rem;font-weight:700;text-decoration:none}
+.cv-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:9px;padding-top:8px;border-top:1px solid var(--cv-line)}
+.cv-bottom h4{margin:0 0 2px;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em}.cv-bottom p{margin:0;font-size:.52rem;line-height:1.35;color:#55534e}
+.cv-note{display:inline-flex;align-items:center;gap:5px;margin-top:5px;font-size:.5rem;color:var(--cv-muted)}.cv-note i{width:5px;height:5px;border-radius:50%;background:#4b8a63}
+@media(max-width:900px){.cv-page.cv-resume{height:auto;overflow:visible}.cv-sheet{height:auto}.cv-body{grid-template-columns:1fr}.cv-right{border-left:0;border-top:1px solid var(--cv-line);padding:14px 0 0}.cv-project-grid{grid-template-columns:1fr}.cv-contact{grid-template-columns:1fr;text-align:left}}
+@media(max-width:600px){.cv-page.cv-resume{padding:10px}.cv-sheet{padding:20px}.cv-header{grid-template-columns:1fr}.cv-contact{grid-template-columns:1fr}.cv-body{gap:14px}}
+@media(prefers-reduced-motion:reduce){.cv-project{transition:none}}
+@media print{.nav,.skip-link{display:none!important}.cv-page.cv-resume{height:100vh;min-height:0;padding:0;background:white}.cv-sheet{box-shadow:none;border:0}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="nav">
-  <a class="brand" href="index.html#top">AINI ADEN</a>
-  <nav aria-label="Main navigation">
-    <a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html" aria-current="page">CV</a><a href="index.html#blog">Blog</a><a href="index.html#contact">Contact</a>
-  </nav>
-  <p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
+<a class="brand" href="index.html#top">AINI ADEN</a>
+<nav aria-label="Main navigation"><a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html" aria-current="page">CV</a><a href="index.html#blog">Blog</a><a href="index.html#contact">Contact</a></nav>
+<p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
 </header>
 
-<main class="cv-page cv-onepage" id="main">
-  <header class="cv-head">
-    <div>
-      <p class="cv-kicker">UX / PRODUCT DESIGN · PSYCHOLOGY + DATA SCIENCE</p>
-      <h1 class="cv-name">Aini A <em>Aden</em></h1>
-    </div>
-    <div class="cv-head-right">
-      <span>Leicester, UK · Open to Barcelona</span><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a>
-      <span>Willing to relocate</span><span>07539315949 · <a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">LinkedIn ↗</a></span>
-    </div>
-    <div class="cv-open"><span><i></i> Open to UX / Product Design opportunities</span><span>Portfolio · adea06.github.io/ainiaden-portfolio</span></div>
-  </header>
+<main class="cv-page cv-resume" id="main">
+<div class="cv-sheet">
+<header class="cv-header">
+<div><h1>AINI A <span>ADEN</span></h1><p class="cv-title">UX / Product Design · Psychology + Data Science</p><span class="cv-note"><i></i> Open to UX / Product opportunities · Willing to relocate to Barcelona</span></div>
+<div class="cv-contact"><span>Leicester, UK</span><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a><span>07539315949</span><a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">linkedin.com/in/ainiaden ↗</a><a href="https://adea06.github.io/ainiaden-portfolio" target="_blank" rel="noopener">Portfolio ↗</a></div>
+</header>
 
-  <div class="cv-grid">
-    <div class="cv-main">
-      <section>
-        <div class="cv-label"><b>Profile</b><span>01</span></div>
-        <p class="cv-profile">UX and Product Design candidate combining Psychology and Data Science to understand people, evidence and digital systems. I simplify complex workflows, translate technical information into clear experiences, and design with behavioural and data-informed thinking. Figma, prototyping, information architecture, user research and Python.</p>
-      </section>
+<div class="cv-body">
+<div class="cv-left">
+<section class="cv-block"><div class="cv-heading">Profile <span>01</span></div><p class="cv-profile">UX and Product Design candidate with an interdisciplinary background in Psychology and Data Science. I combine an understanding of human behaviour with analytical and technical capabilities to simplify complex workflows, translate technical information into intuitive experiences, and make evidence-informed design decisions. Figma · interactive prototyping · information architecture · user research · Python.</p></section>
 
-      <section>
-        <div class="cv-label"><b>Selected UX / Product Projects</b><span>02</span></div>
-        <div class="cv-projects">
-          <a class="cv-project" href="sst-workflow.html">
-            <span class="cv-project-num">01 · WORKFLOW</span><h3>Assignment Support Workflow <small>UX Designer</small></h3>
-            <p>Mapped recurring SST needs and two user pathways, then designed an interactive Figma Make workflow using progressive disclosure, hierarchy and cognitive-load principles. Moderated usability testing informed iterations.</p>
-            <span class="cv-tags">Figma · Figma Make · IA · Interaction Design</span><span class="cv-arrow">↗</span>
-          </a>
-          <a class="cv-project" href="investor-dashboard.html">
-            <span class="cv-project-num">02 · DATA PRODUCT</span><h3>Investor Decision Support Dashboard</h3>
-            <p>Built and evaluated ML outputs for an investor-facing Streamlit dashboard, translating behavioural signals, probabilities and model results into interpretable decision support.</p>
-            <span class="cv-tags">Python · Streamlit · ML · Data Visualisation</span><span class="cv-arrow">↗</span>
-          </a>
-          <div class="cv-project">
-            <span class="cv-project-num">03 · CONCEPT</span><h3>Heritage Engagement Concept</h3>
-            <p>Developed personas, journeys and AEIOU analysis, then used generative AI to explore concepts while critically reviewing outputs against behavioural insights and user needs.</p>
-            <span class="cv-tags">UX Research · Behavioural Design · Gen AI</span>
-          </div>
-        </div>
-      </section>
+<section class="cv-block"><div class="cv-heading">UX & Product Design Projects <span>02</span></div><div class="cv-project-grid">
+<a class="cv-project" href="sst-workflow.html"><span class="cv-project-num">01 · UX DESIGNER</span><h3>Assignment Support Workflow</h3><p>Mapped recurring SST needs and two user pathways; designed an interactive Figma Make workflow using progressive disclosure, hierarchy and cognitive-load principles. Moderated usability testing informed iterations.</p><small>Figma · Figma Make · IA · Interaction Design</small></a>
+<a class="cv-project" href="investor-dashboard.html"><span class="cv-project-num">02 · DATA PRODUCT</span><h3>Investor Decision Support Dashboard</h3><p>Built and evaluated ML outputs for an investor-facing Streamlit dashboard, translating behavioural signals, probabilities and model results into interpretable decision support.</p><small>Python · Streamlit · ML · Data Visualisation</small></a>
+<div class="cv-project"><span class="cv-project-num">03 · CONCEPT</span><h3>Heritage Engagement Concept</h3><p>Developed personas, journeys and AEIOU analysis; used generative AI to explore concepts and critically reviewed outputs against behavioural insights and user needs.</p><small>UX Research · Behavioural Design · Gen AI</small></div>
+</div></section>
 
-      <section>
-        <div class="cv-label"><b>Professional Experience</b><span>03</span></div>
-        <div class="cv-experience">
-          <article class="cv-role">
-            <div class="cv-role-head"><h3>Student Success Tutor / Learning Resource Centre Tutor</h3><span class="cv-date">JUL 2024—NOW</span></div>
-            <p class="cv-company">Elizabeth School of London</p>
-            <ul><li>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems, identifying recurring pain points.</li><li>Work with managers and SSTs to understand workflow challenges, prototype a more centralised solution and review feedback.</li><li>Analyse submission and engagement information and deliver accessible support to different user needs.</li></ul>
-          </article>
-          <article class="cv-role">
-            <div class="cv-role-head"><h3>SEND Account Manager / Talent Consultant</h3><span class="cv-date">SEP 2022—MAY 2024</span></div>
-            <p class="cv-company">Opogo Education</p>
-            <ul><li>Managed client and candidate relationships, identifying needs and translating them into appropriate solutions.</li><li>Collected feedback on platform and service pain points and worked with the technical team on potential improvements.</li><li>Coordinated recruitment workflows using stakeholder feedback and operational data.</li></ul>
-          </article>
-        </div>
-      </section>
-    </div>
+<section class="cv-block"><div class="cv-heading">Professional Experience <span>03</span></div>
+<article class="cv-role"><div class="cv-role-top"><h3>Student Success Tutor / Learning Resource Centre Tutor</h3><span class="cv-date">JUL 2024 — PRESENT</span></div><p class="cv-company">Elizabeth School of London</p><ul><li>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems, identifying recurring pain points and opportunities to improve processes.</li><li>Work with managers and Student Success Tutors to understand workflow challenges, prototype a more centralised solution and review feedback to refine it.</li><li>Analyse submission and engagement information to identify students requiring intervention; deliver accessible 1:1 and group support.</li></ul></article>
+<article class="cv-role"><div class="cv-role-top"><h3>SEND Account Manager / Talent Consultant</h3><span class="cv-date">SEP 2022 — MAY 2024</span></div><p class="cv-company">Opogo Education</p><ul><li>Managed client and candidate relationships, identifying needs and translating them into appropriate solutions.</li><li>Collected feedback on platform and service pain points and worked with the technical team on potential improvements.</li><li>Coordinated recruitment workflows using stakeholder feedback and operational data.</li></ul></article>
+</section>
+</div>
 
-    <aside class="cv-side">
-      <section>
-        <div class="cv-label"><b>Capabilities</b><span>04</span></div>
-        <div class="cv-skill-grid">
-          <div><h4>UX & Design</h4><p>Figma · Figma Make · User Flows · IA · Wireframing · Prototyping · Interaction Design · Accessibility</p></div>
-          <div><h4>Research & Behaviour</h4><p>User Research · Research Synthesis · Qualitative & Quantitative Research · Cognitive & Behavioural Psychology · Research Ethics</p></div>
-          <div><h4>Technical</h4><p>Python · R · SQL · Machine Learning · Data Visualisation · Streamlit · GitHub · Jupyter</p></div>
-          <div><h4>AI</h4><p>Generative AI · Prompt Iteration · Human-AI Interaction · Critical evaluation of AI outputs</p></div>
-        </div>
-      </section>
+<aside class="cv-right">
+<section class="cv-block"><div class="cv-heading">Key Skills <span>04</span></div><div class="cv-skill-box">
+<div><h4>UX & Design</h4><p>Figma · Figma Make · User Flows · IA · Wireframing · Prototyping · Interaction Design · Accessibility</p></div>
+<div><h4>Research & Behaviour</h4><p>User Research · Research Synthesis · Qualitative & Quantitative Research · Cognitive & Behavioural Psychology · Research Ethics</p></div>
+<div><h4>Technical</h4><p>Python · R · SQL · Machine Learning · Data Visualisation · Streamlit · GitHub · Jupyter</p></div>
+<div><h4>AI</h4><p>Generative AI · Prompt Iteration · Human-AI Interaction · Critical evaluation of AI outputs</p></div>
+</div></section>
 
-      <section>
-        <div class="cv-label"><b>Education</b><span>05</span></div>
-        <div class="cv-edu">
-          <div class="cv-edu-item"><span class="cv-edu-date">2026</span><div><h3>Google UX Design Professional Certificate</h3><p>Ongoing · User research, prototyping, usability testing, accessibility</p></div></div>
-          <div class="cv-edu-item"><span class="cv-edu-date">2025—26</span><div><h3>MSc Data Science</h3><p>University of Leicester · ML, AI, predictive modelling, visualisation, statistics</p></div></div>
-          <div class="cv-edu-item"><span class="cv-edu-date">2018—21</span><div><h3>BSc (Hons) Psychology · 2:1</h3><p>De Montfort University · Research methods, cognition, quantitative & qualitative research</p></div></div>
-        </div>
-      </section>
+<section class="cv-block"><div class="cv-heading">Education <span>05</span></div><div class="cv-edu">
+<div class="cv-edu-item"><span class="cv-edu-date">2026</span><div><h3>Google UX Design Professional Certificate</h3><p>Ongoing · User research · Wireframing · Prototyping · Usability testing · Accessibility</p></div></div>
+<div class="cv-edu-item"><span class="cv-edu-date">2025–26</span><div><h3>MSc Data Science</h3><p>University of Leicester · Machine Learning · AI · Predictive Modelling · Visualisation · Statistics · Python</p></div></div>
+<div class="cv-edu-item"><span class="cv-edu-date">2018–21 · 2:1</span><div><h3>BSc (Hons) Psychology</h3><p>De Montfort University · Research Methods · Cognitive Psychology · Quantitative & Qualitative Research · Research Ethics</p></div></div>
+</div></section>
 
-      <section class="cv-research">
-        <div class="cv-label"><b>Research</b><span>06</span></div>
-        <h3>Power and politics in framing bias in Artificial Intelligence policy.</h3>
-        <p>Research Assistant / Co-author at De Montfort University. Contributed to evidence synthesis and analysis; co-authored peer-reviewed research in <em>Review of Policy Research</em>.</p>
-        <a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ RESEARCH ↗</a>
-      </section>
+<section class="cv-block cv-research"><div class="cv-heading">Research Experience <span>06</span></div><h3>Research Assistant / Co-author · De Montfort University</h3><p>Contributed to research examining framing bias in AI policy through structured research, evidence synthesis and analysis. Co-authored peer-reviewed research published in <em>Review of Policy Research</em>.</p><a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ RESEARCH ↗</a></section>
 
-      <div class="cv-bottom">
-        <div><h4>Tools</h4><p>Figma · Python · R · SQL · Streamlit · GitHub · Jupyter · CapCut · Clipchamp</p></div>
-        <div><h4>Links</h4><p><a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">linkedin.com/in/ainiaden</a><br><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a></p></div>
-      </div>
-    </aside>
-  </div>
+<section class="cv-block"><div class="cv-heading">Additional <span>07</span></div><div class="cv-bottom"><div><h4>Tools</h4><p>Figma · Figma Make · Python · R · SQL · Streamlit · GitHub · Jupyter · CapCut · Clipchamp</p></div><div><h4>Location</h4><p>Leicester, UK · Willing to relocate to Barcelona</p></div></div></section>
+</aside>
+</div>
+</div>
 </main>
 </body>
 </html>
