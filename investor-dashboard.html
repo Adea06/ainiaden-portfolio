@@ -157,17 +157,11 @@
       <div class="case-copy">
         <p>The redesigned experience keeps the core decision journey on one page: select a market and date, compare both stages, then inspect the evidence behind the difference.</p>
         <p><strong>Model output → uncertainty → interface.</strong> I used probabilities and explainability evidence to avoid presenting a prediction as certainty.</p>
-        <div class="live-dashboard-wrap">
-          <div class="live-dashboard-header">
-            <span>LATEST DASHBOARD</span>
-            <a href="https://github.com/Adea06/behavioural-investor-signal/tree/main" target="_blank" rel="noopener">View source ↗</a>
-          </div>
-          <div class="live-dashboard-frame">
-            <img src="assets/images/investor-dashboard-after.png" alt="Latest Investor Decision Support dashboard showing the redesigned one-page investor experience" loading="lazy">
-          </div>
-          <p class="live-dashboard-note">This is the latest dashboard build from the project repository. The Streamlit prototype runs locally; the portfolio shows the latest interface here so the case study remains accessible without requiring a separate app deployment.</p>
+        <div class="final-dashboard-note">
+          <div><span>FINAL EXPERIENCE</span><strong>One page. One comparison. Enough evidence to question the signal.</strong></div>
+          <a class="case-button case-button-dark" href="https://github.com/Adea06/behavioural-investor-signal/tree/main" target="_blank" rel="noopener">View source ↗</a>
         </div>
-        <div class="sequence"><span>1 · Stage comparison</span><span>2 · Behavioural probability impact</span><span>3 · Five-day history</span><span>4 · Technical + behavioural context</span><span>5 · Limitations</span></div>
+        <div class="sequence"><span>01 · Stage comparison</span><span>02 · Probability impact</span><span>03 · Five-day history</span><span>04 · Technical + behavioural context</span><span>05 · Limitations</span></div>
       </div>
     </section>
 
@@ -176,18 +170,6 @@
       <div class="case-copy">
         <p>The original dashboard did not have a validated live-news pipeline. I therefore avoided presenting Stage 2 as a fully live prediction. Price and technical context can support current views, but new behavioural predictions require the same timestamped news → sentiment pipeline used during training.</p>
         <div class="tradeoff"><b>Richer behavioural model</b><span>↔</span><b>Reliable live data</b><small>Clarity and reliability over feature completeness.</small></div>
-      </div>
-    </section>
-
-    <section class="case-section" id="test">
-      <div class="case-label">TEST</div>
-      <div class="case-copy">
-        <div class="eval-grid">
-          <div><h3>What the project established</h3><ul><li>Behavioural features improved LightGBM directional F1 in both original markets.</li><li>Stage comparison made the behavioural contribution inspectable.</li><li>External testing exposed transfer limitations.</li><li>The redesign consolidated comparison and context into one view.</li></ul></div>
-          <div><h3>What I still need to test</h3><ul><li>Whether investors interpret probability correctly.</li><li>Whether the interface improves decision understanding.</li><li>Which language creates better-calibrated trust.</li></ul></div>
-        </div>
-        <p><strong>The model was evaluated. The redesigned experience still needs usability testing.</strong></p>
-        <p class="case-note">The evaluation visuals above show why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
       </div>
     </section>
 
@@ -211,6 +193,19 @@
             <p>The same evaluation was repeated for the FTSE 100 rather than assuming performance would transfer between markets.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+
+    <section class="case-section" id="test">
+      <div class="case-label">TEST</div>
+      <div class="case-copy">
+        <div class="eval-grid">
+          <div><h3>What the project established</h3><ul><li>Behavioural features improved LightGBM directional F1 in both original markets.</li><li>Stage comparison made the behavioural contribution inspectable.</li><li>External testing exposed transfer limitations.</li><li>The redesign consolidated comparison and context into one view.</li></ul></div>
+          <div><h3>What I still need to test</h3><ul><li>Whether investors interpret probability correctly.</li><li>Whether the interface improves decision understanding.</li><li>Which language creates better-calibrated trust.</li></ul></div>
+        </div>
+        <p><strong>The model was evaluated. The redesigned experience still needs usability testing.</strong></p>
+        <p class="case-note">The evaluation visuals above show why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
       </div>
     </section>
 
