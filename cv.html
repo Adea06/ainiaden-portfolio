@@ -162,6 +162,16 @@
   .cv-resume .cv-skills-row{grid-template-columns:1fr;gap:3px}
 }
 
+
+/* Keep the final Additional block visible within the one-page CV */
+.cv-resume .cv-body{overflow:visible}
+.cv-resume .cv-left,.cv-resume .cv-right{overflow:visible}
+.cv-resume .cv-right{display:flex;flex-direction:column}
+.cv-resume .cv-right .cv-block{flex-shrink:0}
+.cv-resume .cv-right .cv-block:last-child{margin-bottom:0}
+.cv-resume .cv-bottom{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px}
+.cv-resume .cv-bottom p{font-size:.57rem;line-height:1.45}
+
 </style>
 </head>
 <body>
