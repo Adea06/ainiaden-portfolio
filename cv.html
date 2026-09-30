@@ -3,68 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Aini Aden's UX and product design CV.">
+  <meta name="description" content="Aini Aden — UX / Product Design CV. Psychology + Data Science.">
   <title>CV — Aini Aden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=globe-5a2a032">
+  <style>
+    :root{--cv-ink:#181817;--cv-muted:#716e67;--cv-line:rgba(24,24,23,.14);--cv-paper:#f5f2ea;--cv-green:#dce9df;--cv-lilac:#e8e0f1}
+    .cv-page.cv-onepage{width:100%;max-width:none;height:calc(100vh - 76px);min-height:0;box-sizing:border-box;overflow:hidden;padding:clamp(1.4rem,2.2vh,2rem) clamp(2rem,5vw,5rem) 1.25rem;background:var(--cv-paper);font-family:"DM Sans",sans-serif;color:var(--cv-ink)}
+    .cv-onepage *{box-sizing:border-box}
+    .cv-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end;padding-bottom:1rem;border-bottom:1px solid var(--cv-line)}
+    .cv-name{font-size:clamp(2.6rem,5.2vw,5.6rem);line-height:.82;letter-spacing:-.075em;font-weight:700;margin:0}
+    .cv-name em{font-family:"Playfair Display",serif;font-weight:400}
+    .cv-kicker{margin:0 0 .65rem;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cv-muted)}
+    .cv-head-right{display:grid;grid-template-columns:auto auto;gap:.45rem 1.8rem;text-align:right;font-size:.68rem;line-height:1.25}
+    .cv-head-right a{text-decoration:none}
+    .cv-head-right a:hover{text-decoration:underline}
+    .cv-open{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:.25rem;font-size:.61rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--cv-muted)}
+    .cv-open span:first-child{display:inline-flex;align-items:center;gap:.45rem}
+    .cv-open i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4c8b65;box-shadow:0 0 0 4px rgba(76,139,101,.12);animation:cv-pulse 2.2s infinite}
+    .cv-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr);gap:clamp(1.5rem,3vw,3.4rem);height:calc(100% - 105px);padding-top:1.15rem}
+    .cv-main,.cv-side{min-width:0}
+    .cv-side{border-left:1px solid var(--cv-line);padding-left:clamp(1.2rem,2.5vw,2.6rem)}
+    .cv-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.55rem;padding-bottom:.42rem;border-bottom:1px solid var(--cv-line);font-size:.58rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--cv-muted)}
+    .cv-label b{font-weight:700;color:var(--cv-ink)}
+    .cv-profile{font-size:.78rem;line-height:1.48;max-width:72ch;margin:0 0 1.1rem}
+    .cv-projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-bottom:1rem}
+    .cv-project{position:relative;min-width:0;padding:.85rem .85rem .75rem;border:1px solid var(--cv-line);border-radius:12px;background:#fffdfa;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+    .cv-project:hover{transform:translateY(-5px);box-shadow:0 14px 28px rgba(24,24,23,.09)}
+    .cv-project:nth-child(2){background:var(--cv-green)}
+    .cv-project:nth-child(3){background:var(--cv-lilac)}
+    .cv-project-num{font-size:.56rem;font-weight:700;letter-spacing:.1em;color:var(--cv-muted)}
+    .cv-project h3{font-size:.94rem;line-height:1.03;letter-spacing:-.04em;margin:.7rem 0 .35rem}
+    .cv-project h3 small{display:block;margin-top:.2rem;font-size:.55rem;font-weight:600;letter-spacing:.04em;color:var(--cv-muted)}
+    .cv-project p{font-size:.61rem;line-height:1.4;margin:0 0 .55rem;color:#45433e}
+    .cv-tags{font-size:.53rem;font-weight:600;line-height:1.35;color:var(--cv-muted)}
+    .cv-arrow{position:absolute;right:.7rem;bottom:.65rem;font-size:.9rem;transition:transform .3s}
+    .cv-project:hover .cv-arrow{transform:translate(3px,-3px)}
+    .cv-experience{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    .cv-role{border-top:2px solid var(--cv-ink);padding-top:.55rem}
+    .cv-role-head{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+    .cv-role h3{font-size:.78rem;line-height:1.05;letter-spacing:-.025em;margin:0}
+    .cv-date{white-space:nowrap;font-size:.52rem;font-weight:700;letter-spacing:.08em;color:var(--cv-muted)}
+    .cv-company{font-size:.58rem;font-weight:600;margin:.2rem 0 .4rem}
+    .cv-role ul{padding:0 0 0 .85rem;margin:0}
+    .cv-role li{font-size:.59rem;line-height:1.35;margin:.16rem 0;color:#4b4944}
+    .cv-side section{margin-bottom:1.05rem}
+    .cv-skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1rem}
+    .cv-skill-grid h4{font-size:.57rem;letter-spacing:.08em;text-transform:uppercase;margin:0 0 .3rem}
+    .cv-skill-grid p{font-size:.59rem;line-height:1.45;color:#4b4944;margin:0}
+    .cv-edu{display:grid;gap:.65rem}
+    .cv-edu-item{display:grid;grid-template-columns:70px 1fr;gap:.6rem}
+    .cv-edu-date{font-size:.52rem;font-weight:700;letter-spacing:.07em;color:var(--cv-muted)}
+    .cv-edu h3{font-size:.68rem;line-height:1.1;margin:0 0 .15rem}
+    .cv-edu p{font-size:.56rem;line-height:1.35;color:#55524c;margin:0}
+    .cv-research{padding:.75rem;border-radius:12px;background:var(--cv-ink);color:#f5f2ea}
+    .cv-research .cv-label{border-color:rgba(245,242,234,.2);color:rgba(245,242,234,.6)}
+    .cv-research .cv-label b{color:#f5f2ea}
+    .cv-research h3{font-size:.78rem;line-height:1.1;letter-spacing:-.025em;margin:.4rem 0}
+    .cv-research p{font-size:.58rem;line-height:1.42;color:rgba(245,242,234,.72);margin:0}
+    .cv-research a{display:inline-block;margin-top:.5rem;color:#fff;text-decoration:none;font-size:.52rem;font-weight:700;letter-spacing:.09em}
+    .cv-bottom{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.75rem;padding-top:.7rem;border-top:1px solid var(--cv-line)}
+    .cv-bottom h4{font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;margin:0 0 .2rem}
+    .cv-bottom p{font-size:.56rem;line-height:1.35;margin:0;color:#55524c}
+    @keyframes cv-pulse{50%{opacity:.45;transform:scale(.8)}}
+    @media(max-width:1050px){
+      .cv-page.cv-onepage{height:auto;min-height:100vh;overflow:visible}
+      .cv-grid{height:auto}
+    }
+    @media(max-width:800px){
+      .cv-page.cv-onepage{padding:1.3rem 5vw 2rem}
+      .cv-head{grid-template-columns:1fr}
+      .cv-head-right{text-align:left;grid-template-columns:1fr 1fr}
+      .cv-grid{grid-template-columns:1fr}
+      .cv-side{border-left:0;border-top:1px solid var(--cv-line);padding:1rem 0 0}
+      .cv-projects,.cv-experience{grid-template-columns:1fr}
+      .cv-open{display:none}
+    }
+    @media(prefers-reduced-motion:reduce){.cv-open i{animation:none}.cv-project{transition:none}}
+    @media print{
+      .nav,.skip-link{display:none!important}
+      .cv-page.cv-onepage{height:100vh;padding:.35in;overflow:hidden}
+      body{background:#f5f2ea}
+    }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="nav">
-    <a class="brand" href="index.html#top">AINI ADEN</a>
-    <nav aria-label="Main navigation">
-      <a href="index.html#work">Work</a>
-      <a href="index.html#about">About me</a>
-      <a href="cv.html" aria-current="page">CV</a>
-      <a href="index.html#blog">Blog</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="nav">
+  <a class="brand" href="index.html#top">AINI ADEN</a>
+  <nav aria-label="Main navigation">
+    <a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html" aria-current="page">CV</a><a href="index.html#blog">Blog</a><a href="index.html#contact">Contact</a>
+  </nav>
+  <p>UX / PRODUCT / BEHAVIOUR <i aria-hidden="true"></i></p>
+</header>
+
+<main class="cv-page cv-onepage" id="main">
+  <header class="cv-head">
+    <div>
+      <p class="cv-kicker">UX / PRODUCT DESIGN · PSYCHOLOGY + DATA SCIENCE</p>
+      <h1 class="cv-name">Aini A <em>Aden</em></h1>
+    </div>
+    <div class="cv-head-right">
+      <span>Leicester, UK · Open to Barcelona</span><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a>
+      <span>Willing to relocate</span><span>07539315949 · <a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">LinkedIn ↗</a></span>
+    </div>
+    <div class="cv-open"><span><i></i> Open to UX / Product Design opportunities</span><span>Portfolio · adea06.github.io/ainiaden-portfolio</span></div>
   </header>
-  <main class="cv-page cv-editorial" id="main">
-    <div class="cv-hero">
-      <div class="cv-hero-top"><p class="eyebrow">AINI A ADEN · UX / PRODUCT DESIGN</p><span class="cv-status"><i></i> LEICESTER, UK · WILLING TO RELOCATE</span></div>
-      <h1>UX / Product<br><em>Design</em> with<br>people, data &amp; technology.</h1>
-      <div class="cv-hero-bottom">
-        <p class="cv-intro">UX and Product Design candidate with an interdisciplinary background in Psychology and Data Science, combining an understanding of human behaviour with strong analytical and technical capabilities. Experienced in identifying user and operational needs, simplifying complex workflows, and translating data and technical information into intuitive digital experiences. Skilled in Figma, interactive prototyping, information architecture and Python, with particular strengths in data-informed and behaviourally informed design.</p>
-        <div class="cv-location"><span>AINI A ADEN</span><span>LEICESTER, UK · WILLING TO RELOCATE</span><span>ainiaden4@gmail.com · 07539315949</span><span>linkedin.com/in/ainiaden</span></div>
+
+  <div class="cv-grid">
+    <div class="cv-main">
+      <section>
+        <div class="cv-label"><b>Profile</b><span>01</span></div>
+        <p class="cv-profile">UX and Product Design candidate combining Psychology and Data Science to understand people, evidence and digital systems. I simplify complex workflows, translate technical information into clear experiences, and design with behavioural and data-informed thinking. Figma, prototyping, information architecture, user research and Python.</p>
+      </section>
+
+      <section>
+        <div class="cv-label"><b>Selected UX / Product Projects</b><span>02</span></div>
+        <div class="cv-projects">
+          <a class="cv-project" href="sst-workflow.html">
+            <span class="cv-project-num">01 · WORKFLOW</span><h3>Assignment Support Workflow <small>UX Designer</small></h3>
+            <p>Mapped recurring SST needs and two user pathways, then designed an interactive Figma Make workflow using progressive disclosure, hierarchy and cognitive-load principles. Moderated usability testing informed iterations.</p>
+            <span class="cv-tags">Figma · Figma Make · IA · Interaction Design</span><span class="cv-arrow">↗</span>
+          </a>
+          <a class="cv-project" href="investor-dashboard.html">
+            <span class="cv-project-num">02 · DATA PRODUCT</span><h3>Investor Decision Support Dashboard</h3>
+            <p>Built and evaluated ML outputs for an investor-facing Streamlit dashboard, translating behavioural signals, probabilities and model results into interpretable decision support.</p>
+            <span class="cv-tags">Python · Streamlit · ML · Data Visualisation</span><span class="cv-arrow">↗</span>
+          </a>
+          <div class="cv-project">
+            <span class="cv-project-num">03 · CONCEPT</span><h3>Heritage Engagement Concept</h3>
+            <p>Developed personas, journeys and AEIOU analysis, then used generative AI to explore concepts while critically reviewing outputs against behavioural insights and user needs.</p>
+            <span class="cv-tags">UX Research · Behavioural Design · Gen AI</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="cv-label"><b>Professional Experience</b><span>03</span></div>
+        <div class="cv-experience">
+          <article class="cv-role">
+            <div class="cv-role-head"><h3>Student Success Tutor / Learning Resource Centre Tutor</h3><span class="cv-date">JUL 2024—NOW</span></div>
+            <p class="cv-company">Elizabeth School of London</p>
+            <ul><li>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems, identifying recurring pain points.</li><li>Work with managers and SSTs to understand workflow challenges, prototype a more centralised solution and review feedback.</li><li>Analyse submission and engagement information and deliver accessible support to different user needs.</li></ul>
+          </article>
+          <article class="cv-role">
+            <div class="cv-role-head"><h3>SEND Account Manager / Talent Consultant</h3><span class="cv-date">SEP 2022—MAY 2024</span></div>
+            <p class="cv-company">Opogo Education</p>
+            <ul><li>Managed client and candidate relationships, identifying needs and translating them into appropriate solutions.</li><li>Collected feedback on platform and service pain points and worked with the technical team on potential improvements.</li><li>Coordinated recruitment workflows using stakeholder feedback and operational data.</li></ul>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <aside class="cv-side">
+      <section>
+        <div class="cv-label"><b>Capabilities</b><span>04</span></div>
+        <div class="cv-skill-grid">
+          <div><h4>UX & Design</h4><p>Figma · Figma Make · User Flows · IA · Wireframing · Prototyping · Interaction Design · Accessibility</p></div>
+          <div><h4>Research & Behaviour</h4><p>User Research · Research Synthesis · Qualitative & Quantitative Research · Cognitive & Behavioural Psychology · Research Ethics</p></div>
+          <div><h4>Technical</h4><p>Python · R · SQL · Machine Learning · Data Visualisation · Streamlit · GitHub · Jupyter</p></div>
+          <div><h4>AI</h4><p>Generative AI · Prompt Iteration · Human-AI Interaction · Critical evaluation of AI outputs</p></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="cv-label"><b>Education</b><span>05</span></div>
+        <div class="cv-edu">
+          <div class="cv-edu-item"><span class="cv-edu-date">2026</span><div><h3>Google UX Design Professional Certificate</h3><p>Ongoing · User research, prototyping, usability testing, accessibility</p></div></div>
+          <div class="cv-edu-item"><span class="cv-edu-date">2025—26</span><div><h3>MSc Data Science</h3><p>University of Leicester · ML, AI, predictive modelling, visualisation, statistics</p></div></div>
+          <div class="cv-edu-item"><span class="cv-edu-date">2018—21</span><div><h3>BSc (Hons) Psychology · 2:1</h3><p>De Montfort University · Research methods, cognition, quantitative & qualitative research</p></div></div>
+        </div>
+      </section>
+
+      <section class="cv-research">
+        <div class="cv-label"><b>Research</b><span>06</span></div>
+        <h3>Power and politics in framing bias in Artificial Intelligence policy.</h3>
+        <p>Research Assistant / Co-author at De Montfort University. Contributed to evidence synthesis and analysis; co-authored peer-reviewed research in <em>Review of Policy Research</em>.</p>
+        <a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ RESEARCH ↗</a>
+      </section>
+
+      <div class="cv-bottom">
+        <div><h4>Tools</h4><p>Figma · Python · R · SQL · Streamlit · GitHub · Jupyter · CapCut · Clipchamp</p></div>
+        <div><h4>Links</h4><p><a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">linkedin.com/in/ainiaden</a><br><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a></p></div>
       </div>
-    </div>
-    <div class="cv-marquee" aria-hidden="true"><div>PSYCHOLOGY <span>✦</span> DATA SCIENCE <span>✦</span> UX DESIGN <span>✦</span> HUMAN-AI INTERACTION <span>✦</span> RESEARCH <span>✦</span></div></div>
-    <div class="cv-sections">
-      <section class="cv-section cv-projects"><div class="cv-section-label"><span>01</span><span>UX &amp; PRODUCT DESIGN PROJECTS</span></div><div class="cv-project-list">
-        <a class="cv-project-card" href="sst-workflow.html"><span class="cv-project-number">01</span><div><h2>Assignment Support Workflow <small>UX Designer</small></h2><p>Identified an operational challenge where new Student Success Tutors required repeated training during busy submission periods. Mapped recurring needs and two user pathways, then designed an interactive Figma Make prototype using information architecture, progressive disclosure, visual hierarchy and cognitive-load principles.</p><span class="cv-meta">Figma · Figma Make · Interaction Design · Information Architecture</span></div><span class="cv-project-arrow">↗</span></a>
-        <a class="cv-project-card cv-project-green" href="investor-dashboard.html"><span class="cv-project-number">02</span><div><h2>Investor Decision Support Dashboard</h2><p>Investigated whether behavioural finance indicators improve financial market prediction beyond technical indicators. Worked with Python, machine learning and AI-generated sentiment outputs, translating complex results into interpretable visual outputs for an investor-facing Streamlit dashboard.</p><span class="cv-meta">Python · Streamlit · Machine Learning · Data Visualisation</span></div><span class="cv-project-arrow">↗</span></a>
-        <div class="cv-project-card cv-project-purple"><span class="cv-project-number">03</span><div><h2>Heritage Engagement Concept</h2><p>Developed personas and mapped user journeys to understand engagement needs. Applied the AEIOU framework, explored concepts with generative AI, critically reviewed outputs against user needs and behavioural insights, and proposed gamified interaction flows.</p><span class="cv-meta">UX Research · Behavioural Design · Generative AI</span></div><span class="cv-project-arrow">↗</span></div>
-      </div></section>
-      <section class="cv-section"><div class="cv-section-label"><span>02</span><span>KEY SKILLS</span></div><div class="cv-skill-layout">
-        <div class="cv-skill-group"><h3>UX &amp; DESIGN</h3><div class="cv-chips"><span>Figma &amp; Figma Make</span><span>User Flows &amp; IA</span><span>Wireframing &amp; Prototyping</span><span>Interaction Design</span><span>Accessibility</span></div></div>
-        <div class="cv-skill-group"><h3>RESEARCH &amp; BEHAVIOUR</h3><div class="cv-chips"><span>User Research</span><span>Research Synthesis</span><span>Qualitative &amp; Quantitative Research</span><span>Cognitive &amp; Behavioural Psychology</span><span>Research Ethics</span></div></div>
-        <div class="cv-skill-group"><h3>TECHNICAL</h3><div class="cv-chips"><span>Python &amp; R</span><span>Gen AI &amp; Prompt Iteration</span><span>Machine Learning</span><span>GitHub &amp; Jupyter Notebook</span><span>Data Visualisation</span></div></div>
-      </div></section>
-      <section class="cv-section"><div class="cv-section-label"><span>03</span><span>PROFESSIONAL EXPERIENCE</span></div><div class="cv-timeline">
-        <article><span class="cv-year">JUL 2024—NOW</span><div><h2>Student Success Tutor / Learning Resource Centre Tutor</h2><p>Elizabeth School of London</p><small>Manage complex student-support workflows across Moodle, Microsoft 365 and internal tracking systems. Work with managers and Student Success Tutors to understand pain points, propose a more centralised workflow, prototype an improved SST platform using Microsoft tools, and review feedback to refine the solution. Analyse submission and engagement information to identify students requiring intervention and deliver accessible 1:1 and group support.</small></div></article>
-        <article><span class="cv-year">SEP 2022—MAY 2024</span><div><h2>SEND Account Manager / Talent Consultant</h2><p>Opogo Education</p><small>Managed relationships with education clients and candidates, identifying needs and translating them into appropriate solutions. Collected and reviewed feedback to understand platform and service pain points, worked with the technical team on user feedback and potential improvements, and coordinated recruitment workflows using stakeholder feedback and operational data.</small></div></article>
-      </div></section>
-      <section class="cv-section"><div class="cv-section-label"><span>04</span><span>EDUCATION</span></div><div class="cv-timeline">
-        <article><span class="cv-year">ONGOING · 2026</span><div><h2>Google UX Design Professional Certificate</h2><p>User Research · Wireframing · Prototyping · Usability Testing · Figma · Accessibility · Responsive Design</p></div></article>
-        <article><span class="cv-year">2025—2026</span><div><h2>MSc Data Science</h2><p>University of Leicester</p><small>Machine Learning · AI &amp; Predictive Modelling · Data Visualisation · Statistics · Python</small></div></article>
-        <article><span class="cv-year">2018—2021 · 2:1</span><div><h2>BSc (Hons) Psychology</h2><p>De Montfort University</p><small>Research Methods · Cognitive Psychology · Quantitative &amp; Qualitative Research · Research Ethics</small></div></article>
-      </div></section>
-      <section class="cv-section cv-research"><div class="cv-section-label"><span>05</span><span>RESEARCH EXPERIENCE</span></div><div class="cv-research-feature"><div><span class="cv-research-kicker">DE MONTFORT UNIVERSITY · RESEARCH ASSISTANT / CO-AUTHOR</span><h2>Power and politics in framing bias in Artificial Intelligence policy.</h2><p>Contributed to academic research examining framing bias in artificial intelligence policy through structured research, evidence synthesis and analysis as part of a collaborative project. Co-authored peer-reviewed research published in <em>Review of Policy Research</em>.</p></div><a href="https://doi.org/10.1111/ropr.12567" target="_blank" rel="noopener">READ THE RESEARCH <span>↗</span></a></div></section>
-      <section class="cv-section"><div class="cv-section-label"><span>06</span><span>ADDITIONAL</span></div><div class="cv-additional"><div><h3>TOOLS</h3><p>Figma · Figma Make · Python · R · SQL · Streamlit · GitHub · Jupyter · CapCut · Clipchamp</p></div><div><h3>LOCATION</h3><p>Leicester, UK · Willing to relocate to Barcelona</p></div><div><h3>CONTACT</h3><p><a href="mailto:ainiaden4@gmail.com">ainiaden4@gmail.com</a> · 07539315949 · <a href="https://linkedin.com/in/ainiaden" target="_blank" rel="noopener">LinkedIn</a></p></div></div></section>
-    </div>
-  </main>  <footer id="contact">
-    <div class="footer-intro">
-      <p>HAVE A PROJECT OR OPPORTUNITY?</p>
-      <a class="contact-link" href="mailto:ainiaden4@gmail.com">LET’S TALK <span aria-hidden="true">↗</span></a>
-      <span>LEICESTER, UK · OPEN TO BARCELONA</span>
-    </div>
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html">CV</a><a href="index.html#blog">Blog</a><a href="mailto:ainiaden4@gmail.com">Contact</a>
-    </nav>
-  </footer>
+    </aside>
+  </div>
+</main>
 </body>
 </html>
