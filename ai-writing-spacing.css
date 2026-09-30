@@ -1,0 +1,56 @@
+/* AI writing — improved editorial line spacing */
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body > p {
+  margin: 0 0 1.55rem;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  max-width: 68ch;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body > h2 {
+  margin-top: clamp(4.5rem, 8vw, 7rem);
+  margin-bottom: 1.45rem;
+  line-height: 1.08;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body > p + p {
+  margin-top: .15rem;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body br + br {
+  display: none;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-inline-link {
+  display: inline-block;
+  margin-top: .9rem;
+  line-height: 1.5;
+  text-underline-offset: 4px;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-concept-card,
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-insight,
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-figure,
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .question-cards,
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-triad {
+  margin-top: 2.4rem;
+  margin-bottom: 2.8rem;
+}
+
+body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body blockquote {
+  margin-top: 4rem;
+  margin-bottom: 3.5rem;
+  line-height: 1.12;
+}
+
+@media (max-width: 700px) {
+  body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body > p {
+    font-size: .98rem;
+    line-height: 1.82;
+    margin-bottom: 1.35rem;
+  }
+
+  body.writing-reader-page:has(.reader-article[data-article="ai-design"]) .reader-article[data-article="ai-design"] .reader-body > h2 {
+    margin-top: 4rem;
+    margin-bottom: 1.2rem;
+  }
+}
