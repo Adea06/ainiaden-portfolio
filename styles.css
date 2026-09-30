@@ -632,3 +632,30 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
   .live-dashboard-frame{height:720px;min-height:720px;border-radius:12px}
   .live-dashboard-header{align-items:flex-start;flex-direction:column}
 }
+
+
+/* Recruiter-focused editorial blog */
+.blog-posts { max-width: 900px; margin: 5rem auto 0; }
+.editorial-post { max-width: 850px; margin-top: 0; padding: 5rem 0; }
+.editorial-post + .editorial-post { border-top: 1px solid var(--line); }
+.editorial-post .eyebrow { color: var(--muted); }
+.editorial-post h2 { max-width: 820px; margin: 1rem 0 1.2rem; font-size: clamp(2.8rem, 6vw, 5.7rem); line-height: .92; letter-spacing: -.06em; }
+.blog-post-dek { max-width: 720px; margin: 0 0 2.2rem; font-family: Georgia, serif; font-size: 1.35rem!important; line-height: 1.45!important; color: var(--ink); }
+.editorial-post h3 { margin: 2.8rem 0 .7rem; font-size: 1.05rem; letter-spacing: -.02em; }
+.editorial-post p:not(.eyebrow) { max-width: 720px; font-size: 1rem; line-height: 1.78; color: #383631; }
+.editorial-post a { text-underline-offset: 4px; font-weight: 700; }
+.blog-takeaway { max-width: 720px; margin: 2.5rem 0 0; padding: 1.25rem 1.4rem; border-left: 5px solid var(--purple); background: var(--paper); line-height: 1.6; }
+.references { max-width: 720px; margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; line-height: 1.6; }
+.references strong { display: block; margin-bottom: .7rem; color: var(--ink); font-size: .67rem; letter-spacing: .12em; text-transform: uppercase; }
+.references ol { margin: 0; padding-left: 1.2rem; }
+.references li { margin-bottom: .45rem; }
+.blog-invite-minimal .blog-cards { margin-top: 2.5rem; }
+.blog-invite-minimal .blog-card-content a { margin-top: auto; }
+.blog-invite-action { margin-top: 2rem; }
+.blog-invite-action .text-link { margin-top: 0; }
+@media(max-width:700px){
+  .blog-posts { margin-top: 3rem; }
+  .editorial-post { padding: 3.5rem 0; }
+  .editorial-post h2 { font-size: clamp(2.6rem, 12vw, 4.2rem); }
+  .blog-post-dek { font-size: 1.15rem!important; }
+}
