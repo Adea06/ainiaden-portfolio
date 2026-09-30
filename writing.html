@@ -17,109 +17,96 @@
 <div class="reader-hero-overlay">
 <p class="eyebrow">01 · DATA · EVIDENCE · UX</p>
 <h1>How Data Science Changed How I Design</h1>
-<p class="reader-dek">What studying Data Science taught me about evidence, uncertainty and understanding users.</p>
-<div class="reader-meta">DATA &amp; DESIGN <span>·</span> 8 MIN READ</div>
+<p class="reader-dek">What studying Data Science taught me about evidence, uncertainty and designing with AI and data.</p>
+<div class="reader-meta">DATA &amp; DESIGN <span>·</span> 6 MIN READ</div>
 </div>
 </header>
 <div class="reader-body">
 
-<p>UX was always the direction I wanted my career to take. Choosing to study Data Science wasn’t a detour from that, or because I thought the two disciplines were the same.</p>
-<p>I chose it because I could see the value that data collection, analysis and structured problem-solving could bring to understanding users and making better design decisions.</p>
-<p>What I didn’t expect was how much studying Data Science would change the way I think about <strong>evidence itself</strong>.</p>
-<p>I started my MSc thinking that more data would give me clearer answers. My dissertation challenged that assumption.</p>
-<p>I investigated whether behavioural finance indicators, including market sentiment and the VIX, could improve financial asset prediction beyond traditional technical indicators. What became interesting wasn’t simply whether a model improved, but <strong>what “better” actually meant</strong>.</p>
-<p>A model could improve and still be unreliable. One metric could show progress while another exposed a weakness. Something that worked in one market might behave differently in another.</p>
-<p>It made me realise that being data-informed isn’t simply about having more numbers. It’s about understanding <strong>what those numbers represent, what they leave out and whether they’re actually useful to the person you’re designing for.</strong></p>
+<p>UX was always the direction I wanted my career to take. I chose Data Science because I wanted a stronger understanding of how evidence could support design decisions — and because I was curious about what happens when human behaviour becomes data.</p>
+<p>My MSc changed that perspective. The important lesson wasn't simply how to analyse data or build models. It was learning to question <strong>what the evidence actually represents, what it leaves out, and what I can responsibly conclude from it.</strong></p>
 
-<h2><span>01</span> More data doesn’t mean more understanding</h2>
-<p>One of the biggest lessons I’ve taken from Data Science is that <strong>more observations do not automatically make the underlying question clearer.</strong></p>
-<p>In my dissertation, I was constantly making choices about what counted as evidence: which technical indicators to include, how to represent sentiment, which time period to study and whether I was predicting direction or return magnitude. Those choices shaped the problem before the model ever saw the data.</p>
-<p>That changed how I think about product analytics. A large dataset can make a pattern look convincing while still leaving the important question unanswered.</p>
-<div class="reader-insight ux-relevance"><div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div><strong>Scale can tell me that a pattern is happening. It does not automatically explain the experience behind it.</strong><p>If analytics show users repeatedly abandoning registration at the same step, thousands of sessions can establish <strong>where</strong> the drop-off occurs. They cannot, by themselves, tell me whether people are confused, concerned about privacy, missing an affordance or simply no longer need the service.</p><p>That is where interviews or usability testing change the interpretation. Conversely, if a small usability study reveals the same interaction problem repeatedly, behavioural data can help test whether that observation extends beyond the people I spoke to.</p><p>This is why I no longer think of qualitative and quantitative research as competing sources of truth. They answer different parts of the question.</p></div>
+<h2><span>01</span> The question comes before the data</h2>
+<p>In my dissertation, I tested whether behavioural signals such as market sentiment and VIX added value beyond traditional technical indicators. Before the model ran, I had already made decisions about the data, measures, time period and prediction target.</p>
+<p>That made me more conscious of a principle I now bring to UX: <strong>the way a problem is framed determines what the data can tell you.</strong></p>
+<div class="reader-insight ux-relevance">
+<div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div>
+<strong>Analytics can show me where a problem happens. They rarely explain the whole experience behind it.</strong>
+<p>A drop-off rate can identify where users leave a journey. Interviews or usability testing can help explain whether the cause is confusion, trust, accessibility, motivation or something else.</p>
+<p>I see quantitative and qualitative research as complementary: one can establish scale or pattern; the other can add context.</p>
+</div>
 
-<h2><span>02</span> The metric changes the story</h2>
-
+<h2><span>02</span> One metric can tell the wrong story</h2>
+<p>My model results were a useful reminder that “better” depends on what you measure. Adding behavioural features improved F1 in both markets, but other measures moved differently.</p>
 <div class="reader-table-wrap"><table class="reader-data-table">
-<thead><tr><th>Market</th><th>Stage</th><th>Selected optimiser</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th></tr></thead>
+<thead><tr><th>Market</th><th>Stage</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th></tr></thead>
 <tbody>
-<tr><td><strong>S&amp;P 500</strong></td><td>Stage 1</td><td><strong>GridSearch</strong></td><td>0.589</td><td>0.396</td><td>0.554</td></tr>
-<tr><td><strong>S&amp;P 500</strong></td><td>Stage 2</td><td><strong>GridSearch</strong></td><td><strong>0.625</strong></td><td>0.389</td><td><strong>0.560</strong></td></tr>
-<tr><td><strong>FTSE 100</strong></td><td>Stage 1</td><td><strong>Optuna</strong></td><td>0.268</td><td><strong>0.528</strong></td><td><strong>0.702</strong></td></tr>
-<tr><td><strong>FTSE 100</strong></td><td>Stage 2</td><td><strong>Optuna</strong></td><td><strong>0.433</strong></td><td>0.481</td><td>0.686</td></tr>
+<tr><td><strong>S&amp;P 500</strong></td><td>Technical → Behavioural</td><td><strong>0.589 → 0.625</strong></td><td>0.396 → 0.389</td><td><strong>0.554 → 0.560</strong></td></tr>
+<tr><td><strong>FTSE 100</strong></td><td>Technical → Behavioural</td><td><strong>0.268 → 0.433</strong></td><td>0.528 → 0.481</td><td>0.702 → 0.686</td></tr>
 </tbody></table></div>
-<p>F1 improved in both markets from Stage 1 (technical only) to Stage 2 (technical combined with behavioural indicators). If F1 were the only measure I looked at, I could reasonably describe that as an improvement. But the other metrics complicate that story.</p>
-<p>For the S&amp;P 500, F1 rose from 0.589 to 0.625 and PR-AUC rose slightly from 0.554 to 0.560, while ROC-AUC fell from 0.396 to 0.389. For the FTSE 100, F1 rose from 0.268 to 0.433, but PR-AUC fell from 0.702 to 0.686 and ROC-AUC moved from 0.528 to 0.481.</p>
-<p>ROC-AUC is about discrimination across classification thresholds; a value around 0.5 is close to random discrimination. So these results did not give me a simple “behavioural features made the model better” story. They showed improvement in one aspect of performance alongside weaker or still-limited discrimination elsewhere.</p>
 <figure class="reader-figure roc-auc-figure">
-<img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/roc-auc.png" alt="ROC-AUC model evaluation visual" loading="lazy">
-<figcaption>Looking at one metric alone would have given me a very different interpretation of the model.</figcaption>
+<img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/roc-auc.png" alt="S&amp;P 500 ROC-AUC evaluation visual" loading="lazy">
+<figcaption>Looking across metrics changed the interpretation of the model.</figcaption>
 </figure>
 <figure class="reader-figure roc-auc-figure">
 <img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/roc-auc%20ftse.png" alt="FTSE 100 ROC-AUC evaluation visual" loading="lazy">
 </figure>
-<p>That matters because choosing a metric also means deciding <strong>what kind of success or failure matters.</strong> It also means deciding what evidence would be sufficient to change my mind.</p>
-<p>That is where King, Churchill and Tan’s <em>Designing with Data</em> (2017) became useful to me. Their approach is not simply “pick a metric and optimise it”; it emphasises framing the problem, defining a hypothesis, connecting it to meaningful measures, and interpreting results alongside secondary metrics and unexpected effects. They also point to practical issues such as sample composition, novelty and seasonality that can make an apparently positive result less straightforward.</p>
-<p>I’ve started thinking about UX in the same way. If a redesigned checkout increases completion, that matters — but I would also want to know what happened to errors, time-on-task, accessibility, and whether people understood what they were doing.</p>
-<p>Instead of asking:</p>
-<p><strong>“Do I think this design is better?”</strong></p>
-<p>I can ask:</p>
-<p><strong>“What am I expecting this change to improve, what else could it affect, and what evidence would make me revise my view?”</strong></p>
-<p>For me, that is a more useful definition of being data-informed: <strong>define the question before becoming attached to the answer.</strong></p>
+<div class="reader-insight ux-relevance">
+<div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div>
+<strong>Optimising the easiest metric is not the same as improving the experience.</strong>
+<p>For a product, completion rate might improve while errors, accessibility, comprehension or trust get worse. I want to define success before choosing what to optimise — and keep secondary signals visible.</p>
+</div>
 
-<h2><span>03</span> Uncertainty isn’t something to hide</h2>
-<p>My dissertation also made me more comfortable with results that were useful without being definitive.</p>
-<p>Behavioural features were more useful for improving aspects of <strong>directional prediction</strong> than accurately predicting the <strong>magnitude of future returns</strong>. In other words, the evidence supported a narrower claim than the headline “behavioural indicators improve financial prediction” would suggest.</p>
-<div class="reader-concept-card reader-wide-card"><small>WHAT I COULD RESPONSIBLY CONCLUDE</small><strong>Behavioural finance variables added evidence-backed value for predicting market direction, but their contribution to exact return magnitude was marginal and model-dependent.</strong><p>Technical indicators remained the dominant signal in my models, while sentiment and VIX acted as secondary contributors. That distinction matters: a feature can add information without becoming the main driver of a reliable prediction.</p></div>
-<p>It would have been easy to compress all of this into a stronger-sounding conclusion. But the more useful question was:</p>
-<p><strong>What can I responsibly conclude — and what remains uncertain?</strong></p>
-<div class="reader-insight ux-relevance"><div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div><strong>Uncertainty is part of the result, not a footnote to it.</strong><p>King, Churchill and Tan’s discussion of experimentation reinforced this for me: results can be positive, negative or simply different from what the hypothesis predicted, and secondary measures can change how the primary result should be interpreted.</p><p>The same applies to UX research. A test can identify a usability problem without telling me the final solution. An experiment can improve one measure while creating an undesirable effect elsewhere.</p><p>Communicating the limitation is therefore not weakening the finding. It is part of making the finding trustworthy.</p></div>
+<h2><span>03</span> Good evidence includes uncertainty</h2>
+<p>My dissertation supported a narrower conclusion than a headline claim that “behavioural indicators improve financial prediction.” Behavioural variables added value for <strong>directional prediction</strong>, but their contribution to exact return magnitude was marginal and model-dependent.</p>
+<div class="reader-concept-card reader-wide-card"><small>WHAT I COULD RESPONSIBLY CONCLUDE</small><strong>Technical indicators remained the dominant signal; sentiment and VIX provided additional, but secondary, information.</strong><p>The distinction matters because useful evidence does not have to produce a definitive answer.</p></div>
+<div class="reader-insight ux-relevance">
+<div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div>
+<strong>Uncertainty should shape the interface, not disappear behind it.</strong>
+<p>If an AI system is uncertain, that uncertainty affects how its output should be presented and what action a user should be encouraged to take. Communicating limitations is part of trustworthy AI UX.</p>
+</div>
 
-<h2><span>04</span> A dashboard is an interpretation, not a data dump</h2>
-<p>My <strong>Information Visualisation</strong> module brought another part of this together.</p>
-<p>You can have accurate data and still communicate it in a way that makes the underlying uncertainty harder to understand.</p>
-<p>While developing my investor dashboard, I had to stop thinking only about what the model could output and start thinking about what a mid-term investor actually needed to understand, compare and act on.
+<h2><span>04</span> The interface changes how data is understood</h2>
+<p>For my Information Visualisation work, I redesigned an investor dashboard around what a mid-term investor actually needed to understand — rather than simply exposing everything the model could output.</p>
 <figure class="reader-figure">
 <img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/investor-dashboard-before.png" alt="Earlier investor dashboard" loading="lazy">
-<figcaption>Old dashboard — too technical and primarily reflecting the model, without live behavioural data.</figcaption>
+<figcaption>Earlier version — technically informative, but focused on the model rather than the investor's decision.</figcaption>
 </figure>
-<div class="reader-compare"><div><span>WHAT THE MODEL SEES</span><strong>Probability · VIX · RSI · MACD · sentiment · feature importance · performance metrics</strong></div><div><span>→</span><strong>WHAT THE USER SEES</strong></div></div>
+<div class="reader-compare"><div><span>MODEL OUTPUT</span><strong>Probability · VIX · RSI · MACD · sentiment · feature importance</strong></div><div><span>DESIGN QUESTION</span><strong>What does the user need to understand, and what should they do with that information?</strong></div></div>
 <figure class="reader-figure">
 <img class="reader-image" src="https://adea06.github.io/ainiaden-portfolio/assets/images/investor-dashboard-after.png" alt="Investor decision-support dashboard" loading="lazy">
+<figcaption>Reworked version — a more focused decision-support interface with behavioural context.</figcaption>
 </figure>
-<div class="reader-insight ux-relevance"><div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div><strong>The challenge wasn’t displaying everything the model knew. It was deciding what the investor actually needed to know.</strong><p>That changed the question from:</p><p><strong>What data can I display?</strong></p><p>to:</p><p><strong>What does this person need to understand or do?</strong></p><p>Suddenly hierarchy, cognitive load, language and uncertainty became just as important as the numbers themselves.</p><p>A dashboard isn’t simply displaying data. It’s interpreting it for someone.</p><p>And that means the designer has responsibility for how that information is understood.</p><p>If I present an uncertain prediction as though it’s definitive, that’s a design decision too.</p></div>
+<div class="reader-insight ux-relevance">
+<div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div>
+<strong>AI UX is also about interpreting model output responsibly.</strong>
+<p>Hierarchy, language, cognitive load and visual emphasis can make an uncertain prediction feel more certain than it is. The interface is part of the model-to-human communication layer.</p>
+</div>
 
-<h2><span>05</span> Designing with data, not being designed by it</h2>
-<p>This is where I think Data Science and UX become useful together: not because every design problem should become a machine-learning problem, but because the disciplines encourage different ways of checking an assumption.</p>
-<p>Behavioural data can show me a pattern. User research can help explain it. A prototype turns a possible explanation into something testable. Experimentation then gives me another opportunity to challenge the assumption.</p>
-<p>For example, analytics might show unusually high abandonment on a form. Usability testing could reveal that users do not understand why certain information is required. That gives me a hypothesis:</p>
-<p><strong>If I explain why the information is needed and reveal complex fields progressively, users may be more likely to complete the journey successfully.</strong></p>
-<p>I could prototype that change and, where an A/B test is appropriate, compare completion alongside abandonment, errors and time-on-task. I would also want to look for an undesirable secondary effect rather than treating the primary metric as the whole answer.</p>
-<p>That is one of the ideas I took from <em>Designing with Data</em>: experimentation is useful when it is tied to a question you genuinely want to learn about, not when it becomes a race to optimise whatever number is easiest to move.</p>
-<p>A redesign could increase completion while making people more confused or uncomfortable. A statistically convincing result can still describe only one dimension of the experience.</p>
-<div class="reader-insight ux-relevance"><div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div><strong>Data should inform the design decision, not make it.</strong></div>
+<h2><span>05</span> Data should inform the decision, not make it</h2>
+<p>I now think about the relationship between analytics, research and experimentation as a loop: <strong>observe → investigate → prototype → test → learn.</strong></p>
+<p>For example, if analytics show high form abandonment, usability research might reveal that users do not understand why information is required. That gives me a testable hypothesis rather than an assumption.</p>
+<p>Where appropriate, I can then compare completion with errors, abandonment and time-on-task — looking for secondary effects rather than treating one number as the answer.</p>
+<div class="reader-insight ux-relevance">
+<div class="ux-relevance-label"><span>UX</span><strong>RELEVANCE</strong></div>
+<strong>The goal isn't to make the data the decision-maker.</strong>
+<p>It is to use evidence to make my reasoning more explicit, testable and open to being changed.</p>
+</div>
 
-<h2><span>06</span> What the data can’t tell me</h2>
-<p>There are still things a dataset can’t completely capture.</p>
-<p><strong>The person.</strong></p>
-<p>Analytics might tell me that someone abandoned a journey. Click data might tell me exactly what they did before leaving.</p>
-<p>Neither can completely explain their frustration, hesitation, expectations or circumstances at that moment.</p>
-<p>That point is reflected in the research I was reading alongside the MSc. Abbas, Ghauth and Ting’s (2022) systematic review found that UX designers working with machine learning were not necessarily trying to become ML specialists; collaboration with data scientists and a data-aware design culture were important parts of making ML useful in practice. The lesson I take from that is not “designers need more algorithms”, but that technical capability has to stay connected to the design process and the people using it.</p>
-<p>Novák et al. (2024) make a similar point from another direction. Their review shows how eye tracking and interaction data can make UX evaluation more measurable and scalable, but also notes that eye-tracking data alone does not provide the full interaction context. Their review also found limited inclusion of users with disabilities across the studies they examined. More sophisticated measurement can therefore expose new patterns without automatically making the evidence representative or complete.</p>
-<p>Better measurement does not remove the need for human context. It makes the question of <strong>whose behaviour is being measured, in what context, and what is still missing</strong> even more important.</p>
-<div class="reader-triad"><div><small>PSYCHOLOGY</small><strong>Why?</strong><p>Why are people behaving this way?</p></div><div><small>DATA SCIENCE</small><strong>Evidence</strong><p>What evidence supports what I’m seeing?</p></div><div><small>UX</small><strong>Action</strong><p>What should I do with that understanding?</p></div></div>
+<h2><span>06</span> What the data still cannot tell me</h2>
+<p>Research on UX and machine learning reinforced another lesson for me: designers do not need to become ML specialists to work effectively with AI. They do need enough technical understanding to question outputs, collaborate with technical teams and keep the user's context in view.</p>
+<p>Similarly, more sophisticated behavioural measurement does not automatically make research complete or representative. It still matters <strong>whose behaviour is being measured, in what context, and what is missing.</strong></p>
+<div class="reader-triad"><div><small>PSYCHOLOGY</small><strong>Why?</strong><p>What might explain the behaviour?</p></div><div><small>DATA SCIENCE</small><strong>Evidence</strong><p>What supports the interpretation?</p></div><div><small>UX</small><strong>Action</strong><p>What should change for the user?</p></div></div>
 
 <h2><span>07</span> How I design differently now</h2>
-<p>The biggest thing Data Science has given me isn’t simply the ability to use Python or train a machine-learning model.</p>
-<p>It’s changed the questions I ask before making a design decision.</p>
-<div class="question-cards"><div><b>01</b><span>What does success actually mean?</span></div><div><b>02</b><span>Am I measuring the right thing?</span></div><div><b>03</b><span>What information am I missing?</span></div><div><b>04</b><span>Would another measure tell a different story?</span></div><div><b>05</b><span>Does this work outside the ideal scenario?</span></div><div><b>06</b><span>How confident should I actually be?</span></div><div><b>07</b><span>What can the data tell me, and what do I still need to ask a person?</span></div></div>
-<p>I chose Data Science because I believed it could add another layer to how I approached UX. What I gained was less about having another technical toolkit and more about becoming more deliberate with evidence.</p>
-<p>I now want to know what I am measuring, why that measure matters, what could distort the result, whether the finding holds beyond the conditions in which it was observed, and what I still need to ask a person.</p>
-<p>Data can show patterns at a scale that interviews alone cannot. Research can explain context that a dataset alone cannot. Neither becomes more useful by pretending it can do the other’s job.</p>
-<blockquote>Data Science hasn’t changed why I want to design. It’s changed the evidence I bring to the decisions I make.</blockquote>
-<div class="reader-references"><strong>References</strong><ol>
-<li>Abbas, A.M.H., Ghauth, K.I. and Ting, C.Y. (2022). ‘User experience design using machine learning: a systematic review’. <em>IEEE Access</em>, 10, pp. 51501–51514. doi:10.1109/ACCESS.2022.3173289.</li>
+<p>Data Science hasn't changed why I want to design. It has changed the questions I bring to a design decision:</p>
+<div class="question-cards"><div><b>01</b><span>What does success actually mean?</span></div><div><b>02</b><span>Am I measuring the right thing?</span></div><div><b>03</b><span>What evidence is missing?</span></div><div><b>04</b><span>Would another measure tell a different story?</span></div><div><b>05</b><span>Does the finding hold outside the ideal scenario?</span></div><div><b>06</b><span>How confident should I be?</span></div><div><b>07</b><span>What still needs to be understood from a person?</span></div></div>
+<p>That mindset is what I want to bring into AI UX: enough technical understanding to interrogate the system, enough research discipline to understand the person, and enough design judgement to decide what should happen next.</p>
+<blockquote>Data Science hasn't changed why I want to design. It has changed the evidence I bring to the decisions I make.</blockquote>
+<div class="reader-references"><strong>Selected references</strong><ol>
+<li>Abbas, A.M.H., Ghauth, K.I. and Ting, C.Y. (2022). ‘User experience design using machine learning: a systematic review’. <em>IEEE Access</em>, 10, pp. 51501–51514.</li>
 <li>King, R., Churchill, E.F. and Tan, C. (2017). <em>Designing with Data: Improving the User Experience with A/B Testing</em>. O’Reilly Media.</li>
-<li>Novák, J.Š., Masner, J., Benda, P., Šimek, P. and Merunka, V. (2024). ‘Eye tracking, usability, and user experience: A systematic review’. <em>International Journal of Human–Computer Interaction</em>, 40(17), pp. 4484–4500. doi:10.1080/10447318.2023.2221600.</li>
+<li>Novák, J.Š., Masner, J., Benda, P., Šimek, P. and Merunka, V. (2024). ‘Eye tracking, usability, and user experience: A systematic review’. <em>International Journal of Human–Computer Interaction</em>, 40(17), pp. 4484–4500.</li>
 </ol></div>
 </div></article>
 <article class="reader-article" data-article="ai-design">
