@@ -2301,3 +2301,100 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
   font-style:italic;
   font-weight:400;
 }
+
+
+/* Editorial Writing cards — balanced, equal-height treatment */
+.homepage-writing .writing-card-grid{
+  grid-template-columns:1fr 1fr;
+  align-items:stretch;
+  gap:1.25rem;
+}
+.homepage-writing .writing-card{
+  min-height:560px;
+  height:560px;
+  box-sizing:border-box;
+  padding:clamp(1.5rem,2.6vw,2.35rem);
+  border-radius:26px;
+  border:1px solid rgba(21,21,21,.16);
+  box-shadow:0 12px 35px rgba(21,21,21,.045);
+  background-clip:padding-box;
+}
+.homepage-writing .writing-card-data{
+  background:
+    radial-gradient(circle at 88% 13%, rgba(255,255,255,.55), transparent 25%),
+    linear-gradient(145deg,#d8e9dd 0%,#edf2e9 52%,#d2e4d8 100%);
+}
+.homepage-writing .writing-card-ai{
+  background:
+    radial-gradient(circle at 88% 13%, rgba(255,255,255,.5), transparent 25%),
+    linear-gradient(145deg,#e5dcf1 0%,#f2ecf8 52%,#ddd0ed 100%);
+}
+.homepage-writing .writing-card::before{
+  width:330px;
+  height:330px;
+  right:-115px;
+  top:-125px;
+  border-width:1px;
+  opacity:.16;
+  box-shadow:0 0 0 42px rgba(255,255,255,.07),0 0 0 84px rgba(255,255,255,.045);
+}
+.homepage-writing .writing-card::after{
+  width:58px;
+  height:58px;
+  right:1.65rem;
+  bottom:1.55rem;
+  background:rgba(255,255,255,.16);
+  backdrop-filter:blur(5px);
+}
+.homepage-writing .writing-card-top{
+  position:relative;
+  z-index:2;
+}
+.homepage-writing .writing-card-top span:first-child{
+  width:42px;
+  height:42px;
+  background:rgba(255,255,255,.16);
+  backdrop-filter:blur(4px);
+}
+.homepage-writing .writing-card-title{
+  position:relative;
+  z-index:2;
+  max-width:9.5ch;
+  margin-top:auto;
+  margin-bottom:1.35rem;
+  font-size:clamp(3rem,5vw,5.4rem);
+  line-height:.84;
+  letter-spacing:-.08em;
+}
+.homepage-writing .writing-card-description{
+  position:relative;
+  z-index:2;
+  max-width:38ch;
+  min-height:3.1em;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1rem;
+  line-height:1.55;
+}
+.homepage-writing .writing-card-footer{
+  position:relative;
+  z-index:2;
+  margin-top:1.8rem;
+  padding-top:1.15rem;
+  min-height:54px;
+  border-top-color:rgba(21,21,21,.18);
+}
+.homepage-writing .writing-card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 34px 80px rgba(21,21,21,.14);
+}
+.homepage-writing .writing-card:hover::before{
+  transform:scale(1.42) rotate(20deg);
+  opacity:.3;
+}
+.homepage-writing .writing-card:hover::after{
+  transform:rotate(45deg) scale(1.04);
+}
+@media(max-width:800px){
+  .homepage-writing .writing-card-grid{grid-template-columns:1fr}
+  .homepage-writing .writing-card{height:500px;min-height:500px}
+}
