@@ -975,3 +975,113 @@ footer { padding: 4rem 5vw; background: var(--ink); color: var(--cream); }
   .reader-body h2 { margin-top:2.7rem; font-size:1.55rem; }
   .reader-body > .reader-figure:not(:first-child) .reader-image { max-height:300px; }
 }
+
+/* Writing motion — restrained editorial animation */
+@keyframes writingFadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes writingHeroIn {
+  from { opacity:0; transform:scale(1.025); }
+  to { opacity:1; transform:scale(1); }
+}
+@keyframes writingLineIn {
+  from { transform:scaleX(0); transform-origin:left; opacity:.3; }
+  to { transform:scaleX(1); transform-origin:left; opacity:1; }
+}
+
+.reader-hero {
+  animation:writingHeroIn .9s cubic-bezier(.22,1,.36,1) both;
+}
+.reader-hero-overlay > * {
+  animation:writingFadeUp .7s cubic-bezier(.22,1,.36,1) both;
+}
+.reader-hero-overlay .eyebrow { animation-delay:.08s; }
+.reader-hero-overlay h1 { animation-delay:.16s; }
+.reader-hero-overlay .reader-dek { animation-delay:.24s; }
+.reader-hero-overlay .reader-meta { animation-delay:.32s; }
+
+.reader-body h2 {
+  position:relative;
+  padding-top:.15rem;
+}
+.reader-body h2::after {
+  content:"";
+  display:block;
+  width:2.6rem;
+  height:2px;
+  margin-top:.7rem;
+  background:currentColor;
+  opacity:.35;
+  animation:writingLineIn .8s cubic-bezier(.22,1,.36,1) both;
+  animation-timeline:view();
+  animation-range:entry 10% cover 25%;
+}
+
+.reader-body > p,
+.reader-body > .reader-insight,
+.reader-body > .reader-concept-card,
+.reader-body > .reader-compare,
+.reader-body > .reader-triad,
+.reader-body > .question-cards,
+.reader-body > .reader-table-wrap,
+.reader-body > .reader-figure,
+.reader-body > blockquote {
+  animation:writingFadeUp .65s cubic-bezier(.22,1,.36,1) both;
+  animation-timeline:view();
+  animation-range:entry 5% cover 20%;
+}
+
+.reader-body .reader-insight,
+.reader-body .reader-concept-card,
+.reader-body .reader-compare > div,
+.reader-body .reader-triad > div,
+.reader-body .question-cards > div {
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.reader-body .reader-insight:hover,
+.reader-body .reader-concept-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.07);
+}
+.reader-body .reader-compare > div:hover,
+.reader-body .reader-triad > div:hover,
+.reader-body .question-cards > div:hover {
+  transform:translateY(-2px);
+}
+
+.reader-body .reader-image {
+  transition:transform .55s cubic-bezier(.22,1,.36,1), filter .4s ease;
+}
+.reader-body .reader-figure:hover .reader-image {
+  transform:scale(1.012);
+}
+.reader-body a {
+  transition:color .2s ease, text-decoration-thickness .2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reader-hero,
+  .reader-hero-overlay > *,
+  .reader-body > p,
+  .reader-body > .reader-insight,
+  .reader-body > .reader-concept-card,
+  .reader-body > .reader-compare,
+  .reader-body > .reader-triad,
+  .reader-body > .question-cards,
+  .reader-body > .reader-table-wrap,
+  .reader-body > .reader-figure,
+  .reader-body > blockquote,
+  .reader-body h2::after {
+    animation:none !important;
+    animation-timeline:auto !important;
+  }
+  .reader-body .reader-insight,
+  .reader-body .reader-concept-card,
+  .reader-body .reader-compare > div,
+  .reader-body .reader-triad > div,
+  .reader-body .question-cards > div,
+  .reader-body .reader-image {
+    transition:none !important;
+  }
+}
