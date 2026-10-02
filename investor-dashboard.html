@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=editorial-20260929-2">
+  <link rel="stylesheet" href="investor-journey.css?v=20261002">
 </head>
 <body class="case-study-page editorial-case">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -33,7 +34,7 @@
         <a class="case-button case-button-dark" href="https://github.com/Adea06/behavioural-investor-signal/tree/main" target="_blank" rel="noopener">Explore the dashboard ↗</a>
         <a class="case-button" href="#process">View the process ↓</a>
       </div>
-      <img class="case-hero-image" src="assets/images/investor-dashboard-after.png" alt="Latest Investor Decision Support dashboard showing the redesigned investor signal experience">
+      <a class="case-button" href="#final-dashboard">See the redesigned dashboard ↓</a>
     </section>
 
     <nav class="case-nav editorial-case-nav" aria-label="Case study sections">
@@ -67,6 +68,13 @@
           <li>Would the model transfer to another market?</li>
         </ul>
         <blockquote>How might I help an investor understand a model signal without encouraging blind trust in it?</blockquote>
+        <figure class="journey-figure">
+          <div class="journey-figure-heading"><span>01 / ORIGINAL</span><h3>The starting point</h3></div>
+          <a class="journey-image-link" href="assets/images/investor-dashboard-before.png" target="_blank" rel="noopener" aria-label="Enlarge: The starting point (opens in a new tab)">
+            <img src="assets/images/investor-dashboard-before.png" alt="Original dark Market Analytics dashboard with price and sentiment charts, technical indicators and model performance panels." width="872" height="435" loading="lazy" decoding="async">
+          </a>
+          <figcaption><span>The original interface foregrounded analysis and model outputs. The redesign needed a clearer route from a market question to an interpretable signal.</span><a href="assets/images/investor-dashboard-before.png" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -124,6 +132,14 @@
           <article><b>02</b><h3>Separate signal from certainty</h3><p>Keep direction, probability and evidence distinct.</p></article>
           <article><b>03</b><h3>Keep evidence traceable</h3><p>Move from a simple signal to its technical and behavioural context.</p></article>
         </div>
+
+        <figure class="journey-figure">
+          <div class="journey-figure-heading"><span>02 / WIREFLOW</span><h3>Structuring the investor journey</h3></div>
+          <a class="journey-image-link" href="assets/images/investor-dashboard-wireflow.svg" target="_blank" rel="noopener" aria-label="Enlarge: Structuring the investor journey (opens in a new tab)">
+            <img src="assets/images/investor-dashboard-wireflow.svg" alt="Desktop wireflow connecting market and date selection to signal results and behavioural comparison, with separate market, calendar and explanation states." width="3280" height="1370" loading="lazy" decoding="async">
+          </a>
+          <figcaption><span>The wireflow makes the design logic explicit: configure the analysis, review the signal, then compare the evidence. Supporting controls and explanations sit alongside the main path.</span><a href="assets/images/investor-dashboard-wireflow.svg" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -132,22 +148,11 @@
       <div class="case-copy">
         <div class="redesign-grid">
           <div><span>BEFORE</span><h3>Analysis-first dashboard</h3><ul><li>Multiple pages and scrolling.</li><li>Hard to compare model stages.</li><li>Behavioural value was not immediately clear.</li><li>Historical data limited current context.</li></ul></div>
-          <div><span>AFTER</span><h3>One-page investor comparison</h3><ul><li>Market and date controls.</li><li>Stage 1 vs Stage 2 direction + probability.</li><li>Behavioural change in confidence.</li><li>Technical, VIX and sentiment context.</li><li>Prediction history and limitations.</li></ul></div>
+          <div><span>AFTER</span><h3>Signal-led investor overview</h3><ul><li>Market and date controls.</li><li>Stage 1 vs Stage 2 direction + probability.</li><li>Behavioural change in confidence.</li><li>Technical, VIX and sentiment context.</li><li>Prediction history and limitations.</li></ul></div>
         </div>
         <p>The redesign is organised around one question:</p>
         <blockquote>Did behavioural information change the technical signal enough to matter?</blockquote>
-        <div class="before-after-visuals">
-          <figure>
-            <span>BEFORE</span>
-            <img src="assets/images/investor-dashboard-before.png" alt="Original investor dashboard before the UX redesign" loading="lazy">
-            <figcaption>Original dashboard — analysis-first and split across multiple views.</figcaption>
-          </figure>
-          <figure>
-            <span>AFTER</span>
-            <img src="assets/images/investor-dashboard-after.png" alt="Redesigned investor dashboard after the UX redesign" loading="lazy">
-            <figcaption>Redesigned dashboard — one-page comparison with behavioural context.</figcaption>
-          </figure>
-        </div>
+
       </div>
     </section>
 
@@ -163,13 +168,20 @@
       </div>
     </section>
 
-    <section class="case-section prototype">
+    <section class="case-section prototype" id="final-dashboard">
       <div class="case-label">FINAL DASHBOARD</div>
       <div class="case-copy">
-        <p>The redesigned experience keeps the core decision journey on one page: select a market and date, compare both stages, then inspect the evidence behind the difference.</p>
+        <p>The redesigned overview puts the signal first: choose a market and date, review the direction and probability, then inspect the supporting evidence. The Behavioural impact tab provides a separate route into comparison.</p>
+        <figure class="journey-figure">
+          <div class="journey-figure-heading"><span>03 / REDESIGNED</span><h3>Signal first. Evidence within reach.</h3></div>
+          <a class="journey-image-link" href="assets/images/investor-dashboard-after.png" target="_blank" rel="noopener" aria-label="Enlarge: Signal first. Evidence within reach. (opens in a new tab)">
+            <img src="assets/images/investor-dashboard-after.png" alt="Redesigned Investor Decision Support dashboard with market and date controls, a sell-leaning signal, probability, market close, VIX, supporting charts and a Why this signal explanation." width="1544" height="854" loading="lazy" decoding="async">
+          </a>
+          <figcaption><span>The redesigned Today’s signal view brings the result, probability and supporting context together. A separate Behavioural impact tab provides a route into comparison.</span><a href="assets/images/investor-dashboard-after.png" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
+        </figure>
         <p><strong>Model output → uncertainty → interface.</strong> I used probabilities and explainability evidence to avoid presenting a prediction as certainty.</p>
         <div class="final-dashboard-note">
-          <div><span>FINAL EXPERIENCE</span><strong>One page. One comparison. Enough evidence to question the signal.</strong></div>
+          <div><span>FINAL EXPERIENCE</span><strong>A clear signal, with enough context to question it.</strong></div>
           <a class="case-button case-button-dark" href="https://github.com/Adea06/behavioural-investor-signal/tree/main" target="_blank" rel="noopener">View source ↗</a>
         </div>
         <div class="sequence"><span>01 · Stage comparison</span><span>02 · Probability impact</span><span>03 · Five-day history</span><span>04 · Technical + behavioural context</span><span>05 · Limitations</span></div>

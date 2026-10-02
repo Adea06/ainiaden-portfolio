@@ -1,0 +1,13 @@
+/* Investor case study: original → wireflow → redesigned. */
+.editorial-case .journey-figure{margin:2.25rem 0 0;min-width:0;}
+.editorial-case .journey-figure-heading{display:flex;flex-wrap:wrap;align-items:baseline;gap:.65rem 1.25rem;margin-bottom:1rem;padding-top:1.1rem;border-top:1px solid var(--line, #d4cec4);}
+.editorial-case .journey-figure-heading>span{font-size:.65rem;font-weight:800;letter-spacing:.12em;}
+.editorial-case .journey-figure-heading h3{margin:0;font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.2;letter-spacing:-.025em;}
+.editorial-case .journey-image-link{display:block;background:#fff;border:1px solid var(--line, #d4cec4);border-radius:3px;overflow:hidden;}
+.editorial-case .journey-image-link img{display:block;width:100%;max-width:none;height:auto;margin:0;aspect-ratio:auto;object-fit:contain;border:0;border-radius:0;box-shadow:none;}
+.editorial-case .journey-figure figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-top:.8rem;color:var(--muted, #625e58);font-size:.78rem;line-height:1.6;}
+.editorial-case .journey-figure figcaption>span{max-width:70ch;}
+.editorial-case .journey-figure figcaption>a{flex-shrink:0;color:var(--ink, #222);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
+.editorial-case .journey-image-link:focus-visible,.editorial-case .journey-figure figcaption>a:focus-visible{outline:3px solid var(--ink, #222);outline-offset:5px;}
+.journey-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+@media(max-width:650px){.editorial-case .journey-figure{margin-top:1.5rem;}.editorial-case .journey-figure figcaption{flex-direction:column;gap:.5rem;}}
