@@ -160,3 +160,7 @@ body.recruiter-edit .case-copy blockquote{font-size:1.25rem!important;}
 body.recruiter-edit .editorial-hero::after{display:none!important;}
 body.recruiter-edit main{overflow:visible!important;}
 body.recruiter-edit{overflow-x:clip;}
+
+/* A brighter full-width handoff to the next case study. */
+body.recruiter-edit .next-project{background:#fffefa!important;max-width:none!important;width:100%;margin:0!important;padding:3.5rem max(6vw,calc((100vw - 1120px)/2))!important;border-top:1px solid #dedbd3!important;border-bottom:0!important;}
+body.recruiter-edit .next-project>p{color:#536453!important;}
