@@ -113,3 +113,46 @@ body.investor-refined .skills-compact h3{margin:0 0 .3rem;color:#315b46;font-siz
 body.investor-refined .skills-compact p{margin:0;color:#625e58;font-size:.73rem;line-height:1.65;}
 @media(max-width:750px){.outcome-cards{grid-template-columns:1fr;gap:10px;}.outcome-cards article{padding:16px;}.outcome-number{margin-bottom:8px;}body.investor-refined .skills-compact{grid-template-columns:repeat(2,minmax(0,1fr));}body.investor-refined #outcome .outcome-status{align-items:flex-start;}}
 @media(max-width:420px){body.investor-refined .skills-compact{grid-template-columns:1fr;gap:.8rem;}}
+
+/* Final recruiter review: neutral stages, clearer hierarchy and gentle motion. */
+body.recruiter-edit .editorial-hero::before{display:none!important;}
+body.recruiter-edit .editorial-hero h1{font-size:clamp(3rem,7.5vw,6.5rem)!important;}
+body.recruiter-edit .case-hero-lede{margin:1.4rem 0!important;max-width:650px!important;font:400 1.15rem/1.55 Inter,Arial,sans-serif!important;}
+.project-snapshot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;margin:1.7rem 0 0;padding:1.1rem 0;border-top:1px solid #cec9bf;border-bottom:1px solid #cec9bf;}
+.project-snapshot dt{font-size:.65rem;font-weight:700;color:#66665f;margin:0 0 .45rem;}
+.project-snapshot dd{margin:0;font-size:.84rem;line-height:1.5;}
+body.recruiter-edit .hero-skills{margin:1rem 0;}
+body.recruiter-edit .hero-actions{margin-top:1rem;}
+body.recruiter-edit .case-section#process,body.recruiter-edit .case-section#define,body.recruiter-edit .case-section#design,body.recruiter-edit .case-section#evidence,body.recruiter-edit .case-section#test{background:#f4f0e7!important;border-top:1px solid #bbb7ad!important;}
+body.recruiter-edit .case-section{background:#f4f0e7!important;border-bottom:0!important;}
+body.recruiter-edit .case-label{color:#555e57!important;font-size:.65rem!important;line-height:1.6;text-transform:none!important;letter-spacing:.05em!important;font-weight:700;}
+.stage-index{display:block;width:30px;margin-bottom:.55rem;padding-bottom:.45rem;border-bottom:2px solid #738378;font-size:.7rem;letter-spacing:.08em;}
+body.recruiter-edit .stage-title{max-width:740px!important;margin:0 0 1.1rem!important;font:700 clamp(1.45rem,2.5vw,2.1rem)/1.18 Inter,Arial,sans-serif!important;letter-spacing:-.04em!important;text-transform:none!important;}
+body.recruiter-edit .editorial-case-nav{position:sticky!important;top:74px!important;z-index:40;background:#f4f0e7f5!important;border-top:1px solid #cec9bf;border-bottom:1px solid #cec9bf;}
+body.recruiter-edit .editorial-case-nav a{background:transparent!important;color:#62645e!important;border-radius:0;border-bottom:2px solid transparent;font-size:.65rem!important;text-transform:none!important;letter-spacing:.02em!important;}
+body.recruiter-edit .editorial-case-nav a:hover,body.recruiter-edit .editorial-case-nav a[aria-current="step"]{color:#202820!important;border-bottom-color:#536a5c;background:transparent!important;}
+body.recruiter-edit .case-copy .evidence-status{display:inline-block;margin:0 0 1rem;padding:.35rem .6rem;border:1px solid #c7cbc3;border-radius:4px;color:#526054;font-size:.68rem!important;line-height:1.4!important;}
+body.recruiter-edit .case-copy .discovery-note{font-size:.82rem!important;color:#64645c;padding-left:.9rem;border-left:2px solid #9ca899;}
+body.recruiter-edit .principles,body.recruiter-edit .stage-grid{margin:1rem 0!important;}
+body.recruiter-edit .rationale-grid{gap:1rem!important;}
+body.recruiter-edit .rationale-grid article{padding:1rem!important;border:1px solid #d0cdc4!important;border-radius:5px;margin:0!important;background:#faf8f2;}
+body.recruiter-edit .rationale-grid h3{font-size:1.05rem!important;margin:.55rem 0!important;}
+body.recruiter-edit .rationale-grid article span{font-size:.63rem!important;text-transform:none!important;letter-spacing:.02em!important;}
+body.recruiter-edit .rationale-grid p{font-size:.86rem!important;line-height:1.65!important;}
+.validation-plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.25rem 0;}
+.validation-plan article{padding:1rem;border:1px solid #d0cdc4;border-radius:5px;background:#faf8f2;}
+.validation-plan h3{font-size:.96rem;margin:0 0 .6rem;}
+.validation-plan p{font-size:.85rem;line-height:1.6;margin:0 0 .8rem;}
+.validation-plan span{display:block;border-top:1px solid #d0cdc4;padding-top:.6rem;font-size:.68rem;line-height:1.6;color:#60655b;}
+.iteration-details{border-top:1px solid #ccc8be;padding-top:1rem;}
+.iteration-details summary{cursor:pointer;font-size:.85rem;font-weight:600;}
+.iteration-details p{font-size:.86rem;line-height:1.7;margin:1rem 0 0;}
+body.recruiter-edit #outcome.outcome-summary{background:#e7e9e1!important;color:#222c28!important;border-top:1px solid #bbbfb3;}
+body.recruiter-edit #outcome h2,body.recruiter-edit #outcome p,body.recruiter-edit #outcome .outcome-cards h3,body.recruiter-edit #outcome .outcome-cards p,body.recruiter-edit #outcome .outcome-status{color:#222c28!important;}
+body.recruiter-edit .outcome-cards article{background:#f7f7f0;border-color:#c0c8ba;}
+body.recruiter-edit .outcome-number,body.recruiter-edit .outcome-lesson,body.recruiter-edit .outcome-lesson span,body.recruiter-edit .outcome-status span{color:#52604e;border-color:#c0c8ba;}
+body.recruiter-edit .case-copy blockquote{font-size:1.25rem!important;}
+@keyframes stageReveal{from{opacity:0;transform:translateY(22px) scale(.99);}to{opacity:1;transform:none;}}
+.reveal-enter{animation:stageReveal .65s cubic-bezier(.2,.7,.2,1) both;}
+@media(prefers-reduced-motion:reduce){.reveal-enter{animation:none!important;}html{scroll-behavior:auto!important;}}
+@media(max-width:850px){.project-snapshot{grid-template-columns:1fr;gap:.8rem;}.project-snapshot>div{display:grid;grid-template-columns:110px 1fr;gap:.5rem;}.validation-plan{grid-template-columns:1fr;}body.recruiter-edit .editorial-case-nav{top:74px!important;overflow-x:auto;}.stage-index{display:inline-block;margin:0 .7rem 0 0;padding:0 0 .2rem;}.project-snapshot dt{margin:0;}}

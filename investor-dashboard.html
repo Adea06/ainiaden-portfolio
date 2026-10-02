@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=editorial-20260929-2">
-  <link rel="stylesheet" href="investor-journey.css?v=20261002-compact-2">
+  <link rel="stylesheet" href="investor-journey.css?v=20261002-final-3">
 </head>
-<body class="case-study-page editorial-case investor-refined">
+<body class="case-study-page editorial-case investor-refined recruiter-edit">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="nav">
     <a class="brand" href="index.html#top">AINI ADEN</a>
@@ -26,6 +26,7 @@
       <div class="case-kicker">02 / 05 · DATA PRODUCT</div>
       <h1>Behavioural<br><em>Investor Signal</em></h1>
       <p class="case-hero-lede">Making uncertain financial predictions easier to question, compare and understand.</p>
+      <dl class="project-snapshot"><div><dt>My Role</dt><dd>Dashboard Design &amp; LightGBM Modelling</dd></div><div><dt>Designed For</dt><dd>Self-Directed, Mid-Term Investors</dd></div><div><dt>Project Status</dt><dd>Redesign Complete · User Testing Planned</dd></div></dl>
       <div class="hero-skills" aria-label="Core skills"><span>Data Science</span><span>Python</span><span>GitHub</span><span>Figma</span></div>
       <div class="hero-actions"><a href="#final-dashboard">Explore the dashboard <span aria-hidden="true">↓</span></a><a href="#process">View the process <span aria-hidden="true">↓</span></a></div>
     </section>
@@ -54,16 +55,16 @@
     </section>
 
     <section class="case-section" id="process">
-      <div class="case-label">DISCOVER</div>
+      <div class="case-label"><span class="stage-index">01</span> Discover</div>
       <div class="case-copy">
-        <p>The first dashboard translated the model out of notebooks, but it was still shaped around the analysis rather than the investor. It was multi-page, scroll-heavy and made users work to answer four basic questions:</p>
+        <h2 class="stage-title">From model outputs to investor questions.</h2><p class="evidence-status">Starting Point · Review Of My Original Dashboard</p><p>The first dashboard translated the model out of notebooks, but it was still shaped around the analysis rather than the investor. It was multi-page, scroll-heavy and made users work to answer four basic questions:</p>
         <ul>
           <li>Did behavioural information actually improve the prediction?</li>
           <li>How confident was the model?</li>
           <li>What evidence shaped the result?</li>
           <li>Would the model transfer to another market?</li>
         </ul>
-        <blockquote>How might I help an investor understand a model signal without encouraging blind trust in it?</blockquote>
+        <p class="discovery-note">These were design hypotheses from reviewing the interface and model evidence. Investor interviews and usability testing are still needed to validate them.</p>
         <figure class="journey-figure">
           <div class="journey-figure-heading"><span>01 / ORIGINAL</span><h3>The starting point</h3></div>
           <a class="journey-image-link" href="assets/images/investor-dashboard-before.png" target="_blank" rel="noopener" aria-label="Enlarge: The starting point (opens in a new tab)">
@@ -75,9 +76,9 @@
     </section>
 
     <section class="case-section case-stage" id="define">
-      <div class="case-label">DEFINE</div>
+      <div class="case-label"><span class="stage-index">02</span> Define</div>
       <div class="case-copy">
-        <p>I used the modelling process as product discovery and kept two comparable stages:</p>
+        <h2 class="stage-title">Make the behavioural contribution comparable.</h2><p>I used the modelling process as product discovery and kept two comparable stages:</p>
         <div class="stage-grid">
           <article><span>STAGE 1</span><h3>Technical indicators only</h3><p>Price, volume, momentum, trend and volatility.</p></article>
           <article><span>STAGE 2</span><h3>Technical + behavioural</h3><p>News sentiment, VIX and engineered rolling features.</p></article>
@@ -94,9 +95,9 @@
 
 
     <section class="case-section case-design" id="design">
-      <div class="case-label">DESIGN</div>
+      <div class="case-label"><span class="stage-index">03</span> Design</div>
       <div class="case-copy">
-        <p>I translated the findings into three design principles:</p>
+        <h2 class="stage-title">One main journey. Evidence within reach.</h2><p>I translated the findings into three design principles:</p>
         <div class="principles">
           <article><b>01</b><h3>Compare before concluding</h3><p>Show Stage 1 and Stage 2 together.</p></article>
           <article><b>02</b><h3>Separate signal from certainty</h3><p>Keep direction, probability and evidence distinct.</p></article>
@@ -120,8 +121,7 @@
           <div><span>BEFORE</span><h3>Analysis-first dashboard</h3><ul><li>Multiple pages and scrolling.</li><li>Hard to compare model stages.</li><li>Behavioural value was not immediately clear.</li><li>Historical data limited current context.</li></ul></div>
           <div><span>AFTER</span><h3>Signal-led investor overview</h3><ul><li>Market and date controls.</li><li>Stage 1 vs Stage 2 direction + probability.</li><li>Behavioural change in confidence.</li><li>Technical, VIX and sentiment context.</li><li>Prediction history and limitations.</li></ul></div>
         </div>
-        <p>The redesign is organised around one question:</p>
-        <blockquote>Did behavioural information change the technical signal enough to matter?</blockquote>
+        
 
       </div>
     </section>
@@ -129,11 +129,11 @@
     <section class="case-section">
       <div class="case-label">KEY DESIGN DECISIONS</div>
       <div class="case-copy">
-        <div class="decision-grid">
-          <article><h3>Side-by-side comparison</h3><p>Users can see whether behavioural information changed direction, probability or neither.</p><span>Comparative information design</span></article>
-          <article><h3>Probability beside direction</h3><p>An UP or DOWN label stays scannable without implying certainty.</p><span>Risk communication</span></article>
-          <article><h3>Behavioural impact translated</h3><p>The interface explains how behavioural information changed probability and direction.</p><span>UX writing for complex systems</span></article>
-          <article><h3>Context in the same flow</h3><p>Technical indicators, sentiment and VIX support the main comparison instead of competing with it.</p><span>Information architecture</span></article>
+        <div class="decision-grid rationale-grid">
+          <article><span>Comparison</span><h3>Show Both Stages Together</h3><p>Separate pages made comparison harder. Side-by-side results expose changes in direction and probability.</p></article>
+          <article><span>Uncertainty</span><h3>Keep Probability Beside Direction</h3><p>A directional label is quick to scan. Probability provides context so it is less likely to be read as a certainty.</p></article>
+          <article><span>Progressive Disclosure</span><h3>Let Investors Inspect The Evidence</h3><p>The overview answers the immediate question; the Behavioural impact tab and explanations support deeper review.</p></article>
+          <article><span>Feasibility</span><h3>Make Data Limits Explicit</h3><p>Stage 2 depends on a timestamped news pipeline. The interface must distinguish historical evidence from live predictions.</p></article>
         </div>
       </div>
     </section>
@@ -167,41 +167,27 @@
     </section>
 
     <section class="case-section evaluation-visuals" id="evidence">
-      <div class="case-label">EVIDENCE</div><div class="case-copy"><h2>Make the evidence available without overwhelming the decision.</h2><p>Model evaluation informed the interface: direction, probability and supporting context have distinct roles. The detailed research remains available for readers who want to inspect the findings.</p><button class="research-open" type="button" data-open-research aria-haspopup="dialog" aria-controls="research-dialog">View modelling analysis findings from the research project <span aria-hidden="true">↗</span></button></div>
+      <div class="case-label"><span class="stage-index">04</span> Evidence</div><div class="case-copy"><h2 class="stage-title">Research that informed the design.</h2><p>Model evaluation informed the interface: direction, probability and supporting context have distinct roles. The detailed research remains available for readers who want to inspect the findings.</p><button class="research-open" type="button" data-open-research aria-haspopup="dialog" aria-controls="research-dialog">View modelling analysis findings from the research project <span aria-hidden="true">↗</span></button></div>
     </section>
 
 
     <section class="case-section" id="test">
-      <div class="case-label">TEST</div>
+      <div class="case-label"><span class="stage-index">05</span> Test</div>
       <div class="case-copy">
-        <div class="eval-grid">
-          <div><h3>What the project established</h3><ul><li>Behavioural features improved LightGBM directional F1 in both original markets.</li><li>Stage comparison made the behavioural contribution inspectable.</li><li>External testing exposed transfer limitations.</li><li>The redesign consolidated comparison and context into one view.</li></ul></div>
-          <div><h3>What I still need to test</h3><ul><li>Whether investors interpret probability correctly.</li><li>Whether the interface improves decision understanding.</li><li>Which language creates better-calibrated trust.</li></ul></div>
+        <h2 class="stage-title">Test understanding, not just task completion.</h2>
+        <p class="evidence-status">Planned Validation · No Usability Results Yet</p>
+        <p>The model was evaluated; the redesigned experience still needs investor testing. I would run five moderated sessions with self-directed mid-term investors.</p>
+        <div class="validation-plan">
+          <article><h3>Compare A Signal</h3><p>Ask participants to explain what changed between Stage 1 and Stage 2.</p><span>Observe: Correct Comparison · Hesitation · Errors</span></article>
+          <article><h3>Interpret Uncertainty</h3><p>Ask what the probability means and what it cannot guarantee.</p><span>Observe: Misinterpretation · Overconfidence</span></article>
+          <article><h3>Find The Evidence</h3><p>Ask participants to locate an explanation and identify a limitation.</p><span>Observe: Findability · Comprehension</span></article>
         </div>
-        <p><strong>The model was evaluated. The redesigned experience still needs usability testing.</strong></p>
-        <p class="case-note">The optional modelling analysis shows why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
-      </div>
-    </section>
-
-    <section class="case-section responsible">
-      <div class="case-label">RESPONSIBLE DESIGN</div>
-      <div class="case-copy">
-        <p>This is decision support, not financial advice. A future iteration would replace direct BUY/SELL language with evidence-led wording:</p>
-        <div class="language-options"><span>Evidence leans positive</span><span>Evidence is mixed</span><span>Evidence leans negative</span></div>
-        <p>I would also test “Why this signal?” explanations, chart accessibility, contrast and reduced motion.</p>
-      </div>
-    </section>
-
-    <section class="case-section">
-      <div class="case-label">NEXT TEST</div>
-      <div class="case-copy">
-        <p>I would run five moderated sessions with self-directed mid-term investors. Tasks would test whether participants can:</p>
-        <ol><li>Explain Stage 1 vs Stage 2.</li><li>Identify whether behaviour changed direction or confidence.</li><li>Interpret probability without treating it as certainty.</li><li>Find the evidence behind a signal.</li><li>Recognise the tool's limitations.</li></ol>
+        <details class="iteration-details"><summary>What I Would Refine Next</summary><p>Test evidence-led alternatives to BUY/SELL labels, such as “Evidence leans positive”, alongside the current wording. Review chart accessibility, keyboard navigation, contrast and reduced motion before further testing.</p></details>
       </div>
     </section>
 
     <section class="case-impact outcome-summary" id="outcome" aria-labelledby="outcome-title">
-      <p class="case-label">OUTCOME &amp; LEARNING</p>
+      <p class="case-label"><span class="stage-index">06</span> Outcome &amp; Learning</p>
       <h2 id="outcome-title">A clearer way to judge an uncertain signal.</h2>
       <p class="outcome-intro">The redesign brings comparison, context and limitations into one view.</p>
       <div class="outcome-cards">
@@ -249,7 +235,7 @@
       <section><h3>06 / What this means for the design</h3><p>Keep the signal scannable, place probability beside it, explain the supporting indicators and expose the limits. Model evaluation and usability testing answer different questions; the redesigned experience still needs investor testing.</p><a class="research-source" href="https://github.com/Adea06/behavioural-investor-signal/blob/main/Sprint3_LightGBM_Classification.ipynb" target="_blank" rel="noopener">View the classification research notebook ↗</a></section>
     </div>
   </dialog>
-  <script src="investor-journey.js?v=20261002-refined-1" defer></script>
+  <script src="investor-journey.js?v=20261002-final-3" defer></script>
 </body>
 </html>
 
