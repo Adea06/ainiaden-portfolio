@@ -92,3 +92,24 @@ body.investor-refined .research-strip{max-width:none;padding:.5rem 5vw 1.5rem;ov
 body.research-modal-open{overflow:hidden;}
 @media(max-width:850px){body.investor-refined .case-section{grid-template-columns:1fr!important;gap:1rem!important;padding:1.75rem 5vw!important;}body.investor-refined .case-section .case-copy{grid-column:1!important;}body.investor-refined .editorial-case-nav{justify-content:flex-start!important;}body.investor-refined .hero-actions a{padding:.9rem;}body.investor-refined .case-intro{padding-bottom:1rem!important;}.research-card{width:245px;}.research-modal-head,.research-modal-scroll{padding:18px;}.research-modal-head h2{font-size:1.15rem;}.pipeline-list li{grid-template-columns:1fr;gap:.3rem;}}
 @media(prefers-reduced-motion:reduce){.strip-track{animation:none;}.strip-viewport{overflow-x:auto;}.strip-group[aria-hidden="true"]{display:none;}#carousel-toggle{display:none;}}
+
+/* Compact closing summary and project skills. */
+body.investor-refined #outcome.outcome-summary{padding:2.5rem max(5vw,calc((100vw - 1280px)/2))!important;}
+body.investor-refined .outcome-summary .case-label{margin:0 0 .9rem!important;}
+body.investor-refined #outcome #outcome-title{max-width:850px;margin:0 0 .75rem!important;font-size:clamp(1.65rem,2.8vw,2.5rem)!important;line-height:1.15!important;}
+body.investor-refined #outcome .outcome-intro{max-width:none;margin:0 0 1.4rem!important;font-size:.95rem!important;line-height:1.5;}
+.outcome-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.outcome-cards article{padding:20px;background:#303e37;border:1px solid #617368;border-radius:8px;}
+.outcome-number{display:block;margin-bottom:12px;color:#bbd3c3;font-size:.7rem;font-weight:700;letter-spacing:.1em;}
+body.investor-refined #outcome .outcome-cards h3{margin:0 0 .6rem;color:#fffdf6;font-size:1.04rem;line-height:1.35;letter-spacing:-.02em;}
+body.investor-refined #outcome .outcome-cards p{margin:0!important;color:#e2e8e2;font-size:.86rem!important;line-height:1.6;max-width:none;}
+.outcome-lesson{margin-top:1rem;padding-top:.8rem;border-top:1px solid #617368;color:#e2e8e2;font-size:.8rem;line-height:1.55;}
+.outcome-lesson span{display:block;margin-bottom:.25rem;color:#bbd3c3;font-size:.65rem;font-weight:700;letter-spacing:.06em;}
+body.investor-refined #outcome .outcome-status{display:flex;align-items:baseline;gap:.8rem;max-width:none;margin:1.1rem 0 0!important;color:#e2e8e2;font-size:.8rem!important;line-height:1.6;}
+.outcome-status span{flex-shrink:0;padding:.2rem .55rem;border:1px solid #8aa996;border-radius:4px;color:#d3e8da;font-size:.65rem;font-weight:600;}
+body.investor-refined .skills-compact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem 1.5rem;max-width:1280px;margin:0 auto;padding:1.5rem 5vw;}
+.skills-compact>div{min-width:0;}
+body.investor-refined .skills-compact h3{margin:0 0 .3rem;color:#315b46;font-size:.68rem;line-height:1.4;font-weight:700;letter-spacing:0;text-transform:none;}
+body.investor-refined .skills-compact p{margin:0;color:#625e58;font-size:.73rem;line-height:1.65;}
+@media(max-width:750px){.outcome-cards{grid-template-columns:1fr;gap:10px;}.outcome-cards article{padding:16px;}.outcome-number{margin-bottom:8px;}body.investor-refined .skills-compact{grid-template-columns:repeat(2,minmax(0,1fr));}body.investor-refined #outcome .outcome-status{align-items:flex-start;}}
+@media(max-width:420px){body.investor-refined .skills-compact{grid-template-columns:1fr;gap:.8rem;}}

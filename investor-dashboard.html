@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=editorial-20260929-2">
-  <link rel="stylesheet" href="investor-journey.css?v=20261002-refined-1">
+  <link rel="stylesheet" href="investor-journey.css?v=20261002-compact-2">
 </head>
 <body class="case-study-page editorial-case investor-refined">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -200,33 +200,25 @@
       </div>
     </section>
 
-    <section class="case-impact" id="outcome">
-      <p class="case-label">OUTCOME</p>
-      <h2>The project moved beyond asking whether a model could predict the market. It explored how uncertain predictions should be communicated to a person expected to act on them.</h2>
-      <p>The redesign made the behavioural contribution inspectable in one place, connected each signal to its context and exposed where the evidence stopped.</p>
-      <blockquote>It did not make an uncertain model certain. It made the uncertainty visible enough for a person to judge.</blockquote>
-    </section>
-
-    <section class="case-section">
-      <div class="case-label">WHAT I LEARNED</div>
-      <div class="case-copy">
-        <ul class="learning-list">
-          <li>Weak evidence can lead to a stronger product decision.</li>
-          <li>Explainability should shape the interface, not sit in an appendix.</li>
-          <li>More data does not automatically create a better signal.</li>
-          <li>Generalisation is both a modelling and user-trust problem.</li>
-          <li>Technical feasibility must shape what a product promises.</li>
-        </ul>
+    <section class="case-impact outcome-summary" id="outcome" aria-labelledby="outcome-title">
+      <p class="case-label">OUTCOME &amp; LEARNING</p>
+      <h2 id="outcome-title">A clearer way to judge an uncertain signal.</h2>
+      <p class="outcome-intro">The redesign brings comparison, context and limitations into one view.</p>
+      <div class="outcome-cards">
+        <article><span class="outcome-number" aria-hidden="true">01</span><h3>Make Comparison Visible</h3><p>Technical and behavioural signals sit together.</p><div class="outcome-lesson"><span>Learning</span>More data needs evidence of added value.</div></article>
+        <article><span class="outcome-number" aria-hidden="true">02</span><h3>Put Evidence In Context</h3><p>Each signal connects to its probability and supporting indicators.</p><div class="outcome-lesson"><span>Learning</span>Explainability belongs in the interface.</div></article>
+        <article><span class="outcome-number" aria-hidden="true">03</span><h3>Show Where Trust Stops</h3><p>Data and market-transfer limits stay visible.</p><div class="outcome-lesson"><span>Learning</span>Weak evidence and technical limits should shape product promises.</div></article>
       </div>
+      <p class="outcome-status"><span>Next Step</span>Test investor understanding and trust through usability sessions.</p>
     </section>
 
-    <section class="case-skills">
-      <div><span>UX</span><p>Problem framing · Information architecture · Interaction design · Data visualisation · UX writing · Accessibility thinking</p></div>
-      <div><span>RESPONSIBLE AI</span><p>Explainability · Uncertainty communication · Confidence calibration · Transparent limitations</p></div>
-      <div><span>RESEARCH</span><p>Quantitative comparison · Model evaluation · Experimental comparison · External validation</p></div>
-      <div><span>BUILD</span><p>Python · VS Code · GitHub</p></div>
-      <div><span>ML</span><p>LightGBM · Optuna · SHAP</p></div>
-      <div><span>PROTOTYPE</span><p>Streamlit · Plotly</p></div>
+    <section class="skills-compact" aria-label="Project skills and tools">
+      <div><h3>UX</h3><p>Problem Framing · Information Architecture · Interaction Design · Data Visualisation · UX Writing</p></div>
+      <div><h3>Responsible AI</h3><p>Explainability · Uncertainty Communication · Transparent Limitations</p></div>
+      <div><h3>Research</h3><p>Quantitative Comparison · Model Evaluation · External Validation</p></div>
+      <div><h3>Build</h3><p>Python · GitHub</p></div>
+      <div><h3>ML</h3><p>LightGBM · Optuna · SHAP</p></div>
+      <div><h3>Prototype</h3><p>Streamlit · Plotly</p></div>
     </section>
 
     <section class="next-project">
