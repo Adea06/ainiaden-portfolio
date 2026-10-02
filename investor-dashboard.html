@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=editorial-20260929-2">
-  <link rel="stylesheet" href="investor-journey.css?v=20261002">
+  <link rel="stylesheet" href="investor-journey.css?v=20261002-refined-1">
 </head>
-<body class="case-study-page editorial-case">
+<body class="case-study-page editorial-case investor-refined">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="nav">
     <a class="brand" href="index.html#top">AINI ADEN</a>
@@ -26,15 +26,8 @@
       <div class="case-kicker">02 / 05 · DATA PRODUCT</div>
       <h1>Behavioural<br><em>Investor Signal</em></h1>
       <p class="case-hero-lede">Making uncertain financial predictions easier to question, compare and understand.</p>
-      <div class="case-meta">
-        <span><b>Project</b> Lambda BI Ltd × UniWorX</span><span><b>Programme</b> MSc Data Science, University of Leicester</span><span><b>Timeline</b> 12 weeks, 2026</span>
-        <span><b>My role</b> LightGBM model development, explainability and end-to-end dashboard design</span><span><b>Team</b> Four MSc Data Science students</span><span><b>Build</b> Python · VS Code · GitHub</span><span><b>ML</b> LightGBM · Optuna · SHAP</span><span><b>Prototype</b> Streamlit · Plotly</span>
-      </div>
-      <div class="case-actions">
-        <a class="case-button case-button-dark" href="https://github.com/Adea06/behavioural-investor-signal/tree/main" target="_blank" rel="noopener">Explore the dashboard ↗</a>
-        <a class="case-button" href="#process">View the process ↓</a>
-      </div>
-      <a class="case-button" href="#final-dashboard">See the redesigned dashboard ↓</a>
+      <div class="hero-skills" aria-label="Core skills"><span>Data Science</span><span>Python</span><span>GitHub</span><span>Figma</span></div>
+      <div class="hero-actions"><a href="#final-dashboard">Explore the dashboard <span aria-hidden="true">↓</span></a><a href="#process">View the process <span aria-hidden="true">↓</span></a></div>
     </section>
 
     <nav class="case-nav editorial-case-nav" aria-label="Case study sections">
@@ -44,16 +37,19 @@
     <section class="case-section case-intro">
       <div class="case-label">THE PROJECT</div>
       <div class="case-copy">
-        <p>This project was provided by <strong>Lambda BI Ltd through the University of Leicester's UniWorX industry project programme</strong>. We were asked to investigate whether psychological market factors could improve financial prediction.</p>
-        <p>As part of a group of four MSc Data Science students, I independently built the <strong>LightGBM classification model, explainability analysis and Streamlit dashboard</strong>. I then treated the dashboard as a UX problem: how could an investor compare the technical baseline with behavioural information without being encouraged to blindly trust the model?</p>
+        <p>This project was provided by <strong>Lambda BI Ltd through the University of Leicester’s Uniworx industry project programme</strong>. We investigated whether psychological market factors could improve financial prediction.</p>
+        <p>Within a group of four MSc Data Science students, I independently built the <strong>LightGBM classification model, explainability analysis and Streamlit dashboard</strong>. I then reworked the dashboard around an investor’s needs.</p>
+        <p class="ux-question"><strong>How could an investor compare the technical baseline with behavioural information without being encouraged to blindly trust the model?</strong></p>
       </div>
     </section>
-
-    <section class="case-outcomes">
-      <div><strong>2</strong><span>markets<br>S&amp;P 500 + FTSE 100</span></div>
-      <div><strong>2019–2026</strong><span>market + behavioural<br>data</span></div>
-      <div><strong>+16.5 pts</strong><span>FTSE 100 F1<br>after behavioural features</span></div>
-      <div><strong>69.4% F1</strong><span>Russell 2000<br>external validation</span></div>
+    <section class="research-strip" aria-label="Research at a glance">
+      <div class="strip-toolbar"><span>RESEARCH AT A GLANCE</span><button id="carousel-toggle" type="button" aria-pressed="false">Pause movement</button></div>
+      <div class="strip-viewport"><div class="strip-track"><div class="strip-group">
+        <article class="research-card"><strong>2 markets</strong><span>S&amp;P 500 + FTSE 100</span></article>
+        <article class="research-card"><strong>2019–2026</strong><span>Market + behavioural data</span></article>
+        <article class="research-card"><strong>+16.5 pts</strong><span>FTSE 100 F1 with behavioural features</span></article>
+        <article class="research-card"><strong>69.4% F1</strong><span>Russell 2000 external validation</span></article>
+      </div></div></div>
       <p>Historical evaluation results, not evidence of future investment returns.</p>
     </section>
 
@@ -71,7 +67,7 @@
         <figure class="journey-figure">
           <div class="journey-figure-heading"><span>01 / ORIGINAL</span><h3>The starting point</h3></div>
           <a class="journey-image-link" href="assets/images/investor-dashboard-before.png" target="_blank" rel="noopener" aria-label="Enlarge: The starting point (opens in a new tab)">
-            <img src="assets/images/investor-dashboard-before.png" alt="Original dark Market Analytics dashboard with price and sentiment charts, technical indicators and model performance panels." width="872" height="435" loading="lazy" decoding="async">
+            <img src="assets/images/investor-dashboard-before.png" alt="Original dark Market Analytics dashboard with price and sentiment charts, technical indicators and model performance panels." width="872" height="435" loading="eager" decoding="async">
           </a>
           <figcaption><span>The original interface foregrounded analysis and model outputs. The redesign needed a clearer route from a market question to an interpretable signal.</span><a href="assets/images/investor-dashboard-before.png" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
         </figure>
@@ -87,41 +83,15 @@
           <article><span>STAGE 2</span><h3>Technical + behavioural</h3><p>News sentiment, VIX and engineered rolling features.</p></article>
         </div>
         <p>This made the behavioural contribution visible rather than assumed.</p>
+        <button class="research-open" type="button" data-open-research aria-haspopup="dialog" aria-controls="research-dialog">View modelling analysis findings from the research project <span aria-hidden="true">↗</span></button>
       </div>
     </section>
 
-    <section class="case-section turning-point">
-      <div class="case-label">A KEY RESEARCH DECISION</div>
-      <div class="case-copy">
-        <h2>Exact prediction created false precision.</h2>
-        <p>Exact next-day return prediction produced weak regression results, with R-squared values negative or close to zero. Instead of disguising that weakness, I changed the task to <strong>five-day direction + probability</strong>.</p>
-        <p>This was more useful for the intended mid-term investor and better matched what the evidence could support.</p>
-        <div class="before-after"><span>Exact next-day return</span><b>→</b><span>Five-day direction + probability</span></div>
-      </div>
-    </section>
 
-    <section class="case-section evidence-skills">
-      <div class="case-label">DATA → PRODUCT</div>
-      <div class="case-copy">
-        <div class="finding-grid">
-          <article><strong>Quantitative evidence</strong><p>Stage 1 vs Stage 2 made the behavioural contribution measurable across markets.</p></article>
-          <article><strong>AI + uncertainty</strong><p>Probability, SHAP and external validation shaped how confidence and limitations appear in the interface.</p></article>
-          <article><strong>Data pipeline</strong><p>Market data + VIX + news → Python feature engineering → LightGBM → Streamlit.</p></article>
-          <article><strong>Experimentation mindset</strong><p>Each model stage tested whether behavioural information added useful signal before it became a product feature.</p></article>
-        </div>
-      </div>
-    </section>
 
-    <section class="case-section">
-      <div class="case-label">WHAT I FOUND</div>
-      <div class="case-copy">
-        <div class="finding-grid">
-          <article><strong>Direction &gt; magnitude</strong><p>Behavioural features improved tuned LightGBM classification: S&amp;P 500 F1 58.9% → 62.5%; FTSE 100 F1 26.8% → 43.3%.</p></article>
-          <article><strong>Technical signal first</strong><p>MACD, CCI, RSI, EMA and ATR carried most of the signal. Sentiment and VIX added context rather than consistently leading predictions.</p></article>
-          <article><strong>Validate per market</strong><p>The S&amp;P-trained LightGBM model reached 69.4% F1 on unseen Russell 2000 data, showing why transfer cannot simply be assumed.</p></article>
-        </div>
-      </div>
-    </section>
+
+
+
 
     <section class="case-section case-design" id="design">
       <div class="case-label">DESIGN</div>
@@ -136,7 +106,7 @@
         <figure class="journey-figure">
           <div class="journey-figure-heading"><span>02 / WIREFLOW</span><h3>Structuring the investor journey</h3></div>
           <a class="journey-image-link" href="assets/images/investor-dashboard-wireflow.svg" target="_blank" rel="noopener" aria-label="Enlarge: Structuring the investor journey (opens in a new tab)">
-            <img src="assets/images/investor-dashboard-wireflow.svg" alt="Desktop wireflow connecting market and date selection to signal results and behavioural comparison, with separate market, calendar and explanation states." width="3280" height="1370" loading="lazy" decoding="async">
+            <img src="assets/images/investor-dashboard-wireflow.svg" alt="Desktop wireflow connecting market and date selection to signal results and behavioural comparison, with separate market, calendar and explanation states." width="3280" height="1370" loading="eager" decoding="async">
           </a>
           <figcaption><span>The wireflow makes the design logic explicit: configure the analysis, review the signal, then compare the evidence. Supporting controls and explanations sit alongside the main path.</span><a href="assets/images/investor-dashboard-wireflow.svg" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
         </figure>
@@ -175,7 +145,7 @@
         <figure class="journey-figure">
           <div class="journey-figure-heading"><span>03 / REDESIGNED</span><h3>Signal first. Evidence within reach.</h3></div>
           <a class="journey-image-link" href="assets/images/investor-dashboard-after.png" target="_blank" rel="noopener" aria-label="Enlarge: Signal first. Evidence within reach. (opens in a new tab)">
-            <img src="assets/images/investor-dashboard-after.png" alt="Redesigned Investor Decision Support dashboard with market and date controls, a sell-leaning signal, probability, market close, VIX, supporting charts and a Why this signal explanation." width="1544" height="854" loading="lazy" decoding="async">
+            <img src="assets/images/investor-dashboard-after.png" alt="Redesigned Investor Decision Support dashboard with market and date controls, a sell-leaning signal, probability, market close, VIX, supporting charts and a Why this signal explanation." width="1544" height="854" loading="eager" decoding="async">
           </a>
           <figcaption><span>The redesigned Today’s signal view brings the result, probability and supporting context together. A separate Behavioural impact tab provides a route into comparison.</span><a href="assets/images/investor-dashboard-after.png" target="_blank" rel="noopener">View full size ↗<span class="journey-sr-only"> (opens in a new tab)</span></a></figcaption>
         </figure>
@@ -197,26 +167,7 @@
     </section>
 
     <section class="case-section evaluation-visuals" id="evidence">
-      <div class="case-label">MODEL EVIDENCE</div>
-      <div class="case-copy">
-        <p>The interface is supported by the model evaluation rather than presenting the prediction as a standalone answer. I used classification metrics and ROC-AUC to assess how well the model separated the two outcome classes across the markets.</p>
-        <figure class="case-figure">
-          <img class="case-wide-image" src="assets/images/model-evaluation.png" alt="Model evaluation results for the LightGBM classification model" loading="lazy">
-          <figcaption>Model evaluation used to assess the quality of the classification output.</figcaption>
-        </figure>
-        <div class="finding-grid">
-          <article>
-            <strong>S&amp;P 500 — ROC-AUC</strong>
-            <img class="case-wide-image" src="assets/images/roc-auc.png" alt="ROC-AUC curve for the S&P 500 LightGBM model" loading="lazy">
-            <p>ROC-AUC provides a threshold-independent view of how well the model distinguishes the two classes.</p>
-          </article>
-          <article>
-            <strong>FTSE 100 — ROC-AUC</strong>
-            <img class="case-wide-image" src="assets/images/roc-auc%20ftse.png" alt="ROC-AUC curve for the FTSE 100 LightGBM model" loading="lazy">
-            <p>The same evaluation was repeated for the FTSE 100 rather than assuming performance would transfer between markets.</p>
-          </article>
-        </div>
-      </div>
+      <div class="case-label">EVIDENCE</div><div class="case-copy"><h2>Make the evidence available without overwhelming the decision.</h2><p>Model evaluation informed the interface: direction, probability and supporting context have distinct roles. The detailed research remains available for readers who want to inspect the findings.</p><button class="research-open" type="button" data-open-research aria-haspopup="dialog" aria-controls="research-dialog">View modelling analysis findings from the research project <span aria-hidden="true">↗</span></button></div>
     </section>
 
 
@@ -228,7 +179,7 @@
           <div><h3>What I still need to test</h3><ul><li>Whether investors interpret probability correctly.</li><li>Whether the interface improves decision understanding.</li><li>Which language creates better-calibrated trust.</li></ul></div>
         </div>
         <p><strong>The model was evaluated. The redesigned experience still needs usability testing.</strong></p>
-        <p class="case-note">The evaluation visuals above show why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
+        <p class="case-note">The optional modelling analysis shows why the dashboard separates prediction, probability and supporting evidence rather than presenting a single “answer”.</p>
       </div>
     </section>
 
@@ -291,5 +242,22 @@
     </div>
     <nav class="footer-nav" aria-label="Footer navigation"><a href="index.html#work">Work</a><a href="index.html#about">About me</a><a href="cv.html">CV</a><a href="index.html#blog">Blog</a><a href="mailto:ainiaden4@gmail.com">Contact</a></nav>
   </footer>
+
+  <dialog id="research-dialog" aria-labelledby="research-title">
+    <div class="research-modal-head"><div><p>OPTIONAL RESEARCH DETAIL</p><h2 id="research-title">Behind the classification model</h2></div><button type="button" id="research-close" aria-label="Close modelling analysis">Close ×</button></div>
+    <div class="research-modal-scroll" tabindex="0" aria-label="Modelling analysis findings">
+      <p class="research-lede">The wider research explored both return prediction and market direction. My contribution focused on LightGBM classification and how its uncertain outputs should be communicated.</p>
+      <section><h3>01 / Data pipeline</h3><ol class="pipeline-list"><li><strong>Inputs</strong><span>Historical market prices, technical indicators, VIX and financial news.</span></li><li><strong>Prepare</strong><span>Align timestamps, score news with FinBERT, and construct lagged and rolling features.</span></li><li><strong>Compare</strong><span>Train a technical-only baseline and a technical + behavioural LightGBM model using time-based evaluation.</span></li><li><strong>Explain and present</strong><span>Evaluate predictions, inspect SHAP contributions and present the signal with probability and context in Streamlit.</span></li></ol></section>
+      <section><h3>02 / Why focus on classification?</h3><p>Regression in the wider research produced weak estimates of return magnitude, with negative or near-zero R². That did not support presenting an exact return estimate as a dependable answer.</p><p>The dashboard therefore focuses on <strong>direction and probability</strong>. Adding behavioural indicators to the technical baseline allowed us to test whether they improved directional classification. This is a change in the question being answered, not a guarantee of accurate prediction.</p><div class="research-callout">Return magnitude → Direction + probability → Supporting evidence</div></section>
+      <section><h3>03 / What changed with behavioural indicators?</h3><div class="research-table-wrap"><table><caption>Held-out classification results · Stage 1 → Stage 2</caption><thead><tr><th scope="col">Market</th><th scope="col">F1</th><th scope="col">Recall</th><th scope="col">ROC-AUC</th></tr></thead><tbody><tr><th scope="row">S&amp;P 500</th><td>0.589 → 0.625</td><td>0.565 → 0.648</td><td>0.396 → 0.389</td></tr><tr><th scope="row">FTSE 100</th><td>0.268 → 0.433</td><td>0.171 → 0.324</td><td>0.528 → 0.481</td></tr></tbody></table></div><p>F1 and recall improved, but ROC-AUC did not. Behavioural indicators helped some classification outcomes without establishing reliable separation of the classes. This distinction is why the interface keeps uncertainty visible.</p><p>The S&amp;P-trained model reached 0.694 F1 in the project’s Russell 2000 external evaluation. Transfer still requires validation for each market and period.</p></section>
+      <section><h3>04 / What influenced the model? SHAP</h3><p>These summary plots come from the project’s Stage 2 LightGBM notebook. Each dot represents a test observation. Horizontal position shows its contribution to the model output; colour represents the feature’s value.</p>
+      <figure><a href="assets/images/shap-sp500.png" target="_blank" rel="noopener"><img src="assets/images/shap-sp500.png" alt="S&amp;P 500 Stage 2 SHAP summary plot from the classification notebook; feature values and their contributions to model output." loading="lazy"></a><figcaption>S&amp;P 500 · Technical and recent market-pattern features lead; VIX and rolling sentiment add information. Select the chart to enlarge.</figcaption></figure>
+      <figure><a href="assets/images/shap-ftse100.png" target="_blank" rel="noopener"><img src="assets/images/shap-ftse100.png" alt="FTSE 100 Stage 2 SHAP summary plot from the classification notebook, including technical indicators and Guardian sentiment features." loading="lazy"></a><figcaption>FTSE 100 · Technical indicators remain influential, alongside rolling sentiment features. Select the chart to enlarge.</figcaption></figure><p>SHAP explains model behaviour. It does not establish causation or prove that a prediction is correct.</p></section>
+      <section><h3>05 / Evaluation visuals</h3><figure><img src="assets/images/model-evaluation.png" alt="LightGBM classification evaluation results" loading="lazy"><figcaption>Classification evaluation from the research project.</figcaption></figure><figure><img src="assets/images/roc-auc.png" alt="S&amp;P 500 model ROC comparison" loading="lazy"><figcaption>S&amp;P 500 ROC comparison.</figcaption></figure><figure><img src="assets/images/roc-auc%20ftse.png" alt="FTSE 100 model ROC comparison" loading="lazy"><figcaption>FTSE 100 ROC comparison.</figcaption></figure></section>
+      <section><h3>06 / What this means for the design</h3><p>Keep the signal scannable, place probability beside it, explain the supporting indicators and expose the limits. Model evaluation and usability testing answer different questions; the redesigned experience still needs investor testing.</p><a class="research-source" href="https://github.com/Adea06/behavioural-investor-signal/blob/main/Sprint3_LightGBM_Classification.ipynb" target="_blank" rel="noopener">View the classification research notebook ↗</a></section>
+    </div>
+  </dialog>
+  <script src="investor-journey.js?v=20261002-refined-1" defer></script>
 </body>
 </html>
+
