@@ -7,7 +7,7 @@ This is an educational research project. Its outputs are historical model estima
 
 ## The question
 
-Can behavioural finance indicators improve financial asset prediction beyond technical indicators alone?
+## Can behavioural finance indicators improve financial asset prediction beyond technical indicators alone?
 
 The dashboard is designed to make that comparison visible while encouraging users to question what the model can and cannot tell them.
 
