@@ -5,13 +5,13 @@ This project began as a live research brief from Lambda BI Ltd, sourced through 
 
 This is an educational research project. Its outputs are historical model estimates, not financial advice or recommendations to buy or sell assets.
 
-## The question
+### The Question:
 
-## Can behavioural finance indicators improve financial asset prediction beyond technical indicators alone?
+### Can behavioural finance indicators improve financial asset prediction beyond technical indicators alone?
 
 The dashboard is designed to make that comparison visible while encouraging users to question what the model can and cannot tell them.
 
-### What the dashboard shows
+#### What the dashboard shows
 - Market direction signals from a LightGBM classification model.
 - Technical and behavioural comparisons so users can see how adding behavioural features changes the signal.
 - Model performance using classification measures such as F1 score, recall and accuracy.
@@ -20,11 +20,11 @@ The dashboard is designed to make that comparison visible while encouraging user
 
 The research focused on the S&P 500 and FTSE 100, with the Russell 2000 used for external validation. Behavioural inputs included sentiment scores derived with FinBERT and VIX data. Technical inputs included indicators such as RSI, MACD, ADX, Bollinger Bands, EMA, OBV and ATR.
 
-### Key findings
+#### Key findings
 Adding behavioural indicators improved directional classification in the tested periods, particularly F1 score and recall. The gains were not consistent across every market or metric, and technical indicators remained influential. External validation on the Russell 2000 showed that some models transferred better than others.
 These results suggest behavioural features can add context to a directional signal, but they do not establish reliable future performance. Results depend on the market, time period, data availability and modelling choices.
 
-### How to run
+#### How to run
 This is a Python and Streamlit project. From the project directory:
 
 'python -m venv .venv'
@@ -39,7 +39,7 @@ Start the dashboard with Streamlit, using the app's entry-point filename:
 
 If the entry-point file has a different name, replace app.py with that filename. The dashboard also depends on the data files and model artifacts expected by the application; keep those files in the locations configured in the project.
 
-###  Tools and methods
+####  Tools and methods
 
 - Python, pandas and NumPy for data preparation
 - LightGBM for direction classification
@@ -48,7 +48,7 @@ If the entry-point file has a different name, replace app.py with that filename.
 - SHAP for model explainability
 - Streamlit and Plotly for the dashboard
 
-### Limitations
+#### Limitations
 
 - Historical performance does not guarantee future results.
 - Sentiment timing and data availability can affect the reliability of behavioural features.
@@ -56,7 +56,7 @@ If the entry-point file has a different name, replace app.py with that filename.
 - External validation results differed by model and target.
 - The dashboard is a research and decision-support prototype, not a trading system.
   
-## Project context
+### Project context
 
 The original work tested whether behavioural indicators could improve prediction beyond a technical-only baseline. The dashboard redesign brings that comparison into a more focused investor workflow: compare the signals, inspect the model's evidence, and make an informed judgement about its limitations.
 Author
