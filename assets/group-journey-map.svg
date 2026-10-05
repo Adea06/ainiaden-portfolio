@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" role="img" aria-labelledby="title desc">
+  <title id="title">Five-stage Leicester Heritage Quest group journey</title>
+  <desc id="desc">The team journey moves from Awareness to Discovery, Engagement, Reflection and Continuation.</desc>
+  <rect width="920" height="300" fill="#e8eee3"/>
+  <text x="44" y="52" fill="#19392e" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2">TEAM USER JOURNEY</text>
+  <path d="M119 146H801" stroke="#789477" stroke-width="3"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <g transform="translate(44 94)"><circle cx="75" cy="52" r="28" fill="#19392e"/><text x="75" y="58" fill="#fff" font-size="16" font-weight="700">01</text><text x="75" y="112" fill="#19392e" font-size="17" font-weight="700">Awareness</text></g>
+    <g transform="translate(224 94)"><circle cx="75" cy="52" r="28" fill="#496b53"/><text x="75" y="58" fill="#fff" font-size="16" font-weight="700">02</text><text x="75" y="112" fill="#19392e" font-size="17" font-weight="700">Discovery</text></g>
+    <g transform="translate(404 94)"><circle cx="75" cy="52" r="28" fill="#668663"/><text x="75" y="58" fill="#fff" font-size="16" font-weight="700">03</text><text x="75" y="112" fill="#19392e" font-size="17" font-weight="700">Engagement</text></g>
+    <g transform="translate(584 94)"><circle cx="75" cy="52" r="28" fill="#829c78"/><text x="75" y="58" fill="#fff" font-size="16" font-weight="700">04</text><text x="75" y="112" fill="#19392e" font-size="17" font-weight="700">Reflection</text></g>
+    <g transform="translate(764 94)"><circle cx="75" cy="52" r="28" fill="#a4b785"/><text x="75" y="58" fill="#19392e" font-size="16" font-weight="700">05</text><text x="75" y="112" fill="#19392e" font-size="17" font-weight="700">Continuation</text></g>
+  </g>
+  <text x="44" y="263" fill="#53675a" font-family="Arial,sans-serif" font-size="14">The five stages are preserved from the submitted team journey map.</text>
+</svg>
