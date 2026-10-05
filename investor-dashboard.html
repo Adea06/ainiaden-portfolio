@@ -45,11 +45,6 @@
         <p>I independently built the <strong>LightGBM classification model, the explainability analysis and the Streamlit dashboard</strong>, then redesigned the dashboard around the investor.</p>
         <p class="ux-question"><strong>How can an investor compare a technical baseline with behavioural information without trusting the model blindly?</strong></p>
         <p class="model-caveat">The model results are mixed, and that shaped the design: an uncertain model needs an interface that helps people calibrate their trust.</p>
-        <ul class="project-placeholders" aria-label="Project details to add">
-          <li>[ADD: project duration]</li>
-          <li>[ADD: teammates’ contributions by role; do not include names]</li>
-          <li>[ADD: feedback from Lambda BI or tutors, only if real]</li>
-        </ul>
       </div>
     </section>
     <section class="research-strip" aria-label="Research at a glance">
@@ -199,7 +194,6 @@
       <div class="case-copy">
         <h2 class="stage-title">Check understanding, not just task completion.</h2>
         <p class="evidence-status">Planned validation. No usability results yet.</p>
-        <p class="validation-placeholder">[ADD: replace with real findings if I run walkthroughs]</p>
         <p>I would run five moderated sessions with self-directed investors:</p>
         <div class="validation-plan">
           <article><h3>Compare</h3><p>“Explain what changed between the two models.”</p><span>Watch for hesitation and wrong comparisons.</span></article>
@@ -267,9 +261,8 @@
             </tbody>
           </table>
         </div>
-        <p class="base-rate-placeholder">[ADD: positive-class base rate for each market, so PR-AUC can be interpreted]</p>
         <p>F1 improved in both markets, but ROC-AUC fell in both and FTSE 100 PR-AUC fell slightly. The S&amp;P 500 gains are small and come from a single test split. Behavioural indicators changed the model's predictions without clearly improving its ability to rank them, so I designed the interface to help investors question the signal, not accept it.</p>
-        <p>The S&amp;P-trained model reached 0.694 F1 on Russell 2000 data. [ADD: baseline comparison if available.] Treat this as an initial check, not proof of transfer.</p>
+        <p>The S&amp;P-trained model reached 0.694 F1 on Russell 2000 data. Treat this as an initial check, not proof of transfer.</p>
       </section>
       <section><h3>04 / What influenced the model? SHAP</h3><p>These summary plots come from the project’s Technical + behavioural LightGBM notebook. Each dot represents a test observation. Horizontal position shows its contribution to the model output; colour represents the feature’s value.</p>
       <figure><a href="assets/images/shap-sp500.png" target="_blank" rel="noopener"><img src="assets/images/shap-sp500.png" alt="S&amp;P 500 Technical + behavioural SHAP summary plot from the classification notebook; feature values and their contributions to model output." loading="lazy"></a><figcaption>S&amp;P 500 · Technical and recent market-pattern features lead; VIX and rolling sentiment add information. Select the chart to enlarge.</figcaption></figure>
