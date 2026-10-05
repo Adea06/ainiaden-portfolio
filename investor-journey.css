@@ -164,3 +164,28 @@ body.recruiter-edit{overflow-x:clip;}
 /* A brighter full-width handoff to the next case study. */
 body.recruiter-edit .next-project{background:#fffefa!important;max-width:none!important;width:100%;margin:0!important;padding:3.5rem max(6vw,calc((100vw - 1120px)/2))!important;border-top:1px solid #dedbd3!important;border-bottom:0!important;}
 body.recruiter-edit .next-project>p{color:#536453!important;}
+
+
+/* Sentence case for case study headings, labels and actions. */
+body.recruiter-edit .editorial-hero h1,
+body.recruiter-edit .case-copy h2,
+body.recruiter-edit .case-copy h3,
+body.recruiter-edit .outcome-summary h2,
+body.recruiter-edit .outcome-cards h3,
+body.recruiter-edit .case-kicker,
+body.recruiter-edit .case-label,
+body.recruiter-edit .stage-grid article > span,
+body.recruiter-edit .redesign-grid > div > span,
+body.recruiter-edit .decision-grid span,
+body.recruiter-edit .next-project > p,
+body.recruiter-edit .strip-toolbar > span,
+body.recruiter-edit .journey-figure-heading > span,
+body.recruiter-edit .final-dashboard-note > div > span,
+body.recruiter-edit .sequence span,
+body.recruiter-edit .footer-intro > p,
+body.recruiter-edit .footer-intro > span,
+body.recruiter-edit .contact-link,
+body.recruiter-edit button,
+body.recruiter-edit .case-button {
+  text-transform: none !important;
+}
