@@ -21,18 +21,6 @@
     document.body.classList.remove('research-modal-open');
     if (trigger) trigger.focus();
   });
-  const strip = document.querySelector('.research-strip');
-  const group = strip.querySelector('.strip-group');
-  const clone = group.cloneNode(true);
-  clone.setAttribute('aria-hidden', 'true');
-  clone.setAttribute('inert', '');
-  strip.querySelector('.strip-track').appendChild(clone);
-  const toggle = document.getElementById('carousel-toggle');
-  toggle.addEventListener('click', () => {
-    const paused = strip.classList.toggle('is-paused');
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.textContent = paused ? 'Resume movement' : 'Pause movement';
-  });
 })();
 
 (() => {
