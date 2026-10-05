@@ -6,6 +6,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=writing-reader-20260930">
 <link rel="stylesheet" href="ai-writing-spacing.css?v=20260930">
+
+<style>
+.investor-evidence-cta .investor-evidence-trigger{font:inherit;font-weight:700;color:inherit;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em;background:none;border:0;padding:0;cursor:pointer}
+.investor-evidence-cta .investor-evidence-trigger span{display:inline-block;margin-left:.3rem}
+.investor-evidence-dialog{width:min(1050px,calc(100vw - 2rem));max-width:none;max-height:min(92vh,980px);padding:0;border:1px solid rgba(31,55,46,.18);border-radius:8px;background:#f8f7f2;color:#1e2924;box-shadow:0 28px 100px rgba(0,0,0,.32)}
+.investor-evidence-dialog::backdrop{background:rgba(18,30,25,.62);backdrop-filter:blur(3px)}
+.investor-evidence-header{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.3rem clamp(1.2rem,3vw,2.2rem);background:#f8f7f2;border-bottom:1px solid rgba(31,55,46,.14)}
+.investor-evidence-header h2{margin:.2rem 0 0;font-size:clamp(1.45rem,3vw,2rem)}
+.investor-evidence-kicker,.investor-evidence-label{margin:0;color:#516a59;font-size:.68rem;letter-spacing:.13em;font-weight:800}
+.investor-evidence-close,.investor-evidence-footer button{font:inherit;font-size:.85rem;padding:.55rem .8rem;border:1px solid rgba(31,55,46,.22);border-radius:4px;background:transparent;color:inherit;cursor:pointer}
+.investor-evidence-scroll{max-height:calc(92vh - 150px);overflow:auto;padding:.4rem clamp(1.2rem,3vw,2.2rem) 2rem}
+.investor-evidence-intro{max-width:75ch;font-size:1rem;line-height:1.65}
+.investor-evidence-section{padding:1.5rem 0;border-top:1px solid rgba(31,55,46,.14)}
+.investor-evidence-section h3{margin:.35rem 0 1rem;font-size:1.25rem}
+.investor-metrics-scroll{overflow-x:auto;border:1px solid rgba(31,55,46,.16);border-radius:5px;background:#fff}
+.investor-metrics-table{width:100%;min-width:720px;border-collapse:collapse;font-size:.87rem}
+.investor-metrics-table caption{text-align:left;padding:.8rem 1rem;color:#58645d;font-size:.78rem}
+.investor-metrics-table th,.investor-metrics-table td{padding:.75rem .85rem;text-align:left;border-top:1px solid #e8ebe7;white-space:nowrap}
+.investor-metrics-table thead th{background:#edf1eb;color:#35473c;font-size:.74rem}
+.investor-evidence-note{max-width:78ch;margin:.8rem 0 0;color:#5c655f;font-size:.84rem;line-height:1.55}
+.investor-evidence-figures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.investor-evidence-figures figure{min-width:0;margin:0;padding:.8rem;background:#fff;border:1px solid rgba(31,55,46,.14);border-radius:5px}
+.investor-evidence-figures img{display:block;width:100%;height:auto;object-fit:contain}
+.investor-evidence-figures figcaption{padding:.7rem .15rem .15rem;color:#4c5951;font-size:.8rem;line-height:1.5}
+.investor-evidence-footer{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem clamp(1.2rem,3vw,2.2rem);background:#edf1eb;border-top:1px solid rgba(31,55,46,.14)}
+.investor-evidence-footer a{color:#294936;font-weight:700;text-underline-offset:.2em}
+.investor-evidence-dialog :focus-visible{outline:3px solid #537b59;outline-offset:3px}
+@media(max-width:680px){.investor-evidence-dialog{width:calc(100vw - 1rem);max-height:96vh;border-radius:6px}.investor-evidence-scroll{max-height:calc(96vh - 145px)}.investor-evidence-figures{grid-template-columns:1fr}.investor-evidence-footer{align-items:flex-start;flex-direction:column}.investor-evidence-footer a{font-size:.9rem}}
+@media(prefers-reduced-motion:reduce){.investor-evidence-dialog::backdrop{backdrop-filter:none}}
+</style>
 </head>
 <body class="writing-reader-page">
 <a class="skip-link" href="#article-content">Skip to article</a>
@@ -74,10 +104,57 @@
 <strong>UX is also about interpreting model output responsibly.</strong>
 <p>Hierarchy, language, cognitive load and visual emphasis can make an uncertain prediction feel more certain than it is. The interface is part of the model-to-human communication layer.</p>
 </div>
-<div class="reader-project-link">
-<a href="investor-dashboard.html">Explore the full investor dashboard case study <span>↗</span></a>
-<p>See the process behind the dashboard, from problem framing and model development to testing and redesign.</p>
+<div class="reader-project-link investor-evidence-cta">
+<button class="investor-evidence-trigger" type="button" data-open-investor-evidence aria-haspopup="dialog" aria-controls="investor-evidence-dialog">
+View the model results, ROC-AUC graphs and SHAP analysis <span aria-hidden="true">↗</span>
+</button>
+<p>Open a compact evidence panel with the evaluation table and model explanation visuals.</p>
 </div>
+<dialog class="investor-evidence-dialog" id="investor-evidence-dialog" aria-labelledby="investor-evidence-title">
+  <header class="investor-evidence-header">
+    <div><p class="investor-evidence-kicker">MODEL EVALUATION · EXPLAINABILITY</p><h2 id="investor-evidence-title">What the results show</h2></div>
+    <button class="investor-evidence-close" type="button" data-close-investor-evidence aria-label="Close results panel">Close ×</button>
+  </header>
+  <div class="investor-evidence-scroll">
+    <p class="investor-evidence-intro">Held-out LightGBM classification results comparing a technical-only baseline with technical and behavioural features. F1 improved in both markets; ROC-AUC declined in both, so the evidence is mixed rather than a general improvement.</p>
+    <section class="investor-evidence-section" aria-labelledby="investor-metrics-title">
+      <p class="investor-evidence-label">01 / EVALUATION</p><h3 id="investor-metrics-title">Held-out classification metrics</h3>
+      <div class="investor-metrics-scroll" role="region" tabindex="0" aria-label="Held-out classification metrics by market and model">
+        <table class="investor-metrics-table">
+          <caption>Best value for each market and metric is bold.</caption>
+          <thead><tr><th scope="col">Market</th><th scope="col">Model</th><th scope="col">Optimiser</th><th scope="col">F1</th><th scope="col">Recall</th><th scope="col">ROC-AUC</th><th scope="col">PR-AUC</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">S&amp;P 500</th><td>Technical only</td><td>GridSearch</td><td>0.589</td><td>0.565</td><td><strong>0.396</strong></td><td>0.554</td></tr>
+            <tr><th scope="row">S&amp;P 500</th><td>Technical + behavioural</td><td>GridSearch</td><td><strong>0.625</strong></td><td><strong>0.648</strong></td><td>0.389</td><td><strong>0.560</strong></td></tr>
+            <tr><th scope="row">FTSE 100</th><td>Technical only</td><td>Optuna</td><td>0.268</td><td>0.171</td><td><strong>0.528</strong></td><td><strong>0.702</strong></td></tr>
+            <tr><th scope="row">FTSE 100</th><td>Technical + behavioural</td><td>Optuna</td><td><strong>0.433</strong></td><td><strong>0.324</strong></td><td>0.481</td><td>0.686</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="investor-evidence-note">Results come from one held-out split per market. They do not establish that the model will perform similarly on new data.</p>
+    </section>
+    <section class="investor-evidence-section" aria-labelledby="investor-roc-title">
+      <p class="investor-evidence-label">02 / DISCRIMINATION</p><h3 id="investor-roc-title">ROC-AUC comparisons</h3>
+      <div class="investor-evidence-figures">
+        <figure><img src="assets/images/roc-auc.png" alt="S&amp;P 500 ROC curves comparing the technical-only model with the technical and behavioural model." loading="lazy"><figcaption>S&amp;P 500 · ROC-AUC changed from 0.396 to 0.389.</figcaption></figure>
+        <figure><img src="assets/images/roc-auc%20ftse.png" alt="FTSE 100 ROC curves comparing the technical-only model with the technical and behavioural model." loading="lazy"><figcaption>FTSE 100 · ROC-AUC changed from 0.528 to 0.481.</figcaption></figure>
+      </div>
+      <p class="investor-evidence-note">ROC-AUC measures how well a model separates the two outcomes across thresholds; 0.5 is the no-skill reference.</p>
+    </section>
+    <section class="investor-evidence-section" aria-labelledby="investor-shap-title">
+      <p class="investor-evidence-label">03 / FEATURE CONTRIBUTIONS</p><h3 id="investor-shap-title">What influenced the model? SHAP</h3>
+      <p>Each dot represents a test observation. Horizontal position shows its contribution to the model output; colour represents the feature value. SHAP describes model behaviour, not causation.</p>
+      <div class="investor-evidence-figures">
+        <figure><img src="assets/images/shap-sp500.png" alt="S&amp;P 500 SHAP summary plot showing feature values and their contributions to the LightGBM model output." loading="lazy"><figcaption>S&amp;P 500 · Technical and recent market-pattern features lead; VIX and rolling sentiment add information.</figcaption></figure>
+        <figure><img src="assets/images/shap-ftse100.png" alt="FTSE 100 SHAP summary plot showing feature values and their contributions to the LightGBM model output." loading="lazy"><figcaption>FTSE 100 · Technical indicators remain influential alongside rolling sentiment features.</figcaption></figure>
+      </div>
+    </section>
+  </div>
+  <footer class="investor-evidence-footer">
+    <a href="investor-dashboard.html">Open the full investor dashboard case study ↗</a>
+    <button type="button" data-close-investor-evidence>Close</button>
+  </footer>
+</dialog>
 
 <h2><span>05</span> Data should inform the decision, not make it</h2>
 <p>I now think about the relationship between analytics, research and experimentation as a loop: <strong>observe → investigate → prototype → test → learn.</strong><sup>[1]</sup></p>
@@ -220,4 +297,7 @@
 <a href="#ai-design" data-nav="ai-design"><span>02</span><strong>Using AI Without Letting It Design for Me</strong><small>AI · HUMAN JUDGEMENT</small></a>
 <a class="reader-all" href="blog.html">View all writing ↗</a></div></aside></main>
 <script>(function(){const a=[...document.querySelectorAll('.reader-article')],n=[...document.querySelectorAll('[data-nav]')],c=document.querySelector('.writing-reader-content');function show(id,reset){const x=a.some(e=>e.dataset.article===id)?id:'data-science-design';a.forEach(e=>e.hidden=e.dataset.article!==x);n.forEach(e=>e.classList.toggle('is-active',e.dataset.nav===x));if(reset)c.scrollTop=0;document.title=(x==='ai-design'?'Using AI Without Letting It Design for Me':'How Data Science Changed How I Design')+' — Aini Aden'}function sync(reset){show(location.hash.slice(1)||'data-science-design',reset)}addEventListener('hashchange',()=>sync(true));sync(false)})();</script><script>(function(){document.querySelectorAll('[data-switch]').forEach(sw=>{sw.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{const wrap=sw.parentElement;sw.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('is-active',b===btn));wrap.querySelectorAll('[data-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.panel===btn.dataset.tab));}))})})();</script>
+<script>
+(()=>{const dialog=document.getElementById('investor-evidence-dialog');if(!dialog)return;document.querySelectorAll('[data-open-investor-evidence]').forEach(button=>button.addEventListener('click',()=>dialog.showModal()));document.querySelectorAll('[data-close-investor-evidence]').forEach(button=>button.addEventListener('click',()=>dialog.close()));})();
+</script>
 </body></html>
