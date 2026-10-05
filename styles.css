@@ -2727,3 +2727,31 @@ body.writing-reader-page:has(.reader-article[data-article="ai-design"]){
 }
 @media(max-width:800px){.globe-visual.project-visual{height:190px}}
 @media(prefers-reduced-motion:reduce){.project-visual > img{transition:none}}
+
+
+/* Ensure card labels remain legible over real screenshots and photography */
+.project-visual-tag {
+  padding: .34rem .52rem;
+  border: 1px solid rgba(31,48,39,.1);
+  border-radius: 999px;
+  background: rgba(250,249,244,.95);
+  color: #263a30;
+  text-shadow: none;
+}
+.project-visual-footer {
+  left: auto;
+  right: .7rem;
+  max-width: calc(100% - 1.4rem);
+  padding: .42rem .56rem;
+  border: 1px solid rgba(31,48,39,.1);
+  border-radius: 8px;
+  background: rgba(250,249,244,.95);
+  color: #263a30;
+  text-shadow: none;
+}
+.project-visual-footer small { color: #66736a; }
+.project-visual-credit {
+  padding: .28rem .42rem;
+  border-radius: 5px;
+  background: rgba(20,34,27,.84);
+}
