@@ -238,13 +238,42 @@
     .small-muted { color:#758695; font-size:9px; }
     .empty-state { padding:18px; color:#778897; background:#fafcfd; border:1px dashed #d5e0e8; border-radius:9px; font-size:10px; }
 
+
+    .actions-toolbar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px; }
+    .action-switch { display:flex; gap:6px; }
+    .action-switch button { padding:8px 11px; border:1px solid #dce6ed; border-radius:8px; color:#536a7d; background:#fff; cursor:pointer; font-size:10px; font-weight:750; }
+    .action-switch button.active { color:#075e9f; background:#eaf5ff; border-color:#c9e2f3; }
+    .action-cards { display:grid; gap:9px; }
+    .action-card { display:grid; grid-template-columns:36px minmax(0,1fr) auto; gap:11px; align-items:start; padding:13px; border:1px solid #e2eaf0; border-radius:10px; background:#fff; }
+    .action-card-icon { display:grid; place-items:center; width:34px; height:34px; border-radius:9px; color:#0871b7; background:#e9f5fc; font-size:15px; }
+    .action-card h3 { margin:1px 0 5px; color:#243e53; font-size:12px; }
+    .action-card p { margin:0; color:#718292; font-size:10px; line-height:1.55; }
+    .action-card-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .action-meta-chip { padding:5px 7px; border-radius:999px; color:#536c7f; background:#f0f5f8; font-size:9px; }
+    .action-date { color:#8b5a00; font-weight:750; }
+    .action-state { padding:5px 7px; border-radius:999px; color:#8b5a00; background:#fff4d8; font-size:9px; font-weight:750; white-space:nowrap; }
+    .action-state.done { color:#087957; background:#e7f7ef; }
+    .action-card-buttons { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+    .action-editor { margin-top:16px; padding:16px; border:1px solid #cfe0ec; border-radius:11px; background:#f8fbfd; }
+    .action-editor h3 { margin:0 0 4px; color:#1e405a; font-size:13px; }
+    .action-editor > p { margin:0 0 14px; color:#738493; font-size:10px; line-height:1.5; }
+    .action-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+    .module-entry { display:flex; gap:8px; }
+    .module-entry .field { flex:1; min-width:0; }
+    .module-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .module-chip { display:inline-flex; align-items:center; gap:7px; padding:6px 8px; border-radius:999px; color:#075e9f; background:#eaf5ff; font-size:9px; font-weight:700; }
+    .module-chip button { padding:0; border:0; color:#075e9f; background:transparent; cursor:pointer; font-weight:900; }
+    .derived-date { min-height:17px; margin:7px 0 0; color:#607a8d; font-size:9px; }
+    .editor-footer { display:flex; justify-content:space-between; align-items:center; gap:9px; margin-top:15px; }
+    .editor-footer-actions { display:flex; justify-content:flex-end; gap:8px; }
+
     @media (max-width:1050px) {
       .layout { grid-template-columns:190px minmax(0,1fr); }
       .grid { grid-template-columns:1fr; }
       .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
     @media (max-width:680px) {
-      .view-filters,.analytics-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .view-filters,.analytics-controls,.action-form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .analytics-top { grid-template-columns:1fr; }
       .drill-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .engagement-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -269,6 +298,10 @@
       .upload-actions { width:100%; }
       .tracker-head { align-items:flex-start; }
       .footer-link { align-items:flex-start; flex-direction:column; }
+      .action-card { grid-template-columns:30px minmax(0,1fr); }
+      .action-card-buttons { grid-column:2; justify-content:flex-start; }
+      .editor-footer { align-items:flex-start; flex-direction:column; width:100%; }
+      .editor-footer-actions { width:100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
@@ -292,7 +325,7 @@
       <button class="nav-item active" type="button" data-view="overview" aria-current="page" onclick="openView('overview')"><span class="nav-icon" aria-hidden="true">▦</span>Overview</button>
       <button class="nav-item" type="button" data-view="students" onclick="openView('students')"><span class="nav-icon" aria-hidden="true">♙</span>Students</button>
       <button class="nav-item" type="button" data-view="analytics" onclick="openView('analytics')"><span class="nav-icon" aria-hidden="true">▥</span>Analytics</button>
-      <button class="nav-item" type="button" onclick="document.querySelector('#actions').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">☷</span>My actions <span class="owner">4</span></button>
+      <button class="nav-item" type="button" data-view="actions" onclick="openView('actions')"><span class="nav-icon" aria-hidden="true">☷</span>My actions <span class="owner">4</span></button>
       <button class="nav-item" type="button" onclick="document.querySelector('#tracker').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">⇧</span>Submission tracker</button>
       <button class="nav-item" type="button" onclick="openReminderComposer()"><span class="nav-icon" aria-hidden="true">✉</span>2-week reminder</button>
       <div class="nav-heading" style="margin-top:19px">Team tools</div>
@@ -472,6 +505,51 @@
       </div>
 
 </div>
+
+      <section class="panel view-section" id="myActionsView" hidden aria-labelledby="myActionsTitle">
+        <div class="panel-head">
+          <div><h2 id="myActionsTitle">My actions</h2><p>View current follow-ups and completed actions. Add a reminder or edit an open action from here.</p></div>
+          <span class="owner">Team action list · sample data</span>
+        </div>
+        <div class="panel-body">
+          <div class="actions-toolbar">
+            <div class="action-switch" role="tablist" aria-label="Action history">
+              <button class="active" type="button" role="tab" aria-selected="true" data-action-view="due">Due <span id="dueActionCount">0</span></button>
+              <button type="button" role="tab" aria-selected="false" data-action-view="past">Past <span id="pastActionCount">0</span></button>
+            </div>
+            <button class="primary" type="button" id="addActionButton">＋ Add action / reminder</button>
+          </div>
+          <div class="action-cards" id="actionCards" aria-live="polite"></div>
+          <div class="action-editor" id="actionEditor" hidden>
+            <h3 id="actionEditorTitle">Add action or reminder</h3>
+            <p>Choose what needs doing, who it applies to and its due date. Module suggestions appear while you type.</p>
+            <div class="action-form-grid">
+              <div class="field"><label for="actionType">Action type</label><select id="actionType">
+                <option value="reminder">Add a reminder</option>
+                <option value="moodle">Import Moodle submission report</option>
+                <option value="contact">Contact non-submitters</option>
+                <option value="review">Review flagged submissions</option>
+              </select></div>
+              <div class="field" id="reminderIntervalField"><label for="reminderInterval">Reminder lead time</label><select id="reminderInterval">
+                <option value="1month">One month before deadline</option><option value="2weeks" selected>Two weeks before deadline</option><option value="1week">One week before deadline</option><option value="24hours">24 hours before deadline</option>
+              </select></div>
+              <div class="field"><label for="actionPartnership">Partnership</label><select id="actionPartnership"><option>Partnership A</option><option selected>Partnership B</option></select></div>
+              <div class="field"><label for="actionCohort">Cohort</label><select id="actionCohort"></select></div>
+              <div class="field"><label for="actionDeadline">Assessment deadline / action due date</label><input id="actionDeadline" type="date" value="2026-10-20"></div>
+              <div class="field"><label for="actionModules">Modules</label>
+                <div class="module-entry"><div class="field"><input id="actionModules" type="text" list="moduleSuggestions" placeholder="Start typing a module…" autocomplete="off"></div><button class="secondary" type="button" id="addModuleButton">Add</button></div>
+                <datalist id="moduleSuggestions">
+                  <option value="Academic Study Skills"><option value="Personal Development"><option value="Accounting for Managers"><option value="Investigating Health and Social Care"><option value="Growing Pains"><option value="Principles of Marketing"><option value="Cybersecurity"><option value="Networking Design">
+                </datalist>
+                <div class="module-chips" id="selectedModules"></div>
+              </div>
+              <p class="derived-date" id="derivedActionDate" aria-live="polite"></p>
+            </div>
+            <div class="editor-footer"><span class="small-muted">Prototype only · saving changes this browser session’s sample action list.</span><div class="editor-footer-actions"><button class="secondary" type="button" id="cancelActionEdit">Cancel</button><button class="primary" type="button" id="saveAction">Save action</button></div></div>
+          </div>
+          <p class="master-note">All action names and dates here are examples. Changes do not update a live team task list, SharePoint file, Moodle or calendar.</p>
+        </div>
+      </section>
 
       <section class="panel view-section" id="studentsView" hidden aria-labelledby="studentsTitle">
         <div class="panel-head">
@@ -853,21 +931,24 @@
       const intro = document.getElementById("overviewIntro");
       const studentsView = document.getElementById("studentsView");
       const analyticsView = document.getElementById("analyticsView");
+      const myActionsView = document.getElementById("myActionsView");
       overview.hidden = view !== "overview";
       intro.hidden = view !== "overview";
       studentsView.hidden = view !== "students";
       analyticsView.hidden = view !== "analytics";
+      myActionsView.hidden = view !== "actions";
       document.querySelectorAll(".nav-item[data-view]").forEach(function(button) {
         const active = button.dataset.view === view;
         button.classList.toggle("active",active);
         if(active) button.setAttribute("aria-current","page");
         else button.removeAttribute("aria-current");
       });
-      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : "Overview";
+      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "My actions" : "Overview";
       document.querySelector(".crumb").innerHTML = 'Workspace <span aria-hidden="true">/</span> ' + title;
       window.scrollTo({top:0,behavior:"smooth"});
       if(view === "students") renderDirectory();
       if(view === "analytics") renderAnalytics();
+      if(view === "actions") renderActionList();
     }
     window.openView = openView;
 
@@ -1014,6 +1095,117 @@
       const label=engagementComponents.find(function(c){return c.key===component;}).label;
       document.getElementById("engagementOutput").innerHTML='<h3>'+label+' · '+selected.length+' touchpoints · '+people.length+' students</h3><div class="drill-list">'+(people.length?people.map(function(r){return '<div class="drill-person"><strong>'+r.name+'</strong><br>'+r.id+'</div>';}).join(""):'<div class="empty-state">No sample records for this component.</div>')+'</div>';
     });
+
+  
+    const actionModules = ["Academic Study Skills","Personal Development","Accounting for Managers","Investigating Health and Social Care","Growing Pains","Principles of Marketing","Cybersecurity","Networking Design"];
+    const actionTypeNames = {reminder:"Add a reminder",moodle:"Import Moodle submission report",contact:"Contact non-submitters",review:"Review flagged submissions"};
+    const actionRows = [
+      {id:"ACT-01",type:"reminder",interval:"2weeks",partnership:"Partnership B",cohort:"7",modules:["Accounting for Managers"],deadline:"2026-10-20",status:"open"},
+      {id:"ACT-02",type:"moodle",partnership:"Partnership B",cohort:"7",modules:["Academic Study Skills"],deadline:"2026-10-08",status:"open"},
+      {id:"ACT-03",type:"contact",partnership:"Partnership A",cohort:"3",modules:["Investigating Health and Social Care"],deadline:"2026-10-06",status:"open"},
+      {id:"ACT-04",type:"review",partnership:"Partnership B",cohort:"2",modules:["Cybersecurity","Networking Design"],deadline:"2026-10-09",status:"open"},
+      {id:"ACT-05",type:"reminder",interval:"1month",partnership:"Partnership A",cohort:"2",modules:["Personal Development"],deadline:"2026-09-24",status:"completed",completedOn:"2026-09-02"},
+      {id:"ACT-06",type:"contact",partnership:"Partnership B",cohort:"4",modules:["Principles of Marketing"],deadline:"2026-09-18",status:"completed",completedOn:"2026-09-18"}
+    ];
+    const intervalLabels={ "1month":"One month","2weeks":"Two weeks","1week":"One week","24hours":"24 hours" };
+    let actionTab="due";
+    let editingActionId=null;
+    let chosenActionModules=[];
+    function localIsoDate(date){return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");}
+    function displayDate(iso){if(!iso)return"Date not set";const date=new Date(iso+"T12:00:00");return date.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
+    function calculatedActionDue(action){
+      if(action.type!=="reminder")return action.deadline;
+      const date=new Date((action.deadline||"2026-10-20")+"T12:00:00");
+      if(action.interval==="1month")date.setMonth(date.getMonth()-1);
+      else if(action.interval==="2weeks")date.setDate(date.getDate()-14);
+      else if(action.interval==="1week")date.setDate(date.getDate()-7);
+      else if(action.interval==="24hours")date.setDate(date.getDate()-1);
+      return localIsoDate(date);
+    }
+    function renderActionList(){
+      const due=actionRows.filter(function(action){return action.status==="open";});
+      const past=actionRows.filter(function(action){return action.status==="completed";});
+      document.getElementById("dueActionCount").textContent=due.length;
+      document.getElementById("pastActionCount").textContent=past.length;
+      document.querySelectorAll("[data-action-view]").forEach(function(button){const active=button.dataset.actionView===actionTab;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active));});
+      const rows=actionTab==="due"?due:past;
+      document.getElementById("actionCards").innerHTML=rows.length?rows.map(function(action){
+        const dueDate=calculatedActionDue(action), overdue=action.status==="open" && dueDate<localIsoDate(new Date());
+        const tags=[action.partnership,"Cohort "+action.cohort].concat(action.modules||[]);
+        const dateText=action.type==="reminder"?intervalLabels[action.interval]+" before deadline · deadline "+displayDate(action.deadline):"Due "+displayDate(dueDate);
+        const status=action.status==="completed"?'<span class="action-state done">Completed '+displayDate(action.completedOn)+'</span>':'<span class="action-state '+(overdue?"":"")+'">'+(overdue?"Overdue":"Due "+displayDate(dueDate))+'</span>';
+        const icon=action.type==="reminder"?"◷":action.type==="moodle"?"⇧":action.type==="contact"?"✉":"✓";
+        const buttons=action.status==="open"?'<div class="action-card-buttons"><button class="small-btn" type="button" data-edit-action="'+action.id+'">Edit</button><button class="small-btn" type="button" data-complete-action="'+action.id+'">Mark complete</button></div>':'<div></div>';
+        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+actionTypeNames[action.type]+'</h3><p>'+dateText+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+tag+'</span>';}).join("")+'</div></div><div>'+status+buttons+'</div></article>';
+      }).join(""):'<div class="empty-state">No '+(actionTab==="due"?"open":"completed")+' actions in this sample view.</div>';
+    }
+    function syncActionCohorts(selected){
+      const select=document.getElementById("actionCohort"), max= document.getElementById("actionPartnership").value==="Partnership A"?4:7;
+      select.innerHTML=Array.from({length:max},function(_,i){return '<option value="'+(i+1)+'">Cohort '+(i+1)+'</option>';}).join("");
+      if(selected && Number(selected)<=max)select.value=selected;
+    }
+    function updateActionDueLabel(){
+      const type=document.getElementById("actionType").value;
+      const interval=document.getElementById("reminderInterval").value;
+      document.getElementById("reminderIntervalField").hidden=type!=="reminder";
+      const date=document.getElementById("actionDeadline").value;
+      const due=calculatedActionDue({type:type,interval:interval,deadline:date});
+      document.getElementById("derivedActionDate").textContent=date?(type==="reminder"?"Reminder will be due on "+displayDate(due)+" ("+intervalLabels[interval].toLowerCase()+" before the deadline).":"Action due date: "+displayDate(due)):"Choose a deadline to calculate the action due date.";
+    }
+    function drawModuleChips(){
+      document.getElementById("selectedModules").innerHTML=chosenActionModules.map(function(module,index){return '<span class="module-chip">'+module+'<button type="button" aria-label="Remove '+module+'" data-remove-module="'+index+'">×</button></span>';}).join("");
+    }
+    function addTypedModule(){
+      const input=document.getElementById("actionModules"), value=input.value.trim();
+      const match=actionModules.find(function(module){return module.toLowerCase()===value.toLowerCase();});
+      if(!match){showToast("Choose a module from the suggestions.");return;}
+      if(chosenActionModules.indexOf(match)<0)chosenActionModules.push(match);
+      input.value="";drawModuleChips();input.focus();
+    }
+    function openActionEditor(action){
+      editingActionId=action?action.id:null;
+      chosenActionModules=action?(action.modules||[]).slice():[];
+      const form=document.getElementById("actionEditor");
+      form.hidden=false;
+      document.getElementById("actionEditorTitle").textContent=action?"Edit action":"Add action or reminder";
+      document.getElementById("actionType").value=action?action.type:"reminder";
+      document.getElementById("reminderInterval").value=action&&action.interval?action.interval:"2weeks";
+      document.getElementById("actionPartnership").value=action?action.partnership:"Partnership B";
+      syncActionCohorts(action?action.cohort:"1");
+      document.getElementById("actionDeadline").value=action?action.deadline:"2026-10-20";
+      drawModuleChips();updateActionDueLabel();
+      form.scrollIntoView({behavior:"smooth",block:"start"});
+      document.getElementById("actionType").focus({preventScroll:true});
+    }
+    document.getElementById("addActionButton").addEventListener("click",function(){openActionEditor(null);});
+    document.getElementById("actionPartnership").addEventListener("change",function(){syncActionCohorts("1");});
+    document.getElementById("actionType").addEventListener("change",updateActionDueLabel);
+    document.getElementById("reminderInterval").addEventListener("change",updateActionDueLabel);
+    document.getElementById("actionDeadline").addEventListener("change",updateActionDueLabel);
+    document.getElementById("addModuleButton").addEventListener("click",addTypedModule);
+    document.getElementById("actionModules").addEventListener("keydown",function(event){if(event.key==="Enter"){event.preventDefault();addTypedModule();}});
+    document.getElementById("selectedModules").addEventListener("click",function(event){
+      const button=event.target.closest("[data-remove-module]");if(!button)return;
+      chosenActionModules.splice(Number(button.dataset.removeModule),1);drawModuleChips();
+    });
+    document.querySelectorAll("[data-action-view]").forEach(function(button){button.addEventListener("click",function(){actionTab=button.dataset.actionView;renderActionList();});});
+    document.getElementById("actionCards").addEventListener("click",function(event){
+      const edit=event.target.closest("[data-edit-action]");
+      const complete=event.target.closest("[data-complete-action]");
+      if(edit){const action=actionRows.find(function(row){return row.id===edit.dataset.editAction;});openActionEditor(action);}
+      if(complete){const action=actionRows.find(function(row){return row.id===complete.dataset.completeAction;});action.status="completed";action.completedOn=localIsoDate(new Date());renderActionList();showToast("Action marked complete and moved to Past.");}
+    });
+    document.getElementById("cancelActionEdit").addEventListener("click",function(){document.getElementById("actionEditor").hidden=true;editingActionId=null;});
+    document.getElementById("saveAction").addEventListener("click",function(){
+      if(!chosenActionModules.length){showToast("Add at least one module.");document.getElementById("actionModules").focus();return;}
+      const type=document.getElementById("actionType").value, deadline=document.getElementById("actionDeadline").value;
+      if(!deadline){showToast("Choose a deadline or action due date.");document.getElementById("actionDeadline").focus();return;}
+      const action={id:editingActionId||"ACT-"+String(Date.now()).slice(-6),type:type,interval:type==="reminder"?document.getElementById("reminderInterval").value:null,partnership:document.getElementById("actionPartnership").value,cohort:document.getElementById("actionCohort").value,modules:chosenActionModules.slice(),deadline:deadline,status:"open"};
+      const index=actionRows.findIndex(function(row){return row.id===editingActionId;});
+      if(index>=0)actionRows[index]=action;else actionRows.unshift(action);
+      document.getElementById("actionEditor").hidden=true;editingActionId=null;actionTab="due";renderActionList();showToast("Action saved to the sample due list.");
+    });
+    renderActionList();
 
   </script>
 </body>
