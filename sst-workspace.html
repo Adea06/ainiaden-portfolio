@@ -244,6 +244,10 @@
       .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
     @media (max-width:680px) {
+      .view-filters,.analytics-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .analytics-top { grid-template-columns:1fr; }
+      .drill-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .engagement-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .cohort-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .student-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .pack-row { grid-template-columns:1fr; align-items:stretch; }
@@ -327,7 +331,7 @@
                   <span class="task-icon" aria-hidden="true">✉</span>
                   <div>
                     <button class="task-title task-link" type="button" onclick="openReminderComposer()">Send 2-week reminder</button>
-                    <div class="task-meta"><span>Partner A · BM · Cohort 7 · PP</span><span>Whole cohort · sample selection</span></div>
+                    <div class="task-meta"><span>Partner B · BM · Cohort 7 · PP</span><span>Whole cohort · sample selection</span></div>
                   </div>
                   <div class="task-controls"><span class="owner mine" data-owner="reminder">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="reminder">Unclaim</button></div>
                 </article>
@@ -566,12 +570,12 @@
 
   <script>
     const students = [
-      {id:"BM26001", name:"Student 001", module:"ACS100", submission:"Submitted", grade:"58%", status:"No action", review:"—", note:"", history:[]},
-      {id:"BM26002", name:"Student 002", module:"ACS100", submission:"Not Submitted", grade:"Ungraded", status:"Follow-up required", review:"—", note:"Student did not pick up. AM", history:["Student did not pick up. AM"]},
-      {id:"BM26003", name:"Student 003", module:"ACS100", submission:"Submitted", grade:"34%", status:"Manual check", review:"Below 40", note:"", history:[]},
-      {id:"BM26004", name:"Student 004", module:"ACS100", submission:"Submitted", grade:"Ungraded", status:"Manual check", review:"Ungraded", note:"Student picked up, laptop not working, will submit as late sub. OL", history:["Student picked up, laptop not working, will submit as late sub. OL"]},
-      {id:"BM26005", name:"Student 005", module:"ACS100", submission:"Submitted", grade:"63%", status:"Manual check", review:"Plagiarism flag", note:"", history:[]},
-      {id:"BM26006", name:"Student 006", module:"ACS100", submission:"Submitted", grade:"71%", status:"No action", review:"—", note:"", history:[]}
+      {id:"SAMPLE-001", name:"Student 001", module:"ACS100", submission:"Submitted", grade:"58%", status:"No action", review:"—", note:"", history:[]},
+      {id:"SAMPLE-002", name:"Student 002", module:"ACS100", submission:"Not Submitted", grade:"Ungraded", status:"Follow-up required", review:"—", note:"Student did not pick up. AM", history:["Student did not pick up. AM"]},
+      {id:"SAMPLE-003", name:"Student 003", module:"ACS100", submission:"Submitted", grade:"34%", status:"Manual check", review:"Below 40", note:"", history:[]},
+      {id:"SAMPLE-004", name:"Student 004", module:"ACS100", submission:"Submitted", grade:"Ungraded", status:"Manual check", review:"Ungraded", note:"Student picked up, laptop not working, will submit as late sub. OL", history:["Student picked up, laptop not working, will submit as late sub. OL"]},
+      {id:"SAMPLE-005", name:"Student 005", module:"ACS100", submission:"Submitted", grade:"63%", status:"Manual check", review:"Plagiarism flag", note:"", history:[]},
+      {id:"SAMPLE-006", name:"Student 006", module:"ACS100", submission:"Submitted", grade:"71%", status:"No action", review:"—", note:"", history:[]}
     ];
 
     const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
@@ -814,12 +818,13 @@
               const serial = anonIndex++;
               const id = "STU-" + String(serial).padStart(4,"0");
               const modules = moduleCatalog[programme];
-              const tutorialDone = partnership !== "Partnership A" || serial % 5 !== 0;
+              const tutorials = [serial % 5 !== 0, serial % 4 !== 0, serial % 3 !== 0];
+              const tutorialDone = partnership !== "Partnership A" || tutorials.every(Boolean);
               const record = {
                 partnership:partnership, programme:programme, cohort:String(cohort), code:code,
                 id:id, name:"Student " + String(serial).padStart(3,"0"),
                 tutorialDone:tutorialDone,
-                tutorials:[serial % 5 !== 0, serial % 4 !== 0, serial % 3 !== 0],
+                tutorials:tutorials,
                 submissions:modules.map(function(module, m) {
                   const status = (serial + m + cohort) % 7 === 0 ? "Not submitted" : ((serial + m) % 9 === 0 ? "Late submission" : "Submitted");
                   const grade = status === "Not submitted" ? "—" : (((serial * 3 + m * 5) % 10) < 7 ? "Pass" : "Fail");
