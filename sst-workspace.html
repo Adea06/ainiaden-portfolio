@@ -1611,14 +1611,14 @@
         const row={id:"WSH-PLAN-"+String(Date.now()).slice(-6),type:"workshopPlan",title:"Plan SST workshop",partnership:filters.partnership,programme:filters.programme,cohort:filters.cohort,code:filters.code,modules:[filters.module],deadline:document.getElementById("workshopDeadline").value||"2026-11-06",dueDate:oneMonthBefore(document.getElementById("workshopDeadline").value||"2026-11-06"),status:"open",owner:"AM"};
         actionRows.unshift(row);activeWorkshopTaskId=row.id;
       }
-      document.getElementById("workshopPartnership").value=analyticsPartner.value;
-      syncExperienceFilters("workshop");
-      document.getElementById("workshopProgramme").value=analyticsProgramme.value;
-      syncExperienceFilters("workshop");
-      document.getElementById("workshopCohort").value=analyticsCohort.value;
-      document.getElementById("workshopCode").value="PP";
-      document.getElementById("workshopModule").value=analyticsModule.value;
       const task=actionRows.find(function(row){return row.id===activeWorkshopTaskId;});
+      document.getElementById("workshopPartnership").value=task&&task.partnership||analyticsPartner.value;
+      syncExperienceFilters("workshop");
+      document.getElementById("workshopProgramme").value=task&&task.programme||analyticsProgramme.value;
+      syncExperienceFilters("workshop");
+      document.getElementById("workshopCohort").value=task&&task.cohort||analyticsCohort.value;
+      document.getElementById("workshopCode").value=task&&task.code||"PP";
+      document.getElementById("workshopModule").value=task&&task.modules&&task.modules[0]||analyticsModule.value;
       document.getElementById("workshopDeadline").value=task&&task.deadline||"2026-11-06";
       populateWorkshopChoice();
       document.getElementById("workshopDate").value="2026-10-20";
