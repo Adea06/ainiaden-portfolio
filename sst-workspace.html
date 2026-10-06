@@ -464,12 +464,8 @@
                 </article>
               </div>
               <div class="engagement-tasks">
-                <div class="engagement-tasks-head"><div><h3>Submission &amp; grade follow-up</h3><p>Record submission status by the day after each deadline; enter grades two or three weeks later.</p></div></div>
+                <div class="engagement-tasks-head"><div><h3>Upcoming SST tasks</h3><p>Next submission, grade, workshop or 1:1 task. Planning is due one month before the module deadline.</p></div></div>
                 <div id="submissionActionList" class="task-list" aria-live="polite"></div>
-              </div>
-              <div class="engagement-tasks">
-                <div class="engagement-tasks-head"><div><h3>Workshop &amp; 1:1 tasks</h3><p>Workshop planning reminders are due one month before the original module deadline.</p></div></div>
-                <div id="engagementTaskList" class="task-list" aria-live="polite"></div>
               </div>
             </div>
           </section>
@@ -1424,8 +1420,16 @@
     function cycleTaskTypeLabel(row){return row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":"Approved EC follow-up";}
     function renderSubmissionActionList(){
       const box=document.getElementById("submissionActionList");if(!box)return;
-      const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||"").localeCompare(b.dueDate||"");});
-      box.innerHTML=rows.length?(rows.slice(0,2).map(function(row){const info=[row.partnership,row.programme,"Cohort "+row.cohort,row.code,row.module,row.stage].filter(Boolean).join(" · ");return '<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":"⇧")+'</span><div><button type="button" class="task-title task-link" data-open-cycle="'+escapeHtml(row.id)+'">'+escapeHtml(cycleTaskTypeLabel(row))+'</button><div class="task-meta"><span>'+escapeHtml(info)+'</span><span>Due '+displayDate(row.dueDate)+'</span><span>'+escapeHtml(row.owner||"AM")+'</span></div></div><button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button></article>';}).join("")+(rows.length>2?'<button type="button" class="small-btn" data-open-action-log="true">View all '+rows.length+' tasks in Tasks log</button>':"")):'<div class="empty-state">No submission or grade follow-ups are due. Use the schedule in Submission tracker to add a module cycle.</div>';
+      const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup","workshopPlan","workshopConduct","oneToOne"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||a.date||"").localeCompare(b.dueDate||b.date||"");});
+      if(!rows.length){box.innerHTML='<div class="empty-state">No upcoming SST tasks.</div>';return;}
+      const row=rows[0],label=row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":row.type==="caseFollowup"?"Approved EC follow-up":row.type==="workshopPlan"?"Plan SST workshop":row.type==="workshopConduct"?"Conduct SST workshop":"Complete SST 1:1 follow-up";
+      const detail=[row.partnership,row.programme,row.cohort?"Cohort "+row.cohort:"",row.code,row.module||((row.modules||[]).join(", ")),row.stage,"Due "+displayDate(row.dueDate||row.date),row.owner||"AM"].filter(Boolean).join(" · ");
+      let button="";
+      if(row.type==="workshopPlan")button='<button type="button" class="small-btn" data-open-engagement="'+escapeHtml(row.id)+'">Plan workshop</button>';
+      else if(row.type==="workshopConduct")button='<button type="button" class="small-btn" data-record-workshop="'+escapeHtml(row.sessionId||"")+'">Record session</button>';
+      else if(row.type==="oneToOne")button='<button type="button" class="small-btn" data-record-one-to-one="'+escapeHtml(row.sessionId||"")+'">Complete 1:1</button>';
+      else button='<button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button>';
+      box.innerHTML='<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":row.type==="workshopPlan"||row.type==="workshopConduct"?"▣":"⇧")+'</span><div><strong class="task-title">'+escapeHtml(label)+'</strong><div class="task-meta"><span>'+escapeHtml(detail)+'</span><span>'+escapeHtml(actionStatusText(row))+'</span></div></div>'+button+'</article><button type="button" class="small-btn" data-open-action-log="true">View all '+rows.length+' upcoming tasks in Tasks log</button>';
     }
     function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
       circumstanceTrackers.EC.filter(function(record){return record.partnership===partnership&&record.programme===programme&&String(record.cohort)===String(cohort)&&record.code===code&&record.module===module&&String(record.status).startsWith("Approved");}).forEach(function(record){
@@ -1767,20 +1771,15 @@
       if(record)openWorkshopCloseout(record.dataset.recordWorkshop);
       if(oneToOne)openOneToOneCloseout(oneToOne.dataset.recordOneToOne);
     });
-    document.getElementById("engagementTaskList").addEventListener("click",function(event){
-      if(event.target.closest("[data-open-action-log]")){openView("actions");return;}
-      const button=event.target.closest("[data-open-engagement]");if(!button)return;
-      const row=actionRows.find(function(item){return item.id===button.dataset.openEngagement;});
-      if(!row)return;
-      if(row.type==="workshopPlan"){activeEngagementComponent="Workshop";document.getElementById("engagementDialogTitle").textContent="Plan SST workshop";startNewWorkshopPlan(row.id);}
-      else if(row.type==="workshopConduct"){openWorkshopCloseout(row.sessionId);}
-      else if(row.type==="oneToOne"){openOneToOneCloseout(row.sessionId);}
-    });
     document.getElementById("createCycleTasks").addEventListener("click",createSubmissionCycleTasks);
     document.getElementById("closeCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
     document.getElementById("cancelCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
     document.getElementById("saveCycleTask").addEventListener("click",saveCycleTask);
-    document.getElementById("submissionActionList").addEventListener("click",function(event){if(event.target.closest("[data-open-action-log]")){openView("actions");return;}const button=event.target.closest("[data-open-cycle]");if(button)openCycleTask(button.dataset.openCycle);});
+    document.getElementById("submissionActionList").addEventListener("click",function(event){
+      if(event.target.closest("[data-open-action-log]")){openView("actions");return;}
+      const cycle=event.target.closest("[data-open-cycle]"),plan=event.target.closest("[data-open-engagement]"),record=event.target.closest("[data-record-workshop]"),one=event.target.closest("[data-record-one-to-one]");
+      if(cycle)openCycleTask(cycle.dataset.openCycle);else if(plan){activeEngagementComponent="Workshop";document.getElementById("engagementDialogTitle").textContent="Plan SST workshop";startNewWorkshopPlan(plan.dataset.openEngagement);}else if(record)openWorkshopCloseout(record.dataset.recordWorkshop);else if(one)openOneToOneCloseout(one.dataset.recordOneToOne);
+    });
     document.querySelectorAll("[data-case-tracker]").forEach(function(button){button.addEventListener("click",function(){openCaseTracker(button.dataset.caseTracker);});});
     document.querySelectorAll("[data-case-tab]").forEach(function(button){button.addEventListener("click",function(){activeCaseEditId=null;activeCaseType=button.dataset.caseTab;renderCaseTracker();});});
     ["casePartnership","caseProgramme","caseCohort","caseCode"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){if(id==="casePartnership"||id==="caseProgramme")syncCaseFilterOptions();else{populateCaseStudents();renderCaseTracker();}});});
