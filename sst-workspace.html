@@ -1405,7 +1405,7 @@
     ];
 
     let activeCycleTaskId=null;
-    function cycleTaskTypeLabel(row){return row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":"EC/MC follow-up";}
+    function cycleTaskTypeLabel(row){return row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":"Approved EC follow-up";}
     function renderSubmissionActionList(){
       const box=document.getElementById("submissionActionList");if(!box)return;
       const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||"").localeCompare(b.dueDate||"");});
@@ -1414,7 +1414,7 @@
     function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
       circumstanceTrackers.EC.filter(function(record){return record.partnership===partnership&&record.programme===programme&&String(record.cohort)===String(cohort)&&record.code===code&&record.module===module&&String(record.status).startsWith("Approved");}).forEach(function(record){
         const dueDate=addCalendarDays(deadline,7),type="EC",id="CASE-FOLLOW-"+record.id+"-"+deadline+"-"+module;
-        if(!actionRows.some(function(row){return row.id===id;}))actionRows.unshift({id:id,type:"caseFollowup",title:"Approved "+type+" follow-up",partnership:partnership,programme:programme,cohort:String(cohort),code:code,module:module,student:{id:record.id,name:record.name},caseType:type,dueDate:dueDate,deadline:deadline,status:"open",owner:record.owner||"AM",detail:"Check approved circumstances outcome one week after deadline."});
+        if(!actionRows.some(function(row){return row.id===id;}))actionRows.unshift({id:id,type:"caseFollowup",title:"Approved "+type+" follow-up",partnership:partnership,programme:programme,cohort:String(cohort),code:code,module:module,stage:"One week after "+displayDate(deadline)+" deadline",student:{id:record.id,name:record.name},caseType:type,dueDate:dueDate,deadline:deadline,status:"open",owner:record.owner||"AM",detail:"Check approved circumstances outcome one week after deadline."});
       });
     }
     function addCycleAction(row){const existing=actionRows.find(function(item){return item.type===row.type&&item.partnership===row.partnership&&item.programme===row.programme&&String(item.cohort)===String(row.cohort)&&item.code===row.code&&item.module===row.module&&item.deadline===row.deadline&&item.stage===row.stage;});if(existing){if(existing.status!=="completed"){existing.dueDate=row.dueDate;existing.title=row.title;}return false;}actionRows.unshift(row);return true;}
@@ -1426,7 +1426,7 @@
       deadlines.forEach(function(item,index){
         const stage=item[0],deadline=item[1],dueData=addCalendarDays(deadline,1),dueGrade=addCalendarDays(deadline,fields.gradeDays);
         const common={partnership:fields.partnership,programme:fields.programme,cohort:fields.cohort,code:fields.code,module:fields.module,deadline:deadline,status:"open",owner:"AM",cycleId:groupId};
-        created+=addCycleAction(Object.assign({id:groupId+"-DATA-"+index,type:"submissionData",title:"Update submission data · "+stage,stage:stage+" submission",dueDate:dueData},common))?1:0;
+        created+=addCycleAction(Object.assign({id:groupId+"-DATA-"+index,type:"submissionData",title:"Update submission data · "+stage,stage:stage==="Late submission"?stage:stage+" submission",dueDate:dueData},common))?1:0;
         created+=addCycleAction(Object.assign({id:groupId+"-GRADE-"+index,type:"gradeEntry",title:"Enter grades · "+stage,stage:stage+" grades",dueDate:dueGrade},common))?1:0;scheduleApprovedCaseFollowups(fields.partnership,fields.programme,fields.cohort,fields.code,fields.module,deadline);
       });
       document.getElementById("cycleScheduleResult").textContent="Created "+created+" submission and grade tasks, plus any approved-case follow-ups.";
