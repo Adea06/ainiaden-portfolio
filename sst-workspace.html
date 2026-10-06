@@ -190,6 +190,13 @@
     .footer-link p { margin:5px 0 0; color:#6b7e8e; font-size:10px; }
     .footer-link button:disabled { color:#8796a2; background:#e6edf2; cursor:not-allowed; }
     .disclaimer { margin:14px 0 0; color:#8996a1; font-size:9px; line-height:1.5; }
+    .task-manager-note { margin:0 0 14px; padding:12px 14px; border:1px solid #e2eaf0; border-radius:9px; color:#5d7080; background:#f8fbfd; font-size:11px; line-height:1.5; }
+    #taskEditorDialog { width:min(740px,calc(100% - 32px)); }
+    .task-editor { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .task-editor h2,.task-editor p,.task-editor .dialog-icon,.task-editor .dialog-actions { grid-column:1/-1; }
+    .task-editor .field { margin:0; }
+    .task-editor .dialog-actions { margin-top:8px; }
+    @media (max-width:620px) { .task-editor { grid-template-columns:1fr; } .task-editor h2,.task-editor p,.task-editor .dialog-icon,.task-editor .dialog-actions { grid-column:1; } }
     dialog { width:min(440px,calc(100% - 32px)); padding:0; border:0; border-radius:14px; color:var(--ink); box-shadow:0 24px 80px rgba(10,35,56,.3); }
     dialog::backdrop { background:rgba(18,37,54,.45); backdrop-filter:blur(2px); }
     .dialog-body { padding:24px; }
@@ -425,6 +432,8 @@
     <aside aria-label="Workspace navigation">
       <div class="nav-heading">Workspace</div>
       <button class="nav-item active" type="button" data-view="overview" aria-current="page" onclick="openView('overview')"><span class="nav-icon" aria-hidden="true">▦</span>Overview</button>
+      <button class="nav-item" type="button" data-view="tasks" onclick="openView('tasks')">
+<span class="nav-icon" aria-hidden="true">☷</span>All tasks <span class="owner" id="activeTaskNavCount">0</span></button>
       <button class="nav-item" type="button" data-view="students" onclick="openView('students')"><span class="nav-icon" aria-hidden="true">♙</span>Students</button>
       <button class="nav-item" type="button" data-view="analytics" onclick="openView('analytics')"><span class="nav-icon" aria-hidden="true">▥</span>Analytics</button>
       <button class="nav-item" type="button" data-view="actions" onclick="openView('actions')"><span class="nav-icon" aria-hidden="true">☷</span>Tasks log <span class="owner" id="pastActionCount">0</span></button>
@@ -458,22 +467,22 @@
           <section class="panel" id="actions" aria-labelledby="actionsTitle">
             <div class="panel-head">
               <div><h2 id="actionsTitle">Today’s actions</h2><p>Shared team tasks with clear ownership.</p></div>
-              <div class="filters" aria-label="Task filters"><button class="filter active" type="button">All</button><button class="filter" type="button">Mine</button></div>
+              <div class="filters" role="group" aria-label="Today's task filter"><button class="filter active" type="button" data-today-filter="all" aria-pressed="true">All <span id="todayAllCount">7</span></button><button class="filter" type="button" data-today-filter="mine" aria-pressed="false">Mine <span id="todayMineCount">0</span></button></div>
             </div>
             <div class="panel-body">
               <div class="task-list">
-                <article class="task" data-task="reminder">
+                <article class="task" data-task="reminder" data-assignee="AM">
                   <span class="task-icon" aria-hidden="true">✉</span>
                   <div>
                     <button class="task-title task-link" type="button" onclick="openReminderComposer()">Send assessment reminder</button>
                     <div class="task-meta"><span>Partner B · BM · Cohort 7 · PP</span><span>Whole cohort · sample selection</span></div>
                   </div>
-                  <div class="task-controls"><span class="owner mine" data-owner="reminder">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="reminder">Unclaim</button></div>
+                  <div class="task-controls"><span class="owner mine" data-owner="reminder">AM · you</span><button class="small-btn" type="button" data-open-task="reminder">Open task</button><button class="small-btn unclaim" type="button" data-task-id="reminder">Unclaim</button></div>
                 </article>
-                <article class="task" data-task="moodle">
+                <article class="task" data-task="moodle" data-assignee="AM">
                   <span class="task-icon" aria-hidden="true">⇧</span>
                   <div><div class="task-title">Import Moodle grade &amp; submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Due on submission day or the day after</strong></div></div>
-                  <div class="task-controls"><span class="owner mine" data-owner="moodle">Claimed by you</span><button class="small-btn" type="button" data-open-moodle-task aria-expanded="false" aria-controls="moodleTaskPanel">Open task</button><button class="small-btn unclaim" type="button" data-task-id="moodle">Unclaim</button></div>
+                  <div class="task-controls"><span class="owner mine" data-owner="moodle">AM · you</span><button class="small-btn" type="button" data-open-moodle-task aria-expanded="false" aria-controls="moodleTaskPanel">Open task</button><button class="small-btn unclaim" type="button" data-task-id="moodle">Unclaim</button></div>
                   <div class="task-import-panel" id="moodleTaskPanel" hidden>
                     <div class="task-import-copy"><strong>Import Moodle grade and submission report</strong><span>The report updates the Submitted/Not submitted and Grade columns by Student ID. High AI/similarity flags, 0% or below 39% grades, and missing grades need an SST check in Moodle because marker feedback is not in this report.</span><span>A non-submission stays unconfirmed until an SST checks Moodle. Confirm DNS only after that check.</span></div>
                     <div class="upload-box">
@@ -484,19 +493,21 @@
                     <p class="state-line" id="importStatus" aria-live="polite">Choose the report to update the sample tracker view.</p>
                   </div>
                 </article>
-                <article class="task" data-task="contact">
+                <article class="task" data-task="contact" data-assignee="AM">
                   <span class="task-icon" aria-hidden="true">✉</span>
                   <div><div class="task-title">Contact non-submitters</div><div class="task-meta"><span>ACS100 · 2 students need follow-up</span><span>From latest Moodle report</span></div></div>
-                  <div class="task-controls"><span class="owner mine" data-owner="contact">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="contact">Unclaim</button></div>
+                  <div class="task-controls"><span class="owner mine" data-owner="contact">AM · you</span><button class="small-btn" type="button" data-open-task="contact">Open task</button><button class="small-btn unclaim" type="button" data-task-id="contact">Unclaim</button></div>
                 </article>
-                <article class="task">
-                  <span class="task-icon" aria-hidden="true">✓</span>
-                  <div><div class="task-title">Review flagged submissions</div><div class="task-meta"><span>ACS100 · 4 grade/AI flags + 1 DNS confirmation</span><span>Check Moodle feedback before closing</span></div></div>
-                  <div class="task-controls"><span class="owner">Unassigned</span><button class="small-btn claim-task" type="button" data-task-id="review">Claim task</button></div>
+                <article class="task" data-task="review" data-assignee=""><span class="task-icon" aria-hidden="true">✓</span><div><div class="task-title">Review flagged submissions</div><div class="task-meta"><span>ACS100 · 4 grade/AI flags + 1 DNS confirmation</span><span>Check Moodle feedback before closing</span></div></div>
+                  <div class="task-controls"><span class="owner" data-owner="review">Unassigned</span><button class="small-btn" type="button" data-open-task="review">Open task</button><button class="small-btn claim-task" type="button" data-task-id="review">Claim task</button></div>
                 </article>
+              
+                <article class="task" data-task="workshop" data-assignee="OL"><span class="task-icon" aria-hidden="true">▣</span><div><div class="task-title">Plan ACS100 workshop</div><div class="task-meta"><span>Partnership B · BM · Cohort 7 · PP</span><span>Workshop planning task · due today</span></div></div><div class="task-controls"><span class="owner" data-owner="workshop">OL</span><button class="small-btn" type="button" data-open-task="workshop">Open task</button></div></article>
+                <article class="task" data-task="call-session" data-assignee="OL"><span class="task-icon" aria-hidden="true">☎</span><div><div class="task-title">24-hour call session</div><div class="task-meta"><span>Partnership B · BM · Cohort 7 · ACS100</span><span>Before the submission deadline · due today</span></div></div><div class="task-controls"><span class="owner" data-owner="call-session">OL</span><button class="small-btn" type="button" data-open-task="call">Open task</button></div></article>
+                <article class="task" data-task="grade-entry" data-assignee=""><span class="task-icon" aria-hidden="true">✓</span><div><div class="task-title">Check late submission grades</div><div class="task-meta"><span>Partnership A · HSC · Cohort 2 · PRD</span><span>Validate Moodle feedback and record outcome · due today</span></div></div><div class="task-controls"><span class="owner" data-owner="grade-entry">Unassigned</span><button class="small-btn" type="button" data-open-task="grades">Open task</button><button class="small-btn claim-task" type="button" data-task-id="grade-entry">Claim task</button></div></article>
               </div>
               <section class="week-preview" aria-labelledby="weekPreviewTitle">
-                <div class="week-preview-head"><div><h3 id="weekPreviewTitle">This week</h3><p>Deadlines, 24-hour calls, workshops and 1:1s · sample schedule</p></div><button type="button" class="week-peek-link" onclick="openView('actions')">See all tasks →</button></div>
+                <div class="week-preview-head"><div><h3 id="weekPreviewTitle">This week</h3><p>Deadlines, 24-hour calls, workshops and 1:1s · sample schedule</p></div><button type="button" class="week-peek-link" onclick="openView('tasks')">See all tasks →</button></div>
                 <div id="submissionActionList" class="week-preview-grid" aria-live="polite"></div>
               </section>
             </div>
@@ -616,9 +627,18 @@
         <div id="submissionPageContent"></div>
       </section>
 
+      <section class="panel view-section" id="tasksView" hidden aria-labelledby="tasksTitle">
+        <div class="panel-head"><div><h2 id="tasksTitle">All tasks</h2><p>View, assign and reschedule upcoming work. Completed actions are kept in Tasks log.</p></div><button class="primary" type="button" id="addTaskButton">＋ Add task</button></div>
+        <div class="panel-body">
+          <div class="task-manager-note">Workshops and 1:1s are created through Engagement. They appear here so you can review or move their due dates.</div>
+          <div class="actions-toolbar"><div class="action-switch" role="group" aria-label="Filter active tasks"><button class="active" type="button" data-manager-filter="all" aria-pressed="true">All tasks <span id="managerAllCount">0</span></button><button type="button" data-manager-filter="mine" aria-pressed="false">My tasks <span id="managerMineCount">0</span></button></div><span class="small-muted">Owner initials show who is responsible.</span></div>
+          <div class="log-summary"><strong id="managerVisibleCount">0</strong><span>active tasks</span></div><div class="action-cards" id="taskManagerCards" aria-live="polite"></div>
+        </div>
+      </section>
+
       <section class="panel view-section" id="myActionsView" hidden aria-labelledby="myActionsTitle">
         <div class="panel-head">
-          <div><h2 id="myActionsTitle">Actions</h2><p>Review completed and active tasks. Owner initials show who is responsible.</p></div>
+          <div><h2 id="myActionsTitle">Tasks log</h2><p>Completed actions are recorded here. Owner initials show who led or supported each action.</p></div>
           <span class="owner">Task history · sample data</span>
         </div>
         <div class="panel-body">
@@ -703,6 +723,22 @@
       <p class="disclaimer">Prototype only · Sample data is fictional. Uploads are not sent to a server; the import animation demonstrates the intended Student ID matching step.</p>
     </main>
   </div>
+
+  <dialog id="taskEditorDialog" aria-labelledby="taskEditorTitle">
+    <div class="dialog-body task-editor">
+      <div class="dialog-icon" aria-hidden="true">✎</div><h2 id="taskEditorTitle">Add a task</h2><p id="taskEditorHelp">Create or edit an operational task. Workshop and 1:1 planning stay in Engagement.</p>
+      <div class="field"><label for="taskEditorName">Task name</label><input id="taskEditorName" type="text" placeholder="e.g. Check submission report" required></div>
+      <div class="field"><label for="taskEditorType">Task type</label><select id="taskEditorType"><option value="supportTask">General support task</option><option value="reminder">Assessment reminder</option><option value="moodle">Import Moodle report</option><option value="contact">Contact non-submitters</option><option value="review">Review flagged submission</option><option value="submissionData">Update submission data</option><option value="gradeEntry">Enter grades</option><option value="caseFollowup">EC / MC follow-up</option></select></div>
+      <div class="field"><label for="taskEditorPartner">Partnership</label><select id="taskEditorPartner"><option>Partnership A</option><option>Partnership B</option></select></div>
+      <div class="field"><label for="taskEditorProgramme">Programme</label><select id="taskEditorProgramme"><option>BM</option><option>HSC</option><option>COMP</option></select></div>
+      <div class="field"><label for="taskEditorCohort">Cohort</label><select id="taskEditorCohort"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div>
+      <div class="field"><label for="taskEditorCode">Code</label><select id="taskEditorCode"><option>RWA</option><option>TP</option><option>PP</option></select></div>
+      <div class="field"><label for="taskEditorModule">Module</label><input id="taskEditorModule" list="taskModuleOptions" type="text" placeholder="Search or type a module"><datalist id="taskModuleOptions"><option value="Academic Study Skills"><option value="Personal Development"><option value="Accounting for Managers"><option value="Investigating Health and Social Care"><option value="Growing Pains"><option value="Principles of Marketing"><option value="Cybersecurity"><option value="Networking Design"><option value="ACS"><option value="PRD"><option value="AFM"><option value="POM"></datalist></div>
+      <div class="field"><label for="taskEditorDue">Task due date</label><input id="taskEditorDue" type="date" required></div><div class="field"><label for="taskEditorDeadline">Related module deadline <span class="small-muted">optional</span></label><input id="taskEditorDeadline" type="date"></div>
+      <div class="field"><label for="taskEditorOwner">Responsible SST</label><select id="taskEditorOwner"><option value="AM">AM · you</option><option value="OL">OL</option><option value="Unassigned">Unassigned</option></select></div>
+      <div class="dialog-actions"><button class="secondary" type="button" id="cancelTaskEditor">Cancel</button><button class="primary" type="button" id="saveTaskEditor">Save task</button></div>
+    </div>
+  </dialog>
 
   <dialog id="unclaimDialog" aria-labelledby="unclaimTitle">
     <div class="dialog-body">
@@ -913,9 +949,18 @@
       button.textContent = "Hide history";
     });
 
+    function openTodayTask(task){
+      if(task==="reminder"){openReminderComposer();return;}
+      if(task==="moodle"){const report=document.querySelector('[data-open-moodle-task]');if(report&&report.getAttribute("aria-expanded")!=="true")report.click();return;}
+      if(task==="workshop"){openEngagementDialog("Workshop");return;}
+      if(task==="grades"){openView("submissions");return;}
+      openView("students");
+    }
     const taskDialog=document.getElementById("unclaimDialog");
     let taskToChange=null, taskChangeAction="unclaim";
     document.querySelector(".task-list").addEventListener("click",function(event){
+      const openToday=event.target.closest("[data-open-task]");
+      if(openToday){openTodayTask(openToday.dataset.openTask);return;}
       const openReport=event.target.closest("[data-open-moodle-task]");
       if(openReport){const panel=document.getElementById("moodleTaskPanel");panel.hidden=!panel.hidden;openReport.setAttribute("aria-expanded",String(!panel.hidden));openReport.textContent=panel.hidden?"Open task":"Close task";return;}
       const claim=event.target.closest(".claim-task"), unclaim=event.target.closest(".unclaim"), button=claim||unclaim;
@@ -933,13 +978,15 @@
       if(!taskToChange)return;
       const owner=document.querySelector('[data-owner="'+taskToChange+'"]'), card=document.querySelector('.task [data-task-id="'+taskToChange+'"]').closest(".task"), control=card.querySelector(".claim-task, .unclaim"), count=document.getElementById("claimedCount");
       if(taskChangeAction==="claim"){
-        if(owner){owner.textContent="Claimed by you";owner.classList.add("mine");}
+        if(owner){owner.textContent="AM · you";owner.classList.add("mine");}
+        card.dataset.assignee="AM";
         control.textContent="Unclaim";control.classList.remove("claim-task");control.classList.add("unclaim");count.textContent=String(Number(count.textContent)+1);showToast("Task claimed by you.");
       }else{
         if(owner){owner.textContent="Unassigned";owner.classList.remove("mine");}
+        card.dataset.assignee="";
         control.textContent="Claim task";control.classList.remove("unclaim");control.classList.add("claim-task");count.textContent=String(Math.max(0,Number(count.textContent)-1));showToast("Task unclaimed and returned to the shared list.");
       }
-      taskDialog.close();taskToChange=null;
+      taskDialog.close();taskToChange=null;applyTodayTaskFilter(todayTaskFilter);
     });
 
     const fileInput = document.getElementById("fileInput");
@@ -1104,11 +1151,18 @@
     document.getElementById("browsePacks").addEventListener("click",()=>openSharePointFolder("guidance"));
     document.querySelectorAll("[data-sharepoint-folder]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();openSharePointFolder(link.dataset.sharepointFolder);}));
     document.getElementById("closeSharepoint").addEventListener("click",()=>sharepointDialog.close());
-    document.querySelectorAll(".filter").forEach((button) => button.addEventListener("click", () => {
-      document.querySelectorAll(".filter").forEach((item) => item.classList.remove("active"));
-      button.classList.add("active");
-      if (button.textContent === "Mine") showToast("Showing tasks currently claimed by you.");
-    }));
+    let todayTaskFilter="all";
+    function applyTodayTaskFilter(filter){
+      todayTaskFilter=filter;
+      document.querySelectorAll("[data-today-filter]").forEach(function(button){const active=button.dataset.todayFilter===filter;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));});
+      const cards=Array.from(document.querySelectorAll(".task-list>.task"));
+      cards.forEach(function(card){card.hidden=filter==="mine"&&card.dataset.assignee!=="AM";});
+      const allCount=document.getElementById("todayAllCount"),mineCount=document.getElementById("todayMineCount");
+      if(allCount)allCount.textContent=String(cards.length);
+      if(mineCount)mineCount.textContent=String(cards.filter(function(card){return card.dataset.assignee==="AM";}).length);
+    }
+    document.querySelectorAll("[data-today-filter]").forEach(function(button){button.addEventListener("click",function(){applyTodayTaskFilter(button.dataset.todayFilter);});});
+    applyTodayTaskFilter("all");
   
     const moduleCatalog = {
       BM:["ACS","PRD","AFM","POM"],
@@ -1119,6 +1173,13 @@
       "Partnership A":["BM","HSC","COMP"],
       "Partnership B":["BM","HSC"]
     };
+    function syncTaskEditorFilters(programme,cohort){
+      const partnership=document.getElementById("taskEditorPartner").value;
+      setOptions(document.getElementById("taskEditorProgramme"),programmeCatalog[partnership],programme||"BM");
+      const max=partnership==="Partnership A"?4:7;
+      setOptions(document.getElementById("taskEditorCohort"),Array.from({length:max},function(_,i){return String(i+1);}),String(cohort||"1"));
+    }
+    document.getElementById("taskEditorPartner").addEventListener("change",function(){syncTaskEditorFilters();});
     const directoryRecords = [];
     const cohortRoster = [];
     const noteSamples = [
@@ -1227,6 +1288,7 @@
       if(view==="overview")document.querySelectorAll("#overviewView>.grid>.stack").forEach(function(stack){stack.scrollTop=0;});
       const overview = document.getElementById("overviewView");
       const intro = document.getElementById("overviewIntro");
+      const tasksView = document.getElementById("tasksView");
       const studentsView = document.getElementById("studentsView");
       const analyticsView = document.getElementById("analyticsView");
       const myActionsView = document.getElementById("myActionsView");
@@ -1234,6 +1296,7 @@
       const submissionsView = document.getElementById("submissionsView");
       overview.hidden = view !== "overview";
       intro.hidden = view !== "overview";
+      tasksView.hidden = view !== "tasks";
       studentsView.hidden = view !== "students";
       analyticsView.hidden = view !== "analytics";
       myActionsView.hidden = view !== "actions";
@@ -1245,9 +1308,10 @@
         if(active) button.setAttribute("aria-current","page");
         else button.removeAttribute("aria-current");
       });
-      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "Tasks log" : view === "reminder" ? "Assessment reminder" : view === "submissions" ? "Submission tracker" : "Overview";
+      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "tasks" ? "All tasks" : view === "actions" ? "Tasks log" : view === "reminder" ? "Assessment reminder" : view === "submissions" ? "Submission tracker" : "Overview";
       document.querySelector(".crumb").innerHTML = 'Workspace <span aria-hidden="true">/</span> ' + title;
       window.scrollTo({top:0,behavior:"smooth"});
+      if(view === "tasks") renderTaskManager();
       if(view === "students") renderDirectory();
       if(view === "analytics") renderAnalytics();
       if(view === "actions") renderActionList();
@@ -1426,7 +1490,7 @@
     });
 
   
-    const actionTypeNames={reminder:"Reminder email",moodle:"Moodle report import",contact:"Student follow-up",review:"Submission review",email:"Email sent",workshopPlan:"Plan workshop",workshopConduct:"Conduct workshop",oneToOne:"SST 1:1"};
+    const actionTypeNames={reminder:"Reminder email",moodle:"Moodle report import",contact:"Student follow-up",review:"Submission review",email:"Email sent",workshopPlan:"Plan workshop",workshopConduct:"Conduct workshop",oneToOne:"SST 1:1",submissionData:"Submission data update",gradeEntry:"Grade entry",caseFollowup:"EC / MC follow-up",supportTask:"General support task"};
     const actionRows=[
       {id:"ACT-05",type:"reminder",partnership:"Partnership A",cohort:"2",modules:["Personal Development"],status:"completed",completedOn:"2026-09-02",owner:"AM"},
       {id:"ACT-06",type:"contact",partnership:"Partnership B",cohort:"4",modules:["Principles of Marketing"],status:"completed",completedOn:"2026-09-18",owner:"OL"},
@@ -1520,8 +1584,91 @@
       if(action.status==="scheduled")return "Planned for "+displayDate(action.date)+(action.time?" at "+action.time:"");
       return "Open · due "+displayDate(action.dueDate||action.deadline);
     }
+    let taskManagerFilter="all", editingTaskId=null;
+    function managerTaskOwner(action){return action.owner||"Unassigned";}
+    function renderTaskManager(){
+      const all=actionRows.filter(function(row){return row.status!=="completed";}).slice().sort(function(a,b){return (a.dueDate||a.date||a.deadline||"").localeCompare(b.dueDate||b.date||b.deadline||"");});
+      const mine=all.filter(function(row){return row.owner==="AM";});
+      const rows=taskManagerFilter==="mine"?mine:all;
+      document.getElementById("managerAllCount").textContent=String(all.length);
+      document.getElementById("managerMineCount").textContent=String(mine.length);
+      document.getElementById("managerVisibleCount").textContent=String(rows.length);
+      document.getElementById("activeTaskNavCount").textContent=String(all.length);
+      document.querySelectorAll("[data-manager-filter]").forEach(function(button){const active=button.dataset.managerFilter===taskManagerFilter;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));});
+      const box=document.getElementById("taskManagerCards");
+      box.innerHTML=rows.length?rows.map(function(task){
+        const tags=[task.partnership,task.programme,task.cohort?"Cohort "+task.cohort:"",task.code,task.module].concat(task.modules||[]).filter(Boolean);
+        const title=task.title||actionTypeNames[task.type]||"Task";
+        const due=task.dueDate||task.date||task.deadline;
+        const state=task.status==="partial"?"Partially complete · follow-up required":(task.status==="scheduled"?"Scheduled":"Open");
+        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">◷</span><div><h3>'+escapeHtml(title)+'</h3><p>'+escapeHtml([tags.join(" · "),due?"Due "+displayDate(due):"",state].filter(Boolean).join(" · "))+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="owner">'+escapeHtml(managerTaskOwner(task))+'</span><button class="small-btn" type="button" data-manager-open="'+escapeHtml(task.id)+'">Open task</button><button class="small-btn" type="button" data-edit-task="'+escapeHtml(task.id)+'">Edit</button></div></article>';
+      }).join(""):'<div class="empty-state">No active tasks in this view.</div>';
+    }
+    function openManagedTask(id){
+      const task=actionRows.find(function(row){return row.id===id;});if(!task)return;
+      if(task.type==="workshopPlan"){startNewWorkshopPlan(task.id);return;}
+      if(task.type==="workshopConduct"){openWorkshopCloseout(task.sessionId||"");return;}
+      if(task.type==="oneToOne"){if(task.sessionId)openOneToOneCloseout(task.sessionId);else openEngagementDialog("One-to-one");return;}
+      if(["submissionData","gradeEntry","caseFollowup"].includes(task.type)){openCycleTask(task.id);return;}
+      if(task.type==="reminder"){openReminderComposer();return;}
+      if(task.type==="moodle"){openView("overview");openTodayTask("moodle");return;}
+      if(task.type==="contact"||task.type==="review"){openView("students");return;}
+      showToast("Task details opened. Use Edit to update its owner or due date.");
+    }
+    function openTaskEditor(taskId){
+      editingTaskId=taskId||null;
+      const task=editingTaskId?actionRows.find(function(row){return row.id===editingTaskId;}):null;
+      document.getElementById("taskEditorTitle").textContent=task?"Edit task":"Add a task";
+      document.getElementById("taskEditorName").value=task?(task.title||actionTypeNames[task.type]||""):"";
+      const typeSelect=document.getElementById("taskEditorType");
+      typeSelect.disabled=!!(task&&["workshopPlan","workshopConduct","oneToOne"].includes(task.type));
+      typeSelect.value=task?task.type:"supportTask";
+      document.getElementById("taskEditorPartner").value=task?.partnership||"Partnership A";
+      syncTaskEditorFilters(task?.programme,task?.cohort);
+      document.getElementById("taskEditorCode").value=task?.code||"RWA";
+      document.getElementById("taskEditorModule").value=task?.module||(task?.modules||[])[0]||"";
+      document.getElementById("taskEditorDue").value=task?.dueDate||task?.date||localIsoDate(new Date());
+      document.getElementById("taskEditorDeadline").value=task?.deadline||"";
+      document.getElementById("taskEditorOwner").value=task?.owner||"Unassigned";
+      document.getElementById("taskEditorHelp").textContent=task&&["workshopPlan","workshopConduct","oneToOne"].includes(task.type)?"Update the due date or owner here. Workshop and 1:1 planning details stay in Engagement.":"Create or edit an operational task. Workshop and 1:1 planning stay in Engagement.";
+      document.getElementById("taskEditorDialog").showModal();
+    }
+    function saveTaskEditor(){
+      const name=document.getElementById("taskEditorName").value.trim(),due=document.getElementById("taskEditorDue").value;
+      if(!name||!due){showToast("Add a task name and due date before saving.");return;}
+      let task=editingTaskId?actionRows.find(function(row){return row.id===editingTaskId;}):null;
+      if(!task){task={id:"TASK-"+String(Date.now()),status:"open",createdOn:localIsoDate(new Date())};actionRows.unshift(task);}
+      task.title=name;
+      if(!editingTaskId||!["workshopPlan","workshopConduct","oneToOne"].includes(task.type))task.type=document.getElementById("taskEditorType").value;
+      task.partnership=document.getElementById("taskEditorPartner").value;
+      task.programme=document.getElementById("taskEditorProgramme").value;
+      task.cohort=document.getElementById("taskEditorCohort").value;
+      task.code=document.getElementById("taskEditorCode").value;
+      const module=document.getElementById("taskEditorModule").value.trim();
+      task.module=module;task.modules=module?[module]:[];
+      if(task.date&&!task.dueDate)task.date=due;else task.dueDate=due;
+      task.deadline=document.getElementById("taskEditorDeadline").value||"";
+      const owner=document.getElementById("taskEditorOwner").value;
+      task.owner=owner==="Unassigned"?"":owner;
+      task.updatedOn=localIsoDate(new Date());
+      document.getElementById("taskEditorDialog").close();
+      document.getElementById("taskEditorType").disabled=false;
+      renderTaskManager();renderActionList();renderEngagementTasks();
+      showToast(editingTaskId?"Task updated.":"Task added to All tasks.");
+      editingTaskId=null;
+    }
+    document.getElementById("addTaskButton").addEventListener("click",function(){openTaskEditor(null);});
+    document.getElementById("cancelTaskEditor").addEventListener("click",function(){document.getElementById("taskEditorDialog").close();editingTaskId=null;document.getElementById("taskEditorType").disabled=false;});
+    document.getElementById("saveTaskEditor").addEventListener("click",saveTaskEditor);
+    document.getElementById("taskManagerCards").addEventListener("click",function(event){
+      const edit=event.target.closest("[data-edit-task]"),open=event.target.closest("[data-manager-open]");
+      if(edit){openTaskEditor(edit.dataset.editTask);return;}
+      if(open){openManagedTask(open.dataset.managerOpen);}
+    });
+    document.querySelectorAll("[data-manager-filter]").forEach(function(button){button.addEventListener("click",function(){taskManagerFilter=button.dataset.managerFilter;renderTaskManager();});});
+
     function renderActionList(){
-      const all=actionRows.slice().sort(function(x,y){return (y.updatedOn||y.completedOn||y.dueDate||"").localeCompare(x.updatedOn||x.completedOn||x.dueDate||"");});
+      const all=actionRows.filter(function(row){return row.status==="completed";}).sort(function(x,y){return (y.updatedOn||y.completedOn||"").localeCompare(x.updatedOn||x.completedOn||"");});
       const mine=all.filter(function(row){return row.owner==="AM";});
       const rows=actionsTab==="mine"?mine:all;
       document.getElementById("myActionCount").textContent=mine.length;
