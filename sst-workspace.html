@@ -267,6 +267,22 @@
     .editor-footer { display:flex; justify-content:space-between; align-items:center; gap:9px; margin-top:15px; }
     .editor-footer-actions { display:flex; justify-content:flex-end; gap:8px; }
 
+
+    @media (min-width:681px) {
+      html,body { height:100%; overflow:hidden; }
+      .layout { height:calc(100vh - 68px); min-height:0; overflow:hidden; }
+      aside { overflow-y:auto; }
+      main { height:100%; overflow-y:auto; overscroll-behavior:contain; }
+      #overviewView .grid { margin-bottom:0; }
+      #overviewView .task-list { gap:7px; }
+      #overviewView .task { padding:10px; }
+      #overviewView .workflow-compact { display:none; }
+      .page-intro { margin:0 0 16px; }
+      .page-intro h1 { margin:0; color:#172b3d; font-size:25px; letter-spacing:-.04em; }
+      .page-intro p { margin:6px 0 0; color:#6b7d8c; font-size:12px; }
+      #submissionsView #submissionPageContent { display:grid; grid-template-columns:minmax(0,1fr); gap:14px; }
+    }
+
     @media (max-width:1050px) {
       .layout { grid-template-columns:190px minmax(0,1fr); }
       .grid { grid-template-columns:1fr; }
@@ -282,6 +298,9 @@
       .pack-row { grid-template-columns:1fr; align-items:stretch; }
       .email-fields { grid-template-columns:1fr; }
       .email-fields .field:last-child { grid-column:auto; }
+      html,body { height:auto; overflow:auto; }
+      .layout { height:auto; min-height:calc(100vh - 60px); overflow:visible; }
+      main { height:auto; overflow:visible; }
       .topbar { height:60px; padding:0 14px; }
       .prototype-label { display:none; }
       .layout { display:block; min-height:calc(100vh - 60px); }
@@ -326,10 +345,10 @@
       <button class="nav-item" type="button" data-view="students" onclick="openView('students')"><span class="nav-icon" aria-hidden="true">♙</span>Students</button>
       <button class="nav-item" type="button" data-view="analytics" onclick="openView('analytics')"><span class="nav-icon" aria-hidden="true">▥</span>Analytics</button>
       <button class="nav-item" type="button" data-view="actions" onclick="openView('actions')"><span class="nav-icon" aria-hidden="true">☷</span>My actions <span class="owner">4</span></button>
-      <button class="nav-item" type="button" onclick="document.querySelector('#tracker').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">⇧</span>Submission tracker</button>
-      <button class="nav-item" type="button" onclick="openReminderComposer()"><span class="nav-icon" aria-hidden="true">✉</span>2-week reminder</button>
+      <button class="nav-item" type="button" data-view="submissions" onclick="openView('submissions')"><span class="nav-icon" aria-hidden="true">⇧</span>Submission tracker</button>
+      <button class="nav-item" type="button" data-view="reminder" onclick="openReminderComposer()"><span class="nav-icon" aria-hidden="true">✉</span>2-week reminder</button>
       <div class="nav-heading" style="margin-top:19px">Team tools</div>
-      <button class="nav-item" type="button" onclick="document.querySelector('#tracker').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">▤</span>Shared Excel tracker</button>
+      <button class="nav-item" type="button" onclick="openView('submissions')"><span class="nav-icon" aria-hidden="true">▤</span>Shared Excel tracker</button>
       <div class="side-note"><strong>Prototype data</strong><br>All students and activity shown here are fictional examples for demonstrating the workflow.</div>
     </aside>
 
@@ -340,7 +359,7 @@
           <h1>Good morning, Aini</h1>
           <p>See what needs attention, import the latest Moodle report, and keep SST follow-up notes alongside submission status.</p>
         </div>
-        <button class="primary" type="button" onclick="document.querySelector('#fileInput').click()">＋ Import Moodle report</button>
+        <button class="primary" type="button" onclick="openView('submissions')">＋ Import Moodle report</button>
       </div>
 
       <div id="overviewView">
@@ -506,6 +525,15 @@
 
 </div>
 
+      <section class="view-section" id="reminderView" hidden aria-labelledby="reminderPageTitle">
+        <div class="page-intro"><h1 id="reminderPageTitle">2-week reminder</h1><p>Build a cohort reminder and review the sample email before sending.</p></div>
+        <div id="reminderPageContent"></div>
+      </section>
+      <section class="view-section" id="submissionsView" hidden aria-labelledby="submissionsPageTitle">
+        <div class="page-intro"><h1 id="submissionsPageTitle">Submission tracker</h1><p>Import a Moodle report, review the matched sample records and open the shared workbook.</p></div>
+        <div id="submissionPageContent"></div>
+      </section>
+
       <section class="panel view-section" id="myActionsView" hidden aria-labelledby="myActionsTitle">
         <div class="panel-head">
           <div><h2 id="myActionsTitle">My actions</h2><p>View current follow-ups and completed actions. Add a reminder or edit an open action from here.</p></div>
@@ -647,6 +675,14 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    const reminderPanel=document.getElementById("reminderComposer");
+    document.getElementById("reminderPageContent").appendChild(reminderPanel);
+    document.getElementById("reminderPageContent").appendChild(document.getElementById("sharepointDialog"));
+    const submissionContent=document.getElementById("submissionPageContent");
+    submissionContent.appendChild(document.getElementById("importTitle").closest(".panel"));
+    submissionContent.appendChild(document.getElementById("tracker"));
+    submissionContent.appendChild(document.getElementById("shared-workbook"));
+
     const students = [
       {id:"SAMPLE-001", name:"Student 001", module:"ACS100", submission:"Submitted", grade:"58%", status:"No action", review:"—", note:"", history:[]},
       {id:"SAMPLE-002", name:"Student 002", module:"ACS100", submission:"Not Submitted", grade:"Ungraded", status:"Follow-up required", review:"—", note:"Student did not pick up. AM", history:["Student did not pick up. AM"]},
@@ -794,8 +830,8 @@
     function openReminderComposer() {
       const composer = document.getElementById("reminderComposer");
       composer.hidden = false;
+      openView("reminder");
       updateCohortSelection();
-      composer.scrollIntoView({behavior:"smooth",block:"start"});
       document.getElementById("partnershipSelect").focus({preventScroll:true});
     }
     window.openReminderComposer = openReminderComposer;
@@ -932,23 +968,28 @@
       const studentsView = document.getElementById("studentsView");
       const analyticsView = document.getElementById("analyticsView");
       const myActionsView = document.getElementById("myActionsView");
+      const reminderView = document.getElementById("reminderView");
+      const submissionsView = document.getElementById("submissionsView");
       overview.hidden = view !== "overview";
       intro.hidden = view !== "overview";
       studentsView.hidden = view !== "students";
       analyticsView.hidden = view !== "analytics";
       myActionsView.hidden = view !== "actions";
+      reminderView.hidden = view !== "reminder";
+      submissionsView.hidden = view !== "submissions";
       document.querySelectorAll(".nav-item[data-view]").forEach(function(button) {
         const active = button.dataset.view === view;
         button.classList.toggle("active",active);
         if(active) button.setAttribute("aria-current","page");
         else button.removeAttribute("aria-current");
       });
-      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "My actions" : "Overview";
+      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "My actions" : view === "reminder" ? "2-week reminder" : view === "submissions" ? "Submission tracker" : "Overview";
       document.querySelector(".crumb").innerHTML = 'Workspace <span aria-hidden="true">/</span> ' + title;
       window.scrollTo({top:0,behavior:"smooth"});
       if(view === "students") renderDirectory();
       if(view === "analytics") renderAnalytics();
       if(view === "actions") renderActionList();
+      if(view === "reminder") document.getElementById("reminderComposer").hidden=false;
     }
     window.openView = openView;
 
