@@ -78,6 +78,29 @@
     .owner { padding:6px 8px; border-radius:999px; background:#edf3f8; color:#42586b; font-size:10px; font-weight:700; white-space:nowrap; }
     .owner.mine { background:#e7f1ff; color:#145b9a; }
     .task-controls { display:flex; align-items:center; gap:6px; }
+    .task-import-panel { grid-column:1/-1; width:100%; margin-top:6px; padding:12px; border:1px solid #dbe8f1; border-radius:9px; background:#fbfdff; }
+    .task-import-copy { display:grid; gap:5px; margin-bottom:10px; color:#617587; font-size:10px; line-height:1.5; }
+    .task-import-copy strong { color:#233f57; font-size:11px; }
+    .task-import-panel .upload-box { padding:11px; }
+    .task-import-panel .deadline { margin-top:8px; }
+    .task-import-panel .state-line { margin-bottom:0; }
+    .week-preview { margin-top:16px; padding-top:14px; border-top:1px solid #e8edf2; }
+    .week-preview-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:9px; }
+    .week-preview-head h3 { margin:0; color:#1d3d57; font-size:12px; }
+    .week-preview-head p { margin:4px 0 0; color:#788998; font-size:9px; }
+    .week-preview-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
+    .week-peek-item { min-width:0; padding:8px 9px; border:1px solid #e5edf3; border-radius:8px; background:#fbfdff; }
+    .week-peek-kind { color:#658096; font-size:8px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
+    .week-peek-title { display:block; margin-top:3px; color:#29445a; font-size:9px; font-weight:700; }
+    .week-peek-when { display:block; margin-top:3px; color:#718191; font-size:8px; }
+    .week-peek-link { grid-column:1/-1; justify-self:start; padding:3px 0; border:0; color:#0871bf; background:transparent; cursor:pointer; font-size:9px; font-weight:750; }
+    .calendar-day + .calendar-day { margin-top:15px; padding-top:13px; border-top:1px solid #e8edf2; }
+    .calendar-day-head { display:flex; justify-content:space-between; margin-bottom:8px; color:#526b7e; font-size:10px; font-weight:800; }
+    .calendar-event { display:grid; grid-template-columns:47px 1fr; gap:8px; align-items:start; padding:8px 0; border-top:1px solid #f0f3f6; }
+    .calendar-event-time { color:#0871bf; font-size:9px; font-weight:750; }
+    .calendar-event-title { display:block; color:#304b61; font-size:10px; font-weight:700; }
+    .calendar-event-note { display:block; margin-top:3px; color:#7a8996; font-size:9px; }
+    .calendar-sample-note { margin:12px 0 0; color:#8996a1; font-size:8px; line-height:1.4; }
     .small-btn { padding:7px 9px; border:1px solid #cdd9e2; border-radius:7px; color:#4d6477; background:#fff; cursor:pointer; font-size:10px; font-weight:700; white-space:nowrap; }
     .small-btn:hover { background:#f3f7fa; }
     .filters { display:flex; gap:6px; }
@@ -417,16 +440,15 @@
       <div class="intro" id="overviewIntro">
         <div>
           <h1>Good morning, Aini</h1>
-          <p>See what needs attention, import the latest Moodle report, and keep SST follow-up notes alongside submission status.</p>
+          <p>See what needs attention and keep SST follow-up notes alongside submission status.</p>
         </div>
-        <button class="primary" type="button" onclick="openView('submissions')">＋ Import Moodle report</button>
       </div>
 
       <div id="overviewView">
       <section class="metrics" aria-label="Workspace summary">
         <article class="metric"><div class="metric-label">Open actions</div><div class="metric-value">7</div><div class="metric-sub">Across your cohort</div></article>
         <article class="metric"><div class="metric-label">Claimed by you</div><div class="metric-value" id="claimedCount">2</div><div class="metric-sub">You can unclaim at any time</div></article>
-        <article class="metric"><div class="metric-label">Manual review</div><div class="metric-value">2</div><div class="metric-sub">Needs an SST decision</div></article>
+        <article class="metric"><div class="metric-label">Manual review</div><div class="metric-value" id="manualReviewCount">5</div><div class="metric-sub">Needs an SST decision</div></article>
         <article class="metric"><div class="metric-label">Assessment reminder window</div><div class="metric-value" style="font-size:16px">14 days before</div><div class="metric-sub">Assignment deadline</div></article>
       </section>
 
@@ -449,8 +471,17 @@
                 </article>
                 <article class="task" data-task="moodle">
                   <span class="task-icon" aria-hidden="true">⇧</span>
-                  <div><div class="task-title">Import Moodle submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Submission data due by the day after submissions close</strong></div></div>
-                  <div class="task-controls"><span class="owner mine" data-owner="moodle">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="moodle">Unclaim</button></div>
+                  <div><div class="task-title">Import Moodle grade &amp; submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Due on submission day or the day after</strong></div></div>
+                  <div class="task-controls"><span class="owner mine" data-owner="moodle">Claimed by you</span><button class="small-btn" type="button" data-open-moodle-task aria-expanded="false" aria-controls="moodleTaskPanel">Open task</button><button class="small-btn unclaim" type="button" data-task-id="moodle">Unclaim</button></div>
+                  <div class="task-import-panel" id="moodleTaskPanel" hidden>
+                    <div class="task-import-copy"><strong>Import Moodle grade and submission report</strong><span>The report updates the Submitted/Not submitted and Grade columns by Student ID. High AI/similarity flags, 0% or below 39% grades, and missing grades need an SST check in Moodle because marker feedback is not in this report.</span><span>A non-submission stays unconfirmed until an SST checks Moodle. Confirm DNS only after that check.</span></div>
+                    <div class="upload-box">
+                      <div><h3>Choose the cohort’s Excel report</h3><p>.xlsx, .xls or .csv. The public prototype shows anonymised sample output; it does not read or retain the uploaded workbook.</p><div class="deadline"><span aria-hidden="true">◷</span> Tracker update due: submission day or next day</div></div>
+                      <div class="upload-actions"><input id="fileInput" type="file" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"><label class="file-label" for="fileInput">Choose Excel file</label><button class="secondary" id="importButton" type="button">Run demo import</button></div>
+                    </div>
+                    <div class="loading" id="loading" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span><strong>Matching records…</strong> VLOOKUP against Student ID numbers is processing.</span></div>
+                    <p class="state-line" id="importStatus" aria-live="polite">Choose the report to update the sample tracker view.</p>
+                  </div>
                 </article>
                 <article class="task" data-task="contact">
                   <span class="task-icon" aria-hidden="true">✉</span>
@@ -463,10 +494,10 @@
                   <div class="task-controls"><span class="owner">Unassigned</span><button class="small-btn claim-task" type="button" data-task-id="review">Claim task</button></div>
                 </article>
               </div>
-              <div class="engagement-tasks">
-                <div class="engagement-tasks-head"><div><h3>Upcoming SST tasks</h3><p>Next submission, grade, workshop or 1:1 task. Planning is due one month before the module deadline.</p></div></div>
-                <div id="submissionActionList" class="task-list" aria-live="polite"></div>
-              </div>
+              <section class="week-preview" aria-labelledby="weekPreviewTitle">
+                <div class="week-preview-head"><div><h3 id="weekPreviewTitle">This week</h3><p>Deadlines, 24-hour calls, workshops and 1:1s</p></div><span class="owner">Sample schedule</span></div>
+                <div id="submissionActionList" class="week-preview-grid" aria-live="polite"></div>
+              </section>
             </div>
           </section>
 
@@ -526,28 +557,7 @@
             </div>
           </section>
 
-          <section class="panel" aria-labelledby="importTitle">
-            <div class="panel-head">
-              <div><h2 id="importTitle">Import Moodle submission report</h2><p>Choose the Excel report. The prototype will show the same sample output below.</p></div>
-              <span class="owner">Excel upload</span>
-            </div>
-            <div class="panel-body">
-              <div class="upload-box">
-                <div>
-                  <h3>Upload submission report</h3>
-                  <p>Accepted formats: .xlsx, .xls, .csv. Matching is based on student ID numbers.</p>
-                  <div class="deadline"><span aria-hidden="true">◷</span> Tracker update due: submission day or next day</div>
-                </div>
-                <div class="upload-actions">
-                  <input id="fileInput" type="file" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
-                  <label class="file-label" for="fileInput">Choose Excel file</label>
-                  <button class="secondary" id="importButton" type="button">Run demo import</button>
-                </div>
-              </div>
-              <div class="loading" id="loading" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span><strong>Matching records…</strong> VLOOKUP against student ID numbers is processing.</span></div>
-              <p class="state-line" id="importStatus" aria-live="polite">The sample tracker is already shown below. Uploading a workbook demonstrates the processing step and returns the same sample output.</p>
-            </div>
-          </section>
+
 
           
           <section class="panel" id="cycleScheduler" aria-labelledby="cycleSchedulerTitle">
@@ -575,27 +585,21 @@
               <div class="tracker-title"><h2 id="trackerTitle">ACS100_Grading_Tracker.xlsx</h2><p>BM January 2026 · SharePoint preview</p></div>
               <div class="tracker-actions"><span class="excel-badge">Sample output</span><span class="owner">Excel Online preview</span></div>
             </div>
-            <div class="match-banner"><span aria-hidden="true">✓</span><span><strong>Moodle import applied</strong><br>Submission status and grades were matched using Student ID.</span></div>
+            <div class="match-banner"><span aria-hidden="true">⇧</span><span><strong>Report output · sample rows</strong><br>The task import updates Submitted/Not submitted and Grade by Student ID. The public prototype does not parse the uploaded workbook.</span></div>
+            <div class="sample-note">Confirm a non-submission in Moodle before setting DNS. High AI/similarity flags, 0% or below 39% grades, and missing grades stay in human review. Check marker feedback in Moodle; it is not included in the report.</div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th scope="col">ESL ID</th><th scope="col">Student</th><th scope="col">Module</th><th scope="col">Submission</th><th scope="col">Grade</th><th scope="col">Status</th><th scope="col">Manual review</th><th scope="col">SST contact notes</th></tr></thead>
+                <thead><tr><th scope="col">ESL ID</th><th scope="col">Student</th><th scope="col">Module</th><th scope="col">Submission</th><th scope="col">Grade</th><th scope="col">Status</th><th scope="col">Human validation</th><th scope="col">SST contact notes</th></tr></thead>
                 <tbody id="studentRows"></tbody>
               </table>
             </div>
             <div class="sample-note">Sample data for prototype demonstration. No real student records are shown.</div>
           </section>
         </div>
-
         <div class="stack">
-          <section class="panel" aria-labelledby="workflowTitle">
-            <div class="panel-head"><div><h2 id="workflowTitle">After the Moodle import</h2><p>Keep follow-up visible next to the student record.</p></div></div>
-            <div class="panel-body">
-              <div class="steps">
-                <div class="step"><span class="step-number">1</span><span><strong>Upload the report</strong><br>Select the Moodle Excel export for this cohort.</span></div>
-                <div class="step"><span class="step-number">2</span><span><strong>Match by Student ID</strong><br>Review the import result and any unmatched records.</span></div>
-                <div class="step"><span class="step-number">3</span><span><strong>Follow up with context</strong><br>See the latest SST note and expand the contact history when needed.</span></div>
-              </div>
-            </div>
+          <section class="panel calendar-peek" aria-labelledby="calendarPeekTitle">
+            <div class="panel-head"><div><h2 id="calendarPeekTitle">Calendar</h2><p>Meetings for today and a peek at tomorrow.</p></div><span class="owner">Sample schedule</span></div>
+            <div class="panel-body"><div id="calendarPeekContent" aria-live="polite"></div></div>
           </section>
         </div>
       </div>
@@ -607,7 +611,7 @@
         <div id="reminderPageContent"></div>
       </section>
       <section class="view-section" id="submissionsView" hidden aria-labelledby="submissionsPageTitle">
-        <div class="page-intro"><h1 id="submissionsPageTitle">Submission tracker</h1><p>Import a Moodle report and review the matched sample records.</p></div>
+        <div class="page-intro"><h1 id="submissionsPageTitle">Submission tracker</h1><p>Review the sample submission and grade output after completing the Moodle report task.</p></div>
         <div id="submissionPageContent"></div>
       </section>
 
@@ -843,35 +847,50 @@
     const reminderPanel=document.getElementById("reminderComposer");
     document.getElementById("reminderPageContent").appendChild(reminderPanel);
     const submissionContent=document.getElementById("submissionPageContent");
-    submissionContent.appendChild(document.getElementById("importTitle").closest(".panel"));
     submissionContent.appendChild(document.getElementById("cycleScheduler"));
     submissionContent.appendChild(document.getElementById("tracker"));
 
     const students = [
       {id:"SAMPLE-001", name:"Student 001", module:"ACS100", submission:"Submitted", grade:"58%", status:"No action", review:"—", note:"", history:[]},
-      {id:"SAMPLE-002", name:"Student 002", module:"ACS100", submission:"Not Submitted", grade:"Ungraded", status:"Follow-up required", review:"—", note:"Student did not pick up. AM", history:["Student did not pick up. AM"]},
-      {id:"SAMPLE-003", name:"Student 003", module:"ACS100", submission:"Submitted", grade:"34%", status:"Manual check", review:"Below 40", note:"", history:[]},
-      {id:"SAMPLE-004", name:"Student 004", module:"ACS100", submission:"Submitted", grade:"Ungraded", status:"Manual check", review:"Ungraded", note:"Student picked up, laptop not working, will submit as late sub. OL", history:["Student picked up, laptop not working, will submit as late sub. OL"]},
-      {id:"SAMPLE-005", name:"Student 005", module:"ACS100", submission:"Submitted", grade:"63%", status:"Manual check", review:"Plagiarism flag", note:"", history:[]},
-      {id:"SAMPLE-006", name:"Student 006", module:"ACS100", submission:"Submitted", grade:"71%", status:"No action", review:"—", note:"", history:[]}
+      {id:"SAMPLE-002", name:"Student 002", module:"ACS100", submission:"Not Submitted", grade:"—", status:"DNS confirmation needed", review:"Confirm non-submission in Moodle before DNS", note:"Student did not pick up. AM", history:["Student did not pick up. AM"]},
+      {id:"SAMPLE-003", name:"Student 003", module:"ACS100", submission:"Submitted", grade:"34%", status:"Manual check", review:"34% · below 39% · check Moodle feedback", note:"", history:[]},
+      {id:"SAMPLE-004", name:"Student 004", module:"ACS100", submission:"Submitted", grade:"Ungraded", status:"Manual check", review:"Missing grade · check Moodle", note:"Student picked up, laptop not working, will submit as late sub. OL", history:["Student picked up, laptop not working, will submit as late sub. OL"]},
+      {id:"SAMPLE-005", name:"Student 005", module:"ACS100", submission:"Submitted", grade:"63%", status:"Manual check", review:"High AI/similarity flag · check Moodle feedback", note:"", history:[]},
+      {id:"SAMPLE-006", name:"Student 006", module:"ACS100", submission:"Submitted", grade:"0%", status:"Manual check", review:"0% grade · check Moodle feedback", note:"", history:[]}
     ];
 
     const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
     function renderRows() {
       const body = document.getElementById("studentRows");
       body.innerHTML = students.map((student) => {
-        const submissionClass = student.submission === "Submitted" ? "good" : "bad";
-        const statusClass = student.status === "Manual check" ? "warn" : (student.status === "Follow-up required" ? "bad" : "good");
+        const submissionClass = student.submission === "Submitted" ? "good" : (student.submission === "DNS" ? "bad" : "warn");
+        const statusClass = student.status === "Manual check" || student.status === "DNS confirmation needed" ? "warn" : (student.status === "DNS confirmed" ? "good" : "good");
         const noteMarkup = student.note
           ? '<span class="note-text">' + escapeHtml(student.note) + '</span><button class="history-toggle" type="button" aria-expanded="false" data-history="' + student.id + '">View history (' + student.history.length + ')</button>'
           : '<span class="note-empty">No recent note</span>';
+        const statusMarkup = student.status === "DNS confirmation needed"
+          ? '<span class="pill warn">Human confirmation needed</span><br><button class="history-toggle" type="button" data-confirm-dns="' + student.id + '">Confirm DNS after Moodle check</button>'
+          : '<span class="pill ' + statusClass + '">' + escapeHtml(student.status) + '</span>';
         const review = student.review === "—" ? "—" : escapeHtml(student.review);
-        return '<tr><td class="student-id">' + escapeHtml(student.id) + '</td><td>' + escapeHtml(student.name) + '</td><td>' + escapeHtml(student.module) + '</td><td><span class="pill ' + submissionClass + '">' + escapeHtml(student.submission) + '</span></td><td>' + escapeHtml(student.grade) + '</td><td><span class="pill ' + statusClass + '">' + escapeHtml(student.status) + '</span></td><td>' + review + '</td><td class="note-cell">' + noteMarkup + '</td></tr>';
+        return '<tr><td class="student-id">' + escapeHtml(student.id) + '</td><td>' + escapeHtml(student.name) + '</td><td>' + escapeHtml(student.module) + '</td><td><span class="pill ' + submissionClass + '">' + escapeHtml(student.submission) + '</span></td><td>' + escapeHtml(student.grade) + '</td><td>' + statusMarkup + '</td><td>' + review + '</td><td class="note-cell">' + noteMarkup + '</td></tr>';
       }).join("");
+      const pendingReview = students.filter((student) => student.status === "DNS confirmation needed" || student.status === "Manual check").length;
+      document.getElementById("manualReviewCount").textContent = pendingReview;
     }
     renderRows();
 
     document.getElementById("studentRows").addEventListener("click", (event) => {
+      const confirmDns = event.target.closest("[data-confirm-dns]");
+      if (confirmDns) {
+        const student = students.find((item) => item.id === confirmDns.dataset.confirmDns);
+        if (!student) return;
+        student.submission = "DNS";
+        student.status = "DNS confirmed";
+        student.review = "Non-submission confirmed in Moodle";
+        renderRows();
+        showToast("DNS confirmed after the Moodle check.");
+        return;
+      }
       const button = event.target.closest("[data-history]");
       if (!button) return;
       const student = students.find((item) => item.id === button.dataset.history);
@@ -896,6 +915,8 @@
     const taskDialog=document.getElementById("unclaimDialog");
     let taskToChange=null, taskChangeAction="unclaim";
     document.querySelector(".task-list").addEventListener("click",function(event){
+      const openReport=event.target.closest("[data-open-moodle-task]");
+      if(openReport){const panel=document.getElementById("moodleTaskPanel");panel.hidden=!panel.hidden;openReport.setAttribute("aria-expanded",String(!panel.hidden));openReport.textContent=panel.hidden?"Open task":"Close task";return;}
       const claim=event.target.closest(".claim-task"), unclaim=event.target.closest(".unclaim"), button=claim||unclaim;
       if(!button)return;
       const card=button.closest(".task"), taskName=card.querySelector(".task-title").textContent;
@@ -937,7 +958,7 @@
         return;
       }
       chosenFile = file;
-      status.textContent = file.name + " selected. Select Run demo import to continue.";
+      status.textContent = file.name + " selected. Run the demo import to view the sample submission and grade output.";
       status.className = "state-line";
     });
     function runImport() {
@@ -954,10 +975,12 @@
       window.setTimeout(() => {
         loading.classList.remove("show");
         importButton.disabled = false;
-        status.textContent = "Import complete. Student ID matching finished and the sample tracker output is shown below.";
+        renderRows();
+        status.textContent = "Demo import complete. Anonymised sample submission and grade rows are shown in the tracker; the selected workbook was not read or retained.";
         status.className = "state-line success";
+        openView("submissions");
         document.querySelector("#tracker").scrollIntoView({behavior:"smooth",block:"start"});
-        showToast("Moodle report matched against student IDs. Sample output refreshed.");
+        showToast("Sample tracker output refreshed. Confirm DNS only after checking Moodle.");
       }, 1900);
     }
     importButton.addEventListener("click", runImport);
@@ -1420,18 +1443,25 @@
     function cycleTaskTypeLabel(row){return row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":"Approved EC follow-up";}
     function renderSubmissionActionList(){
       const box=document.getElementById("submissionActionList");if(!box)return;
-      const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup","workshopPlan","workshopConduct","oneToOne"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||a.date||"").localeCompare(b.dueDate||b.date||"");});
-      if(!rows.length){box.innerHTML='<div class="empty-state">No upcoming SST tasks.</div>';return;}
-      const row=rows[0],label=row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":row.type==="caseFollowup"?"Approved EC follow-up":row.type==="workshopPlan"?"Plan SST workshop":row.type==="workshopConduct"?"Conduct SST workshop":"Complete SST 1:1 follow-up";
-      const detail=[row.partnership,row.programme,row.cohort?"Cohort "+row.cohort:"",row.code,row.module||((row.modules||[]).join(", ")),row.stage,"Due "+displayDate(row.dueDate||row.date),taskCollaborationLabel(row)].filter(Boolean).join(" · ");
-      let button="";
-      if(row.type==="workshopPlan")button='<button type="button" class="small-btn" data-open-engagement="'+escapeHtml(row.id)+'">Plan workshop</button>';
-      else if(row.type==="workshopConduct")button='<button type="button" class="small-btn" data-record-workshop="'+escapeHtml(row.sessionId||"")+'">Record session</button>';
-      else if(row.type==="oneToOne")button='<button type="button" class="small-btn" data-record-one-to-one="'+escapeHtml(row.sessionId||"")+'">Complete 1:1</button>';
-      else button='<button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button>';
-      box.innerHTML='<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":row.type==="workshopPlan"||row.type==="workshopConduct"?"▣":"⇧")+'</span><div><strong class="task-title">'+escapeHtml(label)+'</strong><div class="task-meta"><span>'+escapeHtml(detail)+'</span><span>'+escapeHtml(actionStatusText(row))+'</span></div></div>'+button+'</article><button type="button" class="small-btn" data-open-action-log="true">View all '+rows.length+' upcoming tasks in Tasks log</button>';
+      const today=localIsoDate(new Date()),tomorrow=addCalendarDays(today,1);
+      const events=[
+        {kind:"Call session",title:"Non-submitter follow-up",when:"Today · 16:59",detail:"24h before ACS100 deadline"},
+        {kind:"Deadline",title:"ACS100 submission closes",when:displayDate(tomorrow)+" · 16:59",detail:"BM · Cohort 7"},
+        {kind:"Workshop",title:"ACS100 · BM Cohort 7",when:displayDate(addCalendarDays(today,2))+" · 10:00",detail:"Workshop session"},
+        {kind:"1:1",title:"Student support check-in",when:displayDate(addCalendarDays(today,3))+" · 14:00",detail:"Appointment"}
+      ];
+      box.innerHTML=events.map(function(item){return '<article class="week-peek-item"><span class="week-peek-kind">'+escapeHtml(item.kind)+'</span><strong class="week-peek-title">'+escapeHtml(item.title)+'</strong><span class="week-peek-when">'+escapeHtml(item.when)+' · '+escapeHtml(item.detail)+'</span></article>';}).join("")+'<button type="button" class="week-peek-link" data-open-action-log="true">See all tasks →</button>';
     }
-    function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
+    function renderCalendarPeek(){
+      const box=document.getElementById("calendarPeekContent");if(!box)return;
+      const today=new Date(),tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);
+      const dateLabel=function(date){return date.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});};
+      const todayEvents=[{time:"10:00",title:"ACS100 workshop planning",note:"BM · Cohort 7"},{time:"16:59",title:"Non-submitter call session",note:"Exactly 24h before the deadline"}];
+      const tomorrowEvents=[{time:"10:30",title:"Student support 1:1s",note:"Appointment block"},{time:"16:59",title:"ACS100 submission deadline",note:"BM · Cohort 7"}];
+      const dayMarkup=function(label,date,events){return '<section class="calendar-day"><div class="calendar-day-head"><span>'+label+'</span><span>'+dateLabel(date)+'</span></div>'+events.map(function(item){return '<div class="calendar-event"><span class="calendar-event-time">'+escapeHtml(item.time)+'</span><span><strong class="calendar-event-title">'+escapeHtml(item.title)+'</strong><small class="calendar-event-note">'+escapeHtml(item.note)+'</small></span></div>';}).join("")+'</section>';};
+      box.innerHTML=dayMarkup("Today",today,todayEvents)+dayMarkup("Tomorrow",tomorrow,tomorrowEvents)+'<p class="calendar-sample-note">Sample calendar preview. Live Outlook calendar sync is not connected in this prototype.</p>';
+    }
+        function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
       circumstanceTrackers.EC.filter(function(record){return record.partnership===partnership&&record.programme===programme&&String(record.cohort)===String(cohort)&&record.code===code&&record.module===module&&String(record.status).startsWith("Approved");}).forEach(function(record){
         const dueDate=addCalendarDays(deadline,7),type="EC",id="CASE-FOLLOW-"+record.id+"-"+deadline+"-"+module;
         if(!actionRows.some(function(row){return row.id===id;}))actionRows.unshift({id:id,type:"caseFollowup",title:"Approved "+type+" follow-up",partnership:partnership,programme:programme,cohort:String(cohort),code:code,module:module,stage:"One week after "+displayDate(deadline)+" deadline",student:{id:record.id,name:record.name},caseType:type,dueDate:dueDate,deadline:deadline,status:"open",owner:record.owner||"AM",detail:"Check approved circumstances outcome one week after deadline."});
@@ -1792,7 +1822,7 @@
     document.getElementById("caseTrackerRows").addEventListener("click",function(event){const button=event.target.closest("[data-edit-case]");if(button)beginCaseEdit(button.dataset.editCase);});
     document.getElementById("closeCaseTracker").addEventListener("click",()=>document.getElementById("caseTrackerDialog").close());
     document.querySelectorAll("[data-actions-tab]").forEach(function(button){button.addEventListener("click",function(){actionsTab=button.dataset.actionsTab;renderActionList();});});
-    renderActionList();renderEngagementTasks();renderSubmissionActionList();
+    renderActionList();renderEngagementTasks();renderSubmissionActionList();renderCalendarPeek();
 </script>
 </body>
 </html>
