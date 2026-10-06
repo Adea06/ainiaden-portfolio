@@ -81,6 +81,33 @@
     .small-btn { padding:7px 9px; border:1px solid #cdd9e2; border-radius:7px; color:#4d6477; background:#fff; cursor:pointer; font-size:10px; font-weight:700; white-space:nowrap; }
     .small-btn:hover { background:#f3f7fa; }
     .filters { display:flex; gap:6px; }
+    [hidden] { display:none !important; }
+    .task-link { padding:0; border:0; color:#233b50; background:transparent; cursor:pointer; text-align:left; }
+    .task-link:hover { color:#0874c9; text-decoration:underline; }
+    .cohort-grid { display:grid; grid-template-columns:repeat(4,minmax(130px,1fr)); gap:11px; }
+    .field label { display:block; margin-bottom:6px; color:#556c7f; font-size:10px; font-weight:750; }
+    .field select, .field input { width:100%; min-height:38px; padding:8px 10px; border:1px solid #cedbe5; border-radius:8px; color:#273f53; background:#fff; font-size:11px; }
+    .field input:focus, .field select:focus { outline:3px solid rgba(8,116,201,.16); border-color:#5aa5d8; }
+    .selection-summary { display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin:16px 0 12px; }
+    .selection-count { color:#173d5a; font-size:13px; font-weight:800; }
+    .selection-chip { padding:6px 8px; border-radius:999px; color:#075e9f; background:#eaf5ff; font-size:9px; font-weight:750; }
+    .student-results { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+    .student-result { padding:8px 9px; border:1px solid #e3ebf1; border-radius:8px; color:#455d70; background:#fbfdfe; font-size:10px; }
+    .master-note { margin:11px 0 0; color:#788997; font-size:9px; line-height:1.5; }
+    .pack-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:end; margin-top:18px; padding-top:16px; border-top:1px solid #e8edf2; }
+    .composer-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:15px; }
+    .email-review { margin-top:16px; padding-top:16px; border-top:1px solid #e7edf2; }
+    .email-fields { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .email-fields .field:last-child { grid-column:1 / -1; }
+    .email-meta { display:flex; flex-wrap:wrap; gap:8px 14px; margin:13px 0; color:#607588; font-size:10px; }
+    .email-preview { padding:18px; border:1px solid #dde6ed; border-radius:10px; color:#33495b; background:#fbfcfd; font-size:11px; line-height:1.7; }
+    .email-preview p { margin:0 0 10px; }
+    .email-preview mark { padding:2px 4px; border-radius:3px; color:#4c3c00; background:#fff0a6; }
+    .email-preview a { color:#096bb3; }
+    .send-note { margin:10px 0 0; color:#8a5a00; font-size:10px; line-height:1.5; }
+    .send-result { display:none; margin-top:12px; padding:10px 12px; border-radius:8px; color:#825600; background:#fff5da; font-size:10px; line-height:1.5; }
+    .send-result.show { display:block; }
+
     .filter { padding:6px 9px; border:1px solid #e0e8ef; border-radius:999px; color:#647688; background:white; cursor:pointer; font-size:10px; }
     .filter.active { color:#0a65ab; background:#edf6ff; border-color:#cfe4f5; font-weight:700; }
     .upload-box { display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center; padding:14px; border:1px dashed #a9c9df; border-radius:10px; background:#f7fbfe; }
@@ -197,6 +224,7 @@
       <button class="nav-item active" type="button"><span class="nav-icon" aria-hidden="true">▦</span>Overview</button>
       <button class="nav-item" type="button" onclick="document.querySelector('#actions').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">☷</span>My actions <span class="owner">4</span></button>
       <button class="nav-item" type="button" onclick="document.querySelector('#tracker').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">⇧</span>Submission tracker</button>
+      <button class="nav-item" type="button" onclick="openReminderComposer()"><span class="nav-icon" aria-hidden="true">✉</span>2-week reminder</button>
       <div class="nav-heading" style="margin-top:19px">Team tools</div>
       <button class="nav-item" type="button" onclick="document.querySelector('#tracker').scrollIntoView({behavior:'smooth'})"><span class="nav-icon" aria-hidden="true">▤</span>Shared Excel tracker</button>
       <div class="side-note"><strong>Prototype data</strong><br>All students and activity shown here are fictional examples for demonstrating the workflow.</div>
@@ -228,6 +256,14 @@
             </div>
             <div class="panel-body">
               <div class="task-list">
+                <article class="task" data-task="reminder">
+                  <span class="task-icon" aria-hidden="true">✉</span>
+                  <div>
+                    <button class="task-title task-link" type="button" onclick="openReminderComposer()">Send 2-week reminder</button>
+                    <div class="task-meta"><span>Partner A · BM · Cohort 7 · PP</span><span>Whole cohort · sample selection</span></div>
+                  </div>
+                  <div class="task-controls"><span class="owner mine" data-owner="reminder">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="reminder">Unclaim</button></div>
+                </article>
                 <article class="task" data-task="moodle">
                   <span class="task-icon" aria-hidden="true">⇧</span>
                   <div><div class="task-title">Import Moodle submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Due 14 days before assignment deadline</strong></div></div>
@@ -243,6 +279,61 @@
                   <div><div class="task-title">Review flagged submissions</div><div class="task-meta"><span>ACS100 · 2 records need a manual check</span><span>Below threshold or ungraded</span></div></div>
                   <div class="task-controls"><span class="owner">Unassigned</span><button class="small-btn" type="button" onclick="showToast('Task claimed by you.')">Claim task</button></div>
                 </article>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="reminderComposer" aria-labelledby="reminderTitle" hidden>
+            <div class="panel-head">
+              <div><h2 id="reminderTitle">Send a 2-week reminder</h2><p>Choose a cohort from the anonymised master-sheet demo, then review the message.</p></div>
+              <span class="owner">Student master sheet · demo</span>
+            </div>
+            <div class="panel-body">
+              <div class="cohort-grid">
+                <div class="field"><label for="partnershipSelect">Partnership</label><select id="partnershipSelect"><option>Partner A</option><option>Partner B</option><option>Partner C</option></select></div>
+                <div class="field"><label for="programmeSelect">Programme</label><select id="programmeSelect"><option>HSC</option><option selected>BM</option><option>COMP</option></select></div>
+                <div class="field"><label for="cohortSelect">Cohort</label><select id="cohortSelect"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option selected>7</option></select></div>
+                <div class="field"><label for="codeSelect">Code</label><select id="codeSelect"><option>RWA</option><option>TP</option><option selected>PP</option></select></div>
+              </div>
+              <div class="selection-summary" id="selectionSummary" aria-live="polite"></div>
+              <div class="student-results" id="studentResults" aria-label="Anonymised students matching selected categories"></div>
+              <p class="master-note">Anonymised sample master sheet. Partnership labels and student records are fictional; the real student master sheet is not connected to this public prototype.</p>
+              <div class="pack-row">
+                <div class="field">
+                  <label for="guidancePackSelect">Guidance pack</label>
+                  <select id="guidancePackSelect">
+                    <option value="">Select an example guidance pack…</option>
+                    <option>Example guidance pack — HSC</option>
+                    <option selected>Example guidance pack — BM</option>
+                    <option>Example guidance pack — COMP</option>
+                  </select>
+                  <p class="master-note">Example choices only. The SharePoint guidance-pack folder is not connected.</p>
+                </div>
+                <button class="secondary" type="button" id="browsePacks">Browse SharePoint folder ↗</button>
+              </div>
+              <div class="composer-actions"><button class="primary" id="reviewReminder" type="button">Review reminder email</button></div>
+              <div class="email-review" id="emailReview" hidden>
+                <h3 style="margin:0;color:#1d3d57;font-size:13px">Review the reminder</h3>
+                <div class="email-meta"><span><strong>From:</strong> Shared SST Inbox · demo</span><span id="recipientCount">To: 0 student university email addresses</span><span id="packSummary">Guidance pack: —</span></div>
+                <div class="email-fields">
+                  <div class="field"><label for="moduleInput">Module name</label><input id="moduleInput" type="text" placeholder="Enter module name"></div>
+                  <div class="field"><label for="deadlineInput">Assessment deadline</label><input id="deadlineInput" type="text" placeholder="Enter date and time"></div>
+                  <div class="field"><label for="moodleLinkInput">Moodle submission link</label><input id="moodleLinkInput" type="url" placeholder="Paste the submission link"></div>
+                </div>
+                <div class="email-preview" id="emailPreview">
+                  <p>Dear Student,</p><p>Hope you are well.</p>
+                  <p>This email is a gentle reminder that your assessment for <strong><mark id="modulePreview">[Module name]</mark></strong> is due on <strong><mark id="deadlinePreview">[Deadline date and time]</mark></strong>.</p>
+                  <p><a id="submissionPreviewLink" href="#emailPreview"><mark id="linkPreview">[Moodle submission link]</mark></a></p>
+                  <p>Please ensure that you have reviewed all module materials and assignment guidance available on Moodle before submitting your work. The module resources contain important information regarding the assessment requirements, submission process, marking criteria, and academic expectations.</p>
+                  <p>Please note that completing your submission is important for your academic success and for making the most of your university experience.</p>
+                  <p>Late submissions may result in penalties and could affect your overall module grade and academic progression. We are here to support you throughout the process.</p>
+                  <p>If you have any questions or require assistance with your submission, please do not hesitate to contact us. We wish you every success with your assessment and your continued studies.</p>
+                  <p><strong>NB:</strong> If you experience any difficulties accessing Moodle or submitting your work, please contact <strong>studentsuccess_leicester@esl.ac.uk</strong> as soon as possible so that we can assist you.</p>
+                  <p>Kind regards,</p>
+                </div>
+                <p class="send-note">This browser prototype does not send email. Real delivery from the shared Outlook inbox requires an approved private integration and authorised student email data.</p>
+                <div class="composer-actions"><button class="secondary" id="cancelEmailReview" type="button">Back to cohort</button><button class="primary" id="simulateSend" type="button">Send reminder · demo</button></div>
+                <div class="send-result" id="sendResult" role="status" aria-live="polite">Demo complete. No real emails were sent.</div>
               </div>
             </div>
           </section>
@@ -332,8 +423,8 @@
   <dialog id="sharepointDialog" aria-labelledby="sharepointDialogTitle">
     <div class="dialog-body">
       <div class="dialog-icon" aria-hidden="true">↗</div>
-      <h2 id="sharepointDialogTitle">SharePoint workbook link needed</h2>
-      <p>The Sub / Non-Sub workbook link has not been connected to this prototype yet.</p>
+      <h2 id="sharepointDialogTitle">SharePoint connection needed</h2>
+      <p>The guidance-pack folder and Sub / Non-Sub workbook are not connected to this prototype. This demo uses sample choices only.</p>
       <div class="dialog-actions"><button class="primary" type="button" id="closeSharepoint">Close</button></div>
     </div>
   </dialog>
@@ -465,6 +556,87 @@
       window.clearTimeout(toastTimer);
       toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2800);
     }
+
+    const demoMasterSheet = [];
+    const demoPartnerships = ["Partner A", "Partner B", "Partner C"];
+    const demoProgrammes = ["HSC", "BM", "COMP"];
+    const demoCodes = ["RWA", "TP", "PP"];
+    let anonymousStudentNumber = 1;
+    demoPartnerships.forEach((partnership, partnershipIndex) => {
+      demoProgrammes.forEach((programme, programmeIndex) => {
+        for (let cohort = 1; cohort <= 7; cohort += 1) {
+          demoCodes.forEach((code, codeIndex) => {
+            const count = 9 + ((partnershipIndex * 7 + programmeIndex * 5 + cohort * 2 + codeIndex * 3) % 32);
+            for (let student = 0; student < count; student += 1) {
+              demoMasterSheet.push({partnership,programme,cohort:String(cohort),code,label:"Student "+String(anonymousStudentNumber).padStart(4,"0"),id:"STU-"+String(anonymousStudentNumber).padStart(4,"0")});
+              anonymousStudentNumber += 1;
+            }
+          });
+        }
+      });
+    });
+    function openReminderComposer() {
+      const composer = document.getElementById("reminderComposer");
+      composer.hidden = false;
+      updateCohortSelection();
+      composer.scrollIntoView({behavior:"smooth",block:"start"});
+      document.getElementById("partnershipSelect").focus({preventScroll:true});
+    }
+    window.openReminderComposer = openReminderComposer;
+    function updateCohortSelection() {
+      const filters = {
+        partnership:document.getElementById("partnershipSelect").value,
+        programme:document.getElementById("programmeSelect").value,
+        cohort:document.getElementById("cohortSelect").value,
+        code:document.getElementById("codeSelect").value
+      };
+      const matched = demoMasterSheet.filter((row) => row.partnership===filters.partnership && row.programme===filters.programme && row.cohort===filters.cohort && row.code===filters.code);
+      const count = matched.length;
+      document.getElementById("selectionSummary").innerHTML =
+        '<span class="selection-count">'+count+' students selected</span>'+
+        '<span class="selection-chip">'+filters.partnership+'</span>'+
+        '<span class="selection-chip">'+filters.programme+'</span>'+
+        '<span class="selection-chip">Cohort '+filters.cohort+'</span>'+
+        '<span class="selection-chip">'+filters.code+'</span>';
+      const shown = matched.slice(0,8);
+      document.getElementById("studentResults").innerHTML = shown.length
+        ? shown.map((row)=>'<div class="student-result">'+row.id+' · '+row.label+'</div>').join("")+
+          (count>shown.length?'<div class="student-result">Showing '+shown.length+' of '+count+' anonymised records</div>':"")
+        : '<div class="student-result">No sample records match these selections.</div>';
+      document.getElementById("recipientCount").textContent="To: "+count+" student university email addresses";
+      document.getElementById("reviewReminder").disabled=count===0;
+    }
+    ["partnershipSelect","programmeSelect","cohortSelect","codeSelect"].forEach((id)=>document.getElementById(id).addEventListener("change",updateCohortSelection));
+    document.getElementById("reviewReminder").addEventListener("click",()=>{
+      const pack=document.getElementById("guidancePackSelect").value;
+      if(!pack){showToast("Select an example guidance pack before reviewing the email.");document.getElementById("guidancePackSelect").focus();return;}
+      document.getElementById("packSummary").textContent="Guidance pack: "+pack;
+      document.getElementById("emailReview").hidden=false;
+      updateEmailPreview();
+      document.getElementById("emailReview").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+    function bracketedValue(value,placeholder){const clean=value.trim();return "["+(clean||placeholder)+"]";}
+    function updateEmailPreview(){
+      document.getElementById("modulePreview").textContent=bracketedValue(document.getElementById("moduleInput").value,"Module name");
+      document.getElementById("deadlinePreview").textContent=bracketedValue(document.getElementById("deadlineInput").value,"Deadline date and time");
+      const linkInput=document.getElementById("moodleLinkInput").value.trim();
+      const linkAnchor=document.getElementById("submissionPreviewLink");
+      document.getElementById("linkPreview").textContent=linkInput?"["+linkInput+"]":"[Moodle submission link]";
+      if(linkInput){linkAnchor.href=linkInput;linkAnchor.target="_blank";linkAnchor.rel="noopener noreferrer";}
+      else{linkAnchor.href="#emailPreview";linkAnchor.removeAttribute("target");linkAnchor.removeAttribute("rel");}
+    }
+    ["moduleInput","deadlineInput","moodleLinkInput"].forEach((id)=>document.getElementById(id).addEventListener("input",updateEmailPreview));
+    document.getElementById("cancelEmailReview").addEventListener("click",()=>{
+      document.getElementById("emailReview").hidden=true;
+      document.getElementById("sendResult").classList.remove("show");
+      document.getElementById("reminderComposer").scrollIntoView({behavior:"smooth",block:"start"});
+    });
+    document.getElementById("simulateSend").addEventListener("click",()=>{
+      const result=document.getElementById("sendResult");
+      result.textContent="Prototype simulation complete. No real email was sent to "+document.getElementById("recipientCount").textContent.replace("To: ","")+".";
+      result.classList.add("show");
+    });
+    document.getElementById("browsePacks").addEventListener("click",()=>sharepointDialog.showModal());
 
     const sharepointDialog = document.getElementById("sharepointDialog");
     document.getElementById("sharepointShortcut").addEventListener("click", (event) => {
