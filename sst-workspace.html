@@ -1971,7 +1971,7 @@
     document.getElementById("caseTrackerRows").addEventListener("click",function(event){const button=event.target.closest("[data-edit-case]");if(button)beginCaseEdit(button.dataset.editCase);});
     document.getElementById("closeCaseTracker").addEventListener("click",()=>document.getElementById("caseTrackerDialog").close());
     document.querySelectorAll("[data-actions-tab]").forEach(function(button){button.addEventListener("click",function(){actionsTab=button.dataset.actionsTab;renderActionList();});});
-    renderActionList();renderEngagementTasks();renderSubmissionActionList();renderCalendarPeek();
+    renderTaskManager();renderActionList();renderEngagementTasks();renderSubmissionActionList();renderCalendarPeek();
 </script>
 </body>
 </html>
