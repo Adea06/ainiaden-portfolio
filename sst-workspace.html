@@ -555,6 +555,7 @@
                 <div class="field"><label for="cycleResubDeadline">Resubmission deadline · Le Campus</label><input id="cycleResubDeadline" type="date" value="2027-01-15"></div>
               </div>
               <div class="prototype-callout">Submission data tasks are due on the deadline or the next day. Grade entry tasks are due 2 or 3 weeks after the corresponding original, late or resubmission deadline. Dates are editable sample data.</div>
+              <p class="master-note">Verify the resubmission date in <a href="#" data-sharepoint-folder="deadlines">All campus deadlines (Le Campus)</a> before creating tasks.</p>
               <div class="dialog-actions"><button class="primary" type="button" id="createCycleTasks">Create tracker tasks</button></div>
               <div id="cycleScheduleResult" class="state-line" role="status" aria-live="polite"></div>
             </div>
@@ -832,6 +833,7 @@
     document.getElementById("reminderPageContent").appendChild(reminderPanel);
     const submissionContent=document.getElementById("submissionPageContent");
     submissionContent.appendChild(document.getElementById("importTitle").closest(".panel"));
+    submissionContent.appendChild(document.getElementById("cycleScheduler"));
     submissionContent.appendChild(document.getElementById("tracker"));
 
     const students = [
@@ -1164,7 +1166,7 @@
       document.getElementById("casePartnership").value=record.partnership;syncCaseFilterOptions();document.getElementById("caseProgramme").value=record.programme;syncCaseFilterOptions();document.getElementById("caseCohort").value=String(record.cohort);document.getElementById("caseCode").value=record.code;populateCaseStudents();
       document.getElementById("caseStudent").value=record.id;document.getElementById("caseModule").value=record.module;document.getElementById("caseDeadline").value=record.deadline;
       const option=Array.from(document.getElementById("caseOutcome").options).find(function(item){return item.textContent===record.status;});if(option)document.getElementById("caseOutcome").value=option.value;
-      document.getElementById("caseOutcomeNotes").value=record.notes||"";document.getElementById("addCaseTypeLabel").textContent="Save "+activeCaseType+" changes";renderCaseTracker();
+      document.getElementById("caseOutcomeNotes").value=record.notes||"";renderCaseTracker();document.getElementById("addCaseTypeLabel").textContent="Save "+activeCaseType+" changes";
     }
     function addCaseTrackerRecord(){
       const id=document.getElementById("caseStudent").value,student=directoryRecords.find(function(row){return row.id===id;});
