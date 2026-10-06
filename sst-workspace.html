@@ -506,7 +506,7 @@
           <div class="analytics-top">
             <article class="analytics-card"><div class="metric-label">Campus submission rate</div><div class="metric-value" id="campusSubmissionRate">—</div><div class="metric-sub" id="campusSubmissionCount">Across all sample modules</div></article>
             <article class="analytics-card"><div class="metric-label">Campus pass rate</div><div class="metric-value" id="campusPassRate">—</div><div class="metric-sub">Passed ÷ submitted assessments</div></article>
-            <article class="analytics-card"><div class="metric-label">Engagement touchpoints</div><div class="metric-value" id="engagementTotal">—</div><div class="metric-sub">Emails, calls, SST workshops and SST 1:1s</div></article>
+            <article class="analytics-card"><div class="metric-label">Campus engagement touchpoints</div><div class="metric-value" id="engagementTotal">—</div><div class="metric-sub">Emails, calls, SST workshops and 1:1s · all sample cohorts</div></article>
           </div>
           <div class="journey-label" aria-label="Analytics drill-down steps">
             <span class="journey-step active">1 · Campus</span><span aria-hidden="true">›</span><span class="journey-step">2 · Partnership</span><span aria-hidden="true">›</span><span class="journey-step">3 · Cohort + module</span><span aria-hidden="true">›</span><span class="journey-step">4 · Students</span>
@@ -974,7 +974,7 @@
       document.getElementById("campusSubmissionCount").textContent=campusSubmitted.toLocaleString()+" of "+analyticsRecords.length.toLocaleString()+" sample enrolments";
       document.getElementById("campusPassRate").textContent=percent(campusPassed,campusSubmitted)+"%";
       const currentEngagement=engagementRecords.filter(function(r){return r.partnership===analyticsPartner.value && r.programme===analyticsProgramme.value && r.cohort===analyticsCohort.value;});
-      document.getElementById("engagementTotal").textContent=currentEngagement.length.toLocaleString();
+      document.getElementById("engagementTotal").textContent=engagementRecords.length.toLocaleString();
       const summary=document.getElementById("analyticsSelection");
       summary.innerHTML='<span class="info-chip">'+analyticsPartner.value+'</span><span class="info-chip">'+analyticsProgramme.value+'</span><span class="info-chip">Cohort '+analyticsCohort.value+'</span><span class="info-chip">'+analyticsModule.value+'</span>';
       const subRate=percent(submitted.length,selected.length), passRate=percent(passed.length,submitted.length);
