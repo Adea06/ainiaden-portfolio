@@ -1109,6 +1109,7 @@
                 id:id, name:"Student " + String(serial).padStart(3,"0"),
                 tutorialDone:tutorialDone,
                 circumstance:caseTypeForId(id),
+                circumstanceModule:caseTypeForId(id)?modules[0]:"",
                 tutorials:tutorials,
                 submissions:modules.map(function(module, m) {
                   const status = (serial + m + cohort) % 7 === 0 ? "Not submitted" : ((serial + m) % 9 === 0 ? "Late submission" : "Submitted");
@@ -1145,7 +1146,7 @@
     }
     function renderCaseTracker(){
       const tracker=circumstanceTrackers[activeCaseType],p=document.getElementById("casePartnership").value,program=document.getElementById("caseProgramme").value,cohort=document.getElementById("caseCohort").value,code=document.getElementById("caseCode").value;
-      const rows=tracker.filter(function(row){return row.partnership===p&&row.programme===program&&String(row.cohort)===String(cohort)&&row.code===code;});
+      const rows=tracker.filter(function(row){return row.partnership===p&&row.programme===program;});
       document.getElementById("caseTrackerTitle").textContent=activeCaseType==="EC"?"Extenuating circumstances tracker":"Mitigating circumstances tracker";
       document.getElementById("caseTrackerIntro").textContent=rows.length+" anonymised records · add case and track the SST outcome";
       document.getElementById("addCaseTypeLabel").textContent=activeCaseType;
@@ -1171,7 +1172,7 @@
       const status=document.getElementById("caseOutcome").value,deadline=document.getElementById("caseDeadline").value,type=activeCaseType;
       const record={id:student.id,name:student.name,partnership:student.partnership,programme:student.programme,cohort:student.cohort,code:student.code,module:document.getElementById("caseModule").value.trim()||"Module not set",deadline:deadline,status:status,followupDate:status.startsWith("Approved")?addCalendarDays(deadline,7):"",notes:document.getElementById("caseOutcomeNotes").value.trim()||"Outcome awaiting SST follow-up",owner:"AM"};
       const tracker=circumstanceTrackers[type],existingIndex=activeCaseEditId?tracker.findIndex(function(item){return item.id===activeCaseEditId;}):-1;if(existingIndex>=0)tracker[existingIndex]=record;else tracker.unshift(record);activeCaseEditId=null;
-      student.circumstance=status.startsWith("Approved")?type:"";
+      student.circumstance=status.startsWith("Approved")?type:"";student.circumstanceModule=status.startsWith("Approved")?record.module:"";
       let master=demoMasterSheet.find(function(row){return row.id===student.id;});
       if(master){master.approvedCase=student.circumstance;master.partnership=student.partnership==="Partnership A"?"Partner A":"Partner B";master.programme=student.programme;master.cohort=student.cohort;master.code=student.code;}
       else{demoMasterSheet.push({id:student.id,label:student.name,partnership:student.partnership==="Partnership A"?"Partner A":"Partner B",programme:student.programme,cohort:student.cohort,code:student.code,approvedCase:student.circumstance});}
@@ -1236,7 +1237,7 @@
       summary.innerHTML='<span class="directory-count">'+records.length+' students</span><span class="info-chip">'+partnership+'</span><span class="info-chip">'+programme+'</span><span class="info-chip">Cohort '+cohort+'</span><span class="info-chip">'+code+'</span>'+(partnership==="Partnership A"?'<span class="info-chip">Tutorials 1–3 complete · this academic year</span>':"");
       const tbody=document.getElementById("directoryRows");
       tbody.innerHTML=records.map(function(r){
-        const latest=r.submissions.slice(-2).map(function(item){return escapeHtml(item.module)+": "+escapeHtml(item.status)+" · "+escapeHtml(item.grade)+(r.circumstance?' <span class="tag-'+(r.circumstance==="EC"?"ec":"mc")+'">'+(r.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"");}).join(" · ");
+        const latest=r.submissions.map(function(item){return escapeHtml(item.module)+": "+escapeHtml(item.status)+" · "+escapeHtml(item.grade)+(r.circumstance&&item.module===r.circumstanceModule?' <span class="tag-'+(r.circumstance==="EC"?"ec":"mc")+'">'+(r.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"");}).join(" · ");
         const note=r.notes[0] || "No recent contact note";
         return '<tr data-student-row="'+r.id+'"><td class="name-cell"><strong>'+r.name+'</strong><small>'+r.id+'</small></td><td>'+r.programme+' · Cohort '+r.cohort+'<br><span class="small-muted">'+r.partnership+' · '+r.code+'</span></td><td>'+latest+'</td><td>'+note+'</td><td><button class="record-toggle" type="button" aria-expanded="false" data-record="'+r.id+'">Expand history</button></td></tr>';
       }).join("") || '<tr><td colspan="5"><div class="empty-state">No sample students match these filters.</div></td></tr>';
@@ -1251,7 +1252,7 @@
       if(existing){existing.remove();button.setAttribute("aria-expanded","false");button.textContent="Expand history";return;}
       const row=button.closest("tr");
       const detail=document.createElement("tr");detail.className="record-detail";detail.dataset.recordDetail=record.id;
-      const submissions=record.submissions.map(function(item){return '<div class="timeline-entry"><strong>'+escapeHtml(item.semester)+'</strong> · '+escapeHtml(item.module)+' — '+escapeHtml(item.status)+' · Grade '+escapeHtml(item.grade)+(record.circumstance?' <span class="tag-'+(record.circumstance==="EC"?"ec":"mc")+'">'+(record.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"")+"</div>";}).join("");
+      const submissions=record.submissions.map(function(item){return '<div class="timeline-entry"><strong>'+escapeHtml(item.semester)+'</strong> · '+escapeHtml(item.module)+' — '+escapeHtml(item.status)+' · Grade '+escapeHtml(item.grade)+(record.circumstance&&item.module===record.circumstanceModule?' <span class="tag-'+(record.circumstance==="EC"?"ec":"mc")+'">'+(record.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"")+"</div>";}).join("");
       const contact=record.notes.map(function(note,index){return '<div class="timeline-entry"><strong>'+(index===0?"Most recent contact":"Earlier contact")+'</strong><br>'+note+'</div>';}).join("");
       const tutorials=record.partnership==="Partnership A" ? '<h3>Academic-year tutorial completion</h3><div class="timeline-entry">Tutorial 1 · <span class="'+(record.tutorials[0]?"complete":"not-complete")+'">'+(record.tutorials[0]?"Complete":"Not complete")+'</span></div><div class="timeline-entry">Tutorial 2 · <span class="'+(record.tutorials[1]?"complete":"not-complete")+'">'+(record.tutorials[1]?"Complete":"Not complete")+'</span></div><div class="timeline-entry">Tutorial 3 · <span class="'+(record.tutorials[2]?"complete":"not-complete")+'">'+(record.tutorials[2]?"Complete":"Not complete")+'</span></div>' : "";
       detail.innerHTML='<td colspan="5"><div class="record-detail-grid"><section><h3>Recent semester submission history</h3>'+submissions+'</section><section><h3>Call and email notes</h3>'+contact+tutorials+'</section></div></td>';
