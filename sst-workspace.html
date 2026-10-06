@@ -185,6 +185,11 @@
       .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
     @media (max-width:680px) {
+      .cohort-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .student-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .pack-row { grid-template-columns:1fr; align-items:stretch; }
+      .email-fields { grid-template-columns:1fr; }
+      .email-fields .field:last-child { grid-column:auto; }
       .topbar { height:60px; padding:0 14px; }
       .prototype-label { display:none; }
       .layout { display:block; min-height:calc(100vh - 60px); }
