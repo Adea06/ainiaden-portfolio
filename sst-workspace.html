@@ -958,7 +958,7 @@
       toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2800);
     }
 
-    function caseTypeForId(id){const digits=String(id).match(/(\d+)$/);const n=digits?Number(digits[1]):0;return n&&n%31===0?"EC":n&&n%43===0?"MC":"";}
+    function caseTypeForId(id){const digits=String(id).match(/(\d+)$/);const n=digits?Number(digits[1]):0;return n&&n%7===0?"EC":n&&n%11===0?"MC":"";}
     const demoMasterSheet = [];
     const demoPartnerships = ["Partner A", "Partner B"];
     const demoProgrammes = ["HSC", "BM", "COMP"];
