@@ -370,6 +370,20 @@
     .tag-mc{background:#eaf1ff;color:#345596}
     @media(max-width:760px){.cycle-form-grid,.case-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.case-row{grid-template-columns:1fr 1fr}}
     @media(max-width:520px){.cycle-form-grid,.case-form-grid{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}}
+
+    @media(min-width:681px){
+      body.overview-active{overflow:hidden}
+      body.overview-active .layout{height:calc(100vh - 68px);min-height:0}
+      body.overview-active main{height:calc(100vh - 68px);min-height:0;overflow:hidden;display:flex;flex-direction:column}
+      body.overview-active main>.crumb{flex:0 0 auto}
+      body.overview-active #overviewIntro{flex:0 0 auto}
+      body.overview-active #overviewView{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+      body.overview-active #overviewView>.metrics{flex:0 0 auto}
+      body.overview-active #overviewView>.grid{flex:1;min-height:0;overflow:hidden;margin-bottom:0}
+      body.overview-active #overviewView>.grid>.stack{min-height:0;overflow-y:auto;scrollbar-width:thin}
+      body.overview-active #overviewView .panel{margin-bottom:10px}
+      body.overview-active main>.disclaimer{display:none}
+    }
 </style>
 </head>
 <body>
@@ -829,6 +843,7 @@
   </dialog>
 
 <script>
+    document.body.classList.add("overview-active");
     const reminderPanel=document.getElementById("reminderComposer");
     document.getElementById("reminderPageContent").appendChild(reminderPanel);
     const submissionContent=document.getElementById("submissionPageContent");
@@ -1188,6 +1203,7 @@
       if (values.indexOf(old) >= 0) select.value = old;
     }
     function openView(view) {
+      document.body.classList.toggle("overview-active",view==="overview");
       const overview = document.getElementById("overviewView");
       const intro = document.getElementById("overviewIntro");
       const studentsView = document.getElementById("studentsView");
@@ -1409,7 +1425,7 @@
     function renderSubmissionActionList(){
       const box=document.getElementById("submissionActionList");if(!box)return;
       const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||"").localeCompare(b.dueDate||"");});
-      box.innerHTML=rows.length?rows.map(function(row){const info=[row.partnership,row.programme,"Cohort "+row.cohort,row.code,row.module,row.stage].filter(Boolean).join(" · ");return '<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":"⇧")+'</span><div><button type="button" class="task-title task-link" data-open-cycle="'+escapeHtml(row.id)+'">'+escapeHtml(cycleTaskTypeLabel(row))+'</button><div class="task-meta"><span>'+escapeHtml(info)+'</span><span>Due '+displayDate(row.dueDate)+'</span><span>'+escapeHtml(row.owner||"AM")+'</span></div></div><button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button></article>';}).join(""):'<div class="empty-state">No submission or grade follow-ups are due. Use the schedule in Submission tracker to add a module cycle.</div>';
+      box.innerHTML=rows.length?(rows.slice(0,2).map(function(row){const info=[row.partnership,row.programme,"Cohort "+row.cohort,row.code,row.module,row.stage].filter(Boolean).join(" · ");return '<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":"⇧")+'</span><div><button type="button" class="task-title task-link" data-open-cycle="'+escapeHtml(row.id)+'">'+escapeHtml(cycleTaskTypeLabel(row))+'</button><div class="task-meta"><span>'+escapeHtml(info)+'</span><span>Due '+displayDate(row.dueDate)+'</span><span>'+escapeHtml(row.owner||"AM")+'</span></div></div><button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button></article>';}).join("")+(rows.length>2?'<button type="button" class="small-btn" data-open-action-log="true">View all '+rows.length+' tasks in Tasks log</button>':"")):'<div class="empty-state">No submission or grade follow-ups are due. Use the schedule in Submission tracker to add a module cycle.</div>';
     }
     function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
       circumstanceTrackers.EC.filter(function(record){return record.partnership===partnership&&record.programme===programme&&String(record.cohort)===String(cohort)&&record.code===code&&record.module===module&&String(record.status).startsWith("Approved");}).forEach(function(record){
@@ -1494,7 +1510,7 @@
       const box=document.getElementById("engagementTaskList");
       if(!box)return;
       const rows=actionRows.filter(function(row){return (row.type==="workshopPlan"||row.type==="workshopConduct"||row.type==="oneToOne")&&row.status!=="completed";}).sort(function(x,y){return (x.dueDate||x.date||"").localeCompare(y.dueDate||y.date||"");});
-      box.innerHTML=rows.length?rows.map(function(action){
+      box.innerHTML=rows.length?(rows.slice(0,2).map(function(action){
         const label=action.type==="workshopPlan"?"Plan SST workshop":action.type==="workshopConduct"?"Conduct SST workshop":"Complete SST 1:1 follow-up";
         const context=action.type==="workshopPlan"
           ?(action.partnership+" · "+action.programme+" · Cohort "+action.cohort+" · "+(action.modules||[]).join(", ")+" · planning due "+displayDate(action.dueDate)+" (module deadline "+displayDate(action.deadline)+")")
@@ -1504,7 +1520,7 @@
         const command=action.type==="workshopPlan"?"Plan workshop":action.type==="workshopConduct"?"Record session":"Complete 1:1";
         const state=action.status==="partial"?"Partially complete":"Open";
         return '<article class="task"><span class="task-icon" aria-hidden="true">'+(action.type==="oneToOne"?"◉":"▣")+'</span><div><button class="task-title task-link" type="button" data-open-engagement="'+escapeHtml(action.id)+'">'+label+'</button><div class="task-meta"><span>'+escapeHtml(context)+'</span><span>'+state+'</span></div></div><div class="task-controls"><span class="owner mine">'+escapeHtml(action.owner||"AM")+'</span><button class="small-btn" type="button" data-open-engagement="'+escapeHtml(action.id)+'">'+command+'</button></div></article>';
-      }).join(""):'<div class="empty-state">No workshop or 1:1 follow-ups due.</div>';
+      }).join("")+(rows.length>2?'<button type="button" class="small-btn" data-open-action-log="true">View all '+rows.length+' workshop / 1:1 tasks in Tasks log</button>':"")):'<div class="empty-state">No workshop or 1:1 follow-ups due.</div>';
     }
     function eventMatches(event){
       return event.partnership===analyticsPartner.value&&event.programme===analyticsProgramme.value&&String(event.cohort)===String(analyticsCohort.value);
@@ -1752,6 +1768,7 @@
       if(oneToOne)openOneToOneCloseout(oneToOne.dataset.recordOneToOne);
     });
     document.getElementById("engagementTaskList").addEventListener("click",function(event){
+      if(event.target.closest("[data-open-action-log]")){openView("actions");return;}
       const button=event.target.closest("[data-open-engagement]");if(!button)return;
       const row=actionRows.find(function(item){return item.id===button.dataset.openEngagement;});
       if(!row)return;
@@ -1763,7 +1780,7 @@
     document.getElementById("closeCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
     document.getElementById("cancelCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
     document.getElementById("saveCycleTask").addEventListener("click",saveCycleTask);
-    document.getElementById("submissionActionList").addEventListener("click",function(event){const button=event.target.closest("[data-open-cycle]");if(button)openCycleTask(button.dataset.openCycle);});
+    document.getElementById("submissionActionList").addEventListener("click",function(event){if(event.target.closest("[data-open-action-log]")){openView("actions");return;}const button=event.target.closest("[data-open-cycle]");if(button)openCycleTask(button.dataset.openCycle);});
     document.querySelectorAll("[data-case-tracker]").forEach(function(button){button.addEventListener("click",function(){openCaseTracker(button.dataset.caseTracker);});});
     document.querySelectorAll("[data-case-tab]").forEach(function(button){button.addEventListener("click",function(){activeCaseEditId=null;activeCaseType=button.dataset.caseTab;renderCaseTracker();});});
     ["casePartnership","caseProgramme","caseCohort","caseCode"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){if(id==="casePartnership"||id==="caseProgramme")syncCaseFilterOptions();else{populateCaseStudents();renderCaseTracker();}});});
