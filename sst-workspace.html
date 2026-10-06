@@ -84,16 +84,16 @@
     .task-import-panel .upload-box { padding:11px; }
     .task-import-panel .deadline { margin-top:8px; }
     .task-import-panel .state-line { margin-bottom:0; }
-    .week-preview { margin-top:16px; padding-top:14px; border-top:1px solid #e8edf2; }
+    .week-preview { margin-top:11px; padding-top:10px; border-top:1px solid #e8edf2; }
     .week-preview-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:9px; }
     .week-preview-head h3 { margin:0; color:#1d3d57; font-size:12px; }
     .week-preview-head p { margin:4px 0 0; color:#788998; font-size:9px; }
     .week-preview-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
-    .week-peek-item { min-width:0; padding:8px 9px; border:1px solid #e5edf3; border-radius:8px; background:#fbfdff; }
+    .week-peek-item { min-width:0; padding:6px 8px; border:1px solid #e5edf3; border-radius:8px; background:#fbfdff; }
     .week-peek-kind { color:#658096; font-size:8px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
     .week-peek-title { display:block; margin-top:3px; color:#29445a; font-size:9px; font-weight:700; }
     .week-peek-when { display:block; margin-top:3px; color:#718191; font-size:8px; }
-    .week-peek-link { grid-column:1/-1; justify-self:start; padding:3px 0; border:0; color:#0871bf; background:transparent; cursor:pointer; font-size:9px; font-weight:750; }
+    .week-peek-link { justify-self:start; align-self:center; padding:3px 0; border:0; color:#0871bf; background:transparent; cursor:pointer; font-size:9px; font-weight:750; }
     .calendar-day + .calendar-day { margin-top:15px; padding-top:13px; border-top:1px solid #e8edf2; }
     .calendar-day-head { display:flex; justify-content:space-between; margin-bottom:8px; color:#526b7e; font-size:10px; font-weight:800; }
     .calendar-event { display:grid; grid-template-columns:47px 1fr; gap:8px; align-items:start; padding:8px 0; border-top:1px solid #f0f3f6; }
@@ -496,7 +496,7 @@
                 </article>
               </div>
               <section class="week-preview" aria-labelledby="weekPreviewTitle">
-                <div class="week-preview-head"><div><h3 id="weekPreviewTitle">This week</h3><p>Deadlines, 24-hour calls, workshops and 1:1s</p></div><span class="owner">Sample schedule</span></div>
+                <div class="week-preview-head"><div><h3 id="weekPreviewTitle">This week</h3><p>Deadlines, 24-hour calls, workshops and 1:1s · sample schedule</p></div><button type="button" class="week-peek-link" onclick="openView('actions')">See all tasks →</button></div>
                 <div id="submissionActionList" class="week-preview-grid" aria-live="polite"></div>
               </section>
             </div>
@@ -1452,7 +1452,7 @@
         {kind:"Workshop",title:"ACS100 · BM Cohort 7",when:displayDate(addCalendarDays(today,2))+" · 10:00",detail:"Workshop session"},
         {kind:"1:1",title:"Student support check-in",when:displayDate(addCalendarDays(today,3))+" · 14:00",detail:"Appointment"}
       ];
-      box.innerHTML=events.map(function(item){return '<article class="week-peek-item"><span class="week-peek-kind">'+escapeHtml(item.kind)+'</span><strong class="week-peek-title">'+escapeHtml(item.title)+'</strong><span class="week-peek-when">'+escapeHtml(item.when)+' · '+escapeHtml(item.detail)+'</span></article>';}).join("")+'<button type="button" class="week-peek-link" data-open-action-log="true">See all tasks →</button>';
+      box.innerHTML=events.map(function(item){return '<article class="week-peek-item"><span class="week-peek-kind">'+escapeHtml(item.kind)+'</span><strong class="week-peek-title">'+escapeHtml(item.title)+'</strong><span class="week-peek-when">'+escapeHtml(item.when)+' · '+escapeHtml(item.detail)+'</span></article>';}).join("");
     }
     function renderCalendarPeek(){
       const box=document.getElementById("calendarPeekContent");if(!box)return;
