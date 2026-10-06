@@ -836,7 +836,7 @@
     document.getElementById("simulateSend").addEventListener("click",()=>{
       const result=document.getElementById("sendResult"), recipientText=document.getElementById("recipientCount").textContent.replace("To: ","");
       result.textContent="Prototype simulation complete. No real email was sent to "+recipientText+".";result.classList.add("show");
-      const recipients=Number((recipientText.match(/\\d+/)||["0"])[0]);
+      const recipients=Number((recipientText.match(/\d+/)||["0"])[0]);
       actionRows.unshift({id:"ACT-"+String(Date.now()).slice(-6),type:"email",partnership:document.getElementById("partnershipSelect").value,programme:document.getElementById("programmeSelect").value,cohort:document.getElementById("cohortSelect").value,modules:[document.getElementById("moduleInput").value.trim()||"Reminder email"],deadline:document.getElementById("deadlineInput").value,status:"completed",completedOn:localIsoDate(new Date()),recipients:recipients,delivery:"Prototype only · not sent"});
       renderActionList();
     });
