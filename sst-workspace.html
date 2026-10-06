@@ -354,7 +354,23 @@
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
     }
-  </style>
+  
+    .cycle-form-grid,.case-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .cycle-form-grid .field input,.cycle-form-grid .field select,.case-form-grid .field input,.case-form-grid .field select,.case-form-grid .field textarea{width:100%}
+    .exception-checks{display:grid;gap:6px;margin-top:10px;padding:10px;border:1px solid #e0e8ee;border-radius:9px;background:#fbfdfe}
+    .exception-checks h3{margin:0;color:#26445d;font-size:11px}.exception-checks p{margin:0;color:#697d8d;font-size:10px}
+    .exception-line{display:flex;align-items:center;gap:8px;padding:7px 8px;border:1px solid #e5ebef;border-radius:7px;background:#fff;color:#42596b;font-size:10px}
+    .exception-line strong{color:#8a5700}.case-dialog{width:min(1050px,calc(100% - 28px))}
+    .case-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.case-tabs .active{color:#075e9f;border-color:#a9cee6;background:#eef7fd}
+    .case-list{display:grid;gap:8px;margin-top:16px;max-height:34vh;overflow:auto}
+    .case-row{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(90px,1fr));gap:8px;align-items:center;padding:11px;border:1px solid #e1e9ee;border-radius:9px;background:#fff;color:#3d5568;font-size:10px}
+    .case-row strong{display:block;color:#29465e;font-size:11px}.case-row small{display:block;margin-top:3px;color:#718292}
+    .case-status{display:inline-flex;width:max-content;padding:4px 7px;border-radius:999px;background:#fff2d7;color:#805600;font-weight:700}
+    .tag-ec,.tag-mc{display:inline-flex;align-items:center;margin-left:5px;padding:2px 6px;border-radius:999px;background:#fff2d7;color:#805600;font-size:9px;font-weight:800;white-space:nowrap}
+    .tag-mc{background:#eaf1ff;color:#345596}
+    @media(max-width:760px){.cycle-form-grid,.case-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.case-row{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.cycle-form-grid,.case-form-grid{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
   <header class="topbar">
@@ -377,6 +393,8 @@
       <div class="nav-heading" style="margin-top:19px">Team tools</div>
       <a class="nav-item" href="#" data-sharepoint-folder="submission"><span class="nav-icon" aria-hidden="true">⇧</span>Submission tracker <span class="nav-icon" aria-hidden="true">↗</span></a>
       <a class="nav-item" href="#" data-sharepoint-folder="deadlines"><span class="nav-icon" aria-hidden="true">▦</span>All campus deadlines (Le Campus) <span class="nav-icon" aria-hidden="true">↗</span></a>
+      <button class="nav-item" type="button" data-case-tracker="EC"><span class="nav-icon" aria-hidden="true">◷</span>EC tracker <span class="nav-icon" aria-hidden="true">↗</span></button>
+      <button class="nav-item" type="button" data-case-tracker="MC"><span class="nav-icon" aria-hidden="true">◷</span>Mitigating circumstances <span class="nav-icon" aria-hidden="true">↗</span></button>
       <div class="side-note"><strong>Prototype data</strong><br>All students and activity shown here are fictional examples for demonstrating the workflow.</div>
     </aside>
 
@@ -395,7 +413,7 @@
         <article class="metric"><div class="metric-label">Open actions</div><div class="metric-value">7</div><div class="metric-sub">Across your cohort</div></article>
         <article class="metric"><div class="metric-label">Claimed by you</div><div class="metric-value" id="claimedCount">2</div><div class="metric-sub">You can unclaim at any time</div></article>
         <article class="metric"><div class="metric-label">Manual review</div><div class="metric-value">2</div><div class="metric-sub">Needs an SST decision</div></article>
-        <article class="metric"><div class="metric-label">Moodle reminder window</div><div class="metric-value" style="font-size:16px">14 days before</div><div class="metric-sub">Assignment deadline</div></article>
+        <article class="metric"><div class="metric-label">Assessment reminder window</div><div class="metric-value" style="font-size:16px">14 days before</div><div class="metric-sub">Assignment deadline</div></article>
       </section>
 
       <div class="grid">
@@ -410,14 +428,14 @@
                 <article class="task" data-task="reminder">
                   <span class="task-icon" aria-hidden="true">✉</span>
                   <div>
-                    <button class="task-title task-link" type="button" onclick="openReminderComposer()">Send 2-week reminder</button>
+                    <button class="task-title task-link" type="button" onclick="openReminderComposer()">Send assessment reminder</button>
                     <div class="task-meta"><span>Partner B · BM · Cohort 7 · PP</span><span>Whole cohort · sample selection</span></div>
                   </div>
                   <div class="task-controls"><span class="owner mine" data-owner="reminder">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="reminder">Unclaim</button></div>
                 </article>
                 <article class="task" data-task="moodle">
                   <span class="task-icon" aria-hidden="true">⇧</span>
-                  <div><div class="task-title">Import Moodle submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Due 14 days before assignment deadline</strong></div></div>
+                  <div><div class="task-title">Import Moodle submission report</div><div class="task-meta"><span>ACS100 · BM January 2026</span><strong>Submission data due by the day after submissions close</strong></div></div>
                   <div class="task-controls"><span class="owner mine" data-owner="moodle">Claimed by you</span><button class="small-btn unclaim" type="button" data-task-id="moodle">Unclaim</button></div>
                 </article>
                 <article class="task" data-task="contact">
@@ -432,6 +450,10 @@
                 </article>
               </div>
               <div class="engagement-tasks">
+                <div class="engagement-tasks-head"><div><h3>Submission &amp; grade follow-up</h3><p>Record submission status by the day after each deadline; enter grades two or three weeks later.</p></div></div>
+                <div id="submissionActionList" class="task-list" aria-live="polite"></div>
+              </div>
+              <div class="engagement-tasks">
                 <div class="engagement-tasks-head"><div><h3>Workshop &amp; 1:1 tasks</h3><p>Workshop planning reminders are due one month before the original module deadline.</p></div></div>
                 <div id="engagementTaskList" class="task-list" aria-live="polite"></div>
               </div>
@@ -440,7 +462,7 @@
 
           <section class="panel" id="reminderComposer" aria-labelledby="reminderTitle" hidden>
             <div class="panel-head">
-              <div><h2 id="reminderTitle">Send a 2-week reminder</h2><p>Choose a cohort from the anonymised master-sheet demo, then review the message.</p></div>
+              <div><h2 id="reminderTitle">Send an assessment reminder</h2><p>Choose the cohort, review approved EC/MC flags, and uncheck anyone who needs a separate follow-up.</p></div>
               <span class="owner">Student master sheet · demo</span>
             </div>
             <div class="panel-body">
@@ -452,6 +474,7 @@
               </div>
               <div class="selection-summary" id="selectionSummary" aria-live="polite"></div>
               <div class="student-results" id="studentResults" aria-label="Anonymised students matching selected categories"></div>
+              <div class="exception-checks" id="reminderCaseChecks" aria-label="Approved EC and MC cases" hidden></div>
               <p class="master-note">Anonymised sample master sheet. Partnership labels and student records are fictional; the real student master sheet is not connected to this public prototype.</p>
               <div class="pack-row">
                 <div class="field">
@@ -503,7 +526,7 @@
                 <div>
                   <h3>Upload submission report</h3>
                   <p>Accepted formats: .xlsx, .xls, .csv. Matching is based on student ID numbers.</p>
-                  <div class="deadline"><span aria-hidden="true">◷</span> Reminder: 14 days before the assignment deadline</div>
+                  <div class="deadline"><span aria-hidden="true">◷</span> Tracker update due: submission day or next day</div>
                 </div>
                 <div class="upload-actions">
                   <input id="fileInput" type="file" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
@@ -516,6 +539,26 @@
             </div>
           </section>
 
+          
+          <section class="panel" id="cycleScheduler" aria-labelledby="cycleSchedulerTitle">
+            <div class="panel-head"><div><h2 id="cycleSchedulerTitle">Submission, grade &amp; resubmission schedule</h2><p>Set each deadline to create timed tracker tasks. Check resubmission dates against All campus deadlines (Le Campus).</p></div><span class="owner">Task schedule · demo</span></div>
+            <div class="panel-body">
+              <div class="cycle-form-grid">
+                <div class="field"><label for="cyclePartnership">Partnership</label><select id="cyclePartnership"><option>Partnership A</option><option selected>Partnership B</option></select></div>
+                <div class="field"><label for="cycleProgramme">Programme</label><select id="cycleProgramme"><option>HSC</option><option selected>BM</option></select></div>
+                <div class="field"><label for="cycleCohort">Cohort</label><select id="cycleCohort"><option selected>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div>
+                <div class="field"><label for="cycleCode">Code</label><select id="cycleCode"><option>RWA</option><option>TP</option><option selected>PP</option></select></div>
+                <div class="field"><label for="cycleModule">Module</label><input id="cycleModule" type="text" value="ACS" list="cycleModuleOptions"><datalist id="cycleModuleOptions"><option>ACS</option><option>PRD</option><option>AFM</option><option>POM</option><option>HSC</option><option>PHS</option><option>BMS</option><option>HWB</option><option>PRG</option><option>DBS</option><option>NET</option><option>WEB</option></datalist></div>
+                <div class="field"><label for="cycleGradeWeeks">Grade entry window</label><select id="cycleGradeWeeks"><option value="14" selected>2 weeks after deadline</option><option value="21">3 weeks after deadline</option></select></div>
+                <div class="field"><label for="cycleOriginalDeadline">Original submission deadline</label><input id="cycleOriginalDeadline" type="date" value="2026-11-06"></div>
+                <div class="field"><label for="cycleLateDeadline">Late submission deadline</label><input id="cycleLateDeadline" type="date" value="2026-11-13"></div>
+                <div class="field"><label for="cycleResubDeadline">Resubmission deadline · Le Campus</label><input id="cycleResubDeadline" type="date" value="2027-01-15"></div>
+              </div>
+              <div class="prototype-callout">Submission data tasks are due on the deadline or the next day. Grade entry tasks are due 2 or 3 weeks after the corresponding original, late or resubmission deadline. Dates are editable sample data.</div>
+              <div class="dialog-actions"><button class="primary" type="button" id="createCycleTasks">Create tracker tasks</button></div>
+              <div id="cycleScheduleResult" class="state-line" role="status" aria-live="polite"></div>
+            </div>
+          </section>
           <section class="panel" id="tracker" aria-labelledby="trackerTitle">
             <div class="tracker-head">
               <div class="tracker-title"><h2 id="trackerTitle">ACS100_Grading_Tracker.xlsx</h2><p>BM January 2026 · SharePoint preview</p></div>
@@ -549,7 +592,7 @@
 </div>
 
       <section class="view-section" id="reminderView" hidden aria-labelledby="reminderPageTitle">
-        <div class="page-intro"><h1 id="reminderPageTitle">2-week reminder</h1><p>Build a cohort reminder and review the sample email before sending.</p></div>
+        <div class="page-intro"><h1 id="reminderPageTitle">Assessment reminder</h1><p>Build a cohort reminder and review the sample email before sending.</p></div>
         <div id="reminderPageContent"></div>
       </section>
       <section class="view-section" id="submissionsView" hidden aria-labelledby="submissionsPageTitle">
@@ -749,7 +792,42 @@
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script>
+  
+  <dialog id="cycleTaskDialog" class="engagement-dialog" aria-labelledby="cycleTaskTitle">
+    <div class="dialog-shell compact-dialog">
+      <div class="dialog-head"><div><span class="eyebrow">Submission tracking task</span><h2 id="cycleTaskTitle">Record tracker update</h2></div><button class="icon-close" type="button" id="closeCycleTask" aria-label="Close">×</button></div>
+      <div class="dialog-body">
+        <div id="cycleTaskSummary" class="prototype-callout"></div>
+        <div class="field"><label for="cycleTaskNotes">Update note (no student personal details)</label><textarea id="cycleTaskNotes" rows="4" placeholder="Example: Excel report matched by Student ID; tracker statuses updated."></textarea></div>
+        <div class="prototype-callout">Demo only. No Moodle or SharePoint records are changed by this prototype.</div>
+        <div class="dialog-actions"><button class="secondary" type="button" id="cancelCycleTask">Cancel</button><button class="primary" type="button" id="saveCycleTask">Save tracker update · demo</button></div>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="caseTrackerDialog" class="engagement-dialog" aria-labelledby="caseTrackerTitle">
+    <div class="dialog-shell case-dialog">
+      <div class="dialog-head"><div><span class="eyebrow">Team tool · anonymised sample records</span><h2 id="caseTrackerTitle">EC tracker</h2><p id="caseTrackerIntro">Approved cases and SST follow-up outcome</p></div><button class="icon-close" type="button" id="closeCaseTracker" aria-label="Close">×</button></div>
+      <div class="dialog-body">
+        <div class="case-tabs"><button type="button" class="secondary active" data-case-tab="EC">Extenuating circumstances (EC)</button><button type="button" class="secondary" data-case-tab="MC">Mitigating circumstances (MC)</button></div>
+        <p class="prototype-callout">Local demo tracker. The corresponding SharePoint programme tracker is not connected; never enter real student information here.</p>
+        <div class="case-form-grid">
+          <div class="field"><label for="casePartnership">Partnership</label><select id="casePartnership"><option>Partnership A</option><option selected>Partnership B</option></select></div>
+          <div class="field"><label for="caseProgramme">Programme</label><select id="caseProgramme"><option>HSC</option><option selected>BM</option><option>COMP</option></select></div>
+          <div class="field"><label for="caseCohort">Cohort</label><select id="caseCohort"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div>
+          <div class="field"><label for="caseCode">Code</label><select id="caseCode"><option>RWA</option><option>TP</option><option selected>PP</option></select></div>
+          <div class="field"><label for="caseStudent">Student · anonymised sample</label><select id="caseStudent"></select></div>
+          <div class="field"><label for="caseModule">Module</label><input id="caseModule" type="text" value="ACS" placeholder="ACS, PRD, AFM…"></div>
+          <div class="field"><label for="caseDeadline">Original deadline</label><input id="caseDeadline" type="date" value="2026-11-06"></div>
+          <div class="field"><label for="caseOutcome">Case status</label><select id="caseOutcome"><option>Approved · follow-up due</option><option>Awaiting outcome</option><option>Outcome recorded · resubmission pending</option><option>Closed · supported</option><option>Closed · no further action</option></select></div>
+          <div class="field full"><label for="caseOutcomeNotes">SST outcome / follow-up note</label><textarea id="caseOutcomeNotes" rows="2" placeholder="Short generic note; no personal information."></textarea></div>
+        </div>
+        <div class="dialog-actions"><button class="primary" type="button" id="addCaseRecord">Add to <span id="addCaseTypeLabel">EC</span> tracker · demo</button></div>
+        <div class="case-list" id="caseTrackerRows"></div>
+      </div>
+    </div>
+  </dialog>
+
+<script>
     const reminderPanel=document.getElementById("reminderComposer");
     document.getElementById("reminderPageContent").appendChild(reminderPanel);
     const submissionContent=document.getElementById("submissionPageContent");
@@ -880,6 +958,7 @@
       toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2800);
     }
 
+    function caseTypeForId(id){const digits=String(id).match(/(\d+)$/);const n=digits?Number(digits[1]):0;return n&&n%31===0?"EC":n&&n%43===0?"MC":"";}
     const demoMasterSheet = [];
     const demoPartnerships = ["Partner A", "Partner B"];
     const demoProgrammes = ["HSC", "BM", "COMP"];
@@ -891,7 +970,7 @@
           demoCodes.forEach((code, codeIndex) => {
             const count = 9 + ((partnershipIndex * 7 + programmeIndex * 5 + cohort * 2 + codeIndex * 3) % 32);
             for (let student = 0; student < count; student += 1) {
-              demoMasterSheet.push({partnership,programme,cohort:String(cohort),code,label:"Student "+String(anonymousStudentNumber).padStart(4,"0"),id:"STU-"+String(anonymousStudentNumber).padStart(4,"0")});
+              const sid="STU-"+String(anonymousStudentNumber).padStart(4,"0"); demoMasterSheet.push({partnership,programme,cohort:String(cohort),code,label:"Student "+String(anonymousStudentNumber).padStart(4,"0"),id:sid,approvedCase:caseTypeForId(sid)});
               anonymousStudentNumber += 1;
             }
           });
@@ -906,6 +985,21 @@
       document.getElementById("partnershipSelect").focus({preventScroll:true});
     }
     window.openReminderComposer = openReminderComposer;
+
+    function reminderGroupRows(){
+      const p=document.getElementById("partnershipSelect").value,program=document.getElementById("programmeSelect").value,cohort=document.getElementById("cohortSelect").value,code=document.getElementById("codeSelect").value;
+      return demoMasterSheet.filter(function(row){return row.partnership===p&&row.programme===program&&String(row.cohort)===String(cohort)&&row.code===code;});
+    }
+    function updateReminderRecipientCount(){
+      const rows=reminderGroupRows(),excluded=new Set(Array.from(document.querySelectorAll("#reminderCaseChecks input[type=checkbox]:not(:checked)")).map(function(input){return input.value;}));
+      document.getElementById("recipientCount").textContent="To: "+(rows.length-excluded.size)+" of "+rows.length+" student university email addresses";
+    }
+    function renderReminderCaseChecks(rows){
+      const box=document.getElementById("reminderCaseChecks"),cases=rows.filter(function(row){return row.approvedCase==="EC"||row.approvedCase==="MC";});
+      box.hidden=!cases.length;if(!cases.length){box.innerHTML="";return;}
+      box.innerHTML='<h3>Approved circumstances · check before sending</h3><p>Included by default. Uncheck a student to pause this standard reminder and handle their case separately.</p>'+cases.map(function(row){const type=row.approvedCase;return '<label class="exception-line"><input type="checkbox" value="'+escapeHtml(row.id)+'" checked><span><strong>Approved '+type+'</strong> · '+escapeHtml(row.label)+' · '+escapeHtml(row.id)+' · '+(type==="EC"?"chase one week after the deadline":"track separately")+'</span></label>';}).join("");
+      box.querySelectorAll('input[type="checkbox"]').forEach(function(input){input.addEventListener("change",updateReminderRecipientCount);});
+    }
     function updateCohortSelection() {
       const filters = {
         partnership:document.getElementById("partnershipSelect").value,
@@ -915,6 +1009,7 @@
       };
       const matched = demoMasterSheet.filter((row) => row.partnership===filters.partnership && row.programme===filters.programme && row.cohort===filters.cohort && row.code===filters.code);
       const count = matched.length;
+      renderReminderCaseChecks(matched);
       document.getElementById("selectionSummary").innerHTML =
         '<span class="selection-count">'+count+' students selected</span>'+
         '<span class="selection-chip">'+filters.partnership+'</span>'+
@@ -926,7 +1021,7 @@
         ? shown.map((row)=>'<div class="student-result">'+row.id+' · '+row.label+'</div>').join("")+
           (count>shown.length?'<div class="student-result">Showing '+shown.length+' of '+count+' anonymised records</div>':"")
         : '<div class="student-result">No sample records match these selections.</div>';
-      document.getElementById("recipientCount").textContent="To: "+count+" student university email addresses";
+      document.getElementById("recipientCount").textContent="To: "+count+" of "+count+" student university email addresses";
       document.getElementById("reviewReminder").disabled=count===0;
     }
     ["partnershipSelect","programmeSelect","cohortSelect","codeSelect"].forEach((id)=>document.getElementById(id).addEventListener("change",updateCohortSelection));
@@ -958,6 +1053,8 @@
       const result=document.getElementById("sendResult"), recipientText=document.getElementById("recipientCount").textContent.replace("To: ","");
       result.textContent="Prototype simulation complete. No real email was sent to "+recipientText+".";result.classList.add("show");
       const recipients=Number((recipientText.match(/\d+/)||["0"])[0]);
+      const rawDeadline=document.getElementById("deadlineInput").value.trim();const parsedDeadline=new Date(rawDeadline);const dueDate=Number.isNaN(parsedDeadline.getTime())?"":localIsoDate(parsedDeadline);const partner=document.getElementById("partnershipSelect").value==="Partner A"?"Partnership A":"Partnership B";
+      if(dueDate)scheduleApprovedCaseFollowups(partner,document.getElementById("programmeSelect").value,document.getElementById("cohortSelect").value,document.getElementById("codeSelect").value,document.getElementById("moduleInput").value.trim()||"Reminder",dueDate);
       actionRows.unshift({id:"ACT-"+String(Date.now()).slice(-6),type:"email",partnership:document.getElementById("partnershipSelect").value,programme:document.getElementById("programmeSelect").value,cohort:document.getElementById("cohortSelect").value,modules:[document.getElementById("moduleInput").value.trim()||"Reminder email"],deadline:document.getElementById("deadlineInput").value,status:"completed",completedOn:localIsoDate(new Date()),recipients:recipients,delivery:"Prototype only · not sent"});
       renderActionList();
     });
@@ -1011,6 +1108,7 @@
                 partnership:partnership, programme:programme, cohort:String(cohort), code:code,
                 id:id, name:"Student " + String(serial).padStart(3,"0"),
                 tutorialDone:tutorialDone,
+                circumstance:caseTypeForId(id),
                 tutorials:tutorials,
                 submissions:modules.map(function(module, m) {
                   const status = (serial + m + cohort) % 7 === 0 ? "Not submitted" : ((serial + m) % 9 === 0 ? "Late submission" : "Submitted");
@@ -1030,6 +1128,57 @@
       });
     });
 
+    const circumstanceTrackers={EC:[],MC:[]};
+    directoryRecords.forEach(function(record){if(record.circumstance)circumstanceTrackers[record.circumstance].push({id:record.id,name:record.name,partnership:record.partnership,programme:record.programme,cohort:record.cohort,code:record.code,module:record.submissions[0]?.module||"ACS",deadline:"2026-11-06",status:"Approved · follow-up due",followupDate:"2026-11-13",notes:"Outcome awaiting SST follow-up",owner:"AM"});});
+
+    let activeCaseType="EC",activeCaseEditId=null;
+    function syncCaseFilterOptions(){
+      const partner=document.getElementById("casePartnership"),programme=document.getElementById("caseProgramme"),cohort=document.getElementById("caseCohort");
+      setOptions(programme,programmeCatalog[partner.value],programme.value);
+      const max=partner.value==="Partnership A"?4:7;setOptions(cohort,Array.from({length:max},function(_,n){return String(n+1);}),cohort.value);
+      populateCaseStudents();
+    }
+    function populateCaseStudents(){
+      const rows=directoryRecords.filter(function(r){return r.partnership===document.getElementById("casePartnership").value&&r.programme===document.getElementById("caseProgramme").value&&r.cohort===document.getElementById("caseCohort").value&&r.code===document.getElementById("caseCode").value;});
+      const select=document.getElementById("caseStudent");
+      select.innerHTML=rows.map(function(row){return '<option value="'+escapeHtml(row.id)+'">'+escapeHtml(row.name)+' · '+escapeHtml(row.id)+'</option>';}).join("")||'<option value="">No anonymised sample students match</option>';
+    }
+    function renderCaseTracker(){
+      const tracker=circumstanceTrackers[activeCaseType],p=document.getElementById("casePartnership").value,program=document.getElementById("caseProgramme").value,cohort=document.getElementById("caseCohort").value,code=document.getElementById("caseCode").value;
+      const rows=tracker.filter(function(row){return row.partnership===p&&row.programme===program&&String(row.cohort)===String(cohort)&&row.code===code;});
+      document.getElementById("caseTrackerTitle").textContent=activeCaseType==="EC"?"Extenuating circumstances tracker":"Mitigating circumstances tracker";
+      document.getElementById("caseTrackerIntro").textContent=rows.length+" anonymised records · add case and track the SST outcome";
+      document.getElementById("addCaseTypeLabel").textContent=activeCaseType;
+      document.querySelectorAll("[data-case-tab]").forEach(function(button){button.classList.toggle("active",button.dataset.caseTab===activeCaseType);});
+      document.getElementById("caseTrackerRows").innerHTML=rows.length?rows.map(function(row){return '<article class="case-row"><div><strong>'+escapeHtml(row.name)+' · '+escapeHtml(row.id)+'</strong><small>'+escapeHtml(row.module)+' · '+escapeHtml(row.partnership)+' · '+escapeHtml(row.programme)+' · Cohort '+escapeHtml(row.cohort)+' · '+escapeHtml(row.code)+'</small><small>Deadline '+displayDate(row.deadline)+' · '+escapeHtml(row.notes||"No outcome note")+'</small><button type="button" class="small-btn" data-edit-case="'+escapeHtml(row.id)+'">Update outcome</button></div><span class="case-status">'+escapeHtml(row.status)+'</span><span>Follow-up '+(row.followupDate?displayDate(row.followupDate):"not scheduled")+'</span><span class="owner">'+escapeHtml(row.owner||"AM")+'</span></article>';}).join(""):'<div class="empty-state">No cases for this selection. Use the form above to add one.</div>';
+    }
+    function openCaseTracker(type){
+      activeCaseType=type==="MC"?"MC":"EC";syncCaseFilterOptions();renderCaseTracker();
+      document.getElementById("caseTrackerDialog").showModal();
+    }
+
+    function beginCaseEdit(id){
+      const record=circumstanceTrackers[activeCaseType].find(function(row){return row.id===id;});if(!record)return;
+      activeCaseEditId=id;
+      document.getElementById("casePartnership").value=record.partnership;syncCaseFilterOptions();document.getElementById("caseProgramme").value=record.programme;syncCaseFilterOptions();document.getElementById("caseCohort").value=String(record.cohort);document.getElementById("caseCode").value=record.code;populateCaseStudents();
+      document.getElementById("caseStudent").value=record.id;document.getElementById("caseModule").value=record.module;document.getElementById("caseDeadline").value=record.deadline;
+      const option=Array.from(document.getElementById("caseOutcome").options).find(function(item){return item.textContent===record.status;});if(option)document.getElementById("caseOutcome").value=option.value;
+      document.getElementById("caseOutcomeNotes").value=record.notes||"";document.getElementById("addCaseTypeLabel").textContent="Save "+activeCaseType+" changes";renderCaseTracker();
+    }
+    function addCaseTrackerRecord(){
+      const id=document.getElementById("caseStudent").value,student=directoryRecords.find(function(row){return row.id===id;});
+      if(!student){showToast("Choose an anonymised sample student.");return;}
+      const status=document.getElementById("caseOutcome").value,deadline=document.getElementById("caseDeadline").value,type=activeCaseType;
+      const record={id:student.id,name:student.name,partnership:student.partnership,programme:student.programme,cohort:student.cohort,code:student.code,module:document.getElementById("caseModule").value.trim()||"Module not set",deadline:deadline,status:status,followupDate:status.startsWith("Approved")?addCalendarDays(deadline,7):"",notes:document.getElementById("caseOutcomeNotes").value.trim()||"Outcome awaiting SST follow-up",owner:"AM"};
+      const tracker=circumstanceTrackers[type],existingIndex=activeCaseEditId?tracker.findIndex(function(item){return item.id===activeCaseEditId;}):-1;if(existingIndex>=0)tracker[existingIndex]=record;else tracker.unshift(record);activeCaseEditId=null;
+      student.circumstance=status.startsWith("Approved")?type:"";
+      let master=demoMasterSheet.find(function(row){return row.id===student.id;});
+      if(master){master.approvedCase=student.circumstance;master.partnership=student.partnership==="Partnership A"?"Partner A":"Partner B";master.programme=student.programme;master.cohort=student.cohort;master.code=student.code;}
+      else{demoMasterSheet.push({id:student.id,label:student.name,partnership:student.partnership==="Partnership A"?"Partner A":"Partner B",programme:student.programme,cohort:student.cohort,code:student.code,approvedCase:student.circumstance});}
+      document.getElementById("caseOutcomeNotes").value="";document.getElementById("addCaseTypeLabel").textContent=activeCaseType;renderCaseTracker();renderDirectory();
+      if(!document.getElementById("reminderComposer").hidden)updateCohortSelection();
+      showToast("Case added to the "+type+" demo tracker.");
+    }
     function setOptions(select, values, selected) {
       const old = selected || select.value;
       select.innerHTML = values.map(function(value){return '<option value="' + value + '">' + value + '</option>';}).join("");
@@ -1056,7 +1205,7 @@
         if(active) button.setAttribute("aria-current","page");
         else button.removeAttribute("aria-current");
       });
-      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "Tasks log" : view === "reminder" ? "2-week reminder" : view === "submissions" ? "Submission tracker" : "Overview";
+      const title = view === "students" ? "Student history" : view === "analytics" ? "Analytics" : view === "actions" ? "Tasks log" : view === "reminder" ? "Assessment reminder" : view === "submissions" ? "Submission tracker" : "Overview";
       document.querySelector(".crumb").innerHTML = 'Workspace <span aria-hidden="true">/</span> ' + title;
       window.scrollTo({top:0,behavior:"smooth"});
       if(view === "students") renderDirectory();
@@ -1087,7 +1236,7 @@
       summary.innerHTML='<span class="directory-count">'+records.length+' students</span><span class="info-chip">'+partnership+'</span><span class="info-chip">'+programme+'</span><span class="info-chip">Cohort '+cohort+'</span><span class="info-chip">'+code+'</span>'+(partnership==="Partnership A"?'<span class="info-chip">Tutorials 1–3 complete · this academic year</span>':"");
       const tbody=document.getElementById("directoryRows");
       tbody.innerHTML=records.map(function(r){
-        const latest=r.submissions.slice(-2).map(function(s){return s.module+": "+s.status;}).join(" · ");
+        const latest=r.submissions.slice(-2).map(function(item){return escapeHtml(item.module)+": "+escapeHtml(item.status)+" · "+escapeHtml(item.grade)+(r.circumstance?' <span class="tag-'+(r.circumstance==="EC"?"ec":"mc")+'">'+(r.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"");}).join(" · ");
         const note=r.notes[0] || "No recent contact note";
         return '<tr data-student-row="'+r.id+'"><td class="name-cell"><strong>'+r.name+'</strong><small>'+r.id+'</small></td><td>'+r.programme+' · Cohort '+r.cohort+'<br><span class="small-muted">'+r.partnership+' · '+r.code+'</span></td><td>'+latest+'</td><td>'+note+'</td><td><button class="record-toggle" type="button" aria-expanded="false" data-record="'+r.id+'">Expand history</button></td></tr>';
       }).join("") || '<tr><td colspan="5"><div class="empty-state">No sample students match these filters.</div></td></tr>';
@@ -1102,7 +1251,7 @@
       if(existing){existing.remove();button.setAttribute("aria-expanded","false");button.textContent="Expand history";return;}
       const row=button.closest("tr");
       const detail=document.createElement("tr");detail.className="record-detail";detail.dataset.recordDetail=record.id;
-      const submissions=record.submissions.map(function(item){return '<div class="timeline-entry"><strong>'+item.semester+'</strong> · '+item.module+' — '+item.status+' · '+item.grade+'</div>';}).join("");
+      const submissions=record.submissions.map(function(item){return '<div class="timeline-entry"><strong>'+escapeHtml(item.semester)+'</strong> · '+escapeHtml(item.module)+' — '+escapeHtml(item.status)+' · Grade '+escapeHtml(item.grade)+(record.circumstance?' <span class="tag-'+(record.circumstance==="EC"?"ec":"mc")+'">'+(record.circumstance==="EC"?"Approved EC":"Approved MC")+"</span>":"")+"</div>";}).join("");
       const contact=record.notes.map(function(note,index){return '<div class="timeline-entry"><strong>'+(index===0?"Most recent contact":"Earlier contact")+'</strong><br>'+note+'</div>';}).join("");
       const tutorials=record.partnership==="Partnership A" ? '<h3>Academic-year tutorial completion</h3><div class="timeline-entry">Tutorial 1 · <span class="'+(record.tutorials[0]?"complete":"not-complete")+'">'+(record.tutorials[0]?"Complete":"Not complete")+'</span></div><div class="timeline-entry">Tutorial 2 · <span class="'+(record.tutorials[1]?"complete":"not-complete")+'">'+(record.tutorials[1]?"Complete":"Not complete")+'</span></div><div class="timeline-entry">Tutorial 3 · <span class="'+(record.tutorials[2]?"complete":"not-complete")+'">'+(record.tutorials[2]?"Complete":"Not complete")+'</span></div>' : "";
       detail.innerHTML='<td colspan="5"><div class="record-detail-grid"><section><h3>Recent semester submission history</h3>'+submissions+'</section><section><h3>Call and email notes</h3>'+contact+tutorials+'</section></div></td>';
@@ -1243,11 +1392,61 @@
       {id:"ACT-06",type:"contact",partnership:"Partnership B",cohort:"4",modules:["Principles of Marketing"],status:"completed",completedOn:"2026-09-18",owner:"OL"},
       {id:"ACT-07",type:"email",partnership:"Partnership B",programme:"BM",cohort:"7",modules:["Academic Study Skills"],status:"completed",completedOn:"2026-10-05",recipients:24,delivery:"Prototype only · not sent",owner:"AM"},
       {id:"ACT-08",type:"workshopConduct",partnership:"Partnership B",programme:"BM",cohort:"7",modules:["ACS"],status:"completed",completedOn:"2026-09-29",sessionId:"WSH-002",owner:"AM"},
-      {id:"WSH-PLAN-01",type:"workshopPlan",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",modules:["ACS"],deadline:"2026-11-06",dueDate:"2026-10-06",status:"open",owner:"AM",title:"Plan SST workshop"}
+      {id:"WSH-PLAN-01",type:"workshopPlan",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",modules:["ACS"],deadline:"2026-11-06",dueDate:"2026-10-06",status:"open",owner:"AM",title:"Plan SST workshop"},
+      {id:"SUB-ORG-01",type:"submissionData",title:"Update submission data · Original",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Original submission",deadline:"2026-11-06",dueDate:"2026-11-07",status:"open",owner:"AM"},
+      {id:"GRADE-ORG-01",type:"gradeEntry",title:"Enter grades · Original",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Original grades",deadline:"2026-11-06",dueDate:"2026-11-20",status:"open",owner:"AM"},
+      {id:"SUB-LATE-01",type:"submissionData",title:"Update submission data · Late submission",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Late submission",deadline:"2026-11-13",dueDate:"2026-11-14",status:"open",owner:"OL"},
+      {id:"GRADE-LATE-01",type:"gradeEntry",title:"Enter grades · Late submission",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Late grades",deadline:"2026-11-13",dueDate:"2026-11-27",status:"open",owner:"OL"},
+      {id:"SUB-RESUB-01",type:"submissionData",title:"Update submission data · Resubmission",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Resubmission",deadline:"2027-01-15",dueDate:"2027-01-16",status:"open",owner:"AM"},
+      {id:"GRADE-RESUB-01",type:"gradeEntry",title:"Enter grades · Resubmission",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",stage:"Resubmission grades",deadline:"2027-01-15",dueDate:"2027-01-29",status:"open",owner:"AM"}
     ];
+
+    let activeCycleTaskId=null;
+    function cycleTaskTypeLabel(row){return row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":"EC/MC follow-up";}
+    function renderSubmissionActionList(){
+      const box=document.getElementById("submissionActionList");if(!box)return;
+      const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||"").localeCompare(b.dueDate||"");});
+      box.innerHTML=rows.length?rows.map(function(row){const info=[row.partnership,row.programme,"Cohort "+row.cohort,row.code,row.module,row.stage].filter(Boolean).join(" · ");return '<article class="task"><span class="task-icon" aria-hidden="true">'+(row.type==="gradeEntry"?"✓":row.type==="caseFollowup"?"◷":"⇧")+'</span><div><button type="button" class="task-title task-link" data-open-cycle="'+escapeHtml(row.id)+'">'+escapeHtml(cycleTaskTypeLabel(row))+'</button><div class="task-meta"><span>'+escapeHtml(info)+'</span><span>Due '+displayDate(row.dueDate)+'</span><span>'+escapeHtml(row.owner||"AM")+'</span></div></div><button type="button" class="small-btn" data-open-cycle="'+escapeHtml(row.id)+'">Record update</button></article>';}).join(""):'<div class="empty-state">No submission or grade follow-ups are due. Use the schedule in Submission tracker to add a module cycle.</div>';
+    }
+    function scheduleApprovedCaseFollowups(partnership,programme,cohort,code,module,deadline){
+      circumstanceTrackers.EC.filter(function(record){return record.partnership===partnership&&record.programme===programme&&String(record.cohort)===String(cohort)&&record.code===code&&record.module===module&&String(record.status).startsWith("Approved");}).forEach(function(record){
+        const dueDate=addCalendarDays(deadline,7),type="EC",id="CASE-FOLLOW-"+record.id+"-"+deadline+"-"+module;
+        if(!actionRows.some(function(row){return row.id===id;}))actionRows.unshift({id:id,type:"caseFollowup",title:"Approved "+type+" follow-up",partnership:partnership,programme:programme,cohort:String(cohort),code:code,module:module,student:{id:record.id,name:record.name},caseType:type,dueDate:dueDate,deadline:deadline,status:"open",owner:record.owner||"AM",detail:"Check approved circumstances outcome one week after deadline."});
+      });
+    }
+    function addCycleAction(row){const existing=actionRows.find(function(item){return item.type===row.type&&item.partnership===row.partnership&&item.programme===row.programme&&String(item.cohort)===String(row.cohort)&&item.code===row.code&&item.module===row.module&&item.deadline===row.deadline&&item.stage===row.stage;});if(existing){if(existing.status!=="completed"){existing.dueDate=row.dueDate;existing.title=row.title;}return false;}actionRows.unshift(row);return true;}
+    function createSubmissionCycleTasks(){
+      const fields={partnership:document.getElementById("cyclePartnership").value,programme:document.getElementById("cycleProgramme").value,cohort:document.getElementById("cycleCohort").value,code:document.getElementById("cycleCode").value,module:document.getElementById("cycleModule").value.trim(),gradeDays:Number(document.getElementById("cycleGradeWeeks").value)||14};
+      const deadlines=[["Original",document.getElementById("cycleOriginalDeadline").value],["Late submission",document.getElementById("cycleLateDeadline").value],["Resubmission",document.getElementById("cycleResubDeadline").value]].filter(function(item){return Boolean(item[1]);});
+      if(!fields.module||!deadlines.length){showToast("Add a module name and at least one deadline.");return;}
+      const groupId="CYCLE-"+String(Date.now()).slice(-7);let created=0;
+      deadlines.forEach(function(item,index){
+        const stage=item[0],deadline=item[1],dueData=addCalendarDays(deadline,1),dueGrade=addCalendarDays(deadline,fields.gradeDays);
+        const common={partnership:fields.partnership,programme:fields.programme,cohort:fields.cohort,code:fields.code,module:fields.module,deadline:deadline,status:"open",owner:"AM",cycleId:groupId};
+        created+=addCycleAction(Object.assign({id:groupId+"-DATA-"+index,type:"submissionData",title:"Update submission data · "+stage,stage:stage+" submission",dueDate:dueData},common))?1:0;
+        created+=addCycleAction(Object.assign({id:groupId+"-GRADE-"+index,type:"gradeEntry",title:"Enter grades · "+stage,stage:stage+" grades",dueDate:dueGrade},common))?1:0;scheduleApprovedCaseFollowups(fields.partnership,fields.programme,fields.cohort,fields.code,fields.module,deadline);
+      });
+      document.getElementById("cycleScheduleResult").textContent="Created "+created+" submission and grade tasks, plus any approved-case follow-ups.";
+      renderSubmissionActionList();renderActionList();showToast("Submission cycle tasks added to Overview and Actions.");
+    }
+    function openCycleTask(taskId){
+      const task=actionRows.find(function(row){return row.id===taskId;});if(!task)return;
+      activeCycleTaskId=taskId;
+      document.getElementById("cycleTaskTitle").textContent=cycleTaskTypeLabel(task);
+      document.getElementById("cycleTaskSummary").textContent=[task.partnership,task.programme,"Cohort "+task.cohort,task.code,task.module,task.stage,"Due "+displayDate(task.dueDate)].filter(Boolean).join(" · ");
+      document.getElementById("cycleTaskNotes").value="";document.getElementById("cycleTaskDialog").showModal();
+    }
+    function saveCycleTask(){
+      const task=actionRows.find(function(row){return row.id===activeCycleTaskId;}),note=document.getElementById("cycleTaskNotes").value.trim();
+      if(!task)return;if(note.length<6){showToast("Add a short update note before completing this task.");return;}
+      task.status="completed";task.completedOn=localIsoDate(new Date());task.updatedOn=task.completedOn;task.detail=note;
+      if(task.type==="caseFollowup"){const record=circumstanceTrackers[task.caseType||"EC"].find(function(item){return item.id===task.student.id;});if(record){record.status="Outcome recorded · resubmission pending";record.notes=note;}}
+      document.getElementById("cycleTaskDialog").close();renderSubmissionActionList();renderActionList();if(task.type==="caseFollowup")renderCaseTracker();showToast("Tracker update recorded in this demo.");
+    }
     function localIsoDate(date){return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");}
     function displayDate(iso){if(!iso)return"Date not set";const date=new Date(iso+"T12:00:00");return date.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
     function oneMonthBefore(iso){const date=new Date((iso||"2026-11-06")+"T12:00:00");date.setMonth(date.getMonth()-1);return localIsoDate(date);}
+    function addCalendarDays(iso,count){if(!iso)return"";const date=new Date(iso+"T12:00:00");date.setDate(date.getDate()+Number(count));return localIsoDate(date);}
     let actionsTab="mine";
     let activeEngagementComponent="Workshop";
     let activeWorkshopTaskId=null;
@@ -1271,20 +1470,21 @@
       document.getElementById("taskLogCount").textContent=rows.length;
       document.querySelectorAll("[data-actions-tab]").forEach(function(button){const on=button.dataset.actionsTab===actionsTab;button.classList.toggle("active",on);button.setAttribute("aria-selected",String(on));});
       document.getElementById("actionCards").innerHTML=rows.length?rows.map(function(action){
-        const tags=[action.partnership,action.programme||"",action.cohort?"Cohort "+action.cohort:""].concat(action.modules||[]).filter(Boolean);
+        const tags=[action.partnership,action.programme||"",action.cohort?"Cohort "+action.cohort:""].concat(action.modules||[],action.module||"").filter(Boolean);
         const sentEmail=action.type==="email";
         let detail=action.detail||actionStatusText(action);
         if(sentEmail)detail=(action.recipients||0)+" anonymised recipients · "+(action.delivery||"Prototype only · not sent");
         else if(action.type==="workshopPlan")detail="Due "+displayDate(action.dueDate)+" · one month before "+displayDate(action.deadline)+" module deadline";
         else if(action.type==="workshopConduct")detail=(action.title||"")+" · "+actionStatusText(action);
         else if(action.type==="oneToOne")detail=(action.student?action.student.name+" · ":"")+actionStatusText(action);
-        const icon=sentEmail?"✉":action.type==="reminder"?"◷":action.type==="moodle"?"⇧":action.type==="contact"?"☎":action.type==="workshopPlan"?"▣":action.type==="workshopConduct"?"✓":"◉";
+        const icon=sentEmail?"✉":action.type==="reminder"?"◷":action.type==="moodle"?"⇧":action.type==="contact"?"☎":action.type==="workshopPlan"?"▣":action.type==="workshopConduct"?"✓":action.type==="submissionData"?"⇧":action.type==="gradeEntry"?"✓":action.type==="caseFollowup"?"◷":"◉";
         const stateClass=action.status==="completed"?"action-state done":"action-state";
         let command="";
         if(action.type==="workshopPlan"&&action.status!=="completed")command='<button class="small-btn" type="button" data-open-engagement="'+escapeHtml(action.id)+'">Plan workshop</button>';
         if(action.type==="workshopConduct"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-workshop="'+escapeHtml(action.sessionId||"")+'">Record notes &amp; attendance</button>';
+        if(["submissionData","gradeEntry","caseFollowup"].includes(action.type)&&action.status!=="completed")command='<button class="small-btn" type="button" data-open-cycle="'+escapeHtml(action.id)+'">Record update</button>';
         if(action.type==="oneToOne"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-one-to-one="'+escapeHtml(action.sessionId||"")+'">Add notes &amp; attendance</button>';
-        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+escapeHtml(action.title||actionTypeNames[action.type]||"Task")+'</h3><p>'+detail+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="'+stateClass+'">'+(sentEmail?"Demo email · no delivery":actionStatusText(action))+'</span><span class="owner" title="Responsible SST">'+escapeHtml(action.owner||"—")+'</span>'+command+'</div></article>';
+        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+escapeHtml(action.title||actionTypeNames[action.type]||"Task")+'</h3><p>'+escapeHtml(detail)+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="'+stateClass+'">'+(sentEmail?"Demo email · no delivery":actionStatusText(action))+'</span><span class="owner" title="Responsible SST">'+escapeHtml(action.owner||"—")+'</span>'+command+'</div></article>';
       }).join(""):'<div class="empty-state">No actions in this view yet.</div>';
     }
     function renderEngagementTasks(){
@@ -1542,6 +1742,7 @@
       showToast("1:1 notes and attendance saved; the task is complete.");
     });
     document.getElementById("actionCards").addEventListener("click",function(event){
+      const cycle=event.target.closest("[data-open-cycle]");if(cycle){openCycleTask(cycle.dataset.openCycle);return;}
       const plan=event.target.closest("[data-open-engagement]"),record=event.target.closest("[data-record-workshop]"),oneToOne=event.target.closest("[data-record-one-to-one]");
       if(plan)startNewWorkshopPlan(plan.dataset.openEngagement);
       if(record)openWorkshopCloseout(record.dataset.recordWorkshop);
@@ -1555,8 +1756,19 @@
       else if(row.type==="workshopConduct"){openWorkshopCloseout(row.sessionId);}
       else if(row.type==="oneToOne"){openOneToOneCloseout(row.sessionId);}
     });
+    document.getElementById("createCycleTasks").addEventListener("click",createSubmissionCycleTasks);
+    document.getElementById("closeCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
+    document.getElementById("cancelCycleTask").addEventListener("click",()=>document.getElementById("cycleTaskDialog").close());
+    document.getElementById("saveCycleTask").addEventListener("click",saveCycleTask);
+    document.getElementById("submissionActionList").addEventListener("click",function(event){const button=event.target.closest("[data-open-cycle]");if(button)openCycleTask(button.dataset.openCycle);});
+    document.querySelectorAll("[data-case-tracker]").forEach(function(button){button.addEventListener("click",function(){openCaseTracker(button.dataset.caseTracker);});});
+    document.querySelectorAll("[data-case-tab]").forEach(function(button){button.addEventListener("click",function(){activeCaseEditId=null;activeCaseType=button.dataset.caseTab;renderCaseTracker();});});
+    ["casePartnership","caseProgramme","caseCohort","caseCode"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){if(id==="casePartnership"||id==="caseProgramme")syncCaseFilterOptions();else{populateCaseStudents();renderCaseTracker();}});});
+    document.getElementById("addCaseRecord").addEventListener("click",addCaseTrackerRecord);
+    document.getElementById("caseTrackerRows").addEventListener("click",function(event){const button=event.target.closest("[data-edit-case]");if(button)beginCaseEdit(button.dataset.editCase);});
+    document.getElementById("closeCaseTracker").addEventListener("click",()=>document.getElementById("caseTrackerDialog").close());
     document.querySelectorAll("[data-actions-tab]").forEach(function(button){button.addEventListener("click",function(){actionsTab=button.dataset.actionsTab;renderActionList();});});
-    renderActionList();renderEngagementTasks();
+    renderActionList();renderEngagementTasks();renderSubmissionActionList();
 </script>
 </body>
 </html>
