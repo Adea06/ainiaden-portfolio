@@ -1423,7 +1423,7 @@
       const rows=actionRows.filter(function(row){return ["submissionData","gradeEntry","caseFollowup","workshopPlan","workshopConduct","oneToOne"].includes(row.type)&&row.status!=="completed";}).sort(function(a,b){return (a.dueDate||a.date||"").localeCompare(b.dueDate||b.date||"");});
       if(!rows.length){box.innerHTML='<div class="empty-state">No upcoming SST tasks.</div>';return;}
       const row=rows[0],label=row.type==="submissionData"?"Update submission data":row.type==="gradeEntry"?"Enter submission grades":row.type==="caseFollowup"?"Approved EC follow-up":row.type==="workshopPlan"?"Plan SST workshop":row.type==="workshopConduct"?"Conduct SST workshop":"Complete SST 1:1 follow-up";
-      const detail=[row.partnership,row.programme,row.cohort?"Cohort "+row.cohort:"",row.code,row.module||((row.modules||[]).join(", ")),row.stage,"Due "+displayDate(row.dueDate||row.date),row.owner||"AM"].filter(Boolean).join(" · ");
+      const detail=[row.partnership,row.programme,row.cohort?"Cohort "+row.cohort:"",row.code,row.module||((row.modules||[]).join(", ")),row.stage,"Due "+displayDate(row.dueDate||row.date),taskCollaborationLabel(row)].filter(Boolean).join(" · ");
       let button="";
       if(row.type==="workshopPlan")button='<button type="button" class="small-btn" data-open-engagement="'+escapeHtml(row.id)+'">Plan workshop</button>';
       else if(row.type==="workshopConduct")button='<button type="button" class="small-btn" data-record-workshop="'+escapeHtml(row.sessionId||"")+'">Record session</button>';
@@ -1477,6 +1477,11 @@
     let activeOneToOneSessionId=null;
     let activeWorkshopChoice=null;
     let lecturerConfirmed=false;
+    function taskCollaborationLabel(action){
+      const lead=action.owner||"AM";
+      const support=(action.collaborators||[lead==="AM"?"OL":"AM"]).filter(function(initials){return initials!==lead;});
+      return lead+" lead"+(support.length?" · "+support.join(", ")+" support":"");
+    }
     function actionStatusText(action){
       if(action.status==="completed")return "Completed "+displayDate(action.completedOn);
       if(action.status==="partial")return "Partially complete · follow-up required";
@@ -1507,7 +1512,7 @@
         if(action.type==="workshopConduct"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-workshop="'+escapeHtml(action.sessionId||"")+'">Record notes &amp; attendance</button>';
         if(["submissionData","gradeEntry","caseFollowup"].includes(action.type)&&action.status!=="completed")command='<button class="small-btn" type="button" data-open-cycle="'+escapeHtml(action.id)+'">Record update</button>';
         if(action.type==="oneToOne"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-one-to-one="'+escapeHtml(action.sessionId||"")+'">Add notes &amp; attendance</button>';
-        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+escapeHtml(action.title||actionTypeNames[action.type]||"Task")+'</h3><p>'+escapeHtml(detail)+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="'+stateClass+'">'+(sentEmail?"Demo email · no delivery":actionStatusText(action))+'</span><span class="owner" title="Responsible SST">'+escapeHtml(action.owner||"—")+'</span>'+command+'</div></article>';
+        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+escapeHtml(action.title||actionTypeNames[action.type]||"Task")+'</h3><p>'+escapeHtml(detail)+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="'+stateClass+'">'+(sentEmail?"Demo email · no delivery":actionStatusText(action))+'</span><span class="owner" title="Lead SST · supporting SST">'+escapeHtml(taskCollaborationLabel(action))+'</span>'+command+'</div></article>';
       }).join(""):'<div class="empty-state">No actions in this view yet.</div>';
     }
     function renderEngagementTasks(){
