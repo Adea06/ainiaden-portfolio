@@ -220,3 +220,17 @@ body.recruiter-edit .research-strip>p{margin-top:1rem;}
 @media(max-width:520px){body.recruiter-edit .project-snapshot{grid-template-columns:1fr;}}
 
 .redesign-table-wrap:focus-visible,.results-table-wrap:focus-visible{outline:3px solid #315b46;outline-offset:4px;}
+
+
+/* Keep project source available at the end of the case study without competing with the live demo. */
+body.recruiter-edit .project-source-link{
+  display:inline-flex;
+  margin-top:2rem;
+  color:#6e6b64;
+  font-size:.74rem;
+  font-weight:600;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+body.recruiter-edit .project-source-link:hover{color:#171717;}
+body.recruiter-edit .project-source-link:focus-visible{outline:3px solid #171717;outline-offset:4px;}
