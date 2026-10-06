@@ -181,6 +181,33 @@
     .mobile-menu { display:none; }
     .log-summary { display:flex; align-items:baseline; gap:8px; margin:0 0 13px; color:var(--muted); font-size:11px; }
     .log-summary strong { color:#173b5a; font-size:20px; }
+    .engagement-tasks { margin-top:16px; padding-top:14px; border-top:1px solid #e7edf2; }
+    .engagement-tasks-head h3 { margin:0; color:#28475f; font-size:12px; }
+    .engagement-tasks-head p { margin:4px 0 10px; color:#788997; font-size:9px; }
+    .engagement-dialog { width:min(920px,calc(100% - 28px)); max-height:92vh; overflow:auto; }
+    .engagement-dialog .dialog-body { padding:22px; }
+    .engagement-dialog-top,.dialog-section-title { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+    .engagement-dialog-top h2 { margin:4px 0 0; }
+    .engagement-log-list { display:grid; gap:8px; max-height:43vh; overflow:auto; }
+    .engagement-log-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; padding:12px; border:1px solid #e2eaf0; border-radius:10px; background:#fbfdfe; }
+    .engagement-log-card h3 { margin:0 0 4px; color:#2b485f; font-size:12px; }
+    .engagement-log-card p { margin:3px 0; color:#718292; font-size:10px; line-height:1.5; }
+    .workshop-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; margin-top:14px; }
+    .workshop-form-grid .full { grid-column:1 / -1; }
+    .workshop-form-grid textarea,.field textarea { width:100%; min-height:64px; padding:9px 10px; border:1px solid #cedbe5; border-radius:8px; color:#273f53; background:#fff; font:inherit; font-size:11px; resize:vertical; }
+    .workshop-inline-fields { display:flex; gap:8px; }
+    .workshop-inline-fields input { flex:1; }
+    .catalog-material,.prototype-callout { margin-top:12px; padding:10px 12px; border-radius:8px; color:#5f7180; background:#f3f8fb; font-size:10px; line-height:1.5; }
+    .workflow-stage { margin-top:15px; padding:14px; border:1px solid #dce8ef; border-radius:10px; background:#fbfdfe; }
+    .workflow-stage h3 { margin:0 0 5px; color:#29485f; font-size:12px; }
+    .workflow-stage>p { color:#718292; font-size:10px; }
+    .compact-preview { margin-top:10px; max-height:140px; overflow:auto; }
+    .engagement-create-actions { justify-content:flex-start; }
+    .attendance-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; max-height:220px; overflow:auto; padding:8px; border:1px solid #e3ebf1; border-radius:8px; }
+    .attendance-person,.attendance-confirm { display:flex; align-items:center; gap:8px; padding:7px; border:1px solid #e4ebf0; border-radius:7px; color:#455d70; background:white; font-size:10px; }
+    .attendance-field { margin-top:12px; }
+    .field-label { display:block; margin-bottom:6px; color:#556c7f; font-size:10px; font-weight:750; }
+    @media(max-width:700px){.workshop-form-grid,.attendance-list{grid-template-columns:1fr}.workshop-form-grid .full{grid-column:auto}.engagement-log-card{grid-template-columns:1fr}.engagement-dialog .dialog-body{padding:16px}}
 
     .nav-item[aria-current="page"] { color:#075ea5; background:var(--blue-2); font-weight:700; }
     .view-section { margin:0 0 18px; }
@@ -404,6 +431,10 @@
                   <div class="task-controls"><span class="owner">Unassigned</span><button class="small-btn claim-task" type="button" data-task-id="review">Claim task</button></div>
                 </article>
               </div>
+              <div class="engagement-tasks">
+                <div class="engagement-tasks-head"><div><h3>Workshop &amp; 1:1 tasks</h3><p>Workshop planning reminders are due one month before the original module deadline.</p></div></div>
+                <div id="engagementTaskList" class="task-list" aria-live="polite"></div>
+              </div>
             </div>
           </section>
 
@@ -528,12 +559,20 @@
 
       <section class="panel view-section" id="myActionsView" hidden aria-labelledby="myActionsTitle">
         <div class="panel-head">
-          <div><h2 id="myActionsTitle">Tasks log</h2><p>Completed dashboard tasks, including reminder emails sent in the prototype.</p></div>
-          <span class="owner">Recent history · sample data</span>
+          <div><h2 id="myActionsTitle">Actions</h2><p>Review completed and active tasks. Owner initials show who is responsible.</p></div>
+          <span class="owner">Task history · sample data</span>
         </div>
         <div class="panel-body">
-          <div class="log-summary"><strong id="taskLogCount">0</strong><span>completed tasks recorded</span></div>
+          <div class="actions-toolbar">
+            <div class="action-switch" role="tablist" aria-label="Actions filter">
+              <button class="active" type="button" role="tab" aria-selected="true" data-actions-tab="mine">My actions <span id="myActionCount">0</span></button>
+              <button type="button" role="tab" aria-selected="false" data-actions-tab="all">All actions <span id="allActionCount">0</span></button>
+            </div>
+            <span class="small-muted">Responsible SST initials are shown on each item.</span>
+          </div>
+          <div class="log-summary"><strong id="taskLogCount">0</strong><span>actions shown</span></div>
           <div class="action-cards" id="actionCards" aria-live="polite"></div>
+          <p class="master-note">Prototype activity only. Emails and SharePoint file handling are simulated; no external messages or uploads are sent.</p>
         </div>
       </section>
 
@@ -624,6 +663,88 @@
       <h2 id="sharepointDialogTitle">SharePoint folder link needed</h2>
       <p id="sharepointDialogCopy">Add the matching SharePoint folder URL to connect this tool.</p>
       <div class="dialog-actions"><button class="primary" type="button" id="closeSharepoint">Close</button></div>
+    </div>
+  </dialog>
+  <dialog id="engagementDialog" class="engagement-dialog" aria-labelledby="engagementDialogTitle">
+    <div class="dialog-body">
+      <div class="engagement-dialog-top">
+        <div><div class="eyebrow">ENGAGEMENT RECORDS · SAMPLE DATA</div><h2 id="engagementDialogTitle">SST workshops</h2></div>
+        <button class="quiet" type="button" id="closeEngagementDialog" aria-label="Close engagement window">Close ×</button>
+      </div>
+      <section id="engagementHistoryView">
+        <p class="small-muted" id="engagementFilterLine"></p>
+        <div id="engagementLogList" class="engagement-log-list"></div>
+        <div class="dialog-actions engagement-create-actions">
+          <button class="secondary" type="button" id="startWorkshopPlan">＋ Plan a workshop</button>
+          <button class="primary" type="button" id="startOneToOne">＋ Add a 1:1</button>
+        </div>
+      </section>
+      <section id="workshopPlannerView" hidden>
+        <div class="dialog-section-title"><button class="quiet" type="button" data-back-engagement>← Engagement records</button><span class="owner">Workshop planning</span></div>
+        <p class="small-muted">Choose a catalogue workshop or create a new one, attach the slides, confirm the date with the lecturer, then invite the selected cohort.</p>
+        <div class="workshop-form-grid">
+          <div class="field"><label for="workshopChoice">Workshop</label><select id="workshopChoice"></select></div>
+          <div class="field"><label for="workshopDuration">Delivery time</label><input id="workshopDuration" type="number" min="10" max="180" value="45"> <span class="small-muted">minutes</span></div>
+          <div class="field full"><label for="workshopTopic">Topic</label><input id="workshopTopic" type="text"></div>
+          <div class="field full"><label for="workshopDescription">Description</label><textarea id="workshopDescription" rows="2"></textarea></div>
+          <div class="field"><label for="workshopPartnership">Partnership</label><select id="workshopPartnership"><option>Partnership A</option><option selected>Partnership B</option></select></div>
+          <div class="field"><label for="workshopProgramme">Programme</label><select id="workshopProgramme"><option>BM</option><option>HSC</option><option>COMP</option></select></div>
+          <div class="field"><label for="workshopCohort">Cohort</label><select id="workshopCohort"></select></div>
+          <div class="field"><label for="workshopCode">Code</label><select id="workshopCode"><option>RWA</option><option>TP</option><option>PP</option></select></div>
+          <div class="field"><label for="workshopModule">Module</label><select id="workshopModule"></select></div>
+          <div class="field"><label for="workshopMaterials">Choose workshop slides or materials</label><input id="workshopMaterials" type="file" accept=".ppt,.pptx,.pdf"><span id="workshopMaterialsStatus" class="small-muted">Files stay local in this demo; SharePoint upload is simulated.</span></div>
+          <div class="field"><label for="workshopDeadline">Original module deadline</label><input id="workshopDeadline" type="date" value="2026-11-06"></div>
+          <div class="field full"><label for="workshopDate">Proposed date and time</label><div class="workshop-inline-fields"><input id="workshopDate" type="date" value="2026-10-20"><input id="workshopTime" type="time" value="13:00"></div></div>
+        </div>
+        <div class="catalog-material" id="catalogMaterial"></div>
+        <div class="prototype-callout">The selected catalogue slide filename and any chosen local file are shown as a SharePoint workshop-folder handoff preview. No file leaves this browser prototype.</div>
+        <div class="dialog-actions"><button class="secondary" type="button" data-back-engagement>Back</button><button class="primary" type="button" id="requestLecturerConfirmation">Continue to lecturer confirmation</button></div>
+        <section class="workflow-stage" id="lecturerConfirmationStage" hidden>
+          <h3>1 · Confirm with the lecturer</h3>
+          <p>Send the proposed workshop date and time to the module lecturer before contacting students.</p>
+          <div class="email-preview compact-preview" id="lecturerEmailPreview"></div>
+          <div class="dialog-actions"><button class="secondary" type="button" id="sendLecturerRequest">Send lecturer request · demo</button><button class="primary" type="button" id="markLecturerConfirmed" hidden>Lecturer confirmed · continue</button></div>
+          <div class="state-line" id="lecturerRequestStatus" aria-live="polite"></div>
+        </section>
+        <section class="workflow-stage" id="studentInvitationStage" hidden>
+          <h3>2 · Invite the cohort</h3>
+          <p id="workshopRecipientSummary"></p>
+          <div class="email-preview compact-preview" id="studentWorkshopInvite">Dear students,<br><br>Your Student Success Tutor will deliver this workshop on the confirmed date and time. Please be present, as this will be useful for your upcoming submission.<br><br>Kind regards,<br>Student Success Team</div>
+          <div class="prototype-callout">Demo only · this does not send a real email to students.</div>
+          <div class="dialog-actions"><button class="primary" type="button" id="sendStudentWorkshopInvite">Send student invitation · demo</button></div>
+          <div class="state-line" id="studentInviteStatus" aria-live="polite"></div>
+        </section>
+      </section>
+      <section id="oneToOneCreateView" hidden>
+        <div class="dialog-section-title"><button class="quiet" type="button" data-back-engagement>← Engagement records</button><span class="owner">Create 1:1 task</span></div>
+        <p class="small-muted">Add a plan and appointment. This task stays partially complete until attendance and follow-up notes are recorded.</p>
+        <div class="workshop-form-grid">
+          <div class="field"><label for="oneToOnePartnership">Partnership</label><select id="oneToOnePartnership"><option>Partnership A</option><option selected>Partnership B</option></select></div>
+          <div class="field"><label for="oneToOneProgramme">Programme</label><select id="oneToOneProgramme"><option>BM</option><option>HSC</option><option>COMP</option></select></div>
+          <div class="field"><label for="oneToOneCohort">Cohort</label><select id="oneToOneCohort"></select></div>
+          <div class="field"><label for="oneToOneCode">Code</label><select id="oneToOneCode"><option>RWA</option><option>TP</option><option>PP</option></select></div>
+          <div class="field full"><label for="oneToOneStudent">Student</label><select id="oneToOneStudent"></select></div>
+          <div class="field full"><label for="oneToOneContext">Context for the appointment</label><textarea id="oneToOneContext" rows="2" placeholder="What prompted this 1:1?"></textarea></div>
+          <div class="field full"><label for="oneToOnePlan">Plan for the session</label><textarea id="oneToOnePlan" rows="2" placeholder="What will you work through?"></textarea></div>
+          <div class="field"><label for="oneToOneDate">Appointment date</label><input id="oneToOneDate" type="date" value="2026-10-12"></div>
+          <div class="field"><label for="oneToOneTime">Appointment time</label><input id="oneToOneTime" type="time" value="14:00"></div>
+        </div>
+        <div class="dialog-actions"><button class="secondary" type="button" data-back-engagement>Cancel</button><button class="primary" type="button" id="createOneToOneTask">Create 1:1 task · partial</button></div>
+      </section>
+      <section id="workshopCloseoutView" hidden>
+        <div class="dialog-section-title"><button class="quiet" type="button" data-back-engagement>← Engagement records</button><span class="owner">Workshop review &amp; attendance</span></div>
+        <p class="small-muted">Record the workshop outcome before completing the task.</p>
+        <div class="field"><label for="workshopReviewNotes">Workshop review notes</label><textarea id="workshopReviewNotes" rows="3" placeholder="What worked, what students asked, and any follow-up needed?"></textarea></div>
+        <div class="field attendance-field"><span class="field-label">Attendance · select students present</span><div id="workshopAttendanceList" class="attendance-list"></div></div>
+        <div class="dialog-actions"><button class="primary" type="button" id="completeWorkshopTask">Save review &amp; attendance</button></div>
+      </section>
+      <section id="oneToOneCloseoutView" hidden>
+        <div class="dialog-section-title"><button class="quiet" type="button" data-back-engagement>← Engagement records</button><span class="owner">1:1 follow-up</span></div>
+        <p class="small-muted">Record the appointment outcome and attendance to complete the task.</p>
+        <div class="field"><label for="oneToOneNotes">Follow-up notes</label><textarea id="oneToOneNotes" rows="3" placeholder="Summarise the discussion and next steps."></textarea></div>
+        <div class="field"><label for="oneToOneAttendance">Attendance</label><select id="oneToOneAttendance"><option value="">Choose an attendance outcome…</option><option value="attended">Attended</option><option value="absent">Did not attend</option></select></div>
+        <div class="dialog-actions"><button class="primary" type="button" id="completeOneToOneTask">Save notes &amp; attendance</button></div>
+      </section>
     </div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1025,6 +1146,31 @@
       });
     });
 
+    const workshopCatalog=[
+      {key:"harvard",topic:"Harvard Referencing & Avoiding Plagiarism",description:"Introduction to Harvard referencing, in-text citations, reference lists, and how to avoid plagiarism through good academic practice.",minutes:45,slides:"Harvard Referencing Updated.pptx"},
+      {key:"research",topic:"Research Skills: How to Find Academic Sources",description:"How to find and evaluate academic sources using VLE library, EBSCO, and Google Scholar.",minutes:45,slides:"No catalogue slide link listed"},
+      {key:"planning",topic:"Starting Your Assignment: Planning & Time Management",description:"Understand the brief, plan structure and time management strategies, and move from a blank page to a first draft.",minutes:45,slides:"Research for your Assessment.pptx"},
+      {key:"dissertation",topic:"Dissertation: Literature Review",description:"Plan, structure and write a literature review, find sources and build a critical academic argument.",minutes:45,slides:"Disso Lit Review BM workshop; Disso Lit Review HSC workshop"},
+      {key:"vle",topic:"Navigating the VLE",description:"First-two-week workshop: complete guided tasks, follow a live demo and resolve VLE issues.",minutes:45,slides:"VLE COMP DEMO"},
+      {key:"ncg",topic:"Navigating the NCG Library",description:"Access the library and explore key features and resources.",minutes:25,slides:"Accessing NCG Proquest E library.pptx"},
+      {key:"bsu",topic:"Navigating the BSU Library",description:"Learn how to access the BSU library and use its key features and resources.",minutes:25,slides:"BSU Library PPT (No recording).pptx"},
+      {key:"ft",topic:"Introduction to Financial Times",description:"Access Financial Times articles and use them for academic research.",minutes:25,slides:"Financial Times Workshop.pptx"},
+      {key:"mintel",topic:"Introduction to Mintel",description:"Access Mintel database reports and use them for market research in assignments.",minutes:25,slides:"No catalogue slide link listed"},
+      {key:"digital",topic:"Digital Literacy: MS Excel & PowerPoint",description:"Core Excel and PowerPoint skills for academic work, including data handling and presentation design.",minutes:45,slides:"No catalogue slide link listed"}
+    ];
+    const sampleAttendees=[
+      {id:"STU-21102",name:"Student 102"},{id:"STU-21106",name:"Student 106"},{id:"STU-21110",name:"Student 110"},
+      {id:"STU-21114",name:"Student 114"},{id:"STU-21118",name:"Student 118"},{id:"STU-21122",name:"Student 122"}
+    ];
+    const workshopSessions=[
+      {id:"WSH-001",topic:"Harvard Referencing & Avoiding Plagiarism",description:workshopCatalog[0].description,minutes:45,slides:"Harvard Referencing Updated.pptx",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",date:"2026-09-24",time:"13:00",status:"completed",attendees:sampleAttendees.slice(0,5),notes:"Students practised in-text citations and reference lists. Follow up on paraphrasing in the next tutorial.",owner:"OL"},
+      {id:"WSH-002",topic:"Navigating the VLE",description:workshopCatalog[4].description,minutes:45,slides:"VLE COMP DEMO",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS",date:"2026-09-29",time:"11:00",status:"completed",attendees:sampleAttendees,notes:"Students completed the guided task and resolved common access questions.",owner:"AM"},
+      {id:"WSH-003",topic:"Research Skills: How to Find Academic Sources",description:workshopCatalog[1].description,minutes:45,slides:"No catalogue slide link listed",partnership:"Partnership A",programme:"HSC",cohort:"2",code:"RWA",module:"HSC",date:"2026-09-30",time:"14:00",status:"completed",attendees:sampleAttendees.slice(0,4),notes:"Students compared search results and discussed source quality.",owner:"AM"}
+    ];
+    const oneToOneSessions=[
+      {id:"1TO1-001",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",student:sampleAttendees[1],context:"Student requested help planning the next assessment.",plan:"Review the brief, agree first steps and identify relevant resources.",date:"2026-10-01",time:"14:00",status:"completed",notes:"Agreed a first-draft plan and follow-up resource links.",attended:true,owner:"AM"}
+    ];
+    const engagementTaskFilters={partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",module:"ACS"};
     function syncAnalyticsFilters() {
       const programs=programmeCatalog[analyticsPartner.value];
       setOptions(analyticsProgramme,programs,analyticsProgramme.value);
@@ -1082,6 +1228,7 @@
       const component=button.dataset.engagement;
       document.getElementById("engagementComponents").dataset.active=component;
       renderAnalytics();
+      if(component==="Workshop" || component==="One-to-one"){openEngagementDialog(component);return;}
       const selected=engagementRecords.filter(function(r){return r.component===component && r.partnership===analyticsPartner.value && r.programme===analyticsProgramme.value && r.cohort===analyticsCohort.value;});
       const names=new Map();selected.forEach(function(r){names.set(r.id,r);});
       const people=Array.from(names.values());
@@ -1090,29 +1237,326 @@
     });
 
   
-    const actionTypeNames = {reminder:"Reminder task",moodle:"Moodle report import",contact:"Student follow-up",review:"Submission review",email:"Reminder email sent"};
-    const actionRows = [
-      {id:"ACT-05",type:"reminder",interval:"1month",partnership:"Partnership A",cohort:"2",modules:["Personal Development"],deadline:"2026-09-24",status:"completed",completedOn:"2026-09-02"},
-      {id:"ACT-06",type:"contact",partnership:"Partnership B",cohort:"4",modules:["Principles of Marketing"],deadline:"2026-09-18",status:"completed",completedOn:"2026-09-18"},
-      {id:"ACT-07",type:"email",partnership:"Partner B",programme:"BM",cohort:"7",modules:["Academic Study Skills"],deadline:"2026-10-08",status:"completed",completedOn:"2026-10-05",recipients:24,delivery:"Prototype only · not sent"}
+    const actionTypeNames={reminder:"Reminder email",moodle:"Moodle report import",contact:"Student follow-up",review:"Submission review",email:"Email sent",workshopPlan:"Plan workshop",workshopConduct:"Conduct workshop",oneToOne:"SST 1:1"};
+    const actionRows=[
+      {id:"ACT-05",type:"reminder",partnership:"Partnership A",cohort:"2",modules:["Personal Development"],status:"completed",completedOn:"2026-09-02",owner:"AM"},
+      {id:"ACT-06",type:"contact",partnership:"Partnership B",cohort:"4",modules:["Principles of Marketing"],status:"completed",completedOn:"2026-09-18",owner:"OL"},
+      {id:"ACT-07",type:"email",partnership:"Partnership B",programme:"BM",cohort:"7",modules:["Academic Study Skills"],status:"completed",completedOn:"2026-10-05",recipients:24,delivery:"Prototype only · not sent",owner:"AM"},
+      {id:"ACT-08",type:"workshopConduct",partnership:"Partnership B",programme:"BM",cohort:"7",modules:["ACS"],status:"completed",completedOn:"2026-09-29",sessionId:"WSH-002",owner:"AM"},
+      {id:"WSH-PLAN-01",type:"workshopPlan",partnership:"Partnership B",programme:"BM",cohort:"7",code:"PP",modules:["ACS"],deadline:"2026-11-06",dueDate:"2026-10-06",status:"open",owner:"AM",title:"Plan SST workshop"}
     ];
     function localIsoDate(date){return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");}
     function displayDate(iso){if(!iso)return"Date not set";const date=new Date(iso+"T12:00:00");return date.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
-    function renderActionList(){
-      const rows=actionRows.filter(function(action){return action.status==="completed";}).sort(function(a,b){return (b.completedOn||"").localeCompare(a.completedOn||"");});
-      document.getElementById("pastActionCount").textContent=rows.length;
-      document.getElementById("taskLogCount").textContent=rows.length;
-      document.getElementById("actionCards").innerHTML=rows.length?rows.map(function(action){
-        const tags=[action.partnership,action.programme||"", "Cohort "+action.cohort].concat(action.modules||[]).filter(Boolean);
-        const sentEmail=action.type==="email";
-        const detail=sentEmail?(action.recipients||0)+" anonymised recipients · "+(action.delivery||"Prototype only · not sent"):(action.interval?action.interval+" before deadline · ":"")+"Completed "+displayDate(action.completedOn);
-        const icon=sentEmail?"✉":action.type==="reminder"?"◷":action.type==="moodle"?"⇧":action.type==="contact"?"☎":"✓";
-        const state=sentEmail?'<span class="action-state done">Demo email · no delivery</span>':'<span class="action-state done">Completed '+displayDate(action.completedOn)+'</span>';
-        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+actionTypeNames[action.type]+'</h3><p>'+detail+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+tag+'</span>';}).join("")+'</div></div><div>'+state+'</div></article>';
-      }).join(""):'<div class="empty-state">Completed dashboard tasks will appear here.</div>';
+    function oneMonthBefore(iso){const date=new Date((iso||"2026-11-06")+"T12:00:00");date.setMonth(date.getMonth()-1);return localIsoDate(date);}
+    let actionsTab="mine";
+    let activeEngagementComponent="Workshop";
+    let activeWorkshopTaskId=null;
+    let activeWorkshopSessionId=null;
+    let activeOneToOneSessionId=null;
+    let activeWorkshopChoice=null;
+    let lecturerConfirmed=false;
+    function actionStatusText(action){
+      if(action.status==="completed")return "Completed "+displayDate(action.completedOn);
+      if(action.status==="partial")return "Partially complete · follow-up required";
+      if(action.status==="scheduled")return "Planned for "+displayDate(action.date)+(action.time?" at "+action.time:"");
+      return "Open · due "+displayDate(action.dueDate||action.deadline);
     }
-    renderActionList();
-
-  </script>
+    function renderActionList(){
+      const all=actionRows.slice().sort(function(x,y){return (y.updatedOn||y.completedOn||y.dueDate||"").localeCompare(x.updatedOn||x.completedOn||x.dueDate||"");});
+      const mine=all.filter(function(row){return row.owner==="AM";});
+      const rows=actionsTab==="mine"?mine:all;
+      document.getElementById("myActionCount").textContent=mine.length;
+      document.getElementById("allActionCount").textContent=all.length;
+      document.getElementById("pastActionCount").textContent=all.length;
+      document.getElementById("taskLogCount").textContent=rows.length;
+      document.querySelectorAll("[data-actions-tab]").forEach(function(button){const on=button.dataset.actionsTab===actionsTab;button.classList.toggle("active",on);button.setAttribute("aria-selected",String(on));});
+      document.getElementById("actionCards").innerHTML=rows.length?rows.map(function(action){
+        const tags=[action.partnership,action.programme||"",action.cohort?"Cohort "+action.cohort:""].concat(action.modules||[]).filter(Boolean);
+        const sentEmail=action.type==="email";
+        let detail=action.detail||actionStatusText(action);
+        if(sentEmail)detail=(action.recipients||0)+" anonymised recipients · "+(action.delivery||"Prototype only · not sent");
+        else if(action.type==="workshopPlan")detail="Due "+displayDate(action.dueDate)+" · one month before "+displayDate(action.deadline)+" module deadline";
+        else if(action.type==="workshopConduct")detail=(action.title||"")+" · "+actionStatusText(action);
+        else if(action.type==="oneToOne")detail=(action.student?action.student.name+" · ":"")+actionStatusText(action);
+        const icon=sentEmail?"✉":action.type==="reminder"?"◷":action.type==="moodle"?"⇧":action.type==="contact"?"☎":action.type==="workshopPlan"?"▣":action.type==="workshopConduct"?"✓":"◉";
+        const stateClass=action.status==="completed"?"action-state done":"action-state";
+        let command="";
+        if(action.type==="workshopPlan"&&action.status!=="completed")command='<button class="small-btn" type="button" data-open-engagement="'+escapeHtml(action.id)+'">Plan workshop</button>';
+        if(action.type==="workshopConduct"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-workshop="'+escapeHtml(action.sessionId||"")+'">Record notes &amp; attendance</button>';
+        if(action.type==="oneToOne"&&action.status!=="completed")command='<button class="small-btn" type="button" data-record-one-to-one="'+escapeHtml(action.sessionId||"")+'">Add notes &amp; attendance</button>';
+        return '<article class="action-card"><span class="action-card-icon" aria-hidden="true">'+icon+'</span><div><h3>'+escapeHtml(action.title||actionTypeNames[action.type]||"Task")+'</h3><p>'+detail+'</p><div class="action-card-meta">'+tags.map(function(tag){return '<span class="action-meta-chip">'+escapeHtml(tag)+'</span>';}).join("")+'</div></div><div class="action-card-buttons"><span class="'+stateClass+'">'+(sentEmail?"Demo email · no delivery":actionStatusText(action))+'</span><span class="owner" title="Responsible SST">'+escapeHtml(action.owner||"—")+'</span>'+command+'</div></article>';
+      }).join(""):'<div class="empty-state">No actions in this view yet.</div>';
+    }
+    function renderEngagementTasks(){
+      const box=document.getElementById("engagementTaskList");
+      if(!box)return;
+      const rows=actionRows.filter(function(row){return (row.type==="workshopPlan"||row.type==="workshopConduct"||row.type==="oneToOne")&&row.status!=="completed";}).sort(function(x,y){return (x.dueDate||x.date||"").localeCompare(y.dueDate||y.date||"");});
+      box.innerHTML=rows.length?rows.map(function(action){
+        const label=action.type==="workshopPlan"?"Plan SST workshop":action.type==="workshopConduct"?"Conduct SST workshop":"Complete SST 1:1 follow-up";
+        const context=action.type==="workshopPlan"
+          ?(action.partnership+" · "+action.programme+" · Cohort "+action.cohort+" · "+(action.modules||[]).join(", ")+" · planning due "+displayDate(action.dueDate)+" (module deadline "+displayDate(action.deadline)+")")
+          :action.type==="workshopConduct"
+            ?(action.partnership+" · "+action.programme+" · Cohort "+action.cohort+" · "+displayDate(action.date)+" at "+action.time)
+            :(action.student?action.student.name+" · ":"")+action.partnership+" · "+action.programme+" · Cohort "+action.cohort+" · "+(action.date?displayDate(action.date)+" at "+action.time:"Follow-up required");
+        const command=action.type==="workshopPlan"?"Plan workshop":action.type==="workshopConduct"?"Record session":"Complete 1:1";
+        const state=action.status==="partial"?"Partially complete":"Open";
+        return '<article class="task"><span class="task-icon" aria-hidden="true">'+(action.type==="oneToOne"?"◉":"▣")+'</span><div><button class="task-title task-link" type="button" data-open-engagement="'+escapeHtml(action.id)+'">'+label+'</button><div class="task-meta"><span>'+escapeHtml(context)+'</span><span>'+state+'</span></div></div><div class="task-controls"><span class="owner mine">'+escapeHtml(action.owner||"AM")+'</span><button class="small-btn" type="button" data-open-engagement="'+escapeHtml(action.id)+'">'+command+'</button></div></article>';
+      }).join(""):'<div class="empty-state">No workshop or 1:1 follow-ups due.</div>';
+    }
+    function eventMatches(event){
+      return event.partnership===analyticsPartner.value&&event.programme===analyticsProgramme.value&&String(event.cohort)===String(analyticsCohort.value);
+    }
+    function showEngagementSubView(id){
+      ["engagementHistoryView","workshopPlannerView","oneToOneCreateView","workshopCloseoutView","oneToOneCloseoutView"].forEach(function(view){document.getElementById(view).hidden=view!==id;});
+    }
+    function openEngagementDialog(component){
+      activeEngagementComponent=component;
+      const label=component==="Workshop"?"SST workshops":"SST 1:1s";
+      document.getElementById("engagementDialogTitle").textContent=label;
+      document.getElementById("engagementFilterLine").textContent=analyticsPartner.value+" · "+analyticsProgramme.value+" · Cohort "+analyticsCohort.value+" · "+analyticsModule.value;
+      document.getElementById("startWorkshopPlan").hidden=component!=="Workshop";
+      document.getElementById("startOneToOne").hidden=component!=="One-to-one";
+      renderEngagementLog();
+      showEngagementSubView("engagementHistoryView");
+      document.getElementById("engagementDialog").showModal();
+    }
+    function renderEngagementLog(){
+      const list=document.getElementById("engagementLogList");
+      if(activeEngagementComponent==="Workshop"){
+        const sessions=workshopSessions.filter(eventMatches).sort(function(a,b){return (b.date||"").localeCompare(a.date||"");});
+        list.innerHTML=sessions.length?sessions.map(function(session){
+          const attendance=session.status==="completed"?(session.attendees||[]).length+" attended":"Scheduled";
+          return '<article class="engagement-log-card"><div><h3>'+escapeHtml(session.topic)+'</h3><p>'+escapeHtml(session.partnership+" · "+session.programme+" · Cohort "+session.cohort+" · "+(session.code||""))+'</p><p>'+displayDate(session.date)+" · "+escapeHtml(session.time||"")+" · "+attendance+" · "+escapeHtml(session.owner||"")+'</p><p><strong>Review:</strong> '+escapeHtml(session.notes||"Awaiting session review.")+'</p><p><strong>Materials:</strong> '+escapeHtml(session.materials||session.slides||"No slides attached")+'</p></div><span class="action-state '+(session.status==="completed"?"done":"")+'">'+(session.status==="completed"?"Conducted":"Upcoming")+'</span></article>';
+        }).join(""):'<div class="empty-state">No workshops recorded for this selection yet. Start planning one here.</div>';
+      }else{
+        const sessions=oneToOneSessions.filter(eventMatches).sort(function(a,b){return (b.date||"").localeCompare(a.date||"");});
+        list.innerHTML=sessions.length?sessions.map(function(session){
+          return '<article class="engagement-log-card"><div><h3>'+escapeHtml(session.student.name)+' · '+escapeHtml(session.student.id)+'</h3><p>'+escapeHtml(session.partnership+" · "+session.programme+" · Cohort "+session.cohort+" · "+session.code)+'</p><p>'+displayDate(session.date)+" · "+escapeHtml(session.time||"")+" · "+(session.status==="completed"?"Completed":"Scheduled")+" · "+escapeHtml(session.owner||"")+'</p><p><strong>Context:</strong> '+escapeHtml(session.context||"—")+'</p><p><strong>Plan / notes:</strong> '+escapeHtml(session.notes||session.plan||"Awaiting follow-up.")+'</p></div><span class="action-state '+(session.status==="completed"?"done":"")+'">'+(session.status==="completed"?"Conducted":"Follow-up due")+'</span></article>';
+        }).join(""):'<div class="empty-state">No 1:1 records for this selection yet. Add a 1:1 task here.</div>';
+      }
+    }
+    function syncExperienceFilters(prefix){
+      const partner=document.getElementById(prefix+"Partnership"), programme=document.getElementById(prefix+"Programme"), cohort=document.getElementById(prefix+"Cohort");
+      setOptions(programme,programmeCatalog[partner.value],programme.value);
+      const max=partner.value==="Partnership A"?4:7;
+      setOptions(cohort,Array.from({length:max},function(_,i){return String(i+1);}),cohort.value);
+      const code=document.getElementById(prefix+"Code");
+      if(prefix==="workshop"){
+        setOptions(document.getElementById("workshopModule"),moduleCatalog[programme.value],document.getElementById("workshopModule").value);
+      }
+      if(prefix==="oneToOne")populateOneToOneStudents();
+    }
+    function populateOneToOneStudents(){
+      const rows=cohortRoster.filter(function(row){return row.partnership===document.getElementById("oneToOnePartnership").value&&row.programme===document.getElementById("oneToOneProgramme").value&&row.cohort===document.getElementById("oneToOneCohort").value&&row.code===document.getElementById("oneToOneCode").value;});
+      const unique=Array.from(new Map(rows.map(function(row){return[row.id,row];})).values());
+      const select=document.getElementById("oneToOneStudent");
+      select.innerHTML=unique.map(function(row){return '<option value="'+escapeHtml(row.id)+'">'+escapeHtml(row.name)+' · '+escapeHtml(row.id)+'</option>';}).join("")||'<option value="">No sample students</option>';
+    }
+    function populateWorkshopChoice(){
+      const select=document.getElementById("workshopChoice");
+      select.innerHTML='<option value="">Choose from workshop list…</option>'+workshopCatalog.map(function(item){return '<option value="'+escapeHtml(item.key)+'">'+escapeHtml(item.topic)+'</option>';}).join("")+'<option value="__new__">Design a new workshop…</option>';
+      select.value="harvard";updateWorkshopDetails();
+    }
+    function updateWorkshopDetails(){
+      const key=document.getElementById("workshopChoice").value;
+      const item=workshopCatalog.find(function(workshop){return workshop.key===key;});
+      activeWorkshopChoice=item||null;
+      if(item){
+        document.getElementById("workshopTopic").value=item.topic;
+        document.getElementById("workshopDescription").value=item.description;
+        document.getElementById("workshopDuration").value=item.minutes;
+        document.getElementById("catalogMaterial").textContent="Catalogue slides: "+item.slides;
+      }else{
+        document.getElementById("workshopTopic").value="";
+        document.getElementById("workshopDescription").value="";
+        document.getElementById("workshopDuration").value="45";
+        document.getElementById("catalogMaterial").textContent="New workshop: add a topic, description, duration and slides/materials.";
+      }
+      document.getElementById("lecturerConfirmationStage").hidden=true;
+      document.getElementById("studentInvitationStage").hidden=true;
+      document.getElementById("lecturerRequestStatus").textContent="";
+      document.getElementById("studentInviteStatus").textContent="";
+      lecturerConfirmed=false;
+      document.getElementById("sendLecturerRequest").disabled=false;
+      document.getElementById("markLecturerConfirmed").hidden=true;
+    }
+    function startNewWorkshopPlan(taskId){
+      const dialog=document.getElementById("engagementDialog");if(!dialog.open)dialog.showModal();
+      activeWorkshopTaskId=taskId||null;
+      if(!activeWorkshopTaskId){
+        const filters={partnership:analyticsPartner.value,programme:analyticsProgramme.value,cohort:analyticsCohort.value,code:"PP",module:analyticsModule.value};
+        const row={id:"WSH-PLAN-"+String(Date.now()).slice(-6),type:"workshopPlan",title:"Plan SST workshop",partnership:filters.partnership,programme:filters.programme,cohort:filters.cohort,code:filters.code,modules:[filters.module],deadline:document.getElementById("workshopDeadline").value||"2026-11-06",dueDate:oneMonthBefore(document.getElementById("workshopDeadline").value||"2026-11-06"),status:"open",owner:"AM"};
+        actionRows.unshift(row);activeWorkshopTaskId=row.id;
+      }
+      document.getElementById("workshopPartnership").value=analyticsPartner.value;
+      syncExperienceFilters("workshop");
+      document.getElementById("workshopProgramme").value=analyticsProgramme.value;
+      syncExperienceFilters("workshop");
+      document.getElementById("workshopCohort").value=analyticsCohort.value;
+      document.getElementById("workshopCode").value="PP";
+      document.getElementById("workshopModule").value=analyticsModule.value;
+      const task=actionRows.find(function(row){return row.id===activeWorkshopTaskId;});
+      document.getElementById("workshopDeadline").value=task&&task.deadline||"2026-11-06";
+      populateWorkshopChoice();
+      document.getElementById("workshopDate").value="2026-10-20";
+      document.getElementById("workshopTime").value="13:00";
+      document.getElementById("workshopMaterials").value="";
+      document.getElementById("workshopMaterialsStatus").textContent=activeWorkshopChoice?"Files stay local in this demo; SharePoint upload is simulated.":"Files stay local in this demo; SharePoint upload is simulated.";
+      showEngagementSubView("workshopPlannerView");
+      renderActionList();renderEngagementTasks();
+    }
+    function currentWorkshopRoster(){
+      const rows=cohortRoster.filter(function(row){return row.partnership===document.getElementById("workshopPartnership").value&&row.programme===document.getElementById("workshopProgramme").value&&row.cohort===document.getElementById("workshopCohort").value&&row.code===document.getElementById("workshopCode").value;});
+      return Array.from(new Map(rows.map(function(row){return[row.id,row];})).values());
+    }
+    function requestLecturerStep(){
+      const topic=document.getElementById("workshopTopic").value.trim();
+      const deadline=document.getElementById("workshopDeadline").value;
+      const date=document.getElementById("workshopDate").value,time=document.getElementById("workshopTime").value;
+      if(!topic||!deadline||!date||!time){showToast("Complete the topic, module deadline and proposed date and time.");return;}
+      const task=actionRows.find(function(row){return row.id===activeWorkshopTaskId;});
+      if(task){task.deadline=deadline;task.dueDate=oneMonthBefore(deadline);task.programme=document.getElementById("workshopProgramme").value;task.cohort=document.getElementById("workshopCohort").value;task.code=document.getElementById("workshopCode").value;task.modules=[document.getElementById("workshopModule").value];}
+      document.getElementById("lecturerEmailPreview").innerHTML='<p>To: Module lecturer · demo</p><p>Please confirm the proposed '+escapeHtml(topic)+' workshop for '+escapeHtml(document.getElementById("workshopPartnership").value+" · "+document.getElementById("workshopProgramme").value+" · Cohort "+document.getElementById("workshopCohort").value)+' on '+escapeHtml(displayDate(date)+" at "+time)+'.</p>';
+      document.getElementById("lecturerConfirmationStage").hidden=false;
+      document.getElementById("lecturerConfirmationStage").scrollIntoView({behavior:"smooth",block:"nearest"});
+      renderActionList();
+    }
+    function buildNewWorkshopSession(){
+      const task=actionRows.find(function(row){return row.id===activeWorkshopTaskId;});
+      const item=activeWorkshopChoice;
+      const localFiles=document.getElementById("workshopMaterials").files;
+      const materials=localFiles&&localFiles[0]?localFiles[0].name:(item?item.slides:"New workshop material (not attached)");
+      const session={id:"WSH-"+String(Date.now()).slice(-6),topic:document.getElementById("workshopTopic").value.trim(),description:document.getElementById("workshopDescription").value.trim(),minutes:Number(document.getElementById("workshopDuration").value)||45,slides:item?item.slides:"New materials",materials:materials,partnership:document.getElementById("workshopPartnership").value,programme:document.getElementById("workshopProgramme").value,cohort:document.getElementById("workshopCohort").value,code:document.getElementById("workshopCode").value,module:document.getElementById("workshopModule").value,date:document.getElementById("workshopDate").value,time:document.getElementById("workshopTime").value,status:"scheduled",attendees:[],notes:"",owner:task&&task.owner||"AM",lecturerConfirmed:true};
+      workshopSessions.unshift(session);
+      if(task){task.status="completed";task.completedOn=localIsoDate(new Date());task.title="Plan SST workshop · "+session.topic;task.sessionId=session.id;task.updatedOn=localIsoDate(new Date());}
+      actionRows.unshift({id:"EMAIL-STUD-"+session.id,type:"email",title:"Workshop invitation sent",partnership:session.partnership,programme:session.programme,cohort:session.cohort,modules:[session.module],status:"completed",completedOn:localIsoDate(new Date()),recipients:currentWorkshopRoster().length,delivery:"Demo only · not sent",owner:session.owner});
+      actionRows.unshift({id:"CONDUCT-"+session.id,type:"workshopConduct",title:"Conduct SST workshop · "+session.topic,partnership:session.partnership,programme:session.programme,cohort:session.cohort,modules:[session.module],status:"open",dueDate:session.date,date:session.date,time:session.time,sessionId:session.id,owner:session.owner});
+      renderActionList();renderEngagementTasks();renderEngagementLog();renderAnalytics();
+      showEngagementSubView("engagementHistoryView");
+      showToast("Planning complete in the demo. The workshop is now a scheduled task.");
+    }
+    function openWorkshopCloseout(sessionId){
+      activeWorkshopSessionId=sessionId;
+      const session=workshopSessions.find(function(item){return item.id===sessionId;});
+      if(!session)return;
+      const rows=cohortRoster.filter(function(row){return row.partnership===session.partnership&&row.programme===session.programme&&row.cohort===String(session.cohort)&&row.code===session.code;});
+      const unique=Array.from(new Map(rows.map(function(row){return[row.id,row];})).values());
+      document.getElementById("workshopReviewNotes").value="";
+      document.getElementById("workshopAttendanceList").innerHTML=unique.map(function(person){return '<label class="attendance-person"><input type="checkbox" value="'+escapeHtml(person.id)+'" data-attendance-name="'+escapeHtml(person.name)+'"> '+escapeHtml(person.name)+' · '+escapeHtml(person.id)+'</label>';}).join("")+'<label class="attendance-person"><input type="checkbox" id="workshopNoAttendees"> No students attended</label>';
+      showEngagementSubView("workshopCloseoutView");
+      document.getElementById("engagementDialog").showModal();
+    }
+    function openOneToOneCloseout(sessionId){
+      activeOneToOneSessionId=sessionId;
+      const session=oneToOneSessions.find(function(item){return item.id===sessionId;});
+      if(!session)return;
+      document.getElementById("oneToOneNotes").value=session.plan||"";
+      document.getElementById("oneToOneAttendance").value="";
+      showEngagementSubView("oneToOneCloseoutView");
+      document.getElementById("engagementDialog").showModal();
+    }
+    function startOneToOneForm(){
+      document.getElementById("oneToOnePartnership").value=analyticsPartner.value;
+      syncExperienceFilters("oneToOne");
+      document.getElementById("oneToOneProgramme").value=analyticsProgramme.value;
+      syncExperienceFilters("oneToOne");
+      document.getElementById("oneToOneCohort").value=analyticsCohort.value;
+      document.getElementById("oneToOneCode").value="PP";
+      populateOneToOneStudents();
+      document.getElementById("oneToOneContext").value="";
+      document.getElementById("oneToOnePlan").value="";
+      document.getElementById("oneToOneDate").value="2026-10-12";
+      document.getElementById("oneToOneTime").value="14:00";
+      showEngagementSubView("oneToOneCreateView");
+    }
+    document.getElementById("closeEngagementDialog").addEventListener("click",function(){document.getElementById("engagementDialog").close();});
+    document.getElementById("startWorkshopPlan").addEventListener("click",function(){startNewWorkshopPlan(null);});
+    document.getElementById("startOneToOne").addEventListener("click",startOneToOneForm);
+    document.querySelectorAll("[data-back-engagement]").forEach(function(button){button.addEventListener("click",function(){showEngagementSubView("engagementHistoryView");});});
+    document.getElementById("workshopChoice").addEventListener("change",updateWorkshopDetails);
+    document.getElementById("workshopMaterials").addEventListener("change",function(){
+      const file=this.files&&this.files[0];
+      document.getElementById("workshopMaterialsStatus").textContent=file?file.name+" selected · demo upload only; no file sent to SharePoint.":"Files stay local in this demo; SharePoint upload is simulated.";
+    });
+    document.getElementById("workshopPartnership").addEventListener("change",function(){syncExperienceFilters("workshop");});
+    document.getElementById("workshopProgramme").addEventListener("change",function(){syncExperienceFilters("workshop");});
+    document.getElementById("workshopDeadline").addEventListener("change",function(){
+      const task=actionRows.find(function(row){return row.id===activeWorkshopTaskId;});if(task){task.deadline=this.value;task.dueDate=oneMonthBefore(this.value);}
+      renderActionList();renderEngagementTasks();
+    });
+    document.getElementById("requestLecturerConfirmation").addEventListener("click",requestLecturerStep);
+    document.getElementById("sendLecturerRequest").addEventListener("click",function(){
+      document.getElementById("lecturerRequestStatus").textContent="Demo request sent to the module lecturer; waiting for confirmation.";
+      this.disabled=true;document.getElementById("markLecturerConfirmed").hidden=false;
+      actionRows.unshift({id:"EMAIL-LECT-"+Date.now(),type:"email",title:"Lecturer confirmation request",partnership:document.getElementById("workshopPartnership").value,programme:document.getElementById("workshopProgramme").value,cohort:document.getElementById("workshopCohort").value,modules:[document.getElementById("workshopModule").value],status:"completed",completedOn:localIsoDate(new Date()),recipients:1,delivery:"Demo only · not sent",owner:"AM"});
+      renderActionList();
+    });
+    document.getElementById("markLecturerConfirmed").addEventListener("click",function(){
+      lecturerConfirmed=true;document.getElementById("studentInvitationStage").hidden=false;
+      const roster=currentWorkshopRoster();
+      document.getElementById("workshopRecipientSummary").textContent=roster.length+" anonymised students selected · "+document.getElementById("workshopPartnership").value+" · "+document.getElementById("workshopProgramme").value+" · Cohort "+document.getElementById("workshopCohort").value+" · "+document.getElementById("workshopCode").value;
+      document.getElementById("studentInvitationStage").scrollIntoView({behavior:"smooth",block:"nearest"});
+    });
+    document.getElementById("sendStudentWorkshopInvite").addEventListener("click",function(){
+      if(!lecturerConfirmed){showToast("Confirm the date with the lecturer before inviting students.");return;}
+      buildNewWorkshopSession();
+    });
+    document.getElementById("createOneToOneTask").addEventListener("click",function(){
+      const context=document.getElementById("oneToOneContext").value.trim(),plan=document.getElementById("oneToOnePlan").value.trim(),studentId=document.getElementById("oneToOneStudent").value;
+      const student=cohortRoster.find(function(person){return person.id===studentId;});
+      const date=document.getElementById("oneToOneDate").value,time=document.getElementById("oneToOneTime").value;
+      if(!context||!plan||!student||!date||!time){showToast("Add the context, plan, student and appointment date and time.");return;}
+      const session={id:"1TO1-"+String(Date.now()).slice(-6),partnership:document.getElementById("oneToOnePartnership").value,programme:document.getElementById("oneToOneProgramme").value,cohort:document.getElementById("oneToOneCohort").value,code:document.getElementById("oneToOneCode").value,student:{id:student.id,name:student.name},context:context,plan:plan,date:date,time:time,status:"scheduled",owner:"AM",notes:"",attended:null};
+      oneToOneSessions.unshift(session);
+      actionRows.unshift({id:"TASK-"+session.id,type:"oneToOne",title:"SST 1:1 · "+student.name,partnership:session.partnership,programme:session.programme,cohort:session.cohort,modules:[],student:session.student,detail:"Appointment "+displayDate(date)+" at "+time+" · "+context,status:"partial",date:date,time:time,sessionId:session.id,owner:"AM"});
+      renderActionList();renderEngagementTasks();renderEngagementLog();renderAnalytics();
+      showEngagementSubView("engagementHistoryView");activeEngagementComponent="One-to-one";document.getElementById("engagementDialogTitle").textContent="SST 1:1s";renderEngagementLog();
+      showToast("1:1 created. It stays partially complete until you record attendance and notes.");
+    });
+    document.getElementById("completeWorkshopTask").addEventListener("click",function(){
+      const session=workshopSessions.find(function(item){return item.id===activeWorkshopSessionId;});
+      if(!session)return;
+      const notes=document.getElementById("workshopReviewNotes").value.trim();
+      const checked=Array.from(document.querySelectorAll("#workshopAttendanceList input[type=checkbox]:checked"));
+      const noneAttended=checked.some(function(item){return item.id==="workshopNoAttendees";});
+      if(!notes){showToast("Add workshop review notes before completing this task.");return;}
+      if(!checked.length){showToast("Record attendance, or select No students attended.");return;}
+      const attendees=checked.filter(function(item){return item.id!=="workshopNoAttendees";}).map(function(item){return{id:item.value,name:item.dataset.attendanceName};});
+      session.status="completed";session.attendees=attendees;session.notes=notes;session.completedOn=localIsoDate(new Date());
+      const task=actionRows.find(function(row){return row.type==="workshopConduct"&&row.sessionId===session.id;});
+      if(task){task.status="completed";task.completedOn=session.completedOn;task.detail=notes;task.updatedOn=session.completedOn;}
+      attendees.forEach(function(person){engagementRecords.push({component:"Workshop",partnership:session.partnership,programme:session.programme,cohort:String(session.cohort),id:person.id,name:person.name});});
+      renderAnalytics();renderActionList();renderEngagementTasks();renderEngagementLog();showEngagementSubView("engagementHistoryView");
+      showToast("Workshop review and attendance saved; the conduct task is complete.");
+    });
+    document.getElementById("completeOneToOneTask").addEventListener("click",function(){
+      const session=oneToOneSessions.find(function(item){return item.id===activeOneToOneSessionId;});
+      if(!session)return;
+      const notes=document.getElementById("oneToOneNotes").value.trim(),attendance=document.getElementById("oneToOneAttendance").value;
+      if(!notes||!attendance){showToast("Add follow-up notes and record the attendance outcome.");return;}
+      session.status="completed";session.notes=notes;session.attended=attendance==="attended";session.completedOn=localIsoDate(new Date());
+      const task=actionRows.find(function(row){return row.type==="oneToOne"&&row.sessionId===session.id;});
+      if(task){task.status="completed";task.completedOn=session.completedOn;task.detail=notes;task.updatedOn=session.completedOn;}
+      engagementRecords.push({component:"One-to-one",partnership:session.partnership,programme:session.programme,cohort:String(session.cohort),id:session.student.id,name:session.student.name});
+      renderAnalytics();renderActionList();renderEngagementTasks();renderEngagementLog();showEngagementSubView("engagementHistoryView");
+      showToast("1:1 notes and attendance saved; the task is complete.");
+    });
+    document.getElementById("actionCards").addEventListener("click",function(event){
+      const plan=event.target.closest("[data-open-engagement]"),record=event.target.closest("[data-record-workshop]"),oneToOne=event.target.closest("[data-record-one-to-one]");
+      if(plan)startNewWorkshopPlan(plan.dataset.openEngagement);
+      if(record)openWorkshopCloseout(record.dataset.recordWorkshop);
+      if(oneToOne)openOneToOneCloseout(oneToOne.dataset.recordOneToOne);
+    });
+    document.getElementById("engagementTaskList").addEventListener("click",function(event){
+      const button=event.target.closest("[data-open-engagement]");if(!button)return;
+      const row=actionRows.find(function(item){return item.id===button.dataset.openEngagement;});
+      if(!row)return;
+      if(row.type==="workshopPlan"){activeEngagementComponent="Workshop";document.getElementById("engagementDialogTitle").textContent="Plan SST workshop";startNewWorkshopPlan(row.id);}
+      else if(row.type==="workshopConduct"){openWorkshopCloseout(row.sessionId);}
+      else if(row.type==="oneToOne"){openOneToOneCloseout(row.sessionId);}
+    });
+    document.querySelectorAll("[data-actions-tab]").forEach(function(button){button.addEventListener("click",function(){actionsTab=button.dataset.actionsTab;renderActionList();});});
+    renderActionList();renderEngagementTasks();
+</script>
 </body>
 </html>
