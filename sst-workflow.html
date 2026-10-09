@@ -888,7 +888,7 @@
       border: 10px solid #ffffff;
       border-radius: 18px;
       background-color: #ffffff;
-      background-image: url("assets/images/dashboard.png");
+      background-image: url("assets/images/sst-workspace-overview.jpg");
       background-repeat: no-repeat;
       background-size: 245% auto;
       box-shadow: 0 20px 36px rgba(21, 21, 21, 0.18);
@@ -1357,6 +1357,102 @@
         transform: none;
       }
     }
+
+
+    /* RESEARCH CASE STUDY POLISH */
+
+    .figma-preview { position:relative; width:100%; height:clamp(480px,62vw,760px); overflow:hidden; border-radius:12px; background:#f7f7f7; }
+    .figma-preview iframe { display:block; width:100%; height:100%; border:0; }
+    .map-fallback { margin-top:.8rem; border-top:1px solid var(--line); color:var(--green); font-size:.82rem; }
+    .map-fallback summary { padding:.85rem .2rem; font-weight:700; cursor:pointer; }
+    .map-fallback img { display:block; width:100%; height:auto; border-radius:10px; }
+    @media (max-width:680px) { .figma-preview { height:70vh; min-height:420px; } }
+
+    .hero { min-height: auto; padding-bottom: clamp(3rem, 7vw, 6rem); }
+    .hero h1 { max-width: 1080px; text-transform: none; letter-spacing: -0.075em; }
+    .hero h1 em { color: var(--green); }
+    .hero .scribble, .hero .scatter-shape { display: none; }
+    .project-facts {
+      display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 0; margin: 0 6vw 2rem; padding: 1.4rem 0;
+      border-top: 1px solid rgba(49,91,70,.28); border-bottom: 1px solid rgba(49,91,70,.28);
+    }
+    .project-facts article { padding: .65rem 1.25rem; border-right: 1px solid rgba(49,91,70,.2); }
+    .project-facts article:first-child { padding-left: 0; }
+    .project-facts article:last-child { border-right: 0; }
+    .project-facts span, .research-process li > span { color: var(--green); font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .project-facts b { display:block; margin:.5rem 0 .35rem; font-size:1rem; }
+    .project-facts p { max-width: 270px; margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
+    .case-nav { background:rgba(235,239,230,.94); border-color:rgba(49,91,70,.18); }
+    #context { background: #edf0e8; }
+    #context .section-head { background: transparent; }
+    #context .section-head .eyebrow, #evidence .section-head .eyebrow { color:var(--green); }
+    .snapshot { margin-top:2.8rem; border-color:rgba(49,91,70,.38); }
+    .snapshot article { border-color:rgba(49,91,70,.18); }
+    .snapshot span { color:var(--green); }
+    .snapshot b { font-size:clamp(1.2rem,2.2vw,2rem); }
+    .research-process { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; margin:2rem 0 4rem; padding:0; counter-reset: none; }
+    .research-process li { display:grid; grid-template-columns:auto 1fr; column-gap:.8rem; row-gap:.25rem; padding:1rem 1.15rem; border-left:1px solid rgba(49,91,70,.22); }
+    .research-process li:first-child { border-left:0; padding-left:0; }
+    .research-process li > span { grid-row:span 2; align-self:start; }
+    .research-process b { font-size:.9rem; }
+    .research-process small { color:var(--muted); font-size:.74rem; }
+    .journey-intro { margin-top:2rem; }
+    .journey-intro h3, .research-findings-heading h3 { color:#263d31; }
+    .journey-workshop-gallery figure, .journey-map, .research-findings article { box-shadow:0 8px 26px rgba(28,47,34,.06); }
+    .journey-workshop-gallery figure { border-color:rgba(49,91,70,.17); }
+    .research-findings article { border-color:rgba(49,91,70,.16); background:rgba(255,255,255,.72); }
+    .research-image, .research-image.persona-wide, .research-image:nth-child(2), .research-image:nth-child(3) { transform:none; box-shadow:0 10px 30px rgba(28,47,34,.08); }
+    .systems-panel { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center; margin-top:3rem; padding:clamp(1.5rem,4vw,3rem); border-radius:22px; background:#dfe7dc; }
+    .systems-panel .eyebrow { margin-bottom:.7rem; color:var(--green); }
+    .systems-panel h3 { max-width:480px; margin:0 0 .65rem; font-size:clamp(1.7rem,3vw,2.7rem); line-height:1; letter-spacing:-.05em; }
+    .systems-panel p:not(.eyebrow) { max-width:560px; margin:0; color:var(--muted); line-height:1.6; }
+    .systems-panel ul { display:flex; flex-wrap:wrap; gap:.6rem; margin:0; padding:0; list-style:none; }
+    .systems-panel li { padding:.7rem .95rem; border:1px solid rgba(49,91,70,.2); border-radius:999px; background:rgba(255,255,255,.58); color:#263d31; font-size:.78rem; font-weight:700; }
+    #evidence { background:#f8f7f1; }
+    .decision { transform:none; border-color:rgba(49,91,70,.17); box-shadow:0 10px 30px rgba(28,47,34,.06); }
+    .decision:nth-child(2) { transform:none; }
+    .decision:nth-child(3) { transform:none; }
+    .decision .crop { border-radius:12px; }
+    .solution-stage { background:#315b46; }
+    .prototype-screens-heading { max-width:720px; margin:3.5rem 0 1.2rem; }
+    .prototype-screens-heading .eyebrow { margin-bottom:.7rem; color:#d4e2d5; }
+    .prototype-screens-heading > p:last-child { margin:0; color:rgba(255,255,255,.76); line-height:1.6; }
+    .screen-gallery { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; align-items:start; }
+    .screen-card { min-width:0; margin:0; overflow:hidden; border:1px solid rgba(255,255,255,.34); border-radius:18px; background:#fff; color:#21372b; box-shadow:0 16px 38px rgba(0,0,0,.16); }
+    .screen-card-featured { grid-column:1 / -1; }
+    .screen-card img { display:block; width:100%; height:auto; background:#f1f4f7; }
+    .screen-card figcaption { display:flex; flex-wrap:wrap; gap:.25rem .85rem; padding:.9rem 1.1rem 1rem; font-size:.8rem; line-height:1.45; }
+    .screen-card figcaption b { color:var(--green); }
+    .screen-card figcaption span { color:var(--muted); }
+    .design-hypothesis { max-width:760px; margin:3.5rem 0 1rem; }
+    .design-hypothesis .eyebrow { margin-bottom:.7rem; color:var(--green); }
+    .design-hypothesis h3 { margin:0 0 .6rem; font-size:clamp(1.5rem,2.5vw,2.3rem); letter-spacing:-.04em; }
+    .design-hypothesis > p:last-child { max-width:680px; margin:0; color:var(--muted); line-height:1.6; }
+    .sync-story { border-color:rgba(49,91,70,.25); background:#e7ede5; }
+    .sync-step { background:#fff !important; border:1px solid rgba(49,91,70,.13); }
+    .sync-step small, .sync-step h3 { color:var(--green); }
+    @media (max-width:950px) {
+      .project-facts { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .project-facts article:nth-child(2) { border-right:0; }
+      .project-facts article:nth-child(n+3) { border-top:1px solid rgba(49,91,70,.18); }
+      .project-facts article:nth-child(3) { padding-left:0; }
+      .research-process { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .research-process li:nth-child(3) { border-left:0; padding-left:0; }
+      .systems-panel { grid-template-columns:1fr; }
+      .screen-gallery { grid-template-columns:1fr; }
+      .screen-card-featured { grid-column:auto; }
+    }
+    @media (max-width:680px) {
+      .project-facts { grid-template-columns:1fr; margin:0 6vw 1.5rem; }
+      .project-facts article, .project-facts article:nth-child(3) { padding:1rem 0; border-right:0; border-top:1px solid rgba(49,91,70,.18); }
+      .project-facts article:first-child { border-top:0; }
+      .research-process { grid-template-columns:1fr 1fr; }
+      .research-process li, .research-process li:nth-child(3) { padding:.85rem .5rem; }
+      .research-process li:nth-child(odd) { border-left:0; padding-left:0; }
+      .systems-panel { padding:1.3rem; }
+    }
+
   </style>
 </head>
 
@@ -1428,27 +1524,18 @@
       <i class="scatter-shape three" aria-hidden="true"></i>
     </header>
 
-    <!-- DASHBOARD PREVIEW -->
-
-    <div class="hero-visual reveal">
-      <div class="dashboard-frame">
-        <img
-          src="assets/images/dashboard.png"
-          alt="Support Operations Dashboard prototype showing actions, ownership and schedule"
-        >
-
-        <span class="image-note">
-          Current prototype<br>
-          in one view
-        </span>
-      </div>
-    </div>
+    <section class="project-facts" aria-label="Project overview">
+      <article><span>My role</span><b>UX research + design</b><p>Research planning, interviews, journey mapping, synthesis and prototype direction.</p></article>
+      <article><span>People involved</span><b>6 Student Success Tutors</b><p>Interviews followed by a collaborative current-state mapping session.</p></article>
+      <article><span>Methods</span><b>Listen · map · synthesise</b><p>Explored deadline work, cohort records, exceptions and team handoffs.</p></article>
+      <article><span>Outcome</span><b>Interactive workspace</b><p>A prototype shaped by operational needs, using fictional sample data.</p></article>
+    </section>
 
     <nav class="case-nav" aria-label="Case study sections">
       <a href="#context">Research</a>
       <a href="#journey">Journey map</a>
-      <a href="#evidence">Decisions</a>
-      <a href="#solution">Solution</a>
+      <a href="#evidence">Design response</a>
+      <a href="#solution">Prototype screens</a>
       <a href="#testing">Next test</a>
     </nav>
 
@@ -1471,35 +1558,39 @@
 
       <div class="snapshot reveal">
         <article>
-          <span>Research</span>
-          <b>6 interviews</b>
+          <span>01 / Discover</span>
+          <b>Six SST interviews</b>
 
           <p>
-            The persona was synthesised after the interviews—not assumed
-            before them.
+            Understand how tutors plan deadlines, contact students and keep records current.
           </p>
         </article>
 
         <article>
-          <span>Old workflow</span>
-          <b>Large Excel sheets</b>
+          <span>02 / Map together</span>
+          <b>Current journey</b>
 
           <p>
-            LE Campus and non-submission trackers held grades, deadlines
-            and contact records.
+            SSTs reviewed the deadline process and marked pain points, exceptions and handoffs.
           </p>
         </article>
 
         <article>
-          <span>Design focus</span>
-          <b>Fewer manual steps</b>
+          <span>03 / Shape</span>
+          <b>Shared visibility</b>
 
           <p>
-            Bring actions, ownership and student context into one place;
-            explore how existing records could stay in sync.
+            Explore clearer actions, ownership and student context across a fragmented workflow.
           </p>
         </article>
       </div>
+
+      <ol class="research-process reveal" aria-label="Research process">
+        <li><span>01</span><b>Interview</b><small>Six SST perspectives</small></li>
+        <li><span>02</span><b>Co-create</b><small>Map the real workflow</small></li>
+        <li><span>03</span><b>Synthesise</b><small>Find recurring friction</small></li>
+        <li><span>04</span><b>Translate</b><small>Shape prototype priorities</small></li>
+      </ol>
 
       <div class="journey-intro reveal" id="journey">
         <h3>From six interviews to a shared journey</h3>
@@ -1551,18 +1642,18 @@
       </div>
 
       <figure class="journey-map reveal">
-        <a
-          href="assets/images/support-ops-current-state-journey.png"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Open the digital current-state journey map at full size"
-        >
-          <img
-            src="assets/images/support-ops-current-state-journey.png"
-            alt="Digital current-state Student Success Tutor journey map showing reminders one month, 15 and 7 days, and 24 hours before a deadline, followed by late submissions, grade outcomes and resubmission follow-up."
-            loading="lazy"
-          >
-        </a>
+        <div class="figma-preview" aria-label="Embedded Figma preview of the current-state journey map">
+            <iframe
+              src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fcommunity%2Ffile%2F1690337233949828657"
+              title="Figma preview: Student Success Tutor current-state journey map"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+        </div>
+        <details class="map-fallback">
+          <summary>View static journey-map snapshot</summary>
+          <img src="assets/images/support-ops-current-state-journey.png" alt="Static snapshot of the digital current-state Student Success Tutor journey map, showing reminders, late submissions, grade outcomes and resubmission follow-up." loading="lazy">
+        </details>
         <figcaption>
           <span>Digital current-state journey map — the full deadline cycle and its handoffs.</span>
           <a href="https://www.figma.com/community/file/1690337233949828657" target="_blank" rel="noopener noreferrer">Open the journey map in Figma ↗</a>
@@ -1643,62 +1734,18 @@
         </figure>
       </div>
 
-      <!-- DASHBOARD TO EXCEL SYNC -->
 
-      <div
-        class="sync-story reveal"
-        aria-label="Proposed dashboard and Excel synchronisation"
-      >
-        <article class="sync-step">
-          <small>01 · SST action</small>
-          <h3>Update once</h3>
 
-          <p>
-            An SST records a grade, submission status or follow-up action
-            in the dashboard.
-          </p>
-        </article>
-
-        <span class="sync-arrow" aria-hidden="true">→</span>
-
-        <article class="sync-step">
-          <small>02 · Proposed sync</small>
-          <h3>Connect the records</h3>
-
-          <p>
-            The design explores passing the update back to the relevant
-            original Excel tracker through a future integration.
-          </p>
-        </article>
-
-        <span class="sync-arrow" aria-hidden="true">→</span>
-
-        <article class="sync-step">
-          <small>03 · Intended impact</small>
-          <h3>Fewer clicks and errors</h3>
-
-          <p>
-            Large cohorts could stay current without entering the same
-            information in multiple places.
-          </p>
-        </article>
-      </div>
-
-      <!-- SCATTERED SYSTEMS -->
-
-      <div class="scatter-zone reveal" id="scatter">
-        <h3 class="scatter-title">
-          Six tools.<br>
-          No single story.
-        </h3>
-
-        <button class="scatter-card" type="button">Moodle</button>
-        <button class="scatter-card" type="button">Excel</button>
-        <button class="scatter-card" type="button">SIMS</button>
-        <button class="scatter-card" type="button">Outlook</button>
-        <button class="scatter-card" type="button">OneDrive</button>
-        <button class="scatter-card" type="button">Teams</button>
-      </div>
+      <aside class="systems-panel reveal">
+        <div>
+          <p class="eyebrow">Operational context</p>
+          <h3>One deadline, several sources of truth.</h3>
+          <p>The current service spans spreadsheets, student records, learning systems and team communication. Each tool carries part of the picture.</p>
+        </div>
+        <ul aria-label="Tools used in the current workflow">
+          <li>La Campus</li><li>Submission tracker</li><li>SIMS</li><li>Moodle</li><li>SharePoint</li><li>Outlook</li><li>Teams</li>
+        </ul>
+      </aside>
     </section>
 
     <!-- EVIDENCE TO DECISIONS -->
@@ -1748,8 +1795,8 @@
           <h3>The same update lived in several places.</h3>
 
           <p>
-            So the dashboard is designed as one input point that can sync
-            back to existing Excel records.
+            The concept explores a single update point; any connection back
+            to existing Excel records still needs feasibility testing.
           </p>
 
           <div
@@ -1777,6 +1824,52 @@
             role="img"
             aria-label="Cropped view of Today's Schedule"
           ></div>
+        </article>
+      </div>
+
+      <div class="design-hypothesis reveal">
+        <p class="eyebrow">Design hypothesis · to validate</p>
+        <h3>Could one update reduce duplicate entry?</h3>
+        <p>The prototype explores a future connection between task updates and existing Excel trackers. The interviews surfaced repeated entry; the integration itself has not been tested or built.</p>
+      </div>
+
+      <!-- DASHBOARD TO EXCEL SYNC -->
+
+      <div
+        class="sync-story reveal"
+        aria-label="Proposed dashboard and Excel synchronisation"
+      >
+        <article class="sync-step">
+          <small>01 · SST action</small>
+          <h3>Update once</h3>
+
+          <p>
+            An SST records a grade, submission status or follow-up action
+            in the dashboard.
+          </p>
+        </article>
+
+        <span class="sync-arrow" aria-hidden="true">→</span>
+
+        <article class="sync-step">
+          <small>02 · Proposed sync</small>
+          <h3>Connect the records</h3>
+
+          <p>
+            The concept explores a future connection to the relevant Excel
+            tracker. Feasibility and partner-specific data rules still need validation.
+          </p>
+        </article>
+
+        <span class="sync-arrow" aria-hidden="true">→</span>
+
+        <article class="sync-step">
+          <small>03 · Intended impact</small>
+          <h3>Fewer clicks and errors</h3>
+
+          <p>
+            If validated, a connection could reduce duplicate entry across large cohorts.
+          </p>
         </article>
       </div>
     </section>
@@ -1867,21 +1960,24 @@
         </p>
       </div>
 
-      <div class="screen-gallery reveal">
-        <figure class="full-screen">
-          <img
-            src="assets/images/dashboard.png"
-            alt="Complete Support Operations Dashboard prototype"
-          >
-        </figure>
-
-        <div
-          class="detail-screen"
-          role="img"
-          aria-label="Close crop of the SST schedule panel"
-        ></div>
+      <div class="prototype-screens-heading reveal">
+        <p class="eyebrow">Current prototype · sample data</p>
+        <p>Three views show how the concept brings daily work, student context and cohort patterns into a shared workspace.</p>
       </div>
-
+      <div class="screen-gallery reveal" aria-label="Support Operations Dashboard prototype screens">
+        <figure class="screen-card screen-card-featured">
+          <img src="assets/images/sst-workspace-overview.jpg" alt="New SST Workspace overview with today's actions, upcoming tasks and Moodle import guidance" loading="lazy">
+          <figcaption><b>Overview</b><span>Prioritised actions and shared team ownership.</span></figcaption>
+        </figure>
+        <figure class="screen-card">
+          <img src="assets/images/sst-workspace-students.jpg" alt="Student history screen with cohort filters, submission history and latest SST contact notes" loading="lazy">
+          <figcaption><b>Student history</b><span>Submission and contact context in one record view.</span></figcaption>
+        </figure>
+        <figure class="screen-card">
+          <img src="assets/images/sst-workspace-analytics.jpg" alt="Student success analytics screen with campus rates, cohort filters and student outcomes" loading="lazy">
+          <figcaption><b>Analytics</b><span>Submission and pass rates with cohort-level detail.</span></figcaption>
+        </figure>
+      </div>
       <a
         class="prototype-link"
         href="https://adea06.github.io/ainiaden-portfolio/sst-workspace.html?collab=5273db5a2cc5c54794e904fe3ba426774d7859ec"
@@ -2034,60 +2130,7 @@
       });
     }
 
-    /* DRAGGABLE SYSTEM CARDS */
 
-    const scatterZone = document.querySelector("#scatter");
-    const scatterCards = document.querySelectorAll(".scatter-card");
-
-    scatterCards.forEach((card) => {
-      let dragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      card.addEventListener("pointerdown", (event) => {
-        dragging = true;
-
-        card.setPointerCapture(event.pointerId);
-
-        const cardPosition = card.getBoundingClientRect();
-
-        offsetX = event.clientX - cardPosition.left;
-        offsetY = event.clientY - cardPosition.top;
-
-        card.style.animation = "none";
-        card.style.cursor = "grabbing";
-        card.style.zIndex = "5";
-      });
-
-      card.addEventListener("pointermove", (event) => {
-        if (!dragging || !scatterZone) return;
-
-        const area = scatterZone.getBoundingClientRect();
-
-        const maximumX = area.width - card.offsetWidth;
-        const maximumY = area.height - card.offsetHeight;
-
-        const proposedX = event.clientX - area.left - offsetX;
-        const proposedY = event.clientY - area.top - offsetY;
-
-        const x = Math.max(0, Math.min(proposedX, maximumX));
-        const y = Math.max(0, Math.min(proposedY, maximumY));
-
-        card.style.left = `${x}px`;
-        card.style.top = `${y}px`;
-        card.style.right = "auto";
-        card.style.bottom = "auto";
-      });
-
-      function stopDragging() {
-        dragging = false;
-        card.style.cursor = "grab";
-        card.style.zIndex = "";
-      }
-
-      card.addEventListener("pointerup", stopDragging);
-      card.addEventListener("pointercancel", stopDragging);
-    });
   </script>
 </body>
 </html>
