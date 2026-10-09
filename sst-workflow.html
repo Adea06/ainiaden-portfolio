@@ -449,6 +449,102 @@
       backdrop-filter: blur(8px);
     }
 
+    /* CURRENT-STATE JOURNEY MAP */
+
+    .journey-intro {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.7fr) 1.3fr;
+      gap: 3vw;
+      align-items: end;
+      margin: 4rem 0 1.2rem;
+    }
+
+    .journey-intro h3 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+    }
+
+    .journey-intro p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .journey-map {
+      margin: 0;
+      padding: clamp(0.7rem, 2vw, 1.5rem);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .journey-map img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .journey-map figcaption {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.8rem 1.5rem;
+      padding: 1rem 0.2rem 0.2rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .journey-map figcaption a,
+    .journey-link {
+      color: var(--green);
+      font-weight: 800;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .journey-context {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0 3rem;
+    }
+
+    .journey-context article {
+      padding: 1.3rem 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 253, 248, 0.72);
+    }
+
+    .journey-context b {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .journey-context p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .prototype-scope {
+      max-width: 820px;
+      margin: 1.5rem 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
     /* SYNC WORKFLOW */
 
     .sync-story {
@@ -968,6 +1064,10 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .journey-intro {
+        grid-template-columns: 1fr 1.4fr;
+      }
+
       .research-gallery {
         grid-template-columns: 1fr 1fr;
       }
@@ -1038,7 +1138,9 @@
 
       .hero-intro,
       .section-head,
-      .next {
+      .next,
+      .journey-intro,
+      .journey-context {
         grid-template-columns: 1fr;
       }
 
@@ -1160,8 +1262,8 @@
 
         <div class="hero-copy">
           <p>
-            I redesigned a fragmented submission-support process into one
-            clearer workspace for SSTs.
+            Six SST interviews informed a current-state journey map and an
+            interactive workspace prototype for deadline support.
           </p>
 
           <div class="author">
@@ -1200,7 +1302,7 @@
         >
 
         <span class="image-note">
-          The final direction<br>
+          Current prototype<br>
           in one view
         </span>
       </div>
@@ -1208,6 +1310,7 @@
 
     <nav class="case-nav" aria-label="Case study sections">
       <a href="#context">Research</a>
+      <a href="#journey">Journey map</a>
       <a href="#evidence">Decisions</a>
       <a href="#solution">Solution</a>
       <a href="#testing">Next test</a>
@@ -1256,8 +1359,56 @@
           <b>Fewer manual steps</b>
 
           <p>
-            Reduce repeated clicking and data-entry errors while keeping
-            the existing records current.
+            Bring actions, ownership and student context into one place;
+            explore how existing records could stay in sync.
+          </p>
+        </article>
+      </div>
+
+      <div class="journey-intro reveal" id="journey">
+        <h3>One deadline, across a full cycle</h3>
+        <p>
+          The current-state map follows a shared programme and module
+          deadline from the first guidance email through the original
+          submission window, late work, grade outcomes and resubmission.
+          It makes the repeated reminders and handoffs visible before the
+          dashboard design begins.
+        </p>
+      </div>
+
+      <figure class="journey-map reveal">
+        <a
+          href="assets/images/support-ops-current-state-journey.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the current-state journey map at full size"
+        >
+          <img
+            src="assets/images/support-ops-current-state-journey.png"
+            alt="Current-state Student Success Tutor journey map showing reminders one month, 15 and 7 days, and 24 hours before a deadline, followed by late submissions, grade outcomes and resubmission follow-up."
+          >
+        </a>
+        <figcaption>
+          <span>Current-state journey map — reminders, tracker updates, late submissions and resubmission follow-up.</span>
+          <a href="https://www.figma.com/community/file/1690337233949828657" target="_blank" rel="noopener noreferrer">Open the Figma journey map ↗</a>
+        </figcaption>
+      </figure>
+
+      <div class="journey-context reveal">
+        <article>
+          <b>Before and after the deadline</b>
+          <p>
+            SSTs send guidance at one month, 15 days and 7 days, check the
+            submission tracker 24 hours before, then coordinate late
+            submissions, grade outcomes and resubmission contact.
+          </p>
+        </article>
+        <article>
+          <b>Records and student context</b>
+          <p>
+            The workflow spans Le Campus, submission and EC/MC trackers,
+            Moodle, SIMS and the pregnancy tracker. Relevant circumstances
+            must be checked before contacting a student.
           </p>
         </article>
       </div>
@@ -1326,8 +1477,8 @@
           <h3>Connect the records</h3>
 
           <p>
-            The update is passed back to the relevant original Excel
-            tracker.
+            The design explores passing the update back to the relevant
+            original Excel tracker through a future integration.
           </p>
         </article>
 
@@ -1338,7 +1489,7 @@
           <h3>Fewer clicks and errors</h3>
 
           <p>
-            Large cohorts stay current without entering the same
+            Large cohorts could stay current without entering the same
             information in multiple places.
           </p>
         </article>
@@ -1513,17 +1664,17 @@
 
     <section class="solution-stage" id="solution">
       <div class="section-head reveal">
-        <p class="eyebrow">Final direction</p>
+        <p class="eyebrow">Interactive prototype</p>
 
         <h2>
-          One input.<br>
-          Connected records.
+          One workspace.<br>
+          Clearer follow-up.
         </h2>
 
         <p>
-          The dashboard brings actions, ownership and schedule into one
-          view, while the proposed sync keeps the original Excel records
-          updated behind it.
+          The prototype brings actions, ownership, student context and
+          schedule into one view. It demonstrates the intended workflow
+          with fictional records; live system connections are not built.
         </p>
       </div>
 
@@ -1544,19 +1695,17 @@
 
       <a
         class="prototype-link"
-        href="https://quick-neon-52538992.figma.site/"
+        href="https://adea06.github.io/ainiaden-portfolio/sst-workspace.html?collab=5273db5a2cc5c54794e904fe3ba426774d7859ec"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Explore the interactive dashboard ↗
-      </a>
-
-      <a
-        class="prototype-link"
-        href="sst-workspace.html"
-      >
         Try the Support Operations Dashboard prototype ↗
       </a>
+      <p class="prototype-scope">
+        Prototype scope: names and IDs are fictional. Moodle, SIMS,
+        SharePoint, Outlook and Excel are not connected; file imports and
+        email actions are simulated in the browser.
+      </p>
     </section>
 
     <!-- NEXT TEST -->
@@ -1646,13 +1795,14 @@
 
       <div>
         <p>
-          The next prototype will explore the experience inside Microsoft
-          Teams and test whether dashboard data can be surfaced there
-          without creating another disconnected place to check.
+          Next, test the task flows with SSTs and check which parts of the
+          proposed Microsoft 365 workflow are feasible to connect. The
+          public prototype uses fictional data and does not update student
+          or SharePoint records.
         </p>
 
         <a
-          href="https://quick-neon-52538992.figma.site/"
+          href="https://adea06.github.io/ainiaden-portfolio/sst-workspace.html?collab=5273db5a2cc5c54794e904fe3ba426774d7859ec"
           target="_blank"
           rel="noopener noreferrer"
         >
