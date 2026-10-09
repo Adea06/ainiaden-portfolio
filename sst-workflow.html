@@ -324,30 +324,55 @@
 
     .case-nav a {
       flex-shrink: 0;
+      position: relative;
+      padding: 0.45rem 0;
+      color: var(--muted);
       font-size: 0.66rem;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-decoration: none;
       text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .case-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--coral);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .case-nav a[aria-current="location"] {
+      color: var(--plum);
+    }
+
+    .case-nav a[aria-current="location"]::after {
+      transform: scaleX(1);
     }
 
     /* CONTENT */
 
     section.content {
-      padding: clamp(5rem, 10vw, 10rem) 6vw;
+      padding: clamp(4.2rem, 7vw, 7.5rem) max(24px, calc((100vw - 1180px) / 2));
     }
 
     .section-head {
       display: grid;
-      grid-template-columns: 0.55fr 1.15fr 0.75fr;
-      gap: 4vw;
+      grid-template-columns: minmax(130px,.45fr) minmax(0,1.05fr) minmax(210px,.65fr);
+      gap: clamp(1.25rem, 3vw, 2.7rem);
       align-items: start;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
 
     .section-head h2 {
       margin: 0;
-      font-size: clamp(2.8rem, 6vw, 6rem);
+      font-size: clamp(2.5rem, 5.2vw, 4.8rem);
       line-height: 0.9;
       letter-spacing: -0.06em;
     }
@@ -445,7 +470,7 @@
       left: 1rem;
       padding: 0.75rem 1rem;
       border-radius: 999px;
-      background: rgba(252, 251, 254, 0.94);
+      background: rgba(255, 253, 248, 0.96);
       font-size: 0.64rem;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -592,7 +617,7 @@
       padding: clamp(1.1rem, 2vw, 1.6rem);
       border: 1px solid var(--line);
       border-radius: 18px;
-      background: rgba(252, 251, 254, 0.78);
+      background: rgba(255, 253, 248, 0.82);
     }
 
     .research-findings article > span {
@@ -1122,7 +1147,7 @@
       grid-template-columns: 1fr 0.65fr;
       gap: 5vw;
       align-items: end;
-      padding: 8rem 6vw;
+      padding: clamp(4rem, 7vw, 7rem) max(24px, calc((100vw - 1180px) / 2));
       background: var(--ink);
       color: var(--cream);
     }
@@ -1167,12 +1192,17 @@
 
     /* REVEAL ANIMATION */
 
-    .reveal {
+    .reveal { opacity:1; transform:none; }
+
+    .motion-ready .reveal:not(.visible) {
       opacity: 0;
-      transform: translateY(36px);
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+      transform: perspective(1000px) translateY(28px) rotateX(2deg) scale(.99);
+      transform-origin: center bottom;
+    }
+
+    .motion-ready .reveal {
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(.2,.72,.2,1);
+      transition-delay: var(--reveal-delay, 0ms);
     }
 
     .reveal.visible {
@@ -1363,8 +1393,63 @@
     }
 
 
-    /* Keep anchored sections visible after direct navigation. */
-    .reveal { opacity:1; transform:none; }
+    /* Reading progress and editorial evidence frames */
+    .reading-progress { position:fixed; inset:0 0 auto; z-index:120; height:3px; pointer-events:none; }
+    .reading-progress span { display:block; width:0; height:100%; background:var(--coral); box-shadow:0 0 12px rgba(227,182,79,.65); }
+    .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .research-question-grid article,.methods-grid article,.research-findings article,.iteration-card {
+      position:relative;
+      overflow:hidden;
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+    .research-question-grid article::before,.methods-grid article::before,.research-findings article::before,.iteration-card::before {
+      position:absolute; top:0; left:0; width:100%; height:3px; background:var(--coral); content:"";
+      transform:scaleX(.18); transform-origin:left; transition:transform .35s ease;
+    }
+    .research-question-grid article:hover,.methods-grid article:hover,.research-findings article:hover,.iteration-card:hover {
+      transform:translateY(-4px); border-color:rgba(73,53,70,.35); box-shadow:0 16px 34px rgba(73,53,70,.12);
+    }
+    .research-question-grid article:hover::before,.methods-grid article:hover::before,.research-findings article:hover::before,.iteration-card:hover::before { transform:scaleX(1); }
+    .journey-workshop-gallery figure { overflow:hidden; }
+    .journey-workshop-gallery img { transition:transform .65s cubic-bezier(.2,.72,.2,1); }
+    .journey-workshop-gallery figure:hover img { transform:scale(1.035); }
+
+    .comparison-frame { overflow:hidden; border:1px solid rgba(73,53,70,.2); border-radius:22px; background:var(--paper); box-shadow:0 20px 48px rgba(73,53,70,.1); }
+    .compare-stage { position:relative; overflow:hidden; aspect-ratio:1.92; background:#e9edf1; isolation:isolate; --compare-position:50%; }
+    .compare-stage img { display:block; width:100%; height:100%; object-fit:contain; }
+    .compare-after { position:absolute; inset:0; clip-path:inset(0 0 0 var(--compare-position)); }
+    .compare-after img { position:absolute; inset:0; }
+    .compare-divider { position:absolute; z-index:2; top:0; bottom:0; left:var(--compare-position); width:2px; background:#fffdf8; box-shadow:0 0 0 1px rgba(73,53,70,.15),0 0 18px rgba(0,0,0,.2); transform:translateX(-50%); pointer-events:none; }
+    .compare-divider span { position:absolute; top:50%; left:50%; display:grid; width:48px; height:48px; place-items:center; border:3px solid #fffdf8; border-radius:50%; background:var(--coral); color:var(--plum); font-size:1.35rem; font-weight:800; box-shadow:0 5px 18px rgba(0,0,0,.2); transform:translate(-50%,-50%); }
+    .compare-tag { position:absolute; z-index:2; top:1rem; padding:.55rem .75rem; border:1px solid rgba(73,53,70,.12); border-radius:999px; background:rgba(255,253,248,.94); color:var(--plum); font-size:.62rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; pointer-events:none; }
+    .compare-tag.before { left:1rem; }
+    .compare-tag.after { right:1rem; }
+    .compare-range { position:absolute; z-index:3; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; }
+    .compare-stage:focus-within { outline:3px solid var(--plum); outline-offset:3px; }
+    .compare-caption { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(73,53,70,.14); }
+    .compare-caption article { min-width:0; padding:1.25rem 1.4rem 1.4rem; background:var(--paper); }
+    .compare-caption span { display:block; margin-bottom:.4rem; color:var(--green); font-size:.66rem; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
+    .compare-caption b { display:block; margin-bottom:.35rem; color:var(--ink); }
+    .compare-caption p { margin:0; color:var(--muted); font-size:.84rem; line-height:1.55; }
+    .compare-instruction { display:flex; justify-content:space-between; gap:1rem; padding:.85rem 1.25rem; border-top:1px solid rgba(73,53,70,.12); color:var(--muted); font-size:.72rem; }
+    .next-test-panel { position:relative; overflow:hidden; border:1px solid rgba(73,53,70,.12); }
+    .next-test-panel::before { position:absolute; top:0; bottom:0; left:0; width:4px; background:var(--coral); content:""; }
+    .next-test-panel li { padding-left:.25rem; }
+
+    @media (max-width:720px) {
+      .compare-stage { aspect-ratio:1.25; }
+      .compare-caption { grid-template-columns:1fr; }
+      .compare-instruction { flex-direction:column; gap:.25rem; }
+      .compare-tag { top:.6rem; font-size:.54rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .motion-ready .reveal:not(.visible) { opacity:1; transform:none; }
+      .motion-ready .reveal,.case-nav a,.case-nav a::after,.journey-workshop-gallery img,
+      .research-question-grid article,.methods-grid article,.research-findings article,.iteration-card,.screen-card,.comparison-frame,.project-facts article,.decision {
+        transition:none !important;
+      }
+    }
 
     /* RESEARCH CASE STUDY POLISH */
 
@@ -1373,23 +1458,23 @@
     .map-preview-card span { position:absolute; right:1rem; bottom:1rem; padding:.75rem 1rem; border-radius:999px; background:#fffdf8; color:var(--green); font-size:.72rem; font-weight:800; box-shadow:0 8px 20px rgba(0,0,0,.12); }
     .map-preview-card:hover img { filter:brightness(.95); }
 
-    .hero { min-height: auto; padding-bottom: clamp(3rem, 7vw, 6rem); }
-    .hero h1 { max-width: 1080px; text-transform: none; letter-spacing: -0.075em; }
+    .hero { min-height: auto; padding: clamp(4.5rem, 8vw, 7rem) max(24px, calc((100vw - 1180px) / 2)) clamp(3rem, 6vw, 5rem); }
+    .hero h1 { max-width: 900px; font-size:clamp(3.4rem,7vw,7.2rem); text-transform: none; letter-spacing: -0.075em; }
     .hero h1 em { color: var(--green); }
     .hero .scribble, .hero .scatter-shape { display: none; }
     .project-facts {
-      display: grid; grid-template-columns: repeat(4,minmax(0,1fr));
-      gap: 0; margin: 0 6vw 2rem; padding: 1.4rem 0;
-      border-top: 1px solid rgba(73,53,70,.28); border-bottom: 1px solid rgba(73,53,70,.28);
+      display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: .75rem; width:min(calc(100% - 48px),1180px); margin: 0 auto 1.5rem; padding: 0;
+      border:0;
     }
-    .project-facts article { padding: .65rem 1.25rem; border-right: 1px solid rgba(73,53,70,.2); }
-    .project-facts article:first-child { padding-left: 0; }
-    .project-facts article:last-child { border-right: 0; }
+    .project-facts article { padding: 1.1rem 1.2rem; border:1px solid rgba(73,53,70,.16); border-radius:14px; background:#fffdf8; box-shadow:0 8px 20px rgba(73,53,70,.045); }
+    .project-facts article:first-child { padding-left: 1.2rem; }
+    .project-facts article:last-child { border-right:1px solid rgba(73,53,70,.16); }
     .project-facts span, .research-process li > span { color: var(--green); font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .project-facts b { display:block; margin:.5rem 0 .35rem; font-size:1rem; }
-    .project-facts p { max-width: 270px; margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
-    .case-nav { background:rgba(241,239,246,.96); border-color:rgba(73,53,70,.18); }
-    #context { background: #F1EFF6; }
+    .project-facts p { max-width: 32ch; margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
+    .case-nav { background:rgba(244,240,231,.97); border-color:rgba(73,53,70,.18); }
+    #context { background: #FFFCF5; }
     #context .section-head { background: transparent; }
     #context .section-head .eyebrow, #evidence .section-head .eyebrow { color:var(--green); }
     .snapshot { margin-top:2.8rem; border-color:rgba(73,53,70,.38); }
@@ -1414,12 +1499,12 @@
     .systems-panel p:not(.eyebrow) { max-width:560px; margin:0; color:var(--muted); line-height:1.6; }
     .systems-panel ul { display:flex; flex-wrap:wrap; gap:.6rem; margin:0; padding:0; list-style:none; }
     .systems-panel li { padding:.7rem .95rem; border:1px solid rgba(73,53,70,.2); border-radius:999px; background:rgba(255,255,255,.58); color:#493546; font-size:.78rem; font-weight:700; }
-    #evidence { background:#F1EFF6; }
+    #evidence { background:#EEE8DD; }
     .decision { transform:none; border-color:rgba(73,53,70,.17); box-shadow:0 10px 30px rgba(73,53,70,.06); }
     .decision:nth-child(2) { transform:none; }
     .decision:nth-child(3) { transform:none; }
     .decision .crop { border-radius:12px; }
-    .solution-stage { background:#493546; }
+    .solution-stage { padding:clamp(4.2rem,7vw,7.5rem) max(24px,calc((100vw - 1240px)/2)); background:#493546; }
     .prototype-screens-heading { max-width:720px; margin:3.5rem 0 1.2rem; }
     .prototype-screens-heading .eyebrow { margin-bottom:.7rem; color:#F0EBE2; }
     .prototype-screens-heading > p:last-child { margin:0; color:rgba(255,255,255,.76); line-height:1.6; }
@@ -1430,6 +1515,20 @@
     .screen-card figcaption { display:flex; flex-wrap:wrap; gap:.25rem .85rem; padding:.9rem 1.1rem 1rem; font-size:.8rem; line-height:1.45; }
     .screen-card figcaption b { color:var(--green); }
     .screen-card figcaption span { color:var(--muted); }
+    .iteration-section { background:#F8F1E2; }
+    .iteration-intro { max-width:760px; margin:-1rem 0 2rem; color:var(--muted); line-height:1.65; }
+    .before-after { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; align-items:start; }
+    .iteration-card { margin:0; overflow:hidden; border:1px solid rgba(73,53,70,.18); border-radius:20px; background:var(--paper); box-shadow:0 12px 30px rgba(73,53,70,.08); }
+    .iteration-card img { display:block; width:100%; height:auto; background:#eef1f5; }
+    .iteration-card figcaption { padding:1.1rem 1.25rem 1.25rem; }
+    .iteration-card figcaption span { display:block; margin-bottom:.45rem; color:var(--green); font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .iteration-card figcaption b { display:block; margin-bottom:.4rem; font-size:1.08rem; }
+    .iteration-card figcaption p { margin:0; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .next-test-panel { display:grid; grid-template-columns:.8fr 1.2fr; gap:3vw; margin-top:3rem; padding:clamp(1.5rem,4vw,3rem); border-radius:22px; background:#F0EBE2; }
+    .next-test-panel h3 { margin:0; color:var(--plum); font-size:clamp(1.6rem,3vw,2.5rem); line-height:1.05; letter-spacing:-.04em; }
+    .next-test-panel p { margin:0 0 .8rem; color:var(--muted); line-height:1.6; }
+    .next-test-panel ul { margin:.5rem 0 0; padding-left:1.2rem; color:var(--muted); line-height:1.65; }
+    .iteration-note { margin:1rem 0 0; color:var(--muted); font-size:.8rem; line-height:1.55; }
     .design-hypothesis { max-width:760px; margin:3.5rem 0 1rem; }
     .design-hypothesis .eyebrow { margin-bottom:.7rem; color:var(--green); }
     .design-hypothesis h3 { margin:0 0 .6rem; font-size:clamp(1.5rem,2.5vw,2.3rem); letter-spacing:-.04em; }
@@ -1447,6 +1546,7 @@
       .systems-panel { grid-template-columns:1fr; }
       .screen-gallery { grid-template-columns:1fr; }
       .screen-card-featured { grid-column:auto; }
+      .before-after,.next-test-panel { grid-template-columns:1fr; }
     }
     @media (max-width:680px) {
       .project-facts { grid-template-columns:1fr; margin:0 6vw 1.5rem; }
@@ -1475,12 +1575,63 @@
     .discussion-guide p{margin:.8rem 0;color:var(--muted);font-size:.9rem;line-height:1.6}
     .discussion-guide ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 2rem;padding-left:1.3rem}
     .discussion-guide li{padding-left:.25rem;font-size:.86rem;line-height:1.55}
-    .reflection-section{padding-top:3rem}
-    @media(max-width:720px){.research-question-grid,.methods-grid{grid-template-columns:1fr}.research-plan-note{grid-template-columns:1fr;gap:.25rem}.discussion-guide ol{grid-template-columns:1fr}}
+    .reflection-section{padding-top:clamp(5rem,9vw,8rem);background:#EEE8DD}
+    #outcome { background:#FFFCF5; }
+    #context, #evidence, #testing, #outcome, #limitations { position:relative; isolation:isolate; }
+    #context::before, #evidence::before, #testing::before, #outcome::before, #limitations::before {
+      position:absolute; z-index:-1; top:2rem; right:4vw; width:min(22vw,280px); height:min(22vw,280px);
+      border:1px solid rgba(73,53,70,.09); border-radius:50%; content:""; pointer-events:none;
+    }
+    #context::after, #evidence::after, #testing::after, #outcome::after, #limitations::after {
+      position:absolute; z-index:-1; top:calc(2rem + 22px); right:calc(4vw + 22px); width:min(22vw,280px); height:min(22vw,280px);
+      border:1px solid rgba(73,53,70,.06); border-radius:50%; content:""; pointer-events:none;
+    }
+    #evidence::before,#evidence::after { border-radius:18px; transform:rotate(-7deg); }
+    #testing::before,#testing::after { border-radius:18px 48px 18px 48px; transform:rotate(8deg); }
+    #limitations::before,#limitations::after { border-radius:28px; transform:rotate(-5deg); }
+    section.content .section-head .eyebrow,
+    .solution-stage .section-head .eyebrow { display:flex; align-items:center; gap:.55rem; }
+    section.content .section-head .eyebrow::before,
+    .solution-stage .section-head .eyebrow::before { width:9px; height:9px; border-radius:2px; background:var(--coral); content:""; transform:rotate(45deg); }
+    .project-facts article { position:relative; transform-style:preserve-3d; transition:transform .28s ease,box-shadow .28s ease; }
+    .project-facts article:hover { z-index:2; transform:perspective(900px) translateY(-5px) rotateX(2deg) rotateY(-1deg); box-shadow:0 16px 34px rgba(73,53,70,.12); }
+    .screen-gallery { perspective:1500px; }
+    .screen-card { transform-style:preserve-3d; transition:transform .35s cubic-bezier(.2,.72,.2,1),box-shadow .35s ease; }
+    .screen-card:hover,.screen-card:focus-within { transform:perspective(1200px) translateY(-8px) rotateX(2deg) rotateY(-1.2deg); box-shadow:0 26px 54px rgba(0,0,0,.24); }
+    .screen-card img { transform:translateZ(8px); }
+    .iteration-section .section-head { position:relative; }
+    .comparison-frame { transform-style:preserve-3d; transition:transform .35s cubic-bezier(.2,.72,.2,1),box-shadow .35s ease; }
+    .comparison-frame:hover,.comparison-frame:focus-within { transform:perspective(1400px) rotateX(1deg) rotateY(-.7deg) translateY(-4px); box-shadow:0 28px 60px rgba(73,53,70,.17); }
+    .next-test-panel { box-shadow:12px 12px 0 rgba(73,53,70,.08),0 20px 42px rgba(73,53,70,.08); }
+    .systems-panel,.sync-story,.next-test-panel { transform-style:preserve-3d; }
+    .research-process li { position:relative; transition:transform .3s ease,color .3s ease; }
+    .research-process li:hover { transform:translateY(-4px) translateZ(8px); }
+    .decision { transition:transform .35s cubic-bezier(.2,.72,.2,1),box-shadow .35s ease; }
+    .decision:hover { transform:perspective(1100px) translateY(-7px) rotateX(2deg) rotateY(-1deg); box-shadow:0 22px 42px rgba(73,53,70,.14); }
+    .reading-progress span { transition:width .1s linear; }
+    @media(max-width:950px){
+      .project-facts { grid-template-columns:repeat(2,minmax(0,1fr)); margin:0 auto 1.5rem; }
+      .project-facts article,.project-facts article:nth-child(2),.project-facts article:nth-child(n+3),.project-facts article:nth-child(3) { padding:1rem; border:1px solid rgba(73,53,70,.16); border-radius:14px; }
+      .section-head { grid-template-columns:minmax(110px,.42fr) minmax(0,1fr); }
+      .section-head > p:last-child { grid-column:2; }
+    }
+    @media(max-width:720px){
+      .research-question-grid,.methods-grid{grid-template-columns:1fr}
+      .research-plan-note{grid-template-columns:1fr;gap:.25rem}
+      .discussion-guide ol{grid-template-columns:1fr}
+      .project-facts { grid-template-columns:1fr; width:min(calc(100% - 40px),520px); margin:0 auto 1.5rem; }
+      .project-facts article,.project-facts article:nth-child(2),.project-facts article:nth-child(n+3),.project-facts article:nth-child(3) { padding:1rem; border:1px solid rgba(73,53,70,.16); }
+      .section-head { grid-template-columns:1fr; gap:1rem; }
+      .section-head > p:last-child { grid-column:auto; }
+      .section-head h2 { max-width:16ch; font-size:clamp(2.5rem,11vw,4.3rem); }
+      .hero h1 { font-size:clamp(3rem,14vw,5rem); }
+      .hero-intro { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 
 <body>
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress-fill"></span></div>
   <header class="nav">
     <a class="brand" href="index.html">AINI ADEN</a>
 
@@ -1512,7 +1663,7 @@
           <span class="tag">Research</span>
           <span class="tag">Information architecture</span>
           <span class="tag">Prototyping</span>
-          <span class="tag">Usability test planned</span>
+          <span class="tag">Usability tested · iterated</span>
         </div>
 
         <div class="hero-copy">
@@ -1553,8 +1704,8 @@
       <article><span>People involved</span><b>6 Student Success Tutors</b><p>Interviews followed by a collaborative current-state mapping session.</p></article>
       <article><span>Methods</span><b>Listen · map · synthesise</b><p>Explored deadline work, cohort records, exceptions and team handoffs.</p></article>
       <article><span>Problem</span><b>Work spread across tools</b><p>Deadlines, exceptions, student context and team ownership are hard to see together.</p></article>
-      <article><span>Status</span><b>Interactive concept</b><p>Fictional sample data; usability validation and system integration are pending.</p></article>
-      <article><span>Sequence</span><b>Interviews → map → prototype</b><p>Six interviews, then co-creation; journey synthesis and dashboard concept in Figma.</p></article>
+      <article><span>Status</span><b>Tested and iterated</b><p>Usability findings informed dashboard refinements; Microsoft feasibility work is underway.</p></article>
+      <article><span>Sequence</span><b>Research → test → iterate</b><p>Six interviews, co-created journey mapping, prototype testing and a management review.</p></article>
     </section>
 
     <nav class="case-nav" aria-label="Case study sections">
@@ -1562,8 +1713,9 @@
       <a href="#research-plan">Questions + methods</a>
       <a href="#journey">Journey map</a>
       <a href="#evidence">Design response</a>
-      <a href="#testing">Test plan</a>
+      <a href="#testing">Test + iterate</a>
       <a href="#solution">Prototype</a>
+      <a href="#outcome">Management feedback</a>
       <a href="#limitations">Limitations</a>
     </nav>
 
@@ -2004,70 +2156,55 @@
       </div>
     </section>
 
-    <!-- NEXT TEST -->
+    <!-- USABILITY TESTING AND ITERATION -->
 
-    <section class="content" id="testing">
+    <section class="content iteration-section" id="testing">
       <div class="section-head reveal">
-        <p class="eyebrow">Usability test · planned</p>
+        <p class="eyebrow">Usability testing · completed</p>
 
         <h2>
-          What the dashboard<br>
-          must prove next.
+          Testing changed<br>
+          the dashboard.
         </h2>
 
         <p>
-          The interview and co-creation findings define the direction. Next, test task clarity and exception handling with SSTs; no usability sessions have been completed yet.
+          I tested the first dashboard with SSTs, focusing on task clarity, navigation and confidence. I synthesised the feedback and used it to refine the interaction flow and dashboard presentation.
         </p>
       </div>
 
-      <div class="testing">
-        <div class="result reveal">
-          <span>Discovery completed</span>
-          <strong>6</strong>
-
-          <b>
-            These interviews shaped the persona and design priorities.
-          </b>
-
-          <em>Interviews + co-creation; usability testing not yet run.</em>
+      <p class="iteration-intro">The comparison below shows the dashboard before usability testing and the updated overview. The revised concept brings the handover rule, manual-review workload and task ownership into clearer view.</p>
+      <div class="comparison-frame reveal" aria-label="Interactive before and after dashboard comparison">
+        <div class="compare-stage" data-compare-stage>
+          <span class="compare-tag before">Before usability testing</span>
+          <span class="compare-tag after">After iteration</span>
+          <img src="assets/images/dashboard.png" alt="First dashboard concept with actions, a daily schedule and upcoming deadlines." loading="lazy">
+          <div class="compare-after" data-compare-after>
+            <img src="assets/images/sst-workspace-overview.jpg?v=20261009b" alt="Updated overview with handover guidance, open and claimed task counts, manual review, today's actions and calendar." loading="lazy">
+          </div>
+          <div class="compare-divider" data-compare-divider aria-hidden="true"><span>↔</span></div>
+          <label class="sr-only" for="dashboard-compare">Reveal the updated dashboard over the first concept</label>
+          <input class="compare-range" id="dashboard-compare" type="range" min="0" max="100" value="50" aria-label="Reveal the updated dashboard over the first concept" aria-valuetext="Showing half of the updated dashboard">
         </div>
+        <div class="compare-caption">
+          <article><span>Before</span><b>First dashboard concept</b><p>Actions, schedule and upcoming deadlines shared the screen, without a top-line view of open work, manual review and handover status.</p></article>
+          <article><span>After usability testing</span><b>Refined dashboard overview</b><p>The updated concept surfaces handover rules, manual-review workload and task ownership alongside today’s actions.</p></article>
+        </div>
+        <div class="compare-instruction"><span>Drag the divider or use ← → keys to compare</span><span>Fictional sample data</span></div>
+      </div>
+      <p class="iteration-note">Testing was moderated with SSTs. The work focused on task clarity, navigation and confidence; the findings informed refinements to the interaction flow.</p>
 
-        <div class="learning-list reveal">
-          <article class="learning">
-            <span>01</span>
-
-            <div>
-              <h3>Find today’s priority quickly</h3>
-
-              <p>
-                Task: identify who needs contacting today, why, and what to send. Measure task completion, time, errors and confidence.
-              </p>
-            </div>
-          </article>
-
-          <article class="learning">
-            <span>02</span>
-
-            <div>
-              <h3>Update information once</h3>
-
-              <p>
-                Task: record a submission or grade update and explain where it should appear. Treat Excel sync as a feasibility question, not a built feature.
-              </p>
-            </div>
-          </article>
-
-          <article class="learning">
-            <span>03</span>
-
-            <div>
-              <h3>Protect human judgement</h3>
-
-              <p>
-                Task: review a flagged record with an extension or resubmission. Measure whether the exception is found and understood before action.
-              </p>
-            </div>
-          </article>
+      <div class="next-test-panel reveal">
+        <div><p class="eyebrow">Next round · Microsoft build</p><h3>Test whether the refined workflow works in its intended environment.</h3></div>
+        <div>
+          <p>Management has asked for a further build using Power BI, automation and SharePoint lists. A feasibility report covering accessibility, licensing and GDPR is underway; the next research round can test the feasible build with SSTs and managers.</p>
+          <ul>
+            <li>Find, claim, update and hand over a due-today task.</li>
+            <li>Review a Moodle import, including mismatched or incomplete records that need staff judgement.</li>
+            <li>Find student contact history and handle an exception such as an extension or resubmission.</li>
+            <li>Check keyboard and screen-reader access, clarity of status, and whether sensitive student details are shown only to the right people.</li>
+            <li>Review Power BI measures with managers to confirm that rates and filters match operational definitions.</li>
+          </ul>
+          <p class="iteration-note">These are proposed test scenarios, subject to the feasibility findings and the functions included in the Microsoft build. The next round will assess usability and accessibility; a live pilot would still be needed to measure operational impact.</p>
         </div>
       </div>
     </section>
@@ -2077,22 +2214,22 @@
 
     <section class="solution-stage" id="solution">
       <div class="section-head reveal">
-        <p class="eyebrow">Current prototype · validation pending</p>
+        <p class="eyebrow">Updated prototype · post-test iteration</p>
 
         <h2>
-          Prototype v1.<br>
+          Refined prototype.<br>
           A shared workspace.
         </h2>
 
         <p>
-          This concept brings actions, ownership, student context and
-          schedule into one view. It demonstrates the intended workflow
+          The updated concept brings actions, ownership, student context and
+          schedule into one view. It demonstrates the refined workflow
           with fictional records; live system connections are not built.
         </p>
       </div>
 
       <div class="prototype-screens-heading reveal">
-        <p class="eyebrow">Current prototype · sample data</p>
+        <p class="eyebrow">Updated prototype · sample data</p>
         <p>Three views show how the concept brings daily work, student context and cohort patterns into a shared workspace.</p>
       </div>
       <div class="screen-gallery reveal" aria-label="Support Operations Dashboard prototype screens">
@@ -2125,21 +2262,21 @@
     </section>
 
     <section class="content outcome-section" id="outcome">
-      <div class="section-head reveal"><p class="eyebrow">Outcome and stakeholder impact</p><h2>Research translated into a reviewable concept.</h2><p>The work produced a current-state journey map and an interactive dashboard prototype to make the proposed response tangible.</p></div>
+      <div class="section-head reveal"><p class="eyebrow">Outcome and stakeholder impact</p><h2>Testing led to a further build request.</h2><p>The research and first usability-test iteration informed a refined concept. Management reviewed it and asked for a further Microsoft build.</p></div>
       <div class="methods-grid reveal">
         <article><b>Research output</b><p>An anonymised synthesis of six SST interviews, a co-created whiteboard journey and a digital Figma map with pain points and handoffs.</p></article>
-        <article><b>Design output</b><p>A prototype showing task ownership, the due-today handover, student history and cohort analytics, using fictional sample data.</p></article>
-        <article><b>Impact status</b><p>No deployment, management decision, measured time saving or service outcome is documented. These should be evaluated after usability and feasibility work.</p></article>
-        <article><b>Next decision</b><p>Use SST testing to decide which task flows help, then validate partner rules and whether any connection to existing records is feasible.</p></article>
+        <article><b>Design output</b><p>A usability-tested and iterated concept showing task ownership, the due-today handover, student history and cohort analytics, using fictional sample data.</p></article>
+        <article><b>Management feedback</b><p>Management asked for a further Microsoft build using Power BI, automation and SharePoint lists.</p></article>
+        <article><b>Work underway</b><p>A feasibility report is being prepared covering accessibility, licensing and GDPR. The prototype is not deployed and does not connect to live student records.</p></article>
       </div>
     </section>
 
     <section class="content reflection-section" id="limitations">
-      <div class="section-head reveal"><p class="eyebrow">Limitations and reflection</p><h2>What needs validating<br>before this could be used.</h2><p>This is a research-led concept, not a deployed service. The evidence gives a direction; it does not yet show that the design improves outcomes.</p></div>
+      <div class="section-head reveal"><p class="eyebrow">Limitations and reflection</p><h2>What needs validating<br>before this could be used.</h2><p>Usability testing informed a design iteration, but the proposed Microsoft build and any live service impact still need validation.</p></div>
       <div class="research-findings reveal">
         <article><span>01 / Sample</span><h4>Six SSTs from one team</h4><p>The findings may not represent all partner universities, roles or student-support settings. Next, include a broader SST sample and relevant partner perspectives.</p></article>
         <article><span>02 / Prototype</span><h4>Connections are not built</h4><p>Student records and SharePoint, Outlook, Moodle and Excel are not connected. The proposed sync needs technical, data-governance and partner-rule validation.</p></article>
-        <article><span>03 / Validation</span><h4>No usability sessions yet</h4><p>Run moderated task sessions, test accessibility, and evaluate the proposed update flow before making claims about speed, errors or adoption.</p></article>
+        <article><span>03 / Next validation</span><h4>Microsoft build not yet tested</h4><p>The next round should assess task completion, accessibility and exception handling in the feasible Microsoft build. Operational savings and adoption require a live pilot.</p></article>
         <article><span>04 / Reflection</span><h4>Make my assumptions easier to challenge</h4><p>As an SST, I know the workarounds first-hand. In a next round I would invite an independent researcher to review the synthesis and test the prototype with staff outside my immediate team.</p></article>
       </div>
     </section>
@@ -2151,17 +2288,17 @@
         <p class="eyebrow">What happens next</p>
 
         <h2>
-          Test the<br>
-          connection.
+          Validate the<br>
+          Microsoft build.
         </h2>
       </div>
 
       <div>
         <p>
-          Next, test the task flows with SSTs and check which parts of the
-          proposed Microsoft 365 workflow are feasible to connect. The
-          public prototype uses fictional data and does not update student
-          or SharePoint records.
+          The next round will test the feasible Power BI, automation and
+          SharePoint-list workflows with SSTs, following the accessibility,
+          licensing and GDPR feasibility review. The public prototype uses
+          fictional data and does not update student or SharePoint records.
         </p>
 
         <a
@@ -2180,32 +2317,85 @@
   </main>
 
   <script>
-    /* SCROLL REVEAL */
+    /* GENTLE CHAPTER REVEALS */
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealItems = document.querySelectorAll(".reveal");
+    const staggerGroups = document.querySelectorAll(
+      ".research-question-grid, .methods-grid, .research-findings, .journey-workshop-gallery, .before-after, .screen-gallery, .rhythm"
+    );
+
+    staggerGroups.forEach((group) => {
+      Array.from(group.children).forEach((item, index) => {
+        item.style.setProperty("--reveal-delay", `${Math.min(index, 4) * 70}ms`);
+      });
+    });
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      document.documentElement.classList.add("motion-ready");
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -4% 0px" });
+
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("visible"));
+    }
+
+    /* READING PROGRESS */
+
+    const progressFill = document.getElementById("reading-progress-fill");
+    let progressTicking = false;
+    const updateReadingProgress = () => {
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = pageHeight > 0 ? (window.scrollY / pageHeight) * 100 : 0;
+      progressFill.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+      progressTicking = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (progressTicking) return;
+      progressTicking = true;
+      window.requestAnimationFrame(updateReadingProgress);
+    }, { passive: true });
+    window.addEventListener("resize", updateReadingProgress);
+    updateReadingProgress();
+
+    /* CURRENT CHAPTER IN THE STICKY NAV */
+
+    const caseLinks = Array.from(document.querySelectorAll(".case-nav a"));
+    const caseTargets = caseLinks
+      .map((link) => ({ link, target: document.querySelector(link.getAttribute("href")) }))
+      .filter((item) => item.target);
 
     if ("IntersectionObserver" in window) {
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
+      const chapterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          caseTargets.forEach(({ link, target }) => {
+            if (target === entry.target) link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
           });
-        },
-        {
-          threshold: 0.14
-        }
-      );
+        });
+      }, { rootMargin: "-22% 0px -68% 0px", threshold: 0 });
+      caseTargets.forEach(({ target }) => chapterObserver.observe(target));
+    }
 
-      revealItems.forEach((item) => {
-        revealObserver.observe(item);
-      });
-    } else {
-      revealItems.forEach((item) => {
-        item.classList.add("visible");
-      });
+    /* KEYBOARD-ACCESSIBLE BEFORE / AFTER REVEAL */
+
+    const compareRange = document.getElementById("dashboard-compare");
+    const compareStage = document.querySelector("[data-compare-stage]");
+    if (compareRange && compareStage) {
+      const updateComparison = () => {
+        const value = Number(compareRange.value);
+        compareStage.style.setProperty("--compare-position", `${value}%`);
+        compareRange.setAttribute("aria-valuetext", `Showing ${100 - value}% of the first dashboard and ${value}% of the updated dashboard`);
+      };
+      compareRange.addEventListener("input", updateComparison);
+      updateComparison();
     }
 
 
