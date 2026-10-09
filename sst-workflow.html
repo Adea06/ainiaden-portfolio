@@ -1468,8 +1468,13 @@
     .research-plan-note{display:grid;grid-template-columns:120px 1fr;gap:1rem;padding:1.25rem;margin-top:1rem;border-left:4px solid var(--green);background:rgba(227,182,79,.18);line-height:1.6}
     .research-plan-note span,.method-limit{font-size:.9rem;line-height:1.6;color:var(--muted)}
     .method-limit{margin-top:1rem}
+    .discussion-guide{margin-top:1.25rem;padding:1.2rem 1.3rem;border:1px solid rgba(73,53,70,.22);background:rgba(255,253,248,.72)}
+    .discussion-guide summary{color:var(--plum);font-weight:800;cursor:pointer}
+    .discussion-guide p{margin:.8rem 0;color:var(--muted);font-size:.9rem;line-height:1.6}
+    .discussion-guide ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 2rem;padding-left:1.3rem}
+    .discussion-guide li{padding-left:.25rem;font-size:.86rem;line-height:1.55}
     .reflection-section{padding-top:3rem}
-    @media(max-width:720px){.research-question-grid,.methods-grid{grid-template-columns:1fr}.research-plan-note{grid-template-columns:1fr;gap:.25rem}}
+    @media(max-width:720px){.research-question-grid,.methods-grid{grid-template-columns:1fr}.research-plan-note{grid-template-columns:1fr;gap:.25rem}.discussion-guide ol{grid-template-columns:1fr}}
   </style>
 </head>
 
@@ -1620,11 +1625,27 @@
         <div class="research-findings-heading"><p class="eyebrow">Methods, sample and analysis</p><h3>Six perspectives, checked against a shared map.</h3></div>
         <div class="methods-grid">
           <article><b>Sample</b><p>Six Student Success Tutors, labelled P1–P6 in the synthesis. Each had experience of the operational workflow.</p></article>
-          <article><b>Methods</b><p>Six interviews followed by a co-creation session. SSTs reviewed the deadline journey, added context and highlighted pain points.</p></article>
-          <article><b>Analysis</b><p>I grouped transcript notes by recurring workflow themes, compared participant accounts, then used the workshop map to check the sequence, handoffs and exceptions. The map was translated into Figma for review.</p></article>
+          <article><b>Methods</b><p>Six semi-structured interviews using ten prompts flexibly, with follow-up questions to explore responses in more depth; then a co-creation session where SSTs reviewed the deadline journey, added context and highlighted pain points.</p></article>
+          <article><b>Analysis</b><p>I coded the interview notes with affinity mapping, grouping observations into recurring workflow themes. I compared participant accounts, then used the co-created map to check sequence, handoffs and exceptions. The map was translated into Figma for review.</p></article>
           <article><b>Bias and care</b><p>I am part of the SST team, so I bring insider knowledge that may shape interpretation. Findings use participant labels; the map gives SSTs a visible point to challenge my understanding. A second researcher review is a next step.</p></article>
         </div>
-        <p class="method-limit">Interview length, recording method and a formal coding framework are not specified in the materials available for this case study.</p>
+        <details class="discussion-guide">
+          <summary>View discussion guide · 10 prompts</summary>
+          <p>The guide was semi-structured: I used these questions flexibly and asked follow-up questions when a response needed more depth.</p>
+          <ol>
+            <li>When you start your shift, how do you work out what submission-related tasks need your attention that day?</li>
+            <li>What systems, spreadsheets or other tools do you normally use as part of this process?</li>
+            <li>Can you talk me through what you do from noticing that a submission reminder is due to actually contacting the relevant students?</li>
+            <li>Once you’ve contacted students, how do you keep track of what has been completed?</li>
+            <li>What happens once the submission deadline has passed, particularly for students who haven’t submitted?</li>
+            <li>When grades are released, how do you record them and identify students who need resubmission support?</li>
+            <li>Which parts of the overall process take the most time or feel the most repetitive?</li>
+            <li>Are there any parts that are difficult to keep track of or easy to overlook?</li>
+            <li>Have you developed any personal shortcuts or workarounds to make the process easier?</li>
+            <li>If you could change one thing about the current process, what would it be and why?</li>
+          </ol>
+        </details>
+        <p class="method-limit">Interview length and recording method are not specified in the materials available for this case study.</p>
       </div>
 
       <ol class="research-process reveal" aria-label="Research process">
