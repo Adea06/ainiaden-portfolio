@@ -1491,6 +1491,16 @@
     .journey-intro h3, .research-findings-heading h3 { color:#493546; }
     .journey-workshop-gallery figure, .journey-map, .research-findings article { box-shadow:0 8px 26px rgba(73,53,70,.06); }
     .journey-workshop-gallery figure { border-color:rgba(73,53,70,.17); }
+    .journey-workshop-gallery { align-items:stretch; }
+    .journey-workshop-gallery figure { display:flex; min-width:0; flex-direction:column; height:100%; }
+    .journey-workshop-gallery img {
+      width:100%;
+      height:clamp(250px, 29vw, 350px);
+      flex:0 0 auto;
+      object-fit:contain;
+      background:#F0EBE2;
+    }
+    .journey-workshop-gallery figcaption { display:flex; flex:1 0 auto; align-items:flex-start; min-height:4.2rem; }
     .research-findings article { border-color:rgba(73,53,70,.16); background:rgba(255,255,255,.72); }
     .research-image, .research-image.persona-wide, .research-image:nth-child(2), .research-image:nth-child(3) { transform:none; box-shadow:0 10px 30px rgba(73,53,70,.08); }
     .systems-panel { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center; margin-top:3rem; padding:clamp(1.5rem,4vw,3rem); border-radius:22px; background:#F0EBE2; }
@@ -1501,6 +1511,10 @@
     .systems-panel li { padding:.7rem .95rem; border:1px solid rgba(73,53,70,.2); border-radius:999px; background:rgba(255,255,255,.58); color:#493546; font-size:.78rem; font-weight:700; }
     #evidence { background:#EEE8DD; }
     .decision { transform:none; border-color:rgba(73,53,70,.17); box-shadow:0 10px 30px rgba(73,53,70,.06); }
+    .decision:nth-child(1),
+    .decision:nth-child(1) .decision-label,
+    .decision:nth-child(1) h3,
+    .decision:nth-child(1) > p { color:#fff; }
     .decision:nth-child(2) { transform:none; }
     .decision:nth-child(3) { transform:none; }
     .decision .crop { border-radius:12px; }
@@ -1616,6 +1630,7 @@
       .section-head > p:last-child { grid-column:2; }
     }
     @media(max-width:720px){
+      .journey-workshop-gallery img { height:clamp(230px, 72vw, 320px); }
       .research-question-grid,.methods-grid{grid-template-columns:1fr}
       .research-plan-note{grid-template-columns:1fr;gap:.25rem}
       .discussion-guide ol{grid-template-columns:1fr}
