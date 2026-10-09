@@ -473,6 +473,56 @@
       line-height: 1.6;
     }
 
+
+    .journey-workshop-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .journey-workshop-label .eyebrow { margin: 0; }
+    .journey-workshop-label p {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .journey-workshop-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .journey-workshop-gallery figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .journey-workshop-gallery img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .journey-workshop-gallery figcaption {
+      padding: 0.9rem 1rem 1rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .journey-digital-intro {
+      margin-top: 2rem;
+    }
+
     .journey-map {
       margin: 0;
       padding: clamp(0.7rem, 2vw, 1.5rem);
@@ -506,6 +556,75 @@
       font-weight: 800;
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
+    }
+
+
+    .research-findings-heading {
+      max-width: 780px;
+      margin: 3rem 0 1.2rem;
+    }
+
+    .research-findings-heading h3 {
+      margin: 0 0 0.7rem;
+      font-size: clamp(1.6rem, 2.7vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .research-findings-heading > p:last-child {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .research-findings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .research-findings article {
+      padding: clamp(1.1rem, 2vw, 1.6rem);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, 0.78);
+    }
+
+    .research-findings article > span {
+      color: var(--green);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .research-findings h4 {
+      margin: 0.65rem 0;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    .research-findings article p {
+      margin: 0.65rem 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .research-findings .design-implication {
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .design-implication b {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--green);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .journey-context {
@@ -1067,6 +1186,12 @@
       .journey-intro {
         grid-template-columns: 1fr 1.4fr;
       }
+      .journey-workshop-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .research-findings {
+        grid-template-columns: 1fr;
+      }
 
       .research-gallery {
         grid-template-columns: 1fr 1fr;
@@ -1142,6 +1267,16 @@
       .journey-intro,
       .journey-context {
         grid-template-columns: 1fr;
+      }
+      .journey-workshop-gallery {
+        grid-template-columns: 1fr;
+      }
+      .research-findings {
+        grid-template-columns: 1fr;
+      }
+      .journey-workshop-label {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .hero-meta {
@@ -1262,8 +1397,9 @@
 
         <div class="hero-copy">
           <p>
-            Six SST interviews informed a current-state journey map and an
-            interactive workspace prototype for deadline support.
+            After six SST interviews, a co-creation session mapped the
+            current deadline journey with SSTs before the interactive
+            workspace prototype took shape.
           </p>
 
           <div class="author">
@@ -1366,13 +1502,54 @@
       </div>
 
       <div class="journey-intro reveal" id="journey">
-        <h3>One deadline, across a full cycle</h3>
+        <h3>From six interviews to a shared journey</h3>
         <p>
-          The current-state map follows a shared programme and module
-          deadline from the first guidance email through the original
-          submission window, late work, grade outcomes and resubmission.
-          It makes the repeated reminders and handoffs visible before the
-          dashboard design begins.
+          I first interviewed six SSTs, then facilitated a co-creation session
+          with SSTs to map the deadline journey. I drew the process on a
+          whiteboard as they added context, challenged steps and highlighted
+          pain points. The session came before the digital map and dashboard
+          concept.
+        </p>
+      </div>
+
+      <div class="journey-workshop-label reveal">
+        <span class="eyebrow">Research in the room</span>
+        <p>Journey mapping with SSTs</p>
+      </div>
+
+      <div class="journey-workshop-gallery reveal" aria-label="Photos from the SST journey-mapping session">
+        <figure>
+          <img
+            src="assets/images/sst-journey-workshop-writing.jpg"
+            alt="An SST writes on the whiteboard journey map during a collaborative research session."
+            loading="lazy"
+          >
+          <figcaption>I drew the journey while SSTs added their experience and pain points.</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="assets/images/sst-journey-workshop-collaboration.jpg"
+            alt="SSTs take part in the whiteboard journey-mapping session and discuss the deadline process."
+            loading="lazy"
+          >
+          <figcaption>SSTs discussed each stage and surfaced pain points and exceptions.</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="assets/images/sst-journey-map-whiteboard.jpg"
+            alt="The completed whiteboard journey map shows reminders, late submission, grade outcomes and resubmission."
+            loading="lazy"
+          >
+          <figcaption>The hand-drawn map captured the full cycle, including tracker updates and follow-up.</figcaption>
+        </figure>
+      </div>
+
+      <div class="journey-intro journey-digital-intro reveal">
+        <h3>The workshop map, carried into Figma</h3>
+        <p>
+          I translated the session output into a digital current-state map so
+          the stages, handoffs and pain points could be reviewed clearly and
+          used to shape the Support Operations Dashboard.
         </p>
       </div>
 
@@ -1381,35 +1558,50 @@
           href="assets/images/support-ops-current-state-journey.png"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Open the current-state journey map at full size"
+          aria-label="Open the digital current-state journey map at full size"
         >
           <img
             src="assets/images/support-ops-current-state-journey.png"
-            alt="Current-state Student Success Tutor journey map showing reminders one month, 15 and 7 days, and 24 hours before a deadline, followed by late submissions, grade outcomes and resubmission follow-up."
+            alt="Digital current-state Student Success Tutor journey map showing reminders one month, 15 and 7 days, and 24 hours before a deadline, followed by late submissions, grade outcomes and resubmission follow-up."
+            loading="lazy"
           >
         </a>
         <figcaption>
-          <span>Current-state journey map — reminders, tracker updates, late submissions and resubmission follow-up.</span>
-          <a href="https://www.figma.com/community/file/1690337233949828657" target="_blank" rel="noopener noreferrer">Open the Figma journey map ↗</a>
+          <span>Digital current-state journey map — the full deadline cycle and its handoffs.</span>
+          <a href="https://www.figma.com/community/file/1690337233949828657" target="_blank" rel="noopener noreferrer">Open the journey map in Figma ↗</a>
         </figcaption>
       </figure>
 
-      <div class="journey-context reveal">
+      <div class="research-findings-heading reveal">
+        <p class="eyebrow">Interview synthesis</p>
+        <h3>Where the process breaks down</h3>
+        <p>Across interviews, SSTs described workarounds that keep students supported but make the process difficult to track consistently.</p>
+      </div>
+
+      <div class="research-findings reveal">
         <article>
-          <b>Before and after the deadline</b>
-          <p>
-            SSTs send guidance at one month, 15 days and 7 days, check the
-            submission tracker 24 hours before, then coordinate late
-            submissions, grade outcomes and resubmission contact.
-          </p>
+          <span>01 / Fragmented context</span>
+          <h4>Student and exception details sit in different places.</h4>
+          <p>Le Campus, the Leicester master sheet, SIMS, Moodle, SharePoint, and separate EC/MC and AMC records all play a part. One SST said SIMS misses part-time students, so they check the master sheet to distinguish BSU 8 from 8.5. Wellbeing context and misconduct outcomes can also be hard for the wider team to find.</p>
+          <p class="design-implication"><b>Design implication</b> Make cohort, case ownership and relevant exceptions easier to check. Validate partner-specific data before proposing any sync.</p>
         </article>
         <article>
-          <b>Records and student context</b>
-          <p>
-            The workflow spans Le Campus, submission and EC/MC trackers,
-            Moodle, SIMS and the pregnancy tracker. Relevant circumstances
-            must be checked before contacting a student.
-          </p>
+          <span>02 / Different deadline rules</span>
+          <h4>Late work and exceptions do not follow one simple clock.</h4>
+          <p>Interview notes describe a late window of about five working days with a 40% cap; mitigating circumstances can add up to five working days, while AMC outcomes may cap work or create a separate resubmission window. Rules are set by partner university, and one SST was unsure whether NTG and BSU windows align. Grade release timing was estimated at three to four weeks and checked manually.</p>
+          <p class="design-implication"><b>Design implication</b> Show original, late and resubmission windows separately, with exceptions visible. Treat timings and caps as partner-specific until confirmed.</p>
+        </article>
+        <article>
+          <span>03 / Contact fatigue</span>
+          <h4>More reminders can create more work for SSTs and students.</h4>
+          <p>Existing 24-hour-before calls sit alongside email reminders. First-reminder calls are being introduced, but one participant had not tried them yet and expected them to take time for large cohorts. With up to four modules plus late-submission calls, SSTs raised call fatigue and blocked numbers. Call notes help when someone can act on them, such as routing an incorrect number to Student Support.</p>
+          <p class="design-implication"><b>Design implication</b> Keep contact history actionable and test the new call step before presenting it as established practice.</p>
+        </article>
+        <article>
+          <span>04 / Manual coordination</span>
+          <h4>Large cohorts magnify variation and handoff gaps.</h4>
+          <p>Email was described as repetitive, and entering grades for cohorts of 100+ as time-consuming. With no standardised role training, SSTs use different techniques. Initials on La Campus help show ownership, but slow Outlook sync can lead to duplicate replies; wellbeing and AMC follow-up can depend on individual memory.</p>
+          <p class="design-implication"><b>Design implication</b> Surface task ownership, progress and handoffs. Make the proposed workflow clear without implying the prototype standardises practice or connects to live records.</p>
         </article>
       </div>
 
@@ -1654,7 +1846,7 @@
           <h3>Call non-submitters</h3>
 
           <p>
-            Focus staff time on the students who still require contact.
+            Focus staff time on the students who still require contact. First-reminder calls are being introduced, but one interviewee had not yet tried them.
           </p>
         </article>
       </div>
