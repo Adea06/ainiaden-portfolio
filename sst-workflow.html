@@ -1361,12 +1361,10 @@
 
     /* RESEARCH CASE STUDY POLISH */
 
-    .figma-preview { position:relative; width:100%; height:clamp(480px,62vw,760px); overflow:hidden; border-radius:12px; background:#f7f7f7; }
-    .figma-preview iframe { display:block; width:100%; height:100%; border:0; }
-    .map-fallback { margin-top:.8rem; border-top:1px solid var(--line); color:var(--green); font-size:.82rem; }
-    .map-fallback summary { padding:.85rem .2rem; font-weight:700; cursor:pointer; }
-    .map-fallback img { display:block; width:100%; height:auto; border-radius:10px; }
-    @media (max-width:680px) { .figma-preview { height:70vh; min-height:420px; } }
+    .map-preview-card { position:relative; display:block; overflow:hidden; border-radius:12px; background:#f7f7f7; }
+    .map-preview-card img { display:block; width:100%; height:auto; border-radius:12px; transition:filter .2s ease; }
+    .map-preview-card span { position:absolute; right:1rem; bottom:1rem; padding:.75rem 1rem; border-radius:999px; background:#fffdf8; color:var(--green); font-size:.72rem; font-weight:800; box-shadow:0 8px 20px rgba(0,0,0,.12); }
+    .map-preview-card:hover img { filter:brightness(.95); }
 
     .hero { min-height: auto; padding-bottom: clamp(3rem, 7vw, 6rem); }
     .hero h1 { max-width: 1080px; text-transform: none; letter-spacing: -0.075em; }
@@ -1642,20 +1640,17 @@
       </div>
 
       <figure class="journey-map reveal">
-        <div class="figma-preview" aria-label="Embedded Figma preview of the current-state journey map">
-            <iframe
-              src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fcommunity%2Ffile%2F1690337233949828657"
-              title="Figma preview: Student Success Tutor current-state journey map"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-        </div>
-        <details class="map-fallback">
-          <summary>View static journey-map snapshot</summary>
-          <img src="assets/images/support-ops-current-state-journey.png" alt="Static snapshot of the digital current-state Student Success Tutor journey map, showing reminders, late submissions, grade outcomes and resubmission follow-up." loading="lazy">
-        </details>
+        <a class="map-preview-card" href="journey-map.html" aria-label="Open the full-size journey map preview">
+          <img
+            src="assets/images/support-ops-current-state-journey.png"
+            alt="Preview of the digital current-state Student Success Tutor journey map, showing deadline reminders, late submissions, grade outcomes and resubmission follow-up."
+            loading="lazy"
+          >
+          <span>Open full-size map preview ↗</span>
+        </a>
         <figcaption>
           <span>Digital current-state journey map — the full deadline cycle and its handoffs.</span>
+          <a href="journey-map.html">View full-size preview ↗</a>
           <a href="https://www.figma.com/community/file/1690337233949828657" target="_blank" rel="noopener noreferrer">Open the journey map in Figma ↗</a>
         </figcaption>
       </figure>
