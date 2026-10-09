@@ -10,6 +10,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=editorial-20260929-2">
   <link rel="stylesheet" href="investor-journey.css?v=investor-case-20261005">
+
+  <style>
+    .study-plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.5rem}
+    .study-plan-grid article{padding:1.25rem 1.4rem;border:1px solid rgba(25,35,29,.14);border-radius:16px;background:#fffdf8}
+    .study-plan-grid article>b{display:block;margin-bottom:.55rem;color:#315b46;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    .study-plan-grid article p{margin:0;line-height:1.65}
+    @media(max-width:700px){.study-plan-grid{grid-template-columns:1fr}}
+  </style>
+
+  <style>
+    body.investor-refined{--ink:#292725;--green:#292725;--cream:#f4f0e7;--paper:#fffdf8;--line:rgba(41,39,37,.18);--muted:#6d685f;--investor-accent:#C7653B}
+    body.investor-refined .case-kicker,body.investor-refined .case-label,body.investor-refined .stage-grid article>span,body.investor-refined .principles b,body.investor-refined .decision-grid span{color:#292725!important}
+    body.investor-refined .stage-index{color:#292725!important;border-bottom-color:#C7653B!important}
+    body.investor-refined .research-card{border-color:rgba(199,101,59,.45)!important;box-shadow:4px 5px 0 rgba(199,101,59,.16),8px 12px 18px rgba(41,39,37,.06)!important}
+    body.investor-refined .research-card strong,body.investor-refined .outcome-number{color:#292725!important}
+    body.investor-refined .research-card span{color:#615d55!important}
+    body.investor-refined .research-open{border-color:#C7653B!important}
+    body.investor-refined .research-open:hover{background:#f3e7df!important}
+    body.investor-refined .redesign-table caption,body.investor-refined .prototype-note strong,body.investor-refined .outcome-status span{color:#292725!important}
+    body.investor-refined .stage-grid,body.investor-refined .finding-grid,body.investor-refined .principles,body.investor-refined .decision-grid,body.investor-refined .eval-grid{border-color:#C7653B!important}
+    body.investor-refined .case-impact#outcome{background:#292725!important}
+    body.investor-refined .case-impact#outcome .case-label{color:#C7653B!important}
+    body.investor-refined .research-modal-head{border-bottom-color:rgba(199,101,59,.28)!important}
+    body.investor-refined .research-modal-head p{color:#C7653B!important}
+    @media(max-width:700px){body.investor-refined .research-strip{padding-inline:5vw}}
+  </style>
 </head>
 <body class="case-study-page editorial-case investor-refined recruiter-edit">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -31,11 +57,27 @@
         <div><dt>Designed for</dt><dd>Self-directed investors who make decisions over weeks to months</dd></div>
         <div><dt>Status</dt><dd>Redesign complete · Usability testing planned</dd></div>
         <div><dt>Tools</dt><dd>Python, LightGBM, SHAP, Streamlit, Plotly, Figma, Optuna and GridSearch</dd></div>
+        <div><dt>Evaluation sample</dt><dd>Historical S&amp;P 500 and FTSE 100 data, 2019–2026</dd></div>
+        <div><dt>Methods</dt><dd>Technical-only vs technical + behavioural model evaluation; SHAP interpretation</dd></div>
       </dl>
     </section>
 
+    <section class="case-section study-plan" id="research-plan">
+      <div class="case-label"><span class="stage-index">01</span> Research question and plan</div>
+      <div class="case-copy">
+        <h2 class="stage-title">Test whether behavioural data adds a useful signal.</h2>
+        <p>This was a quantitative R&amp;D evaluation, not a participant study. The investor-facing questions came from the project brief and a review of my first dashboard; they still need validation with investors.</p>
+        <div class="study-plan-grid">
+          <article><b>Question</b><p>Do sentiment and market-fear features improve directional prediction beyond technical indicators?</p></article>
+          <article><b>Comparison</b><p>Evaluate technical-only and technical + behavioural models for the S&amp;P 500 and FTSE 100.</p></article>
+          <article><b>Analysis</b><p>Compare classification metrics, inspect feature contributions with SHAP, and communicate uncertainty in the dashboard.</p></article>
+          <article><b>UX validation</b><p>No investor interviews or usability sessions are documented. Next, test whether investors can compare the models and interpret probability without over-trusting the signal.</p></article>
+        </div>
+      </div>
+    </section>
+
     <nav class="case-nav editorial-case-nav" aria-label="Case study sections">
-      <a href="#process">Discover</a><a href="#define">Define</a><a href="#design">Design</a><a href="#test">Test</a><a href="#outcome">Outcome</a>
+      <a href="#research-plan">Research plan</a><a href="#process">Discover</a><a href="#define">Define</a><a href="#design">Design</a><a href="#test">Test plan</a><a href="#limitations">Limitations</a><a href="#outcome">Outcome</a>
     </nav>
 
     <section class="case-section case-intro">
@@ -153,8 +195,24 @@
       </div>
     </section>
 
+    <section class="case-section" id="test">
+      <div class="case-label"><span class="stage-index">04</span> Test</div>
+      <div class="case-copy">
+        <h2 class="stage-title">Check understanding, not just task completion.</h2>
+        <p class="evidence-status">Planned validation. No usability results yet.</p>
+        <p>I would run five moderated sessions with self-directed investors:</p>
+        <div class="validation-plan">
+          <article><h3>Compare</h3><p>“Explain what changed between the two models.”</p><span>Watch for hesitation and wrong comparisons.</span></article>
+          <article><h3>Interpret uncertainty</h3><p>“What does this probability mean, and what can't it guarantee?”</p><span>Watch for overconfidence.</span></article>
+          <article><h3>Find the evidence</h3><p>“Show me why the model leans this way, and one limitation.”</p><span>Watch for findability.</span></article>
+        </div>
+        <details class="iteration-details"><summary>Next refinements</summary><p>Test evidence-led labels against BUY/SELL, and review chart accessibility, keyboard navigation, contrast and reduced motion.</p></details>
+      </div>
+    </section>
+
+
     <section class="case-section prototype" id="final-dashboard">
-      <div class="case-label">Final dashboard</div>
+      <div class="case-label">Current prototype · validation pending</div>
       <div class="case-copy">
         <p>The redesigned overview puts comparison first: choose a market and date, review the signal and probability, then inspect the supporting context.</p>
         <figure class="journey-figure">
@@ -173,7 +231,7 @@
         </ol>
         <p class="prototype-note"><strong>Prototype note:</strong> The current prototype uses BUY/HOLD/SELL labels. The next step is to test evidence-led wording, such as “Evidence leans negative · 58% probability”, with investors.</p>
         <div class="final-dashboard-note">
-          <div><span>Final experience</span><strong>A signal that can be compared and questioned.</strong></div>
+          <div><span>Current concept</span><strong>A signal that can be compared and questioned.</strong></div>
           <a class="case-button case-button-dark" href="https://jasmgxec9sxrdbdcith6ui.streamlit.app/Behavioural_Impact" target="_blank" rel="noopener">Explore the live dashboard ↗</a>
         </div>
       </div>
@@ -189,21 +247,6 @@
 
 
 
-    <section class="case-section" id="test">
-      <div class="case-label"><span class="stage-index">04</span> Test</div>
-      <div class="case-copy">
-        <h2 class="stage-title">Check understanding, not just task completion.</h2>
-        <p class="evidence-status">Planned validation. No usability results yet.</p>
-        <p>I would run five moderated sessions with self-directed investors:</p>
-        <div class="validation-plan">
-          <article><h3>Compare</h3><p>“Explain what changed between the two models.”</p><span>Watch for hesitation and wrong comparisons.</span></article>
-          <article><h3>Interpret uncertainty</h3><p>“What does this probability mean, and what can't it guarantee?”</p><span>Watch for overconfidence.</span></article>
-          <article><h3>Find the evidence</h3><p>“Show me why the model leans this way, and one limitation.”</p><span>Watch for findability.</span></article>
-        </div>
-        <details class="iteration-details"><summary>Next refinements</summary><p>Test evidence-led labels against BUY/SELL, and review chart accessibility, keyboard navigation, contrast and reduced motion.</p></details>
-      </div>
-    </section>
-
     <section class="case-impact outcome-summary" id="outcome" aria-labelledby="outcome-title">
       <p class="case-label"><span class="stage-index">05</span> Outcome and learning</p>
       <h2 id="outcome-title">A clearer way to judge an uncertain signal.</h2>
@@ -214,6 +257,19 @@
         <article><span class="outcome-number" aria-hidden="true">03</span><h3>Show where trust stops</h3><p>Keep data and market-transfer limits visible.</p><div class="outcome-lesson"><span class="learning-label">Learning</span><span class="learning-copy">Weak evidence and technical limits should shape what a product promises.</span></div></article>
       </div>
       <p class="outcome-status"><span>Next step</span>Test whether investors understand the signal and calibrate their trust in it.</p>
+    </section>
+
+    <section class="case-section study-limitations" id="limitations">
+      <div class="case-label"><span class="stage-index">06</span> Limitations and reflection</div>
+      <div class="case-copy">
+        <h2 class="stage-title">Keep the evidence and the design claims in proportion.</h2>
+        <div class="study-plan-grid">
+          <article><b>Data limits</b><p>Historical evaluation across two markets is not evidence of future returns. Three of four models had ROC-AUC below 0.5; the evaluation does not establish a reliable predictor.</p></article>
+          <article><b>UX limits</b><p>No investor interviews or usability sessions are documented. The investor questions are hypotheses from the brief, model evidence and my review of the earlier dashboard.</p></article>
+          <article><b>Next research</b><p>Test model comparison, probability comprehension and evidence findability with self-directed investors; include accessibility checks and different levels of financial confidence.</p></article>
+          <article><b>Reflection</b><p>I would bring investors into the framing earlier, before settling on how the model signal should be presented. Their language and mental models should shape the comparison and uncertainty cues.</p></article>
+        </div>
+      </div>
     </section>
 
     <section class="skills-compact" aria-label="Project skills and tools">
@@ -275,4 +331,5 @@
   <script src="investor-journey.js?v=static-case-20261005" defer></script>
 </body>
 </html>
+
 
